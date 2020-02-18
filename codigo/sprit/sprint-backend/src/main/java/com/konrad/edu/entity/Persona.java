@@ -23,10 +23,14 @@ public class Persona implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="seq_persona")
 	private Integer seqPersona;
 	
 	@Column(name="nom_primer_nombre")
 	private String nomPrimerNombre;
+	
+	@Column(name="nom_primer_apellido")
+	private String nomPrimerApellido;
 
 	public Integer getSeqPersona() {
 		return seqPersona;
@@ -44,4 +48,13 @@ public class Persona implements Serializable{
 		this.nomPrimerNombre = nomPrimerNombre;
 	}
 
+	public String getNomPrimerApellido() {
+		return nomPrimerApellido;
+	}
+
+	public void setNomPrimerApellido(String nomPrimerApellido) {
+		this.nomPrimerApellido = nomPrimerApellido;
+	}
+
+	
 }

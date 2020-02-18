@@ -1,0 +1,5 @@
+package com.konrad.edu.auth;
+
+public class InfAdicionalToken {
+
+}

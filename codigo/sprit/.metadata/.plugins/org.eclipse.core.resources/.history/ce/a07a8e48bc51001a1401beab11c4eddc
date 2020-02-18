@@ -1,0 +1,12 @@
+package com.konrad.edu.dao;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+
+import com.konrad.edu.entity.HC_Perfil;
+
+public interface IPerfilDao extends CrudRepository<HC_Perfil,Long>{
+
+	@Query("select u from hc_perfiles where u.nom_usuario = ?1")
+	public HC_Perfil findByUsername(String username);
+}

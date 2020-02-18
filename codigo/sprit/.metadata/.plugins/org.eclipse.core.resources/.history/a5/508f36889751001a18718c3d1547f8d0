@@ -1,0 +1,40 @@
+package com.konrad.edu.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.konrad.edu.dao.IPerfilDao;
+import com.konrad.edu.entity.HC_Perfil;
+
+@Service
+public class PerfilService implements UserDetailsService{
+
+	private Logger logger = LoggerFactory.getLogger(PerfilService.class);
+	@Autowired
+	private IPerfilDao perfildao;
+	@Override
+	@Transactional(readOnly=true)
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		HC_Perfil perfil = perfildao.findByUsername(username);
+		
+		if(perfil == null) {
+			logger.error("Error en el login");
+			throw new UsernameNotFoundException("Error en el login"); 
+		}
+		List<GrantedAuthority> authority = perfil.getPermisos().stream().map( permisos -> new SimpleGrantedAuthority(permisos.getSeqPermiso().toString())).peek( authority -> logger.info("idPermiso: " + authority.getAuthority())).collect(Collectors.toList());
+		return new User(perfil.getNomUsuario(), perfil.getPassword(), perfil.getEstado(), true,true,true,authority);
+	}
+
+}
