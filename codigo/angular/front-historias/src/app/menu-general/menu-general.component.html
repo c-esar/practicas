@@ -6,11 +6,11 @@
         <div class="col-2">
           <img src="assets/img/logoPrincipal.png" class="brand_logo" alt="Logo">
         </div>
-        <div class="col-6">
+        <div class="col-5">
             <h1><font face="times">Historias Clinicas Universidad Konrad Lorenz</font></h1>
         </div>
-        <div class="col-4">
-          <h1><font face="times">Bienvenid@ </font></h1>
+        <div class="col-5">
+          <h1><font face="times">Bienvenid@ {{datosSingleton.usuario + ' ' + datosSingleton.tipoUsuario}}</font></h1>
         </div>
       </div>
     </div>
@@ -21,54 +21,62 @@
     <aside id="sidebar">
       <ul id="sidemenu" class="sidebar-nav">
         <li>
-          <a href="#">
+          <a href="/login">
             <span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>
-            <span class="sidebar-title">Home</span>
+            <span class="sidebar-title">Inicio</span>
           </a>
         </li>
         <li>
           <a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-2">
             <span class="sidebar-icon"><i class="fa fa-users"></i></span>
-            <span class="sidebar-title">Management</span>
+            <span class="sidebar-title">Gestión Usuarios</span>
             <span ><i class="fa fa-caret-right" style="margin-left:2%;"></i></span>
             <b class="caret"></b>
           </a>
           <ul id="submenu-2" class="panel-collapse collapse panel-switch" role="menu">
-            <li><a href="#"><i class="fa fa-caret-right"></i>Users</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>Roles</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Creación Usuario</a></li>
+            <li><a href="#"><i class="fas fa-book-open"></i>Listado usuarios</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Cambio Contraseña</a></li>
           </ul>
         </li>
         <li>
           <a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-3">
             <span class="sidebar-icon"><i class="fa fa-newspaper-o"></i></span>
-            <span class="sidebar-title">Blog</span>
+            <span class="sidebar-title">Creación Paciente</span>
             <i class="fa fa-caret-right" style="margin-left:2%;"></i>
             <b class="caret"></b>
           </a>
           <ul id="submenu-3" class="panel-collapse collapse panel-switch" role="menu">
             <li><a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-10">
-                <span class="sidebar-title">Blog</span>
+                <span class="sidebar-title">Crear Formulario</span>
               <b class="caret"></b>
             </a>
               <ul id="submenu-10" class="panel-collapse collapse panel-switch" role="menu">
-                <li><a href="#"><i class="fa fa-caret-right"></i>Users</a></li>
-                <li><a href="#"><i class="fa fa-caret-right"></i>Roles</a></li>
+                <li><a href="#"><i class="fa fa-caret-right"></i>Formulario Ocupacional</a></li>
+                <li><a href="#"><i class="fa fa-caret-right"></i>Formulario GYM</a></li>
               </ul>
             </li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>Comments</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Datos Principales</a></li>
           </ul>
         </li>
         <li>
           <a href="#">
             <span class="sidebar-icon"><i class="fa fa-database"></i></span>
-            <span class="sidebar-title">Data</span>
+            <span class="sidebar-title">Ver Pacientes</span>
           </a>
         </li>
         <li>
-          <a href="#">
-            <span class="sidebar-icon"><i class="fa fa-terminal"></i></span>
-            <span class="sidebar-title">Console</span>
+          <a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-15">
+            <span class="sidebar-icon"><i class="fa fa-users"></i></span>
+            <span class="sidebar-title">Descargas</span>
+            <span ><i class="fa fa-caret-right" style="margin-left:2%;"></i></span>
+            <b class="caret"></b>
           </a>
+          <ul id="submenu-15" class="panel-collapse collapse panel-switch" role="menu">
+            <li><a href="#"><i class="fa fa-caret-right"></i>Certificados</a></li>
+            <li><a href="#"><i class="fas fa-book-open"></i>PDF Formularios</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Reportes</a></li>
+          </ul>
         </li>
       </ul>
     </aside>
