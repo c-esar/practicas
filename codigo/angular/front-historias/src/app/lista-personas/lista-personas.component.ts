@@ -8,7 +8,7 @@ import { PersonaService } from '../Servicios/persona.service';
 })
 export class ListaPersonasComponent implements OnInit {
 
-personas: Persona[];
+  personas: Persona[];
 
   constructor(private personaService: PersonaService) { }
 
