@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginService} from '../Servicios/login.service';
+import { LoginService } from '../Servicios/login.service';
 import { Login } from '../DatosBean/login';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -10,37 +10,37 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  login: Login;
-  username = 'javainuse'
-  password = ''
-  invalidLogin = false
+  public login: Login;
   constructor(private loginService: LoginService,
-  private router: Router) {
+    private router: Router) {
     this.login = new Login();
   }
 
-  ngOnInit(){
-    this.loginService.getLogin().subscribe(
-      login => this.login = login
-    );
+  ngOnInit() {
+
   }
 
-  loginSesion(): void{
-    console.log(this.login);
-    if(this.login.usuario == null || this.login.pass == null){
-      Swal.fire('Error Login', 'Usuario o Password Incorrectos', 'error');
-      return;
+  iniciarLogin(): void {
+    console.log(this.loginService.isUserLoggedIn);
+    if (false) {
+      this.router.navigate(['menuPrincipal'])
+    } else {
+      this.loginService.getLoginSesion(this.login).subscribe(
+        (respuesta) => {
+          this.login.estado = respuesta['estado']
+          console.log(respuesta);
+          console.log("hola:" + this.login.estado);
+          if (this.login.estado == "ACTIVO" || this.login.estado == "activo") {
+            this.loginService.isLogin = true;
+            this.router.navigate(['menuPrincipal'])
+          } else {
+            Swal.fire('Error Login', 'Usuario o Password Incorrectos', 'error');
+          }
+        }
+      );
+
     }
-  }
 
-  checkLogin() {
-    console.log(this.login.usuario + " "+this.login.pass);
-   if (this.loginService.authenticate(this.login.usuario, this.login.pass)
-   ) {
-     this.router.navigate([''])
-     this.invalidLogin = false
-   } else
-     this.invalidLogin = true
- }
+  }
 
 }
