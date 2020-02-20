@@ -1,53 +1,43 @@
 import { Injectable } from '@angular/core';
 import { Login } from '../DatosBean/login';
-import { of, Observable} from 'rxjs';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
-import {map } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-private url:string = 'http://localhost:';
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  private url: string = 'http://localhost:8080/login/sesion';
+  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  public isLogin: boolean = false;
+  constructor(private httpClient: HttpClient, private router: Router) {
+    this.isLogin = false;
+   }
 
-  getLogin(): Observable<Login> {
-    return this.httpClient.get(this.url).pipe(
-      map( response => response as Login)
-    );
+  getLoginSesion(login: Login): Observable<Login> {
+    return this.httpClient.get<Login>(`${this.url}/${login.nomUsuario}/${login.password}`);
   }
 
 
-  private isNotAutorizado(e): boolean{
-    if(e.status == 401 || e.status == 404){
+  private isNotAutorizado(e): boolean {
+    if (e.status == 401 || e.status == 404) {
       this.router.navigate(['/login']);
       return true;
     }
     return false;
   }
 
-  authenticate(username, password) {
-    const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(username + ':' + password) });
-    console.log(headers);
-    return this.httpClient.get<Login>('http://localhost:8080/login/validateLogin',{headers}).pipe(
-     map(
-       userData => {
-        sessionStorage.setItem('username',username);
-        return userData;
-       }
-     )
-
-    );
+  public isUserLoggedIn():boolean {
+    if (this.isLogin) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  isUserLoggedIn() {
-    let user = sessionStorage.getItem('username')
-    console.log(!(user === null))
-    return !(user === null)
-  }
-
-  logOut() {
-    sessionStorage.removeItem('username')
+  logOut():void {
+    this.isLogin = false;
   }
 }
