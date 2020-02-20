@@ -1,7 +1,8 @@
 export class Login{
-  id: number;
-  usuario: string;
-  pass: String;
-  perfil: String;
-  permisos: String[]=[];
+  seqPerfil: number;
+  nomUsuario: string;
+  password: String;
+  nomPerfil: String;
+  estado: String;
+
 }
