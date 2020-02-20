@@ -15,10 +15,11 @@ export class MenuGeneralComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.datosSingleton = {
-      usuario: 'Cesar Chacon',
-      tipoUsuario: 'Administrador'
-    };
+//    this.datosSingleton = {
+//      usuario: 'Cesar Chacon',
+//      tipoUsuario: 'Administrador'
+
+//    };
 
 }
 }

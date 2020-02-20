@@ -1,27 +1,10 @@
 
-<div id="navbar-wrapper">
-  <header>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-2">
-          <img src="assets/img/logoPrincipal.png" class="brand_logo" alt="Logo">
-        </div>
-        <div class="col-5">
-            <h1><font face="times">Historias Clinicas Universidad Konrad Lorenz</font></h1>
-        </div>
-        <div class="col-5">
-          <h1><font face="times">Bienvenid@ {{datosSingleton.usuario + ' ' + datosSingleton.tipoUsuario}}</font></h1>
-        </div>
-      </div>
-    </div>
-  </header>
-</div>
 <div id="wrapper">
   <div id="sidebar-wrapper">
     <aside id="sidebar">
       <ul id="sidemenu" class="sidebar-nav">
         <li>
-          <a href="/login">
+          <a href="/menuPrincipal">
             <span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>
             <span class="sidebar-title">Inicio</span>
           </a>
@@ -30,7 +13,7 @@
           <a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-2">
             <span class="sidebar-icon"><i class="fa fa-users"></i></span>
             <span class="sidebar-title">Gestión Usuarios</span>
-            <span ><i class="fa fa-caret-right" style="margin-left:2%;"></i></span>
+            <span><i class="fa fa-caret-right" style="margin-left:2%;"></i></span>
             <b class="caret"></b>
           </a>
           <ul id="submenu-2" class="panel-collapse collapse panel-switch" role="menu">
@@ -49,10 +32,10 @@
           <ul id="submenu-3" class="panel-collapse collapse panel-switch" role="menu">
             <li><a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-10">
                 <span class="sidebar-title">Crear Formulario</span>
-              <b class="caret"></b>
-            </a>
+                <b class="caret"></b>
+              </a>
               <ul id="submenu-10" class="panel-collapse collapse panel-switch" role="menu">
-                <li><a href="#"><i class="fa fa-caret-right"></i>Formulario Ocupacional</a></li>
+                <li><a href="menuPrincipal/form-ocupacional"><i class="fa fa-caret-right"></i>Formulario Ocupacional</a></li>
                 <li><a href="#"><i class="fa fa-caret-right"></i>Formulario GYM</a></li>
               </ul>
             </li>
@@ -69,7 +52,7 @@
           <a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-15">
             <span class="sidebar-icon"><i class="fa fa-users"></i></span>
             <span class="sidebar-title">Descargas</span>
-            <span ><i class="fa fa-caret-right" style="margin-left:2%;"></i></span>
+            <span><i class="fa fa-caret-right" style="margin-left:2%;"></i></span>
             <b class="caret"></b>
           </a>
           <ul id="submenu-15" class="panel-collapse collapse panel-switch" role="menu">

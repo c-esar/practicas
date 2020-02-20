@@ -57,7 +57,8 @@ body {
     height: 100%;
     margin-left: -225px;
     overflow-y: auto;
-    background: #f8f8f8;
+    background: none;
+    border:none;
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
