@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { LoginService } from '../Servicios/login.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  isLogueado: boolean = true; //colocar flaso por defecto
+  constructor(private loginService: LoginService) { }
 
   ngOnInit(): void {
+    //this.isLogueado = this.loginService.isUserLoggedIn();
   }
 
 }
