@@ -18,12 +18,16 @@ import {AuthGuard} from './guards/auth.guard';
 import { FormsModule } from '@angular/forms';
 import { ListaPersonasComponent } from './lista-personas/lista-personas.component';
 import { PersonaService } from './Servicios/persona.service';
+import { FormOcupacionalComponent } from './form-ocupacional/form-ocupacional.component';
+import { BodyAppComponent } from './body-app/body-app.component';
+
 const routes: Routes = [
-  {path: '', redirectTo: '/listPersonas', pathMatch: 'full'}, //ruta principal de la aplicacion
+  {path: '', redirectTo: '/menuPrincipal/form-ocupacional', pathMatch: 'full'}, //ruta principal de la aplicacion
   // rutas secundarias se hace referencia con el component de cada uno
-  {path:'login', component:LoginComponent},
-  {path:'menuPrincipal', component: MenuGeneralComponent, canActivate: [AuthGuard] },
-  {path:'listPersonas', component:ListaPersonasComponent}
+  {path:'login', component:LoginComponent,canActivate: [AuthGuard]},
+  {path:'menuPrincipal/listPersonas', component:ListaPersonasComponent},
+  {path:'menuPrincipal/form-ocupacional', component: FormOcupacionalComponent, },
+  {path:'menuPrincipal', component: BodyAppComponent}
 ];
 
 @NgModule({
@@ -33,7 +37,9 @@ const routes: Routes = [
     FooterComponent,
     MenuGeneralComponent,
     HeaderComponent,
-    ListaPersonasComponent
+    ListaPersonasComponent,
+    FormOcupacionalComponent,
+    BodyAppComponent
   ],
   imports: [
     BrowserModule,
