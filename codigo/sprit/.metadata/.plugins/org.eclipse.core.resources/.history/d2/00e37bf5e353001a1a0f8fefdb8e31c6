@@ -1,0 +1,11 @@
+package com.konrad.edu.entity;
+
+public interface IConstantes {
+
+	public static final String ESTADOSESIONACTIVO =  "ACTIVO";
+	public static final String ESTADOSESIONINACTIVO = "INACTIVO";
+	public static final String LABELNOMBRE = "NOMBRES:";
+	public static final String LABELAPELLIDO = "APELLIDOS:";
+	public static final String LABELEDAD = "EDAD:";
+	public static final String LABELNODOCUMENTO = "NO DOCUMENTO:";
+}

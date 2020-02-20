@@ -1,0 +1,18 @@
+package com.konrad.edu.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.konrad.edu.dao.IPerfilDao;
+import com.konrad.edu.entity.Perfil;
+
+public class PerfilServiceImp implements IPerfilService{
+
+	@Autowired
+	private IPerfilDao perfildao;
+	@Override
+	public Iterable<Perfil> getSession(String nom_usuario, String password) {
+		//return perfildao.findHcPerfilesByNomusuarioAndPassword(nom_usuario, password);
+		return perfildao.findAll();
+	}
+
+}

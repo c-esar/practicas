@@ -7,4 +7,6 @@ import com.konrad.edu.entity.Persona;
 public interface IPersonaService {
 
 	public List<Persona> findAll();
+	
+	
 }

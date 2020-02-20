@@ -1,7 +1,6 @@
-INDEX VERSION 1.4+C:\Users\Administrator\Documents\Practicas\codigo\sprit\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-2143536160.index
+INDEX VERSION 1.4+C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1308787917.index
+287903733.index
 3241596015.index
-1775877478.index
-3612265851.index
-1647760093.index
-1854364908.index
+1618464885.index
+3115543896.index

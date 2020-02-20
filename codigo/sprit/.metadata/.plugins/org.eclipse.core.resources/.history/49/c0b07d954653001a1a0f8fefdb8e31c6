@@ -1,0 +1,5 @@
+package com.konrad.edu.entity;
+
+public interface IConstantes {
+
+}

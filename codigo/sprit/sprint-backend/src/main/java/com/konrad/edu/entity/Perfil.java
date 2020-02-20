@@ -36,18 +36,22 @@ public class Perfil implements Serializable {
 	@Column(name = "password", length = 50)
 	private String password;
 
-	private Boolean estado;
+	private String estado;
 
 	@Column(name = "nom_perfil")
 	private String nomPerfil;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "perfil_permisos", joinColumns = @JoinColumn(name = "seq_perfil"), inverseJoinColumns = @JoinColumn(name = "seq_permiso"), uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "seq_perfil", "seq_permiso" }) })
-	private List<Permisos> permisos;
+//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name = "perfil_permisos", joinColumns = @JoinColumn(name = "seq_perfil"), inverseJoinColumns = @JoinColumn(name = "seq_permiso"), uniqueConstraints = {
+//			@UniqueConstraint(columnNames = { "seq_perfil", "seq_permiso" }) })
+//	private List<Permisos> permisos;
 
 	public Perfil(String string) {
 		this.nomPerfil = string;
+	}
+
+	public Perfil() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Long getSeqPerfil() {
@@ -74,11 +78,11 @@ public class Perfil implements Serializable {
 		this.password = password;
 	}
 
-	public Boolean getEstado() {
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Boolean estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 
@@ -90,12 +94,19 @@ public class Perfil implements Serializable {
 		this.nomPerfil = nomPerfil;
 	}
 
-	public List<Permisos> getPermisos() {
-		return permisos;
+	@Override
+	public String toString() {
+		return "Perfil [seqPerfil=" + seqPerfil + ", nomUsuario=" + nomUsuario + ", password=" + password + ", estado="
+				+ estado + ", nomPerfil=" + nomPerfil + "]";
 	}
 
-	public void setPermisos(List<Permisos> permisos) {
-		this.permisos = permisos;
-	}
+//	public List<Permisos> getPermisos() {
+//		return permisos;
+//	}
+//
+//	public void setPermisos(List<Permisos> permisos) {
+//		this.permisos = permisos;
+//	}
 
+	
 }
