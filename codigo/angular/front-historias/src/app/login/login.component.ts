@@ -3,6 +3,8 @@ import { LoginService } from '../Servicios/login.service';
 import { Login } from '../DatosBean/login';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,9 +22,12 @@ export class LoginComponent implements OnInit {
 
   }
 
-  iniciarLogin(): void {
-    console.log(this.loginService.isUserLoggedIn);
-    if (false) {
+
+
+
+  public iniciarLogin(): void {
+    console.log(this.loginService.isAutorization());
+    if (this.loginService.isAutorization()) {
       this.router.navigate(['menuPrincipal'])
     } else {
       this.loginService.getLoginSesion(this.login).subscribe(
@@ -32,15 +37,14 @@ export class LoginComponent implements OnInit {
           console.log("hola:" + this.login.estado);
           if (this.login.estado == "ACTIVO" || this.login.estado == "activo") {
             this.loginService.isLogin = true;
+            this.loginService.correctLogin(respuesta);
             this.router.navigate(['menuPrincipal'])
           } else {
             Swal.fire('Error Login', 'Usuario o Password Incorrectos', 'error');
           }
         }
       );
-
     }
-
   }
 
 }

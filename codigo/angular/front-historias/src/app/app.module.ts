@@ -14,7 +14,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AccordionModule} from 'primeng/accordion';
 import {MenuItem} from 'primeng/api';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {AuthGuard} from './guards/auth.guard';
 import { FormsModule } from '@angular/forms';
 import { ListaPersonasComponent } from './lista-personas/lista-personas.component';
 import { PersonaService } from './Servicios/persona.service';
@@ -24,9 +23,9 @@ import { BodyAppComponent } from './body-app/body-app.component';
 const routes: Routes = [
   {path: '', redirectTo: '/menuPrincipal/form-ocupacional', pathMatch: 'full'}, //ruta principal de la aplicacion
   // rutas secundarias se hace referencia con el component de cada uno
-  {path:'login', component:LoginComponent,canActivate: [AuthGuard]},
+  {path:'login', component:LoginComponent,canActivate: [LoginService] },
   {path:'menuPrincipal/listPersonas', component:ListaPersonasComponent},
-  {path:'menuPrincipal/form-ocupacional', component: FormOcupacionalComponent, },
+  {path:'menuPrincipal/form-ocupacional', component: FormOcupacionalComponent},
   {path:'menuPrincipal', component: BodyAppComponent}
 ];
 
