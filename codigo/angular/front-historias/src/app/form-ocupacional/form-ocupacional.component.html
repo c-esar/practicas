@@ -10,31 +10,31 @@
       <form class="form-inline" action="">
         <div class="card text-center col-md-12 col-sm-12 col-xs-12">
             <div class="card-header col-md-12 col-sm-12 col-xs-12">
-              <ul class="nav nav-tabs card-header-tabs">
+              <ul class="nav nav-pills card-header-pills">
                 <li class="nav-item">
-                  <a id="MyRef" class="nav-link active" href="#">Active</a>
+                  <button  id="DatosPricipales" class="nav-link btn btn-primary active" (click)="activar('DatosPricipales')" href="">Active</button>
                 </li>
                 <li class="nav-item">
-                  <a  class="nav-link" href="#">Link</a>
+                  <button id="Datossecundarios" class="nav-link btn btn-primary" (click)="activar('Datossecundarios')" href="">Link</button>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link disabled" href="#">Disabled</a>
+                  <button id="Datosprueba" class="nav-link btn btn-primary " (click)="activar('Datosprueba')">Disabled</button>
                 </li>
               </ul>
             </div>
             <div class="card-body ">
               <h5>2. IDENTIFICACIÓN DEL PACIENTE</h5>
               <blockquote class="blockquote mb-0 form-row">
-                <div class="col-md-6 col-sm-6 col-xs-3">
-                  <label for="formPrimerApelldioOcupacional">{{datosSingleton.labelPrimerApellido}}:</label>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <label for="formPrimerApelldioOcupacional">{{datosSingleton.labelPrimerApellido}}</label>
                   <input id="formApelldioOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelPrimerApellido}} value="" required />
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-3">
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
                   <label for="formSegundoApelldioOcupacional">{{datosSingleton.labelSegundoApellido}}</label>
                   <input id="formSegundoApelldioOcupacional" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelSegundoApellido}}" value="" required />
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-3">
-                  <label for="formNombreOcupacional">{{datosSingleton.labelNombre}}:</label>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <label for="formNombreOcupacional">{{datosSingleton.labelNombre}}</label>
                   <input id="formNombreOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelNombre}} value="" required />
                 </div>
               </blockquote>
