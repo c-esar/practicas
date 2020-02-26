@@ -1,0 +1,7 @@
+package com.konrad.edu.serviceImp;
+
+import com.konrad.edu.IService.IMunicipioService;
+
+public class MunicipioServiceImp implements IMunicipioService{
+
+}

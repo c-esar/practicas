@@ -14,4 +14,7 @@ export class HeaderComponent implements OnInit {
   //  this.isLogueado = this.loginService.isAutorization();
   }
 
+  public salirApp():void{
+    this.loginService.logOut();
+  }
 }

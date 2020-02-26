@@ -21,26 +21,24 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
   }
-
-
-
-
   public iniciarLogin(): void {
-    console.log(this.loginService.isAutorization());
+    console.log("Entre funcion " +this.loginService.isAutorization());
+    console.log("Valor del login" + this.login);
     if (this.loginService.isAutorization()) {
       this.router.navigate(['menuPrincipal'])
     } else {
       this.loginService.getLoginSesion(this.login).subscribe(
         (respuesta) => {
-          this.login.estado = respuesta['estado']
-          console.log(respuesta);
+          console.log("Respuesta:" + respuesta.permisos[0].gestionarUsuario);
+          console.log("Respuesta:" + respuesta.persona.nomPrimerNombre);
+          this.login.estado = respuesta['estado'];
           console.log("hola:" + this.login.estado);
           if (this.login.estado == "ACTIVO" || this.login.estado == "activo") {
             this.loginService.isLogin = true;
             this.loginService.correctLogin(respuesta);
             this.router.navigate(['menuPrincipal'])
           } else {
-            Swal.fire('Error Login', 'Usuario o Password Incorrectos', 'error');
+            Swal.fire('Error de Ingreso', 'Usuario o Contraseña Incorrectos', 'error');
           }
         }
       );

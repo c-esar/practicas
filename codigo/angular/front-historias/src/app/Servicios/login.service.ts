@@ -33,7 +33,7 @@ export class LoginService implements CanActivate {
   }
 
   getLoginSesion(login: Login): Observable<Login> {
-    return this.httpClient.get<Login>(`${this.url}/${login.nomUsuario}/${login.password}`);
+    return this.httpClient.get<Login>(`${this.url}/${login.nomUsuario}/${login.password}`, { headers: this.httpHeaders });
   }
 
 
@@ -60,10 +60,11 @@ export class LoginService implements CanActivate {
     this.localStorageService.setItem('currentUser', JSON.stringify(session));
   }
 
-  public isAutorization(): boolean{
-    if(this.getCurrentSession().nomUsuario != "" && this.getCurrentSession().nomUsuario != null){
+  public isAutorization(): boolean {
+    //console.log("valor autorizado " +this.getCurrentSession().nomUsuario )
+    if (this.getCurrentSession() != null && this.getCurrentSession().nomUsuario != "" && this.getCurrentSession().nomUsuario != null) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
@@ -76,6 +77,7 @@ export class LoginService implements CanActivate {
   }
 
   private removeCurrentSession(): void {
+    console.log("remover entre")
     this.localStorageService.removeItem('currentUser');
     this.currentSession = null;
   }
