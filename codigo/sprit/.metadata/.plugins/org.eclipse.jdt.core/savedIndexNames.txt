@@ -34,7 +34,6 @@ INDEX VERSION 1.131+C:\Users\Administrator\Documents\GitHub\practicas\codigo\spr
 505033482.index
 50238450.index
 2344768210.index
-3241596015.index
 2392741688.index
 3707570747.index
 202237286.index

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.konrad.edu.IService.IPersonaService;
 import com.konrad.edu.dao.IPersonaDao;
 import com.konrad.edu.entity.PersonaEntity;
-import com.konrad.edu.entity.TipoDocumentoEntity;
 
 @Service
 public class PersonaServiceImp implements IPersonaService {

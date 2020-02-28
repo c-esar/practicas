@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -36,40 +35,6 @@ public class PersonaEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-//	public PersonaEntity(PersonaEntity persona) {
-//		this.seqPersona = persona.getSeqPersona();
-//		this.nomPrimerNombre = persona.getNomPrimerNombre();
-//		this.nomPrimerApellido = persona.getNomPrimerApellido();
-//		this.nomSegundoNombre = persona.getNomSegundoNombre();
-//		this.nomSegundoApellido = persona.getNomSegundoApellido();
-//		this.tipoDocumento = new TipoDocumentoEntity(persona.getTipoDocumento());
-//		this.numeroDocumento = persona.getNumeroDocumento();
-//		this.edad = persona.getEdad();
-//		this.direccion = persona.getDireccion();
-//		this.telefono = persona.getTelefono();
-//		this.correo = persona.getCorreo();
-//		this.celular = persona.getCelular();
-//		this.fechaCreacion = persona.getFechaCreacion();
-//		this.genero = persona.getGenero();
-//		this.estadoCivil = persona.getEstadoCivil();
-//		this.fechaNacimiento = persona.getFechaNacimiento();
-//		this.lugarNacimiento = persona.getLugarNacimiento();
-//		this.barrio = persona.getBarrio();
-//		this.lugarDeResidencia = persona.getLugarDeResidencia();
-//		this.escolaridad = persona.getEscolaridad();
-//		this.nomCargoDep = persona.getNomCargoDep();
-//		this.AFP = persona.getAFP();
-//		this.ARL = persona.getARL();
-//		this.grupoSanguineo = persona.getGrupoSanguineo();
-//		this.RH = persona.getRH();
-//		this.telEmergencia = persona.getTelEmergencia();
-//		this.nomEmergencia = persona.getNomEmergencia();
-//		this.parentescoEmergencia = persona.getParentescoEmergencia();
-//		this.aseguradora = new AseguradoraEntity(persona.getAseguradora());
-//		this.localidad = new LocalidadEntity(persona.getLocalidad());
-////		this.historias = new HistoriasEntity(persona.getHistorias());
-//		this.rolUsuario = persona.getRolUsuario();
-//	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "seq_persona")

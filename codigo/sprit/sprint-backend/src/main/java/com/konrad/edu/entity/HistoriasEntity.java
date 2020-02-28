@@ -1,7 +1,6 @@
 package com.konrad.edu.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +31,11 @@ public class HistoriasEntity implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoHistorias seqTipoHistoria;
 
+	@OneToOne
+	@JoinColumn(name = "seq_historia_laboral", updatable = false)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private HistoriaLaboralEntity historiaLaboral;
+
 	public Long getSeqHistoria() {
 		return seqHistoria;
 	}
@@ -46,6 +50,14 @@ public class HistoriasEntity implements Serializable {
 
 	public void setSeqTipoHistoria(TipoHistorias seqTipoHistoria) {
 		this.seqTipoHistoria = seqTipoHistoria;
+	}
+
+	public HistoriaLaboralEntity getHistoriaLaboral() {
+		return historiaLaboral;
+	}
+
+	public void setHistoriaLaboral(HistoriaLaboralEntity historiaLaboral) {
+		this.historiaLaboral = historiaLaboral;
 	}
 
 }

@@ -319,7 +319,6 @@ public class LabelConstantes implements Serializable {
 		this.menusubmenuOcupacionalHistoriaLTrabajoAC = menusubmenuOcupacionalHistoriaLTrabajoAC;
 	}
 
-	
 	public String getLabelNombreEmpresa() {
 		return labelNombreEmpresa;
 	}
@@ -434,7 +433,5 @@ public class LabelConstantes implements Serializable {
 				+ ", menusubmenuOcupacionalHistoriaLAntecedentesTrabajo="
 				+ menusubmenuOcupacionalHistoriaLAntecedentesTrabajo + "]";
 	}
-
-	
 
 }
