@@ -14,7 +14,7 @@ public class AseguradoraServiceImp implements IAseguradoraService {
 
 	@Autowired
 	private IAseguradoraDao aseguradoraDao;
-	
+
 	@Override
 	public List<AseguradoraEntity> findAll() {
 		return aseguradoraDao.findAll();

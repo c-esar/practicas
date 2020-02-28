@@ -1,7 +1,0 @@
-package com.konrad.edu.entity;
-
-public interface IConstantes {
-
-	public static final String ESTADOSESIONACTIVO =  "ACTIVO";
-	public static final String ESTADOSESIONINACTIVO = "INACTIVO";
-}

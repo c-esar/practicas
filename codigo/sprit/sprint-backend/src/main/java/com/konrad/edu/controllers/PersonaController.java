@@ -31,32 +31,32 @@ public class PersonaController {
 	public List<PersonaEntity> index() {
 		return personaService.findAll();
 	}
-	
+
 	@GetMapping("/listPersonas/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public PersonaEntity show(@PathVariable Long id) {
 		return personaService.findById(id);
 	}
-	
+
 	@PostMapping("/crearPersona")
 	@ResponseStatus(HttpStatus.CREATED)
-	public PersonaEntity create(@RequestBody PersonaEntity persona) {		
+	public PersonaEntity create(@RequestBody PersonaEntity persona) {
 		return personaService.save(persona);
 	}
-	
+
 	@PutMapping("/listPersonas/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public PersonaEntity update(@RequestBody PersonaEntity persona,@PathVariable Long id) {
+	public PersonaEntity update(@RequestBody PersonaEntity persona, @PathVariable Long id) {
 		PersonaEntity perActual = personaService.findById(id);
 		perActual.setNomPrimerNombre(persona.getNomPrimerNombre());
-		
+
 		return personaService.save(perActual);
 	}
-	
+
 	@DeleteMapping("/listPersonas/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
 		personaService.delete(id);
 	}
-	
+
 }

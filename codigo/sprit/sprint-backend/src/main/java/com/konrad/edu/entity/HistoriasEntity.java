@@ -29,9 +29,8 @@ public class HistoriasEntity implements Serializable {
 
 	@OneToOne
 	@JoinColumn(name = "seq_tipo_historia", updatable = false, nullable = false)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoHistorias seqTipoHistoria;
-	
 
 	public Long getSeqHistoria() {
 		return seqHistoria;
@@ -49,8 +48,4 @@ public class HistoriasEntity implements Serializable {
 		this.seqTipoHistoria = seqTipoHistoria;
 	}
 
-
-	
-
-	
 }

@@ -28,7 +28,6 @@ public class LocalidadEntity implements Serializable {
 	@Column(name = "nom_localidad", nullable = false)
 	private String nomLocalidad;
 
-
 	public Long getSeqLocalidad() {
 		return seqLocalidad;
 	}

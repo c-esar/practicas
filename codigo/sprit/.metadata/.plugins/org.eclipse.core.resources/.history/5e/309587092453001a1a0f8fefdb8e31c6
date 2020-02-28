@@ -1,8 +1,0 @@
-package com.konrad.edu.service;
-
-import com.konrad.edu.entity.Perfil;
-
-public interface IPerfilService {
-
-	public Iterable<Perfil> getSession(String nom_usuario, String password);
-}

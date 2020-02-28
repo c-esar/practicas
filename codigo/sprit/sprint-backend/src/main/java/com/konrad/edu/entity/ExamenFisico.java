@@ -10,9 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="hc_examen_fisico")
-public class ExamenFisico implements Serializable{
-	
+@Table(name = "hc_examen_fisico")
+public class ExamenFisico implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -21,12 +21,13 @@ public class ExamenFisico implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "seq_exa_fisico")
 	private Long seqExaFisico;
+
 	public Long getSeqExaFisico() {
 		return seqExaFisico;
 	}
+
 	public void setSeqExaFisico(Long seqExaFisico) {
 		this.seqExaFisico = seqExaFisico;
 	}
 
-	
 }

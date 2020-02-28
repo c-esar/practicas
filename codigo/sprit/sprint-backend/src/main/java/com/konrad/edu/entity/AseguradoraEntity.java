@@ -31,7 +31,6 @@ public class AseguradoraEntity implements Serializable {
 	@Column(name = "nom_aseguradora", nullable = false)
 	private String nomAseguradora;
 
-
 	public Long getSeqAseguradora() {
 		return seqAseguradora;
 	}
@@ -55,6 +54,5 @@ public class AseguradoraEntity implements Serializable {
 	public void setNomAseguradora(String nomAseguradora) {
 		this.nomAseguradora = nomAseguradora;
 	}
-
 
 }

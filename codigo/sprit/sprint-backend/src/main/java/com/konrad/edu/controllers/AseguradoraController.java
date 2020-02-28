@@ -19,7 +19,7 @@ public class AseguradoraController {
 
 	@Autowired
 	private IAseguradoraService aseguradoraService;
-	
+
 	@GetMapping("/listAseguradora")
 	public List<AseguradoraEntity> index() {
 		return aseguradoraService.findAll();

@@ -1,9 +1,14 @@
 INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido) values('Cesar','Diaz');
 INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido) values('Carlos','Chacon');
-INSERT INTO hc_perfiles (nom_usuario,password,estado,nom_perfil,seq_persona) values('cesar','12345','activo','admin',1);
-INSERT INTO hc_permisos (crear_usuario,gestionar_usuario,descargar,crear_aux) values (1,1,1,1);
-INSERT INTO hc_perfil_permisos (seq_perfil, seq_permiso) VALUES (1,1);
 
+INSERT INTO hc_perfiles (nom_usuario,password,estado,nom_perfil,seq_persona) values('cesar','12345','activo','admin',1);
+INSERT INTO hc_perfiles (nom_usuario,password,estado,nom_perfil,seq_persona) values('carlos','12345','activo','aux',2);
+
+INSERT INTO hc_permisos (crear_usuario,gestionar_usuario,descargar,crear_aux) values (1,1,1,1);
+INSERT INTO hc_permisos (crear_usuario,gestionar_usuario,descargar,crear_aux) values (0,0,0,1);
+
+INSERT INTO hc_perfil_permisos (seq_perfil, seq_permiso) VALUES (1,1);
+INSERT INTO hc_perfil_permisos (seq_perfil, seq_permiso) VALUES (2,2);
 
 INSERT INTO hc_tipodocumento(cod_documento,sigla_documento,nom_documento)values('C','CC','Cédula de Ciudadanía');
 INSERT INTO hc_tipodocumento(cod_documento,sigla_documento,nom_documento)values('I','TI','Tarjeta de Identidad');

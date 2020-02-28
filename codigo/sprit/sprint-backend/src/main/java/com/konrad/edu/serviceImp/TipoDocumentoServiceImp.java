@@ -14,10 +14,10 @@ public class TipoDocumentoServiceImp implements ITipoDocumentoService {
 
 	@Autowired
 	private ITipoDocumentoDao tipoDao;
-	
+
 	@Override
 	public List<TipoDocumentoEntity> findAll() {
-		return  (List<TipoDocumentoEntity>) tipoDao.findAll();
+		return (List<TipoDocumentoEntity>) tipoDao.findAll();
 	}
 
 }

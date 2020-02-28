@@ -18,8 +18,8 @@ import com.konrad.edu.entity.TipoDocumentoEntity;
 public class TipoDocumentoController {
 
 	@Autowired
-	private  ITipoDocumentoService tipodocumento;
-	
+	private ITipoDocumentoService tipodocumento;
+
 	@GetMapping("/listTipoDocumento")
 	public List<TipoDocumentoEntity> index() {
 		return tipodocumento.findAll();

@@ -19,9 +19,9 @@ public class CiudadController {
 
 	@Autowired
 	private ICiudadService ciudadService;
-	
+
 	@GetMapping("/listCiudad")
-	public List<CiudadEntity> index(){
+	public List<CiudadEntity> index() {
 		return ciudadService.findAll();
 	}
 }

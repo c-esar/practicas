@@ -19,4 +19,18 @@ export class DatosSingleton {
   labelAseguradora: string;
   labelAFP: string;
   labelARL: string;
+  menuOcupacionalDatosPrincipales:string;
+  menuOcupacionalHistoriaLaboral: string;
+  menusubmenuOcupacionalHistoriaLTrabajoAC: string;
+  labelNombreEmpresa: string;
+	labelActividadEconomica: string;
+	labelFechaIngreso: string;
+	labelAntiguo: string;
+	labelCargo: string;
+	labelDescripcionTareasFuncion: string;
+  menusubmenuOcupacionalHistoriaLTrabajoPre: string;
+	tablaTrabajoPreLabelEmpresa: string;
+	tablaTrabajoPreLabelCargOficina: string;
+	tablaTrabajoPreLabelTimepo: string;
+	menusubmenuOcupacionalHistoriaLAntecedentesTrabajo: string;
 }

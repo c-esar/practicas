@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="hc_tipo_historia")
-public class TipoHistorias implements Serializable{
+@Table(name = "hc_tipo_historia")
+public class TipoHistorias implements Serializable {
 
 	/**
 	 * 
@@ -17,13 +17,13 @@ public class TipoHistorias implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="seq_tipo_historia")
+	@Column(name = "seq_tipo_historia")
 	private Long seqTipoHistoria;
-	
-	@Column(name="cod_historia")
+
+	@Column(name = "cod_historia")
 	private String codHistoria;
-	
-	@Column(name="nom_tipo_historia")
+
+	@Column(name = "nom_tipo_historia")
 	private String nomTipoHistoria;
 
 	public Long getSeqTipoHistoria() {
@@ -49,6 +49,5 @@ public class TipoHistorias implements Serializable{
 	public void setNomTipoHistoria(String nomTipoHistoria) {
 		this.nomTipoHistoria = nomTipoHistoria;
 	}
-	
-	
+
 }

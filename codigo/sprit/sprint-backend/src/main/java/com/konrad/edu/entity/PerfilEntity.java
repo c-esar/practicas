@@ -29,7 +29,6 @@ public class PerfilEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "seq_perfil")
@@ -48,18 +47,15 @@ public class PerfilEntity implements Serializable {
 
 	@OneToOne
 	@JoinColumn(name = "seq_persona", updatable = false, nullable = false)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private PersonaEntity persona;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "hc_perfil_permisos", joinColumns = @JoinColumn(name = "seq_perfil"), inverseJoinColumns = @JoinColumn(name = "seq_permiso"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_perfil", "seq_permiso" }) })
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<PermisosEntity> permisos;
 
-	
-
-	
 //	public PerfilEntity(PerfilEntity perfilEntity) {
 //		this.seqPerfil = perfilEntity.getSeqPerfil();
 //		this.nomUsuario = perfilEntity.getNomUsuario();
@@ -108,8 +104,6 @@ public class PerfilEntity implements Serializable {
 	public void setNomPerfil(String nomPerfil) {
 		this.nomPerfil = nomPerfil;
 	}
-
-
 
 	@Override
 	public String toString() {

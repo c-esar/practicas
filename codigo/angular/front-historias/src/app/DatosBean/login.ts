@@ -6,8 +6,8 @@ import {Permiso} from './permiso';
   password: string;
   nomPerfil: string;
   estado: string;
-  persona = new Persona;
-  permisos: Permiso[];
+  persona: Persona;
+  permisos: Permiso;
 
   constructor(){
     this.seqPerfil = null;
@@ -15,6 +15,8 @@ import {Permiso} from './permiso';
     this.password= null;
     this.nomPerfil= null;
     this.estado= null;
+    this.permisos = new Permiso();
+    this.persona = new Persona();
   }
 
 }

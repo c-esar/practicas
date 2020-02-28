@@ -36,76 +36,79 @@ public class LabelConstantes implements Serializable {
 	private String labelPeriodico;
 	private String labelEgreso;
 	private String labelOtroEvaluacion;
+	private String menuOcupacionalDatosPrincipales;
+	private String menuOcupacionalHistoriaLaboral;
+	private String menusubmenuOcupacionalHistoriaLTrabajoAC;
+
+	// historia laboral
+	private String labelNombreEmpresa;
+	private String labelActividadEconomica;
+	private String labelFechaIngreso;
+	private String labelAntiguo;
+	private String labelCargo;
+	private String labelDescripcionTareasFuncion;
+	private String menusubmenuOcupacionalHistoriaLTrabajoPre;
+	private String tablaTrabajoPreLabelEmpresa;
+	private String tablaTrabajoPreLabelCargOficina;
+	private String tablaTrabajoPreLabelTimepo;
+	private String menusubmenuOcupacionalHistoriaLAntecedentesTrabajo;
 
 	public LabelConstantes() {
-		this.labelPrimerNombre = IConstantes.LABELPRIMERNOMBRE;
-		this.labelSegundoNombre = IConstantes.LABELSEGUNDONOMBRE;
-		this.labelPrimerApellido = IConstantes.LABELPRIMERAPELLIDO;
-		this.labelSegundoApellido = IConstantes.LABELSEGUNDOAPELLIDO;
-		this.labeledad = IConstantes.LABELEDAD;
-		this.labelNoDocumento = IConstantes.LABELNODOCUMENTO;
-		this.labelTipoDocumento = IConstantes.LABELTIPODOCUMENTO;
-		this.labelGenero = IConstantes.LABELGENERO;
-		this.labelFechaNacimiento = IConstantes.LABELFECHANACIMIENTO;
-		this.labelLugarDeNacimiento = IConstantes.LABELLUGARDENACIMIENTO;
-		this.labelEstadoCivil = IConstantes.LABELESTADOCIVIL;
-		this.labelEscolaridad = IConstantes.LABELESCOLARIDAD;
-		this.labelCargoDependencia = IConstantes.LABELCARGODEPENDENCIA;
-		this.labelDireccionCasa = IConstantes.LABELDIRECCIONCASA;
-		this.labelTelefono = IConstantes.LABELTELEFONO;
-		this.labelAseguradora = IConstantes.LABELASEGURADORA;
-		this.labelAFP = IConstantes.LABELAFP;
-		this.labelARL = IConstantes.LABELARL;
-		this.labelCuidad = IConstantes.LABELCIUDAD;
-		this.labelDepartamento = IConstantes.LABELDEPARTAMENTO;
-		this.labelFechaHistoriaClinica = IConstantes.LABELFECHAHISTORIACLINICA;
-		this.labelIngreso = IConstantes.LABELINGRESO;
-		this.labelPeriodico = IConstantes.LABELPERIODICO;
-		this.labelEgreso = IConstantes.LABELEGRESO;
-		this.labelOtroEvaluacion = IConstantes.LABELOTROEVALUACION;
-
+		this.labelPrimerNombre = IConstantes.LABEL_PRIMER_NOMBRE;
+		this.labelSegundoNombre = IConstantes.LABEL_SEGUNDO_NOMBRE;
+		this.labelPrimerApellido = IConstantes.LABEL_PRIMER_APELLIDO;
+		this.labelSegundoApellido = IConstantes.LABEL_SEGUNDO_APELLIDO;
+		this.labeledad = IConstantes.LABEL_EDAD;
+		this.labelNoDocumento = IConstantes.LABEL_NODOCUMENTO;
+		this.labelTipoDocumento = IConstantes.LABEL_TIPO_DOCUMENTO;
+		this.labelGenero = IConstantes.LABEL_GENERO;
+		this.labelFechaNacimiento = IConstantes.LABEL_FECHA_NACIMIENTO;
+		this.labelLugarDeNacimiento = IConstantes.LABEL_LUGAR_DENACIMIENTO;
+		this.labelEstadoCivil = IConstantes.LABEL_ESTADO_CIVIL;
+		this.labelEscolaridad = IConstantes.LABEL_ESCOLARIDAD;
+		this.labelCargoDependencia = IConstantes.LABEL_CARGO_DEPENDENCIA;
+		this.labelDireccionCasa = IConstantes.LABEL_DIRECCION_CASA;
+		this.labelTelefono = IConstantes.LABEL_TELEFONO;
+		this.labelAseguradora = IConstantes.LABEL_ASEGURADORA;
+		this.labelAFP = IConstantes.LABEL_AFP;
+		this.labelARL = IConstantes.LABEL_ARL;
+		this.labelCuidad = IConstantes.LABEL_CIUDAD;
+		this.labelDepartamento = IConstantes.LABEL_DEPARTAMENTO;
+		this.labelFechaHistoriaClinica = IConstantes.LABEL_FECHA_HISTORIACLINICA;
+		this.labelIngreso = IConstantes.LABEL_INGRESO;
+		this.labelPeriodico = IConstantes.LABEL_PERIODICO;
+		this.labelEgreso = IConstantes.LABEL_EGRESO;
+		this.labelOtroEvaluacion = IConstantes.LABEL_OTRO_EVALUACION;
+		this.menuOcupacionalDatosPrincipales = IConstantes.MENU_OCUPACIONAL_DATOSPRINCIPALES;
+		this.menuOcupacionalHistoriaLaboral = IConstantes.MENU_OCUPACIONAL_HISTORIA_LABORAL;
+		this.menusubmenuOcupacionalHistoriaLTrabajoAC = IConstantes.MENU_SUBMENU_OCUPACIONAL_HISTORIA_LABORAL_TRABAJOAC;
+		this.labelNombreEmpresa = IConstantes.LABEL_NOMBRE_EMPRESA;
+		this.labelActividadEconomica = IConstantes.LABEL_ACTIVIDAD_ECONOMICA;
+		this.labelFechaIngreso = IConstantes.LABEL_FECHA_INGRESO;
+		this.labelAntiguo = IConstantes.LABEL_ANTIGUO;
+		this.labelCargo = IConstantes.LABEL_CARGO;
+		this.labelDescripcionTareasFuncion = IConstantes.LABEL_DESCRIPCION_TAREAS_FUNCION;
+		this.menusubmenuOcupacionalHistoriaLTrabajoPre = IConstantes.MENU_SUBMENU_OCUPACIONAL_HISTORIA_LABORAL_TRABAJOPRE;
+		this.tablaTrabajoPreLabelEmpresa = IConstantes.TABLA_TRABAJOPRE_LABEL_EMPRESA;
+		this.tablaTrabajoPreLabelCargOficina = IConstantes.TABLA_TRABAJOPRE_LABEL_CARGOOFICINA;
+		this.tablaTrabajoPreLabelTimepo = IConstantes.TABLA_TRABAJOPRE_LABEL_TIEMPO;
+		this.menusubmenuOcupacionalHistoriaLAntecedentesTrabajo = IConstantes.MENU_SUBMENU_OCUPACIONAL_HISTORIA_LABORAL_ANTECEDENTES_TRABAJO;
 	}
-
-
 
 	public String getLabelPrimerNombre() {
 		return labelPrimerNombre;
 	}
 
-
-
 	public void setLabelPrimerNombre(String labelPrimerNombre) {
 		this.labelPrimerNombre = labelPrimerNombre;
 	}
-
-
 
 	public String getLabelSegundoNombre() {
 		return labelSegundoNombre;
 	}
 
-
-
 	public void setLabelSegundoNombre(String labelSegundoNombre) {
 		this.labelSegundoNombre = labelSegundoNombre;
-	}
-
-
-
-	public String getLabeledad() {
-		return labeledad;
-	}
-
-	public void setLabeledad(String labeledad) {
-		this.labeledad = labeledad;
-	}
-
-	public String getLabelNoDocumento() {
-		return labelNoDocumento;
-	}
-
-	public void setLabelNoDocumento(String labelNoDocumento) {
-		this.labelNoDocumento = labelNoDocumento;
 	}
 
 	public String getLabelPrimerApellido() {
@@ -122,6 +125,22 @@ public class LabelConstantes implements Serializable {
 
 	public void setLabelSegundoApellido(String labelSegundoApellido) {
 		this.labelSegundoApellido = labelSegundoApellido;
+	}
+
+	public String getLabeledad() {
+		return labeledad;
+	}
+
+	public void setLabeledad(String labeledad) {
+		this.labeledad = labeledad;
+	}
+
+	public String getLabelNoDocumento() {
+		return labelNoDocumento;
+	}
+
+	public void setLabelNoDocumento(String labelNoDocumento) {
+		this.labelNoDocumento = labelNoDocumento;
 	}
 
 	public String getLabelTipoDocumento() {
@@ -276,7 +295,119 @@ public class LabelConstantes implements Serializable {
 		this.labelOtroEvaluacion = labelOtroEvaluacion;
 	}
 
+	public String getMenuOcupacionalDatosPrincipales() {
+		return menuOcupacionalDatosPrincipales;
+	}
 
+	public void setMenuOcupacionalDatosPrincipales(String menuOcupacionalDatosPrincipales) {
+		this.menuOcupacionalDatosPrincipales = menuOcupacionalDatosPrincipales;
+	}
+
+	public String getMenuOcupacionalHistoriaLaboral() {
+		return menuOcupacionalHistoriaLaboral;
+	}
+
+	public void setMenuOcupacionalHistoriaLaboral(String menuOcupacionalHistoriaLaboral) {
+		this.menuOcupacionalHistoriaLaboral = menuOcupacionalHistoriaLaboral;
+	}
+
+	public String getMenusubmenuOcupacionalHistoriaLTrabajoAC() {
+		return menusubmenuOcupacionalHistoriaLTrabajoAC;
+	}
+
+	public void setMenusubmenuOcupacionalHistoriaLTrabajoAC(String menusubmenuOcupacionalHistoriaLTrabajoAC) {
+		this.menusubmenuOcupacionalHistoriaLTrabajoAC = menusubmenuOcupacionalHistoriaLTrabajoAC;
+	}
+
+	
+	public String getLabelNombreEmpresa() {
+		return labelNombreEmpresa;
+	}
+
+	public void setLabelNombreEmpresa(String labelNombreEmpresa) {
+		this.labelNombreEmpresa = labelNombreEmpresa;
+	}
+
+	public String getLabelActividadEconomica() {
+		return labelActividadEconomica;
+	}
+
+	public void setLabelActividadEconomica(String labelActividadEconomica) {
+		this.labelActividadEconomica = labelActividadEconomica;
+	}
+
+	public String getLabelFechaIngreso() {
+		return labelFechaIngreso;
+	}
+
+	public void setLabelFechaIngreso(String labelFechaIngreso) {
+		this.labelFechaIngreso = labelFechaIngreso;
+	}
+
+	public String getLabelAntiguo() {
+		return labelAntiguo;
+	}
+
+	public void setLabelAntiguo(String labelAntiguo) {
+		this.labelAntiguo = labelAntiguo;
+	}
+
+	public String getLabelCargo() {
+		return labelCargo;
+	}
+
+	public void setLabelCargo(String labelCargo) {
+		this.labelCargo = labelCargo;
+	}
+
+	public String getLabelDescripcionTareasFuncion() {
+		return labelDescripcionTareasFuncion;
+	}
+
+	public void setLabelDescripcionTareasFuncion(String labelDescripcionTareasFuncion) {
+		this.labelDescripcionTareasFuncion = labelDescripcionTareasFuncion;
+	}
+
+	public String getMenusubmenuOcupacionalHistoriaLTrabajoPre() {
+		return menusubmenuOcupacionalHistoriaLTrabajoPre;
+	}
+
+	public void setMenusubmenuOcupacionalHistoriaLTrabajoPre(String menusubmenuOcupacionalHistoriaLTrabajoPre) {
+		this.menusubmenuOcupacionalHistoriaLTrabajoPre = menusubmenuOcupacionalHistoriaLTrabajoPre;
+	}
+
+	public String getTablaTrabajoPreLabelEmpresa() {
+		return tablaTrabajoPreLabelEmpresa;
+	}
+
+	public void setTablaTrabajoPreLabelEmpresa(String tablaTrabajoPreLabelEmpresa) {
+		this.tablaTrabajoPreLabelEmpresa = tablaTrabajoPreLabelEmpresa;
+	}
+
+	public String getTablaTrabajoPreLabelCargOficina() {
+		return tablaTrabajoPreLabelCargOficina;
+	}
+
+	public void setTablaTrabajoPreLabelCargOficina(String tablaTrabajoPreLabelCargOficina) {
+		this.tablaTrabajoPreLabelCargOficina = tablaTrabajoPreLabelCargOficina;
+	}
+
+	public String getTablaTrabajoPreLabelTimepo() {
+		return tablaTrabajoPreLabelTimepo;
+	}
+
+	public void setTablaTrabajoPreLabelTimepo(String tablaTrabajoPreLabelTimepo) {
+		this.tablaTrabajoPreLabelTimepo = tablaTrabajoPreLabelTimepo;
+	}
+
+	public String getMenusubmenuOcupacionalHistoriaLAntecedentesTrabajo() {
+		return menusubmenuOcupacionalHistoriaLAntecedentesTrabajo;
+	}
+
+	public void setMenusubmenuOcupacionalHistoriaLAntecedentesTrabajo(
+			String menusubmenuOcupacionalHistoriaLAntecedentesTrabajo) {
+		this.menusubmenuOcupacionalHistoriaLAntecedentesTrabajo = menusubmenuOcupacionalHistoriaLAntecedentesTrabajo;
+	}
 
 	@Override
 	public String toString() {
@@ -291,9 +422,19 @@ public class LabelConstantes implements Serializable {
 				+ ", labelCuidad=" + labelCuidad + ", labelDepartamento=" + labelDepartamento
 				+ ", labelFechaHistoriaClinica=" + labelFechaHistoriaClinica + ", labelIngreso=" + labelIngreso
 				+ ", labelPeriodico=" + labelPeriodico + ", labelEgreso=" + labelEgreso + ", labelOtroEvaluacion="
-				+ labelOtroEvaluacion + "]";
+				+ labelOtroEvaluacion + ", menuOcupacionalDatosPrincipales=" + menuOcupacionalDatosPrincipales
+				+ ", menuOcupacionalHistoriaLaboral=" + menuOcupacionalHistoriaLaboral
+				+ ", menusubmenuOcupacionalHistoriaLTrabajoAC=" + menusubmenuOcupacionalHistoriaLTrabajoAC
+				+ ", labelNombreEmpresa=" + labelNombreEmpresa + ", labelActividadEconomica=" + labelActividadEconomica
+				+ ", labelFechaIngreso=" + labelFechaIngreso + ", labelAntiguo=" + labelAntiguo + ", labelCargo="
+				+ labelCargo + ", labelDescripcionTareasFuncion=" + labelDescripcionTareasFuncion
+				+ ", menusubmenuOcupacionalHistoriaLTrabajoPre=" + menusubmenuOcupacionalHistoriaLTrabajoPre
+				+ ", tablaTrabajoPreLabelEmpresa=" + tablaTrabajoPreLabelEmpresa + ", tablaTrabajoPreLabelCargOficina="
+				+ tablaTrabajoPreLabelCargOficina + ", tablaTrabajoPreLabelTimepo=" + tablaTrabajoPreLabelTimepo
+				+ ", menusubmenuOcupacionalHistoriaLAntecedentesTrabajo="
+				+ menusubmenuOcupacionalHistoriaLAntecedentesTrabajo + "]";
 	}
 
-
+	
 
 }

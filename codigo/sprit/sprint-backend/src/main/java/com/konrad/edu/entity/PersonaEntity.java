@@ -36,7 +36,6 @@ public class PersonaEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
 //	public PersonaEntity(PersonaEntity persona) {
 //		this.seqPersona = persona.getSeqPersona();
 //		this.nomPrimerNombre = persona.getNomPrimerNombre();
@@ -90,12 +89,12 @@ public class PersonaEntity implements Serializable {
 
 	@OneToOne
 	@JoinColumn(name = "seq_tipo_documento", updatable = false)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoDocumentoEntity tipoDocumento;
-	
-	@Column(name="numero_documento")
+
+	@Column(name = "numero_documento")
 	private String numeroDocumento;
-	
+
 	@Column
 	private Integer edad;
 
@@ -128,7 +127,7 @@ public class PersonaEntity implements Serializable {
 
 	@OneToOne
 	@JoinColumn(name = "seq_lugarNacimiento", updatable = false)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private CiudadEntity lugarNacimiento;
 
 	@Column
@@ -136,7 +135,7 @@ public class PersonaEntity implements Serializable {
 
 	@OneToOne
 	@JoinColumn(name = "seq_lugarResidencia", updatable = false)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private CiudadEntity lugarDeResidencia;
 
 	@Column
@@ -166,15 +165,14 @@ public class PersonaEntity implements Serializable {
 	@Column(name = "parentesco_emergencia")
 	private String parentescoEmergencia;
 
-
 	@OneToOne
 	@JoinColumn(name = "seq_aseguradora", updatable = false)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private AseguradoraEntity aseguradora;
 
 	@OneToOne
 	@JoinColumn(name = "seq_localidad", updatable = false)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private LocalidadEntity localidad;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -183,12 +181,12 @@ public class PersonaEntity implements Serializable {
 	private List<HistoriasEntity> historias;
 
 	private String rolUsuario;
-	
-	
+
 	@PrePersist
 	public void prePersist() {
 		this.fechaCreacion = new Date();
 	}
+
 	public Integer getSeqPersona() {
 		return seqPersona;
 	}
@@ -428,18 +426,21 @@ public class PersonaEntity implements Serializable {
 	public void setRolUsuario(String rolUsuario) {
 		this.rolUsuario = rolUsuario;
 	}
+
 	public TipoDocumentoEntity getTipoDocumento() {
 		return tipoDocumento;
 	}
+
 	public void setTipoDocumento(TipoDocumentoEntity tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
 	}
+
 	public String getNumeroDocumento() {
 		return numeroDocumento;
 	}
+
 	public void setNumeroDocumento(String numeroDocumento) {
 		this.numeroDocumento = numeroDocumento;
 	}
 
-	
 }

@@ -14,6 +14,7 @@ public class CuidadServiceImp implements ICiudadService {
 
 	@Autowired
 	private ICiudadDao ciudadDao;
+
 	@Override
 	public List<CiudadEntity> findAll() {
 		return ciudadDao.findAll();

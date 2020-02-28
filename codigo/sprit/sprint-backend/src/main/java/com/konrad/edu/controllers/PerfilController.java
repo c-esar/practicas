@@ -27,15 +27,15 @@ public class PerfilController {
 			@PathVariable("pass") String password) {
 		System.out.println("entre" + nom_usuario + password);
 		PerfilEntity p = new PerfilEntity();
-		p =	perfilService.getSession(nom_usuario, password);
+		p = perfilService.getSession(nom_usuario, password);
 		System.out.println(p.toString());
 		if (p != null && p.getEstado() != null && p.getEstado().equalsIgnoreCase("activo")) {
 			System.out.println("entre activo");
-			p.setEstado(IConstantes.ESTADOSESIONACTIVO);
+			p.setEstado(IConstantes.ESTADO_SESION_ACTIVO);
 			return ResponseEntity.ok().body(p);
 		} else {
 			System.out.println("entre inactivo");
-			p.setEstado(IConstantes.ESTADOSESIONINACTIVO);
+			p.setEstado(IConstantes.ESTADO_SESION_INACTIVO);
 			return ResponseEntity.ok().body(p);
 		}
 	}
