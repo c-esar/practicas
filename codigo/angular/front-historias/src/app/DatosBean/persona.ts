@@ -34,7 +34,7 @@ export class Persona {
   parentescoEmergencia: string;
   aseguradora: Aseguradora;
   localidad: Localidad;
-  historias: Historias[];
+  historias: Historias;
   rolUsuario: string;
   constructor() {
     this.seqPersona = null;
@@ -42,20 +42,20 @@ export class Persona {
     this.nomPrimerApellido= null;
     this.nomSegundoNombre= null;
     this.nomSegundoApellido= null;
-    this.tipoDocumento= new TipoDocumento;
+    this.tipoDocumento= new TipoDocumento();
     this.numeroDocumento= null;
     this.edad = null;
     this.direccion= null;
     this.telefono= null;
     this.correo= null;
     this.celular= null;
-    this.fechaCreacion= new Date;
+    this.fechaCreacion= new Date();
     this.genero= null;
     this.estadoCivil= null;
     this.fechaNacimiento= null;
-    this.lugarNacimiento= new Ciudad;
+    this.lugarNacimiento= new Ciudad();
     this.barrio= null;
-    this.lugarDeResidencia= new Ciudad;
+    this.lugarDeResidencia= new Ciudad();
     this.escolaridad= null;
     this.nomCargoDep= null;
     this. AFP= null;
@@ -65,8 +65,9 @@ export class Persona {
     this.telEmergencia= null;
     this.nomEmergencia= null;
     this.parentescoEmergencia= null;
-    this.aseguradora= new Aseguradora;
-    this.localidad= new Localidad;
+    this.aseguradora= new Aseguradora();
+    this.localidad= new Localidad();
     this.rolUsuario= null;
+    this.historias = new Historias();
   }
 }

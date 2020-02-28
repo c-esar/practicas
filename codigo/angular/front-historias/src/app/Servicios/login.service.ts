@@ -48,7 +48,6 @@ export class LoginService implements CanActivate {
     this.login.permisos.crearUsuario = this.currentSession.permisos[0].crearUsuario;
     this.login.permisos.gestionarUsuario = this.currentSession.permisos[0].gestionarUsuario;
     this.login.permisos.descargar = this.currentSession.permisos[0].descargar;
-    debugger;
     return this.login;
   }
 
@@ -73,7 +72,6 @@ export class LoginService implements CanActivate {
   setCurrentSession(session: Login): void {
     this.currentSession = session;
     this.localStorageService.setItem('currentUser', JSON.stringify(session));
-    debugger
   }
 
   public isAutorization(): boolean {

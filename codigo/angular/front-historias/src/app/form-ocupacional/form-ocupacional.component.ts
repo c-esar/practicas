@@ -1,4 +1,4 @@
-import { ElementRef, ViewChild, Component, OnInit } from '@angular/core';
+import { ElementRef, ViewChild, Component, OnInit, Input} from '@angular/core';
 import { LabelService } from '../Servicios/label.service';
 import { LoginService } from '../Servicios/login.service';
 import { PersonaService } from '../Servicios/persona.service';
@@ -9,6 +9,7 @@ import { Ciudad } from '../DatosBean/ciudad';
 import { Aseguradora } from '../DatosBean/aseguradora';
 import { Router } from '@angular/router';
 import { Permiso } from '../DatosBean/permiso';
+import Swal from 'sweetalert2';
 declare var jQuery: any;
 declare var $: any;
 @Component({
@@ -19,6 +20,7 @@ declare var $: any;
 export class FormOcupacionalComponent implements OnInit {
 
   persona: Persona;
+  Spersona: Persona;
   permiso: Permiso;
   datosSingleton: DatosSingleton;
   tipoDocumento: TipoDocumento[];
@@ -40,6 +42,7 @@ export class FormOcupacionalComponent implements OnInit {
     this.datosSingleton = new DatosSingleton();
     this.tablaCondicionesTrabajo = new Array<Permiso>();
     this.tablaCondicionesTrabajo.push(new Permiso);
+    this.Spersona = new Persona();
   }
 
   ngOnInit(): void {
@@ -96,6 +99,20 @@ export class FormOcupacionalComponent implements OnInit {
     console.log(this.permiso.crearAux);
   }
 
+  public onValidatePersona():void{
+    this.personaService.onBuscarDocumento(this.persona).subscribe(
+      respuesta => {
+        debugger
+        if(respuesta == null || respuesta.nomPrimerNombre == null){
+          Swal.fire('Error', 'Persona No Registrada', 'error');
+        }else{
+          this.Spersona = respuesta
+        }
+      }
+    );
+    console
+
+  }
   private getAuxOMedico():void{
     console.log("permiso"+this.permiso.crearUsuario);
     if (this.permiso.crearUsuario == 0) {

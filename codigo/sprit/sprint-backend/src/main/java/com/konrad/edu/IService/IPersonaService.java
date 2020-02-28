@@ -14,5 +14,7 @@ public interface IPersonaService {
 	public PersonaEntity save(PersonaEntity persona);
 
 	public void delete(Long id);
+	
+	public PersonaEntity findByNumeroDocumento(String numero_documento);
 
 }

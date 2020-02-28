@@ -42,4 +42,8 @@ export class PersonaService {
   create(persona: Persona):Observable<Persona>{
     return this.http.post<Persona>(this.url+"persona/crearPersona",persona,{headers: this.httpHeaders});
   }
+
+  onBuscarDocumento(persona: Persona): Observable<Persona> {
+    return this.http.get<Persona>(`${this.url+"persona/buscarDocumento"}/${persona.numeroDocumento}`, { headers: this.httpHeaders });
+  }
 }

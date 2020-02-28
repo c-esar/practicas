@@ -35,4 +35,9 @@ public class PersonaServiceImp implements IPersonaService {
 		personaDao.deleteById(id);
 	}
 
+	@Override
+	public PersonaEntity findByNumeroDocumento(String numero_documento) {
+		return personaDao.findByNumeroDocumento(numero_documento);
+	}
+
 }

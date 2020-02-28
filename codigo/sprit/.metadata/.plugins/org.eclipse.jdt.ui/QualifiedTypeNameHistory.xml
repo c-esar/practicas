@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.springframework.security.authentication.AuthenticationManager"/>
-<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Qualifier"/>
-<fullyQualifiedTypeName name="org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter"/>
-<fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
-<fullyQualifiedTypeName name="org.springframework.security.oauth2.provider.token.store.JwtTokenStore"/>
-<fullyQualifiedTypeName name="org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter"/>
-<fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
-<fullyQualifiedTypeName name="org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer"/>
-<fullyQualifiedTypeName name="org.springframework.http.HttpMethod"/>
 <fullyQualifiedTypeName name="org.springframework.security.config.http.SessionCreationPolicy"/>
 <fullyQualifiedTypeName name="com.konrad.edu.entity.HC_Perfil"/>
 <fullyQualifiedTypeName name="com.konrad.edu.dao.IPersonaDao"/>
@@ -16,7 +7,6 @@
 <fullyQualifiedTypeName name="java.lang.Override"/>
 <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
-<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="com.konrad.edu.service.IPersonaService"/>
 <fullyQualifiedTypeName name="com.konrad.edu.entity.Persona"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
@@ -27,7 +17,6 @@
 <fullyQualifiedTypeName name="org.springframework.data.repository.query.Param"/>
 <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.Query"/>
 <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
-<fullyQualifiedTypeName name="com.konrad.edu.dao.IPerfilDao"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.konrad.edu.entity.LabelConstantes"/>
 <fullyQualifiedTypeName name="com.konrad.edu.entity.IConstantes"/>
@@ -35,17 +24,11 @@
 <fullyQualifiedTypeName name="com.konrad.edu.entity.Localidad"/>
 <fullyQualifiedTypeName name="javax.persistence.Column"/>
 <fullyQualifiedTypeName name="javax.persistence.CascadeType"/>
-<fullyQualifiedTypeName name="java.io.Serializable"/>
-<fullyQualifiedTypeName name="javax.persistence.Entity"/>
-<fullyQualifiedTypeName name="javax.persistence.Table"/>
-<fullyQualifiedTypeName name="javax.persistence.Id"/>
-<fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
 <fullyQualifiedTypeName name="javax.persistence.GenerationType"/>
 <fullyQualifiedTypeName name="com.konrad.edu.entity.Historias"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.IAseguradoraService"/>
 <fullyQualifiedTypeName name="com.konrad.edu.dao.ICuidadDao"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.ICiudadService"/>
-<fullyQualifiedTypeName name="com.konrad.edu.IService.IHistoriaService"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.ILocalidadService"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.IMunicipioService"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.IPermisosService"/>
@@ -60,4 +43,21 @@
 <fullyQualifiedTypeName name="org.springframework.http.MediaType"/>
 <fullyQualifiedTypeName name="com.konrad.edu.entity.PerfilEntity"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.IConstantes"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
+<fullyQualifiedTypeName name="javax.persistence.Entity"/>
+<fullyQualifiedTypeName name="javax.persistence.Table"/>
+<fullyQualifiedTypeName name="javax.persistence.Id"/>
+<fullyQualifiedTypeName name="com.konrad.edu.entity.EmpresaLaboraEntity"/>
+<fullyQualifiedTypeName name="com.konrad.edu.entity.EnfermedadesLaboral"/>
+<fullyQualifiedTypeName name="com.konrad.edu.entity.HistoriaLaboralEntity"/>
+<fullyQualifiedTypeName name="com.konrad.edu.entity.HistoriasEntity"/>
+<fullyQualifiedTypeName name="com.konrad.edu.dao.IPerfilDao"/>
+<fullyQualifiedTypeName name="com.konrad.edu.dao.IHistoriaLaboral"/>
+<fullyQualifiedTypeName name="com.konrad.edu.dao.IHistoriaLaboralDao"/>
+<fullyQualifiedTypeName name="com.konrad.edu.dao.IHistoriaDao"/>
+<fullyQualifiedTypeName name="com.konrad.edu.IService.IHistoriaService"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="com.konrad.edu.IService.IHistoriaLaboralService"/>
 </qualifiedTypeNameHistroy>

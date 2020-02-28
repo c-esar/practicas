@@ -59,4 +59,9 @@ public class PersonaController {
 		personaService.delete(id);
 	}
 
+	@GetMapping("/buscarDocumento/{numeroDocumento}")
+	@ResponseStatus(HttpStatus.OK)
+	public PersonaEntity buscar(@PathVariable String numeroDocumento) {
+		return personaService.findByNumeroDocumento(numeroDocumento);
+	}
 }

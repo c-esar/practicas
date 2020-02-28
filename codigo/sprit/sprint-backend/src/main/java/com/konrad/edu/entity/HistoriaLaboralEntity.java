@@ -53,22 +53,22 @@ public class HistoriaLaboralEntity implements Serializable {
 	private String desp_funciones_cargo;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "hc_laboral_Empresa_laboral", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_empresa"), uniqueConstraints = {
+	@JoinTable(name = "hc_laboral_empresa", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_empresa"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_historia_laboral", "seq_empresa" }) })
-	private List<EmpresaLaboraEntity> empresaLaboral;
+	private List<EmpresaLaboralEntity> empresaLaboral;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "hc_laboral_ant_trabajo", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_ant"), uniqueConstraints = {
+	@JoinTable(name = "hc_laboral_antTrabajo", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_ant"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_historia_laboral", "seq_ant" }) })
 	private List<AntecedentesTrabajoEntity> antecedentesTrabajo;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "hc_laboral_enfermedades_laboral", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_enfermedades_lab"), uniqueConstraints = {
+	@JoinTable(name = "hc_laboral_enfermedades", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_enfermedades_lab"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_historia_laboral", "seq_enfermedades_lab" }) })
 	private List<EnfermedadesLaboral> enfermedadesLaboral;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "hc_laboral_enfermedades_laboral", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_factores"), uniqueConstraints = {
+	@JoinTable(name = "hc_laboral_factoresRiesgo", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_factores"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_historia_laboral", "seq_factores" }) })
 	private List<FactoresRiesgoEntity> factoresRiesgo;
 
@@ -128,11 +128,11 @@ public class HistoriaLaboralEntity implements Serializable {
 		this.desp_funciones_cargo = desp_funciones_cargo;
 	}
 
-	public List<EmpresaLaboraEntity> getEmpresaLaboral() {
+	public List<EmpresaLaboralEntity> getEmpresaLaboral() {
 		return empresaLaboral;
 	}
 
-	public void setEmpresaLaboral(List<EmpresaLaboraEntity> empresaLaboral) {
+	public void setEmpresaLaboral(List<EmpresaLaboralEntity> empresaLaboral) {
 		this.empresaLaboral = empresaLaboral;
 	}
 
