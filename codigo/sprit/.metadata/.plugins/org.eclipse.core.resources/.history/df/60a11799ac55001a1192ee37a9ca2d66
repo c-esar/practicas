@@ -1,0 +1,12 @@
+package com.konrad.edu.IService;
+
+import java.util.List;
+
+import com.konrad.edu.entity.PersonaEntity;
+
+public interface IPersonaService {
+
+	public List<PersonaEntity> findAll();
+	
+	
+}

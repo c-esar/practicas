@@ -1,0 +1,23 @@
+package com.konrad.edu.serviceImp;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.konrad.edu.IService.IPersonaService;
+import com.konrad.edu.dao.IPersonaDao;
+import com.konrad.edu.entity.PersonaEntity;
+
+@Service
+public class PersonaServiceImp implements IPersonaService {
+
+	@Autowired
+	private IPersonaDao personaDao;
+
+	@Override
+	public List<PersonaEntity> findAll() {
+		return (List<PersonaEntity>) personaDao.findAll();
+	}
+
+}

@@ -1,6 +1,0 @@
-package com.konrad.edu.service;
-
-public interface IPerfilService {
-
-	public Boolean getSession(String nom_usuario, String password);
-}

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LabelService {
 
-  private url: string = 'http://localhost:8080/login/';
+  private url: string = 'http://localhost:8080/';
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private httpClient: HttpClient, private router: Router) {
@@ -18,6 +18,6 @@ export class LabelService {
    }
 
    getLabel(): Observable<DatosSingleton> {
-     return this.httpClient.get<DatosSingleton>(`${this.url}/labels`);
+     return this.httpClient.get<DatosSingleton>(`${this.url}/login/labels`);
    }
 }

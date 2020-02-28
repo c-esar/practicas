@@ -3,3 +3,63 @@
     display: none;
   }
 }
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+#header {
+  margin: auto;
+  width: 500px;
+  font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
+  z-index: 1;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+.nav>li {
+  float: left;
+}
+
+.nav li a {
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 12px;
+  display: block;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: serif;
+}
+.tituloRol h1{
+  font-size: 20px;
+  font-weight: 500;
+  font-family: serif;
+  color:white;
+}
+
+.nav li a:hover {
+  background-color: #434343;
+}
+
+.nav li ul {
+  display: none;
+  position: absolute;
+  min-width: 140px;
+}
+
+.nav li:hover>ul {
+  display: block;
+}
+
+.nav li ul li {
+  position: relative;
+}
+
+.nav li ul li ul {
+  right: -200px;
+  top: 0px;
+}

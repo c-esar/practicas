@@ -1,2 +1,0 @@
-INSERT INTO hc_personas (seq_persona,nom_primer_nombre) values(1,'Cesar')
-INSERT INTO hc_personas (seq_persona,nom_primer_nombre) values(2,'Carlos')

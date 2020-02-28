@@ -6,3 +6,22 @@
 1581993985375	Delete element
 1581994007765	Delete element
 1582118748863	Delete element
+1582310480698	Rename package 'com.konrad.edu.service'
+1582310489291	Move compilation unit
+1582310493555	Move compilation unit
+1582310662680	Move compilation unit
+1582386358182	Rename type 'IAseguradora'
+1582386491205	Rename type 'ICuidad'
+1582386499500	Rename type 'ILocalidad'
+1582386511303	Rename type 'IMunicipio'
+1582386519133	Rename type 'IPermisos'
+1582387305270	Rename type 'ICuidadDao'
+1582394940797	Rename type 'Aseguradora'
+1582394948340	Rename type 'Cuidad'
+1582394964234	Rename type 'Historias'
+1582394972108	Rename type 'Localidad'
+1582394979854	Rename type 'Municipio'
+1582394987872	Rename type 'Perfil'
+1582394999957	Rename type 'Permisos'
+1582395007285	Rename type 'Persona'
+1582395013290	Rename type 'TipoDocumento'
