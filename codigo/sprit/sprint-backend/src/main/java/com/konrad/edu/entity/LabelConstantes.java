@@ -52,6 +52,25 @@ public class LabelConstantes implements Serializable {
 	private String tablaTrabajoPreLabelCargOficina;
 	private String tablaTrabajoPreLabelTimepo;
 	private String menusubmenuOcupacionalHistoriaLAntecedentesTrabajo;
+	private String labelSNaccidentesTrabajo;
+	private String tablaEnfermedadesFecha;
+	private String tablaEnfermedadesEmpresa;
+	private String tablaEnfermedadesCausa;
+	private String tablaEnfermedadesTipoLesion;
+	private String tablaEnfermedadesIncapacidad;
+	private String tablaEnfermedadesSecuelas  ;
+	private String labelTieneEnfermedad  ;
+	private String tablaEnfermedadesDiagnostico  ;
+	private String tablaEnfermedadesRecomendaciones;
+	private String tablaEnfermedadesIndemnizacion;
+	private String labelSI;
+	private String labelNO;
+	private String tablaFactoresFactoresRiesgo;
+	private String tablaFactoresTiempo;
+	private String tablaFactoresMedidasControl  ;
+	private String labelMotivacionDeConsulta;
+	private String labelAntecedentes;
+	private String menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo;
 
 	public LabelConstantes() {
 		this.labelPrimerNombre = IConstantes.LABEL_PRIMER_NOMBRE;
@@ -93,6 +112,25 @@ public class LabelConstantes implements Serializable {
 		this.tablaTrabajoPreLabelCargOficina = IConstantes.TABLA_TRABAJOPRE_LABEL_CARGOOFICINA;
 		this.tablaTrabajoPreLabelTimepo = IConstantes.TABLA_TRABAJOPRE_LABEL_TIEMPO;
 		this.menusubmenuOcupacionalHistoriaLAntecedentesTrabajo = IConstantes.MENU_SUBMENU_OCUPACIONAL_HISTORIA_LABORAL_ANTECEDENTES_TRABAJO;
+		this.labelSNaccidentesTrabajo = IConstantes.LABEL_SN_ACCIDENTES_TRABAJO;
+		this.tablaEnfermedadesFecha = IConstantes.TABLA_ENFERMEDADES_FECHA;
+		this.tablaEnfermedadesEmpresa = IConstantes.TABLA_ENFERMEDADES_EMPRESA;
+		this.tablaEnfermedadesCausa = IConstantes.TABLA_ENFERMEDADES_CAUSA;
+		this.tablaEnfermedadesTipoLesion = IConstantes.TABLA_ENFERMEDADES_TIPO_LESION;
+		this.tablaEnfermedadesIncapacidad = IConstantes.TABLA_ENFERMEDADES_INCAPACIDAD;
+		this.tablaEnfermedadesSecuelas  = IConstantes.TABLA_ENFERMEDADES_SECUELAS;
+		this.labelTieneEnfermedad = IConstantes.LABEL_TIENE_ENFERMEDAD ;
+		this.tablaEnfermedadesDiagnostico = IConstantes.TABLA_ENFERMEDADES_DIAGNOSTICO ;
+		this.tablaEnfermedadesRecomendaciones = IConstantes.TABLA_ENFERMEDADES_RECOMENDACIONES;
+		this.tablaEnfermedadesIndemnizacion = IConstantes.TABLA_ENFERMEDADES_INDEMNIZACION;
+		this.labelSI = IConstantes.LABEL_SI;
+		this.labelNO = IConstantes.LABEL_NO;
+		this.tablaFactoresFactoresRiesgo = IConstantes.TABLA_FACTORES_FACTORES_RIESGO;
+		this.tablaFactoresTiempo = IConstantes.TABLA_FACTORES_TIEMPO;
+		this.tablaFactoresMedidasControl = IConstantes.TABLA_FACTORES_MEDIDAS_CONTROL ;
+		this.labelMotivacionDeConsulta = IConstantes.LABEL_MOTIVACION_DE_CONSULTA;
+		this.labelAntecedentes = IConstantes.LABEL_ANTECEDENTES;
+		this.menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo = IConstantes.MENU_SUBMENU_OCUPACIONAL_HISTORIA_LABORAL_FACTORES_RIESGO;
 	}
 
 	public String getLabelPrimerNombre() {
@@ -408,6 +446,153 @@ public class LabelConstantes implements Serializable {
 		this.menusubmenuOcupacionalHistoriaLAntecedentesTrabajo = menusubmenuOcupacionalHistoriaLAntecedentesTrabajo;
 	}
 
+	
+	public String getLabelSNaccidentesTrabajo() {
+		return labelSNaccidentesTrabajo;
+	}
+
+	public void setLabelSNaccidentesTrabajo(String labelSNaccidentesTrabajo) {
+		this.labelSNaccidentesTrabajo = labelSNaccidentesTrabajo;
+	}
+
+	public String getTablaEnfermedadesFecha() {
+		return tablaEnfermedadesFecha;
+	}
+
+	public void setTablaEnfermedadesFecha(String tablaEnfermedadesFecha) {
+		this.tablaEnfermedadesFecha = tablaEnfermedadesFecha;
+	}
+
+	public String getTablaEnfermedadesEmpresa() {
+		return tablaEnfermedadesEmpresa;
+	}
+
+	public void setTablaEnfermedadesEmpresa(String tablaEnfermedadesEmpresa) {
+		this.tablaEnfermedadesEmpresa = tablaEnfermedadesEmpresa;
+	}
+
+	public String getTablaEnfermedadesCausa() {
+		return tablaEnfermedadesCausa;
+	}
+
+	public void setTablaEnfermedadesCausa(String tablaEnfermedadesCausa) {
+		this.tablaEnfermedadesCausa = tablaEnfermedadesCausa;
+	}
+
+	public String getTablaEnfermedadesTipoLesion() {
+		return tablaEnfermedadesTipoLesion;
+	}
+
+	public void setTablaEnfermedadesTipoLesion(String tablaEnfermedadesTipoLesion) {
+		this.tablaEnfermedadesTipoLesion = tablaEnfermedadesTipoLesion;
+	}
+
+	public String getTablaEnfermedadesIncapacidad() {
+		return tablaEnfermedadesIncapacidad;
+	}
+
+	public void setTablaEnfermedadesIncapacidad(String tablaEnfermedadesIncapacidad) {
+		this.tablaEnfermedadesIncapacidad = tablaEnfermedadesIncapacidad;
+	}
+
+	public String getTablaEnfermedadesSecuelas() {
+		return tablaEnfermedadesSecuelas;
+	}
+
+	public void setTablaEnfermedadesSecuelas(String tablaEnfermedadesSecuelas) {
+		this.tablaEnfermedadesSecuelas = tablaEnfermedadesSecuelas;
+	}
+
+	public String getLabelTieneEnfermedad() {
+		return labelTieneEnfermedad;
+	}
+
+	public void setLabelTieneEnfermedad(String labelTieneEnfermedad) {
+		this.labelTieneEnfermedad = labelTieneEnfermedad;
+	}
+
+	public String getTablaEnfermedadesDiagnostico() {
+		return tablaEnfermedadesDiagnostico;
+	}
+
+	public void setTablaEnfermedadesDiagnostico(String tablaEnfermedadesDiagnostico) {
+		this.tablaEnfermedadesDiagnostico = tablaEnfermedadesDiagnostico;
+	}
+
+	public String getTablaEnfermedadesRecomendaciones() {
+		return tablaEnfermedadesRecomendaciones;
+	}
+
+	public void setTablaEnfermedadesRecomendaciones(String tablaEnfermedadesRecomendaciones) {
+		this.tablaEnfermedadesRecomendaciones = tablaEnfermedadesRecomendaciones;
+	}
+
+	public String getTablaEnfermedadesIndemnizacion() {
+		return tablaEnfermedadesIndemnizacion;
+	}
+
+	public void setTablaEnfermedadesIndemnizacion(String tablaEnfermedadesIndemnizacion) {
+		this.tablaEnfermedadesIndemnizacion = tablaEnfermedadesIndemnizacion;
+	}
+
+	
+	public String getLabelSI() {
+		return labelSI;
+	}
+
+	public void setLabelSI(String labelSI) {
+		this.labelSI = labelSI;
+	}
+
+	public String getLabelNO() {
+		return labelNO;
+	}
+
+	public void setLabelNO(String labelNO) {
+		this.labelNO = labelNO;
+	}
+
+	
+	public String getTablaFactoresFactoresRiesgo() {
+		return tablaFactoresFactoresRiesgo;
+	}
+
+	public void setTablaFactoresFactoresRiesgo(String tablaFactoresFactoresRiesgo) {
+		this.tablaFactoresFactoresRiesgo = tablaFactoresFactoresRiesgo;
+	}
+
+	public String getTablaFactoresTiempo() {
+		return tablaFactoresTiempo;
+	}
+
+	public void setTablaFactoresTiempo(String tablaFactoresTiempo) {
+		this.tablaFactoresTiempo = tablaFactoresTiempo;
+	}
+
+	public String getTablaFactoresMedidasControl() {
+		return tablaFactoresMedidasControl;
+	}
+
+	public void setTablaFactoresMedidasControl(String tablaFactoresMedidasControl) {
+		this.tablaFactoresMedidasControl = tablaFactoresMedidasControl;
+	}
+
+	public String getLabelMotivacionDeConsulta() {
+		return labelMotivacionDeConsulta;
+	}
+
+	public void setLabelMotivacionDeConsulta(String labelMotivacionDeConsulta) {
+		this.labelMotivacionDeConsulta = labelMotivacionDeConsulta;
+	}
+
+	public String getLabelAntecedentes() {
+		return labelAntecedentes;
+	}
+
+	public void setLabelAntecedentes(String labelAntecedentes) {
+		this.labelAntecedentes = labelAntecedentes;
+	}
+
 	@Override
 	public String toString() {
 		return "LabelConstantes [labelPrimerNombre=" + labelPrimerNombre + ", labelSegundoNombre=" + labelSegundoNombre
@@ -431,7 +616,17 @@ public class LabelConstantes implements Serializable {
 				+ ", tablaTrabajoPreLabelEmpresa=" + tablaTrabajoPreLabelEmpresa + ", tablaTrabajoPreLabelCargOficina="
 				+ tablaTrabajoPreLabelCargOficina + ", tablaTrabajoPreLabelTimepo=" + tablaTrabajoPreLabelTimepo
 				+ ", menusubmenuOcupacionalHistoriaLAntecedentesTrabajo="
-				+ menusubmenuOcupacionalHistoriaLAntecedentesTrabajo + "]";
+				+ menusubmenuOcupacionalHistoriaLAntecedentesTrabajo + ", labelSNaccidentesTrabajo="
+				+ labelSNaccidentesTrabajo + ", tablaEnfermedadesFecha=" + tablaEnfermedadesFecha
+				+ ", tablaEnfermedadesEmpresa=" + tablaEnfermedadesEmpresa + ", tablaEnfermedadesCausa="
+				+ tablaEnfermedadesCausa + ", tablaEnfermedadesTipoLesion=" + tablaEnfermedadesTipoLesion
+				+ ", tablaEnfermedadesIncapacidad=" + tablaEnfermedadesIncapacidad + ", tablaEnfermedadesSecuelas="
+				+ tablaEnfermedadesSecuelas + ", labelTieneEnfermedad=" + labelTieneEnfermedad
+				+ ", tablaEnfermedadesDiagnostico=" + tablaEnfermedadesDiagnostico
+				+ ", tablaEnfermedadesRecomendaciones=" + tablaEnfermedadesRecomendaciones
+				+ ", tablaEnfermedadesIndemnizacion=" + tablaEnfermedadesIndemnizacion + "]";
 	}
+
+
 
 }

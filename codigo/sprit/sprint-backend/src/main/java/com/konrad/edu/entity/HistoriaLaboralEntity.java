@@ -1,6 +1,7 @@
 package com.konrad.edu.entity;
 
 import java.io.Serializable;
+import java.sql.Clob;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -33,24 +35,31 @@ public class HistoriaLaboralEntity implements Serializable {
 	@Column(name = "seq_historia_laboral")
 	private Long seqHistoriaLaboral;
 
-	@Column(name = "nom_empresa")
+	@Column(name = "nom_empresa", length = 50)
 	private String nomEmpresa;
 
-	@Column(name = "act_economica")
+	@Column(name = "act_economica", length = 50)
 	private String actEconomica;
 
 	@Column(name = "dat_fecha_ingreso")
 	@Temporal(TemporalType.DATE)
 	private Date fechaIngreso;
 
-	@Column(name = "antiguedad")
+	@Column(name = "antiguedad", length = 50)
 	private String antiguedad;
 
-	@Column(name = "cargo")
+	@Column(name = "cargo", length = 50)
 	private String cargo;
 
-	@Column(name = "desp_funciones_cargo")
-	private String desp_funciones_cargo;
+	@Column(name = "desp_funciones_cargo", length = 4000)
+	@Lob
+	private Clob desp_funciones_cargo;
+	
+	@Column(name = "acciones_trabajo_SN", length = 2)
+	private String accionesTrabajoSN;
+	
+	@Column(name = "enfermedad_laboral_SN", length = 2)
+	private String enfermedadLaboralSN;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "hc_laboral_empresa", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_empresa"), uniqueConstraints = {
@@ -120,14 +129,6 @@ public class HistoriaLaboralEntity implements Serializable {
 		this.cargo = cargo;
 	}
 
-	public String getDesp_funciones_cargo() {
-		return desp_funciones_cargo;
-	}
-
-	public void setDesp_funciones_cargo(String desp_funciones_cargo) {
-		this.desp_funciones_cargo = desp_funciones_cargo;
-	}
-
 	public List<EmpresaLaboralEntity> getEmpresaLaboral() {
 		return empresaLaboral;
 	}
@@ -160,4 +161,29 @@ public class HistoriaLaboralEntity implements Serializable {
 		this.factoresRiesgo = factoresRiesgo;
 	}
 
+	public Clob getDesp_funciones_cargo() {
+		return desp_funciones_cargo;
+	}
+
+	public void setDesp_funciones_cargo(Clob desp_funciones_cargo) {
+		this.desp_funciones_cargo = desp_funciones_cargo;
+	}
+
+	public String getAccionesTrabajoSN() {
+		return accionesTrabajoSN;
+	}
+
+	public void setAccionesTrabajoSN(String accionesTrabajoSN) {
+		this.accionesTrabajoSN = accionesTrabajoSN;
+	}
+
+	public String getEnfermedadLaboralSN() {
+		return enfermedadLaboralSN;
+	}
+
+	public void setEnfermedadLaboralSN(String enfermedadLaboralSN) {
+		this.enfermedadLaboralSN = enfermedadLaboralSN;
+	}
+
+	
 }

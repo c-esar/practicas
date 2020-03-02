@@ -20,8 +20,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    if (this.loginService.isAutorization()) {
+      this.router.navigate(['menuPrincipal'])
+    } 
   }
+
   public iniciarLogin(): void {
     console.log("Entre funcion " +this.loginService.isAutorization());
     console.log("Valor del login" + this.login.nomUsuario);

@@ -40,16 +40,16 @@ public class PersonaEntity implements Serializable {
 	@Column(name = "seq_persona")
 	private Integer seqPersona;
 
-	@Column(name = "nom_primer_nombre")
+	@Column(name = "nom_primer_nombre", length = 50)
 	private String nomPrimerNombre;
 
-	@Column(name = "nom_primer_apellido")
+	@Column(name = "nom_primer_apellido", length = 50)
 	private String nomPrimerApellido;
 
-	@Column(name = "nom_segundo_nombre")
+	@Column(name = "nom_segundo_nombre", length = 50)
 	private String nomSegundoNombre;
 
-	@Column(name = "nom_segundo_apellido")
+	@Column(name = "nom_segundo_apellido", length = 50)
 	private String nomSegundoApellido;
 
 	@OneToOne
@@ -63,7 +63,7 @@ public class PersonaEntity implements Serializable {
 	@Column
 	private Integer edad;
 
-	@Column
+	@Column(length = 50)
 	private String direccion;
 
 	@Column
@@ -95,7 +95,7 @@ public class PersonaEntity implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private CiudadEntity lugarNacimiento;
 
-	@Column
+	@Column(length = 50)
 	private String barrio;
 
 	@OneToOne
@@ -103,31 +103,31 @@ public class PersonaEntity implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private CiudadEntity lugarDeResidencia;
 
-	@Column
+	@Column(length = 50)
 	private String escolaridad;
 
 	@Column(name = "nom_cargo_dep")
 	private String nomCargoDep;
 
-	@Column
+	@Column(length = 50)
 	private String AFP;
 
-	@Column
+	@Column(length = 50)
 	private String ARL;
 
-	@Column(name = "grupo_sanguineo")
+	@Column(name = "grupo_sanguineo", length = 50)
 	private String grupoSanguineo;
 
-	@Column
+	@Column(length = 50)
 	private String RH;
 
 	@Column(name = "tel_emergencia")
 	private String telEmergencia;
 
-	@Column(name = "nom_emergencia")
+	@Column(name = "nom_emergencia", length = 50)
 	private String nomEmergencia;
 
-	@Column(name = "parentesco_emergencia")
+	@Column(name = "parentesco_emergencia", length = 50)
 	private String parentescoEmergencia;
 
 	@OneToOne

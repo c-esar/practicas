@@ -16,15 +16,15 @@ public class FactoresRiesgoEntity {
 	@Column(name = "seq_factores")
 	private Long seq_factores;
 
-	@Column(name = "nom_empresa")
+	@Column(name = "nom_empresa", length = 50)
 	private String nomEmpresa;
 
-	@Column(name = "desp_factores")
+	@Column(name = "desp_factores", length = 4000)
 	private String despFactores;
 
 	private String tiempo;
 
-	@Column(name = "desp_medidas_control")
+	@Column(name = "desp_medidas_control", length = 4000)
 	private String despMedidasControl;
 
 	public Long getSeq_factores() {

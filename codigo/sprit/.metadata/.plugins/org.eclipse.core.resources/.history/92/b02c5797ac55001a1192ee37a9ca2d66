@@ -1,7 +1,0 @@
-package com.konrad.edu.serviceImp;
-
-import com.konrad.edu.IService.ICiudadService;
-
-public class CuidadServiceImp implements ICiudadService{
-
-}

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.springframework.security.config.http.SessionCreationPolicy"/>
 <fullyQualifiedTypeName name="com.konrad.edu.entity.HC_Perfil"/>
 <fullyQualifiedTypeName name="com.konrad.edu.dao.IPersonaDao"/>
 <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
@@ -42,7 +41,6 @@
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
 <fullyQualifiedTypeName name="org.springframework.http.MediaType"/>
 <fullyQualifiedTypeName name="com.konrad.edu.entity.PerfilEntity"/>
-<fullyQualifiedTypeName name="com.konrad.edu.IService.IConstantes"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="com.konrad.edu.IService.IHistoriaService"/>
 <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.IHistoriaLaboralService"/>
+<fullyQualifiedTypeName name="java.sql.Clob"/>
+<fullyQualifiedTypeName name="com.konrad.edu.IService.IConstantes"/>
 </qualifiedTypeNameHistroy>

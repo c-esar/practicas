@@ -23,9 +23,10 @@ public class EmpresaLaboralEntity implements Serializable {
 	@Column(name = "seq_empresa")
 	private Long seqEmpresa;
 
-	@Column(name = "nom_empresa")
+	@Column(name = "nom_empresa", length = 50)
 	private String nomEmpresa;
 
+	@Column(length = 50)
 	private String cargo;
 
 	private String tiempo;

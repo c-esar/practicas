@@ -1,6 +1,7 @@
 package com.konrad.edu.entity;
 
 import java.io.Serializable;
+import java.sql.Clob;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -27,23 +29,26 @@ public class AntecedentesTrabajoEntity implements Serializable {
 	@Column(name = "dat_fecha_ant")
 	private Date fechaAnt;
 
-	@Column(name = "nom_empresa")
+	@Column(name = "nom_empresa", length = 50)
 	private String nomEmpresa;
 
-	@Column(name = "desp_causa")
-	private String despCausa;
+	@Column(name = "desp_causa", length = 4000)
+	@Lob
+	private Clob despCausa;
 
-	@Column(name = "tipo_lesion")
+	@Column(name = "tipo_lesion", length = 50)
 	private String tipoLesion;
 
-	@Column(name = "parte_afectada")
+	@Column(name = "parte_afectada", length = 50)
 	private String parteAfectada;
 
-	@Column(name = "desp_incapacidad")
-	private String despIncapacidad;
+	@Column(name = "desp_incapacidad", length = 4000)
+	@Lob
+	private Clob despIncapacidad;
 
-	@Column(name = "desp_secuelas")
-	private String despSecuelas;
+	@Column(name = "desp_secuelas", length = 4000)
+	@Lob
+	private Clob despSecuelas;
 
 	public Long getSeqAnt() {
 		return seqAnt;
@@ -69,13 +74,7 @@ public class AntecedentesTrabajoEntity implements Serializable {
 		this.nomEmpresa = nomEmpresa;
 	}
 
-	public String getDespCausa() {
-		return despCausa;
-	}
 
-	public void setDespCausa(String despCausa) {
-		this.despCausa = despCausa;
-	}
 
 	public String getTipoLesion() {
 		return tipoLesion;
@@ -93,20 +92,30 @@ public class AntecedentesTrabajoEntity implements Serializable {
 		this.parteAfectada = parteAfectada;
 	}
 
-	public String getDespIncapacidad() {
+	public Clob getDespCausa() {
+		return despCausa;
+	}
+
+	public void setDespCausa(Clob despCausa) {
+		this.despCausa = despCausa;
+	}
+
+	public Clob getDespIncapacidad() {
 		return despIncapacidad;
 	}
 
-	public void setDespIncapacidad(String despIncapacidad) {
+	public void setDespIncapacidad(Clob despIncapacidad) {
 		this.despIncapacidad = despIncapacidad;
 	}
 
-	public String getDespSecuelas() {
+	public Clob getDespSecuelas() {
 		return despSecuelas;
 	}
 
-	public void setDespSecuelas(String despSecuelas) {
+	public void setDespSecuelas(Clob despSecuelas) {
 		this.despSecuelas = despSecuelas;
 	}
+
+	
 
 }

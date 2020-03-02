@@ -1,7 +1,0 @@
-package com.konrad.edu.serviceImp;
-
-import com.konrad.edu.IService.IAseguradoraService;
-
-public class AseguradoraServiceImp implements IAseguradoraService {
-
-}

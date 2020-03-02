@@ -1,6 +1,8 @@
+
 package com.konrad.edu.entity;
 
 import java.io.Serializable;
+import java.sql.Clob;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -27,16 +30,18 @@ public class EnfermedadesLaboral implements Serializable {
 	@Column(name = "dat_fecha_ant")
 	private Date fechaAnt;
 
-	@Column(name = "nom_empresa")
+	@Column(name = "nom_empresa", length = 50)
 	private String nomEmpresa;
 
-	@Column(name = "desp_diagnostico")
-	private String despDiagnostico;
+	@Column(name = "desp_diagnostico", length = 4000)
+	@Lob
+	private Clob despDiagnostico;
 
-	@Column(name = "desp_recomendaciones")
-	private String despRecomendaciones;
+	@Column(name = "desp_recomendaciones", length = 4000)
+	@Lob
+	private Clob despRecomendaciones;
 
-	@Column(name = "desp_indemnizar")
+	@Column(name = "desp_indemnizar", length = 50)
 	private String despIndemnizar;
 
 	public Long getSeqEnfermedadesLab() {
@@ -63,22 +68,6 @@ public class EnfermedadesLaboral implements Serializable {
 		this.nomEmpresa = nomEmpresa;
 	}
 
-	public String getDespDiagnostico() {
-		return despDiagnostico;
-	}
-
-	public void setDespDiagnostico(String despDiagnostico) {
-		this.despDiagnostico = despDiagnostico;
-	}
-
-	public String getDespRecomendaciones() {
-		return despRecomendaciones;
-	}
-
-	public void setDespRecomendaciones(String despRecomendaciones) {
-		this.despRecomendaciones = despRecomendaciones;
-	}
-
 	public String getDespIndemnizar() {
 		return despIndemnizar;
 	}
@@ -87,4 +76,21 @@ public class EnfermedadesLaboral implements Serializable {
 		this.despIndemnizar = despIndemnizar;
 	}
 
+	public Clob getDespDiagnostico() {
+		return despDiagnostico;
+	}
+
+	public void setDespDiagnostico(Clob despDiagnostico) {
+		this.despDiagnostico = despDiagnostico;
+	}
+
+	public Clob getDespRecomendaciones() {
+		return despRecomendaciones;
+	}
+
+	public void setDespRecomendaciones(Clob despRecomendaciones) {
+		this.despRecomendaciones = despRecomendaciones;
+	}
+
+	
 }

@@ -14,6 +14,8 @@ export class HistoriaLaboral{
   antecedentesTrabajo: AntecedentesTrabajo[];
   enfermedadesLaboral: EnfermedadesLaboral[];
   factoresRiesgo: FactoresRiesgo[];
+  accionesTrabajoSN: string;
+  enfermedadLaboralSN: string;
 
   constructor(){
     this.seqHistoriaLaboral = null;
@@ -27,5 +29,7 @@ export class HistoriaLaboral{
     this.antecedentesTrabajo = new Array<AntecedentesTrabajo>();
     this.enfermedadesLaboral = new Array<EnfermedadesLaboral>();
     this.factoresRiesgo = new Array<FactoresRiesgo>();
+    this.accionesTrabajoSN = null;
+    this.enfermedadLaboralSN = null;
   }
 }
