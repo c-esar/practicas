@@ -47,7 +47,7 @@
                       <option value="Spersona.tipoDocumento.seqTipoDocumento" *ngIf="buscoPerson == true" selected>{{Spersona.tipoDocumento.siglaDocumento + "-" +Spersona.tipoDocumento.nomDocumento}}</option>
                     </optgroup>
                     <optgroup label="Seleccionar">
-                      <option *ngFor="let doc of tipoDocumento" value="doc.seqTipoDocumento">{{doc.siglaDocumento + "-" + doc.nomDocumento}}</option>
+                      <option *ngFor="let doc of tipoDocumento" value={{doc.seqTipoDocumento}}>{{doc.siglaDocumento + "-" + doc.nomDocumento}}</option>
                     </optgroup>
                   </select>
                   <mat-error>Seleccione una opción</mat-error>
@@ -202,6 +202,9 @@
               </div>
             </blockquote>
           </div>
+
+
+
           <!--Segunda fase [disabled]="f.invalid"-->
           <div class="card-body" *ngIf="datosHistoriaLaboral">
             <blockquote class="blockquote col-md-12 col-sm-12 col-xs-12 form-row etiquetas">
@@ -211,7 +214,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formNombreEmpresaOcupacional">{{datosSingleton.labelNombreEmpresa}}</mat-label>
-                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.historias.historiaLaboral.nomEmpresa" name="nomEmpresa" id="formNombreEmpresaOcupacional" type="text"
+                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.historias[0].historiaLaboral.nomEmpresa" name="nomEmpresa" id="formNombreEmpresaOcupacional" type="text"
                     class="form-control campoGrande" placeholder="{{datosSingleton.labelNombreEmpresa}}" required />
                   <mat-error>Texto Incorrecto</mat-error>
                 </mat-form-field>
@@ -219,7 +222,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formActividaEconomicaOcupacional">{{datosSingleton.labelActividadEconomica}}</mat-label>
-                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.historias.historiaLaboral.actEconomica" name="actEconomica" id="formActividaEconomicaOcupacional"
+                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.historias[0].historiaLaboral.actEconomica" name="actEconomica" id="formActividaEconomicaOcupacional"
                     type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelActividadEconomica}} required />
                   <mat-error>Texto Incorrecto</mat-error>
                 </mat-form-field>
@@ -227,14 +230,14 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formFechaIngresoOcupacional">{{datosSingleton.labelFechaIngreso}}</mat-label>
-                  <input matInput [(ngModel)]="persona.historias.historiaLaboral.fechaIngreso" type="date" name="fechaIngreso">
+                  <input matInput [(ngModel)]="persona.historias[0].historiaLaboral.fechaIngreso" type="date" name="fechaIngreso">
                   <mat-error>Coloque la fecha mm/dd/yyyy</mat-error>
                 </mat-form-field>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formAntiguoOcupacional">{{datosSingleton.labelAntiguo}}</mat-label>
-                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.historias.historiaLaboral.antiguedad" name="antiguedad" id="formAntiguoOcupacional" type="text"
+                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.historias[0].historiaLaboral.antiguedad" name="antiguedad" id="formAntiguoOcupacional" type="text"
                     class="form-control campoGrande" placeholder="{{datosSingleton.labelAntiguo}}" required />
                   <mat-error>Texto Incorrecto</mat-error>
                 </mat-form-field>
@@ -242,7 +245,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formCargoOcupacional">{{datosSingleton.labelCargo}}</mat-label>
-                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.historias.historiaLaboral.cargo" name="cargo" id="formCargoOcupacional" type="text"
+                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.historias[0].historiaLaboral.cargo" name="cargo" id="formCargoOcupacional" type="text"
                     class="form-control campoGrande" placeholder={{datosSingleton.labelCargo}} required />
                   <mat-error>Texto Incorrecto</mat-error>
                 </mat-form-field>
@@ -250,7 +253,7 @@
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <mat-form-field>
                   <mat-label for="formDescripcionOcupacional">{{datosSingleton.labelDescripcionTareasFuncion}}</mat-label>
-                  <textarea matInput [(ngModel)]="persona.historias.historiaLaboral.desp_funciones_cargo" name="desp_funciones_cargo" id="formDescripcionOcupacional" rows="8" cols="80" required></textarea>
+                  <textarea matInput [(ngModel)]="persona.historias[0].historiaLaboral.desp_funciones_cargo" name="desp_funciones_cargo" id="formDescripcionOcupacional" rows="8" cols="80" required></textarea>
                 </mat-form-field>
               </div>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -267,29 +270,29 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[0].nomEmpresa" name="persona.historias.historiaLaboral.empresaLaboral[0].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[0].cargo" name="persona.historias.historiaLaboral.empresaLaboral[0].cargo"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[0].tiempo" name="persona.historias.historiaLaboral.empresaLaboral[0].tiempo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[0].nomEmpresa" name="persona.historias.historiaLaboral.empresaLaboral[0].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[0].cargo" name="persona.historias.historiaLaboral.empresaLaboral[0].cargo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[0].tiempo" name="persona.historias.historiaLaboral.empresaLaboral[0].tiempo"></textarea></td>
                     </tr>
                     <tr>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[1].nomEmpresa" name="persona.historias.historiaLaboral.empresaLaboral[1].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[1].cargo" name="persona.historias.historiaLaboral.empresaLaboral[1].cargo"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[1].tiempo" name="persona.historias.historiaLaboral.empresaLaboral[1].tiempo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[1].nomEmpresa" name="persona.historias.historiaLaboral.empresaLaboral[1].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[1].cargo" name="persona.historias.historiaLaboral.empresaLaboral[1].cargo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[1].tiempo" name="persona.historias.historiaLaboral.empresaLaboral[1].tiempo"></textarea></td>
                     </tr>
                     <tr>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[2].nomEmpresa" name="persona.historias.historiaLaboral.empresaLaboral[2].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[2].cargo" name="persona.historias.historiaLaboral.empresaLaboral[2].cargo"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[2].tiempo" name="persona.historias.historiaLaboral.empresaLaboral[2].tiempo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[2].nomEmpresa" name="persona.historias.historiaLaboral.empresaLaboral[2].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[2].cargo" name="persona.historias.historiaLaboral.empresaLaboral[2].cargo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[2].tiempo" name="persona.historias.historiaLaboral.empresaLaboral[2].tiempo"></textarea></td>
                     </tr>
                     <tr>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[3].nomEmpresa" name="persona.historias.historiaLaboral.empresaLaboral[3].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[3].cargo" name="persona.historias.historiaLaboral.empresaLaboral[3].cargo"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[3].tiempo" name="persona.historias.historiaLaboral.empresaLaboral[3].tiempo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[3].nomEmpresa" name="persona.historias.historiaLaboral.empresaLaboral[3].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[3].cargo" name="persona.historias.historiaLaboral.empresaLaboral[3].cargo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[3].tiempo" name="persona.historias.historiaLaboral.empresaLaboral[3].tiempo"></textarea></td>
                     </tr>
                     <tr>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[4].nomEmpresa" name="persona.historias.historiaLaboral.empresaLaboral[4].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[4].cargo" name="persona.historias.historiaLaboral.empresaLaboral[4].cargo"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.empresaLaboral[4].tiempo" name="persona.historias.historiaLaboral.empresaLaboral[4].tiempo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[4].nomEmpresa" name="persona.historias.historiaLaboral.empresaLaboral[4].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[4].cargo" name="persona.historias.historiaLaboral.empresaLaboral[4].cargo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.empresaLaboral[4].tiempo" name="persona.historias.historiaLaboral.empresaLaboral[4].tiempo"></textarea></td>
                     </tr>
                   </tbody>
                 </table>
@@ -304,7 +307,7 @@
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <mat-form-field>
                   <mat-label for="formaccidentesOcupacional">{{datosSingleton.labelSNaccidentesTrabajo}}</mat-label>
-                  <mat-select [(ngModel)]="persona.historias.historiaLaboral.accionesTrabajoSN" name="accidentes" required>
+                  <mat-select [(ngModel)]="persona.historias[0].historiaLaboral.accionesTrabajoSN" name="accidentes" required>
                     <mat-option value="S">{{datosSingleton.labelSI}}</mat-option>
                     <mat-option value="N">{{datosSingleton.labelNO}}</mat-option>
                   </mat-select>
@@ -325,44 +328,44 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td><input type="date" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[0].fechaAnt" name="persona.historias.historiaLaboral.antecedentesTrabajo[0].fechaAnt"/></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[0].nomEmpresa" name="persona.historias.historiaLaboral.antecedentesTrabajo[0].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[0].despCaus" name="persona.historias.historiaLaboral.antecedentesTrabajo[0].despCaus"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[0].tipoLesion" name="persona.historias.historiaLaboral.antecedentesTrabajo[0].tipoLesion"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[0].despIncapacidad" name="persona.historias.historiaLaboral.antecedentesTrabajo[0].despIncapacidad"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[0].despSecuelas" name="persona.historias.historiaLaboral.antecedentesTrabajo[0].despSecuelas"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[0].fechaAnt" name="persona.historias.historiaLaboral.antecedentesTrabajo[0].fechaAnt" /></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[0].nomEmpresa" name="persona.historias.historiaLaboral.antecedentesTrabajo[0].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[0].despCaus" name="persona.historias.historiaLaboral.antecedentesTrabajo[0].despCaus"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[0].tipoLesion" name="persona.historias.historiaLaboral.antecedentesTrabajo[0].tipoLesion"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[0].despIncapacidad" name="persona.historias.historiaLaboral.antecedentesTrabajo[0].despIncapacidad"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[0].despSecuelas" name="persona.historias.historiaLaboral.antecedentesTrabajo[0].despSecuelas"></textarea></td>
                     </tr>
                     <tr>
-                      <td><input type="date" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[1].fechaAnt" name="persona.historias.historiaLaboral.antecedentesTrabajo[1].fechaAnt"/></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[1].nomEmpresa" name="persona.historias.historiaLaboral.antecedentesTrabajo[1].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[1].despCaus" name="persona.historias.historiaLaboral.antecedentesTrabajo[1].despCaus"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[1].tipoLesion" name="persona.historias.historiaLaboral.antecedentesTrabajo[1].tipoLesion"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[1].despIncapacidad" name="persona.historias.historiaLaboral.antecedentesTrabajo[1].despIncapacidad"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[1].despSecuelas" name="persona.historias.historiaLaboral.antecedentesTrabajo[1].despSecuelas"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[1].fechaAnt" name="persona.historias.historiaLaboral.antecedentesTrabajo[1].fechaAnt" /></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[1].nomEmpresa" name="persona.historias.historiaLaboral.antecedentesTrabajo[1].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[1].despCaus" name="persona.historias.historiaLaboral.antecedentesTrabajo[1].despCaus"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[1].tipoLesion" name="persona.historias.historiaLaboral.antecedentesTrabajo[1].tipoLesion"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[1].despIncapacidad" name="persona.historias.historiaLaboral.antecedentesTrabajo[1].despIncapacidad"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[1].despSecuelas" name="persona.historias.historiaLaboral.antecedentesTrabajo[1].despSecuelas"></textarea></td>
                     </tr>
                     <tr>
-                      <td><input type="date" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[2].fechaAnt" name="persona.historias.historiaLaboral.antecedentesTrabajo[2].fechaAnt"/></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[2].nomEmpresa" name="persona.historias.historiaLaboral.antecedentesTrabajo[2].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[2].despCaus" name="persona.historias.historiaLaboral.antecedentesTrabajo[2].despCaus"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[2].tipoLesion" name="persona.historias.historiaLaboral.antecedentesTrabajo[2].tipoLesion"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[2].despIncapacidad" name="persona.historias.historiaLaboral.antecedentesTrabajo[2].despIncapacidad"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[2].despSecuelas" name="persona.historias.historiaLaboral.antecedentesTrabajo[2].despSecuelas"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[2].fechaAnt" name="persona.historias.historiaLaboral.antecedentesTrabajo[2].fechaAnt" /></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[2].nomEmpresa" name="persona.historias.historiaLaboral.antecedentesTrabajo[2].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[2].despCaus" name="persona.historias.historiaLaboral.antecedentesTrabajo[2].despCaus"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[2].tipoLesion" name="persona.historias.historiaLaboral.antecedentesTrabajo[2].tipoLesion"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[2].despIncapacidad" name="persona.historias.historiaLaboral.antecedentesTrabajo[2].despIncapacidad"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[2].despSecuelas" name="persona.historias.historiaLaboral.antecedentesTrabajo[2].despSecuelas"></textarea></td>
                     </tr>
                     <tr>
-                      <td><input type="date" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[3].fechaAnt" name="persona.historias.historiaLaboral.antecedentesTrabajo[3].fechaAnt"/></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[3].nomEmpresa" name="persona.historias.historiaLaboral.antecedentesTrabajo[3].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[3].despCaus" name="persona.historias.historiaLaboral.antecedentesTrabajo[3].despCaus"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[3].tipoLesion" name="persona.historias.historiaLaboral.antecedentesTrabajo[3].tipoLesion"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[3].despIncapacidad" name="persona.historias.historiaLaboral.antecedentesTrabajo[3].despIncapacidad"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[3].despSecuelas" name="persona.historias.historiaLaboral.antecedentesTrabajo[3].despSecuelas"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[3].fechaAnt" name="persona.historias.historiaLaboral.antecedentesTrabajo[3].fechaAnt" /></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[3].nomEmpresa" name="persona.historias.historiaLaboral.antecedentesTrabajo[3].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[3].despCaus" name="persona.historias.historiaLaboral.antecedentesTrabajo[3].despCaus"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[3].tipoLesion" name="persona.historias.historiaLaboral.antecedentesTrabajo[3].tipoLesion"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[3].despIncapacidad" name="persona.historias.historiaLaboral.antecedentesTrabajo[3].despIncapacidad"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[3].despSecuelas" name="persona.historias.historiaLaboral.antecedentesTrabajo[3].despSecuelas"></textarea></td>
                     </tr>
                     <tr>
-                      <td><input type="date" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[4].fechaAnt" name="persona.historias.historiaLaboral.antecedentesTrabajo[4].fechaAnt"/></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[4].nomEmpresa" name="persona.historias.historiaLaboral.antecedentesTrabajo[4].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[4].despCaus" name="persona.historias.historiaLaboral.antecedentesTrabajo[4].despCaus"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[4].tipoLesion" name="persona.historias.historiaLaboral.antecedentesTrabajo[4].tipoLesion"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[4].despIncapacidad" name="persona.historias.historiaLaboral.antecedentesTrabajo[4].despIncapacidad"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.antecedentesTrabajo[4].despSecuelas" name="persona.historias.historiaLaboral.antecedentesTrabajo[4].despSecuelas"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[4].fechaAnt" name="persona.historias.historiaLaboral.antecedentesTrabajo[4].fechaAnt" /></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[4].nomEmpresa" name="persona.historias.historiaLaboral.antecedentesTrabajo[4].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[4].despCaus" name="persona.historias.historiaLaboral.antecedentesTrabajo[4].despCaus"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[4].tipoLesion" name="persona.historias.historiaLaboral.antecedentesTrabajo[4].tipoLesion"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[4].despIncapacidad" name="persona.historias.historiaLaboral.antecedentesTrabajo[4].despIncapacidad"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.antecedentesTrabajo[4].despSecuelas" name="persona.historias.historiaLaboral.antecedentesTrabajo[4].despSecuelas"></textarea></td>
                     </tr>
                   </tbody>
                 </table>
@@ -371,7 +374,7 @@
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <mat-form-field>
                   <mat-label for="formEnfermedadLaboralOcupacional">{{datosSingleton.labelTieneEnfermedad}}</mat-label>
-                  <mat-select [(ngModel)]="persona.historias.historiaLaboral.accionesTrabajoSN" name="enfermedadLaboral" required>
+                  <mat-select [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadLaboralSN" name="enfermedadLaboral" required>
                     <mat-option value="S">{{datosSingleton.labelSI}}</mat-option>
                     <mat-option value="N">{{datosSingleton.labelNO}}</mat-option>
                   </mat-select>
@@ -391,39 +394,39 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td><input type="date" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[0].fechaAnt" name="persona.historias.historiaLaboral.enfermedadesLaboral[0].fechaAnt"/></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[0].nomEmpresa" name="persona.historias.historiaLaboral.enfermedadesLaboral[0].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[0].despDiagnostico" name="persona.historias.historiaLaboral.enfermedadesLaboral[0].despDiagnostico"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[0].despRecomendaciones" name="persona.historias.historiaLaboral.enfermedadesLaboral[0].despRecomendaciones"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[0].despIndemnizar" name="persona.historias.historiaLaboral.enfermedadesLaboral[0].despIndemnizar"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[0].fechaAnt" name="persona.historias.historiaLaboral.enfermedadesLaboral[0].fechaAnt" /></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[0].nomEmpresa" name="persona.historias.historiaLaboral.enfermedadesLaboral[0].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[0].despDiagnostico" name="persona.historias.historiaLaboral.enfermedadesLaboral[0].despDiagnostico"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[0].despRecomendaciones" name="persona.historias.historiaLaboral.enfermedadesLaboral[0].despRecomendaciones"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[0].despIndemnizar" name="persona.historias.historiaLaboral.enfermedadesLaboral[0].despIndemnizar"></textarea></td>
                     </tr>
                     <tr>
-                      <td><input type="date" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[1].fechaAnt" name="persona.historias.historiaLaboral.enfermedadesLaboral[1].fechaAnt"/></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[1].nomEmpresa" name="persona.historias.historiaLaboral.enfermedadesLaboral[1].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[1].despDiagnostico" name="persona.historias.historiaLaboral.enfermedadesLaboral[1].despDiagnostico"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[1].despRecomendaciones" name="persona.historias.historiaLaboral.enfermedadesLaboral[1].despRecomendaciones"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[1].despIndemnizar" name="persona.historias.historiaLaboral.enfermedadesLaboral[1].despIndemnizar"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[1].fechaAnt" name="persona.historias.historiaLaboral.enfermedadesLaboral[1].fechaAnt" /></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[1].nomEmpresa" name="persona.historias.historiaLaboral.enfermedadesLaboral[1].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[1].despDiagnostico" name="persona.historias.historiaLaboral.enfermedadesLaboral[1].despDiagnostico"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[1].despRecomendaciones" name="persona.historias.historiaLaboral.enfermedadesLaboral[1].despRecomendaciones"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[1].despIndemnizar" name="persona.historias.historiaLaboral.enfermedadesLaboral[1].despIndemnizar"></textarea></td>
                     </tr>
                     <tr>
-                      <td><input type="date" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[2].fechaAnt" name="persona.historias.historiaLaboral.enfermedadesLaboral[2].fechaAnt"/></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[2].nomEmpresa" name="persona.historias.historiaLaboral.enfermedadesLaboral[2].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[2].despDiagnostico" name="persona.historias.historiaLaboral.enfermedadesLaboral[2].despDiagnostico"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[2].despRecomendaciones" name="persona.historias.historiaLaboral.enfermedadesLaboral[2].despRecomendaciones"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[2].despIndemnizar" name="persona.historias.historiaLaboral.enfermedadesLaboral[2].despIndemnizar"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[2].fechaAnt" name="persona.historias.historiaLaboral.enfermedadesLaboral[2].fechaAnt" /></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[2].nomEmpresa" name="persona.historias.historiaLaboral.enfermedadesLaboral[2].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[2].despDiagnostico" name="persona.historias.historiaLaboral.enfermedadesLaboral[2].despDiagnostico"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[2].despRecomendaciones" name="persona.historias.historiaLaboral.enfermedadesLaboral[2].despRecomendaciones"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[2].despIndemnizar" name="persona.historias.historiaLaboral.enfermedadesLaboral[2].despIndemnizar"></textarea></td>
                     </tr>
                     <tr>
-                      <td><input type="date" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[3].fechaAnt" name="persona.historias.historiaLaboral.enfermedadesLaboral[3].fechaAnt"/></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[3].nomEmpresa" name="persona.historias.historiaLaboral.enfermedadesLaboral[3].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[3].despDiagnostico" name="persona.historias.historiaLaboral.enfermedadesLaboral[3].despDiagnostico"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[3].despRecomendaciones" name="persona.historias.historiaLaboral.enfermedadesLaboral[3].despRecomendaciones"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[3].despIndemnizar" name="persona.historias.historiaLaboral.enfermedadesLaboral[3].despIndemnizar"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[3].fechaAnt" name="persona.historias.historiaLaboral.enfermedadesLaboral[3].fechaAnt" /></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[3].nomEmpresa" name="persona.historias.historiaLaboral.enfermedadesLaboral[3].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[3].despDiagnostico" name="persona.historias.historiaLaboral.enfermedadesLaboral[3].despDiagnostico"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[3].despRecomendaciones" name="persona.historias.historiaLaboral.enfermedadesLaboral[3].despRecomendaciones"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[3].despIndemnizar" name="persona.historias.historiaLaboral.enfermedadesLaboral[3].despIndemnizar"></textarea></td>
                     </tr>
                     <tr>
-                      <td><input type="date" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[4].fechaAnt" name="persona.historias.historiaLaboral.enfermedadesLaboral[4].fechaAnt"/></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[4].nomEmpresa" name="persona.historias.historiaLaboral.enfermedadesLaboral[4].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[4].despDiagnostico" name="persona.historias.historiaLaboral.enfermedadesLaboral[4].despDiagnostico"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[4].despRecomendaciones" name="persona.historias.historiaLaboral.enfermedadesLaboral[4].despRecomendaciones"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.enfermedadesLaboral[4].despIndemnizar" name="persona.historias.historiaLaboral.enfermedadesLaboral[4].despIndemnizar"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[4].fechaAnt" name="persona.historias.historiaLaboral.enfermedadesLaboral[4].fechaAnt" /></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[4].nomEmpresa" name="persona.historias.historiaLaboral.enfermedadesLaboral[4].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[4].despDiagnostico" name="persona.historias.historiaLaboral.enfermedadesLaboral[4].despDiagnostico"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[4].despRecomendaciones" name="persona.historias.historiaLaboral.enfermedadesLaboral[4].despRecomendaciones"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadesLaboral[4].despIndemnizar" name="persona.historias.historiaLaboral.enfermedadesLaboral[4].despIndemnizar"></textarea></td>
                     </tr>
                   </tbody>
                 </table>
@@ -443,34 +446,34 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[0].nomEmpresa" name="persona.historias.historiaLaboral.factoresRiesgo[0].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[0].despFactores" name="persona.historias.historiaLaboral.factoresRiesgo[0].despFactores"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[0].tiempo" name="persona.historias.historiaLaboral.factoresRiesgo[0].tiempo"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[0].despMedidasControl" name="persona.historias.historiaLaboral.factoresRiesgo[0].despMedidasControl"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[0].nomEmpresa" name="persona.historias.historiaLaboral.factoresRiesgo[0].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[0].despFactores" name="persona.historias.historiaLaboral.factoresRiesgo[0].despFactores"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[0].tiempo" name="persona.historias.historiaLaboral.factoresRiesgo[0].tiempo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[0].despMedidasControl" name="persona.historias.historiaLaboral.factoresRiesgo[0].despMedidasControl"></textarea></td>
                     </tr>
                     <tr>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[1].nomEmpresa" name="persona.historias.historiaLaboral.factoresRiesgo[1].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[1].despFactores" name="persona.historias.historiaLaboral.factoresRiesgo[1].despFactores"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[1].tiempo" name="persona.historias.historiaLaboral.factoresRiesgo[1].tiempo"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[1].despMedidasControl" name="persona.historias.historiaLaboral.factoresRiesgo[1].despMedidasControl"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[1].nomEmpresa" name="persona.historias.historiaLaboral.factoresRiesgo[1].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[1].despFactores" name="persona.historias.historiaLaboral.factoresRiesgo[1].despFactores"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[1].tiempo" name="persona.historias.historiaLaboral.factoresRiesgo[1].tiempo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[1].despMedidasControl" name="persona.historias.historiaLaboral.factoresRiesgo[1].despMedidasControl"></textarea></td>
                     </tr>
                     <tr>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[2].nomEmpresa" name="persona.historias.historiaLaboral.factoresRiesgo[2].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[2].despFactores" name="persona.historias.historiaLaboral.factoresRiesgo[2].despFactores"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[2].tiempo" name="persona.historias.historiaLaboral.factoresRiesgo[2].tiempo"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[2].despMedidasControl" name="persona.historias.historiaLaboral.factoresRiesgo[2].despMedidasControl"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[2].nomEmpresa" name="persona.historias.historiaLaboral.factoresRiesgo[2].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[2].despFactores" name="persona.historias.historiaLaboral.factoresRiesgo[2].despFactores"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[2].tiempo" name="persona.historias.historiaLaboral.factoresRiesgo[2].tiempo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[2].despMedidasControl" name="persona.historias.historiaLaboral.factoresRiesgo[2].despMedidasControl"></textarea></td>
                     </tr>
                     <tr>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[3].nomEmpresa" name="persona.historias.historiaLaboral.factoresRiesgo[3].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[3].despFactores" name="persona.historias.historiaLaboral.factoresRiesgo[3].despFactores"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[3].tiempo" name="persona.historias.historiaLaboral.factoresRiesgo[3].tiempo"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[3].despMedidasControl" name="persona.historias.historiaLaboral.factoresRiesgo[3].despMedidasControl"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[3].nomEmpresa" name="persona.historias.historiaLaboral.factoresRiesgo[3].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[3].despFactores" name="persona.historias.historiaLaboral.factoresRiesgo[3].despFactores"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[3].tiempo" name="persona.historias.historiaLaboral.factoresRiesgo[3].tiempo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[3].despMedidasControl" name="persona.historias.historiaLaboral.factoresRiesgo[3].despMedidasControl"></textarea></td>
                     </tr>
                     <tr>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[4].nomEmpresa" name="persona.historias.historiaLaboral.factoresRiesgo[4].nomEmpresa"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[4].despFactores" name="persona.historias.historiaLaboral.factoresRiesgo[4].despFactores"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[4].tiempo" name="persona.historias.historiaLaboral.factoresRiesgo[4].tiempo"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias.historiaLaboral.factoresRiesgo[4].despMedidasControl" name="persona.historias.historiaLaboral.factoresRiesgo[4].despMedidasControl"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[4].nomEmpresa" name="persona.historias.historiaLaboral.factoresRiesgo[4].nomEmpresa"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[4].despFactores" name="persona.historias.historiaLaboral.factoresRiesgo[4].despFactores"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[4].tiempo" name="persona.historias.historiaLaboral.factoresRiesgo[4].tiempo"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].historiaLaboral.factoresRiesgo[4].despMedidasControl" name="persona.historias.historiaLaboral.factoresRiesgo[4].despMedidasControl"></textarea></td>
                     </tr>
                   </tbody>
                 </table>
@@ -484,6 +487,189 @@
           <!--Tercera fase-->
           <div class="card-body" *ngIf="datosTerceraFase">
             <blockquote class="blockquote col-md-12 col-sm-12 col-xs-12 form-row etiquetas">
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <h3>{{datosSingleton.menuMotivoConsulta}}</h3>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field>
+                  <mat-label for="formlabelAntecedentesOcupacional">{{datosSingleton.labelAntecedentes}}</mat-label>
+                  <textarea matInput [(ngModel)]="persona.historias[0].historiaLaboral.desp_funciones_cargo" name="labelAntecedentes" id="formlabelAntecedentesOcupacional" rows="8" cols="80" required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <h3>{{datosSingleton.labelAntecedentes}}</h3>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+              <h5>{{datosSingleton.labelAntecednetesPersonales}}</h5>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                    <mat-label for="formlabelPatologicosOcupacional">{{datosSingleton.labelPatologicos}}</mat-label>
+                </div>
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                  <mat-form-field>
+                    <mat-select [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadLaboralSN" name="labelTieneEnfermedad" required>
+                      <mat-option value="S">{{datosSingleton.labelSI}}</mat-option>
+                      <mat-option value="N">{{datosSingleton.labelNO}}</mat-option>
+                    </mat-select>
+                    <mat-error>Seleccione una opción</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-8 col-sm-8 col-xs-12">
+                  <mat-form-field>
+                    <mat-label for="formlabelCualPatologicosEsOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
+                    <textarea matInput [(ngModel)]="persona.historias[0].historiaLaboral.desp_funciones_cargo" name="patologicos" id="formlabelCualPatologicosEsOcupacional" rows="1" cols="80" required></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!--*******-->
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                    <mat-label for="formlabelQuirurgicosOcupacional">{{datosSingleton.labelQuirurgicos}}</mat-label>
+                </div>
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                  <mat-form-field>
+                    <mat-select [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadLaboralSN" name="labelQuirurgicos" required>
+                      <mat-option value="S">{{datosSingleton.labelSI}}</mat-option>
+                      <mat-option value="N">{{datosSingleton.labelNO}}</mat-option>
+                    </mat-select>
+                    <mat-error>Seleccione una opción</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-8 col-sm-8 col-xs-12">
+                  <mat-form-field>
+                    <mat-label for="formlabelCualEsQuirurgicosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
+                    <textarea matInput [(ngModel)]="persona.historias[0].historiaLaboral.desp_funciones_cargo" name="Quirurgicos" id="formlabelCualEsQuirurgicosOcupacional" rows="1" cols="80" required></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!--*******-->
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                    <mat-label for="formlabelFarmacologicosOcupacional">{{datosSingleton.labelFarmacologicos}}</mat-label>
+                </div>
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                  <mat-form-field>
+                    <mat-select [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadLaboralSN" name="labelTieneEnfermedad" required>
+                      <mat-option value="S">{{datosSingleton.labelSI}}</mat-option>
+                      <mat-option value="N">{{datosSingleton.labelNO}}</mat-option>
+                    </mat-select>
+                    <mat-error>Seleccione una opción</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-8 col-sm-8 col-xs-12">
+                  <mat-form-field>
+                    <mat-label for="formlabelCualEsFarmacologicosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
+                    <textarea matInput [(ngModel)]="persona.historias[0].historiaLaboral.desp_funciones_cargo" name="Enfermedad" id="formlabelCualEsFarmacologicosOcupacional" rows="1" cols="80" required></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!--*******-->
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                    <mat-label for="formlabelAlergicosOcupacional">{{datosSingleton.labelAlergicos}}</mat-label>
+                </div>
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                  <mat-form-field>
+                    <mat-select [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadLaboralSN" name="labelAlergicos" required>
+                      <mat-option value="S">{{datosSingleton.labelSI}}</mat-option>
+                      <mat-option value="N">{{datosSingleton.labelNO}}</mat-option>
+                    </mat-select>
+                    <mat-error>Seleccione una opción</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-8 col-sm-8 col-xs-12">
+                  <mat-form-field>
+                    <mat-label for="formlabelCualEsAlergicosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
+                    <textarea matInput [(ngModel)]="persona.historias[0].historiaLaboral.desp_funciones_cargo" name="alergicos" id="formlabelCualEsAlergicosOcupacional" rows="1" cols="80" required></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!--*******-->
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                    <mat-label for="formlabelTramauticosOcupacional">{{datosSingleton.labelTramauticos}}</mat-label>
+                </div>
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                  <mat-form-field>
+                    <mat-select [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadLaboralSN" name="labelTramauticos" required>
+                      <mat-option value="S">{{datosSingleton.labelSI}}</mat-option>
+                      <mat-option value="N">{{datosSingleton.labelNO}}</mat-option>
+                    </mat-select>
+                    <mat-error>Seleccione una opción</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-8 col-sm-8 col-xs-12">
+                  <mat-form-field>
+                    <mat-label for="formlabelCualEsTramauticosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
+                    <textarea matInput [(ngModel)]="persona.historias[0].historiaLaboral.desp_funciones_cargo" name="traumaticos" id="formlabelCualEsTramauticosOcupacional" rows="1" cols="80" required></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!--*******-->
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                    <mat-label for="formlabelToxicosOcupacional">{{datosSingleton.labelToxicos}}</mat-label>
+                </div>
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                  <mat-form-field>
+                    <mat-select [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadLaboralSN" name="labelToxicos" required>
+                      <mat-option value="S">{{datosSingleton.labelSI}}</mat-option>
+                      <mat-option value="N">{{datosSingleton.labelNO}}</mat-option>
+                    </mat-select>
+                    <mat-error>Seleccione una opción</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-8 col-sm-8 col-xs-12">
+                  <mat-form-field>
+                    <mat-label for="formlabelCualEsToxicosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
+                    <textarea matInput [(ngModel)]="persona.historias[0].historiaLaboral.desp_funciones_cargo" name="toxicos" id="formlabelCualEsToxicosOcupacional" rows="1" cols="80" required></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!--*******-->
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                    <mat-label for="formlabelHospitalariosOcupacional">{{datosSingleton.labelHospitalarios}}</mat-label>
+                </div>
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                  <mat-form-field>
+                    <mat-select [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadLaboralSN" name="labelHospitalarios" required>
+                      <mat-option value="S">{{datosSingleton.labelSI}}</mat-option>
+                      <mat-option value="N">{{datosSingleton.labelNO}}</mat-option>
+                    </mat-select>
+                    <mat-error>Seleccione una opción</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-8 col-sm-8 col-xs-12">
+                  <mat-form-field>
+                    <mat-label for="formlabelCualEsHospitalariosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
+                    <textarea matInput [(ngModel)]="persona.historias[0].historiaLaboral.desp_funciones_cargo" name="Hospitalarios" id="formlabelCualEsHospitalariosOcupacional" rows="1" cols="80" required></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!--*******-->
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                    <mat-label for="formlableInmunologicosOcupacional">{{datosSingleton.lableInmunologicos}}</mat-label>
+                </div>
+                <div class="form-group col-md-2 col-sm-2 col-xs-12">
+                  <mat-form-field>
+                    <mat-select [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadLaboralSN" name="lableInmunologicos" required>
+                      <mat-option value="S">{{datosSingleton.labelSI}}</mat-option>
+                      <mat-option value="N">{{datosSingleton.labelNO}}</mat-option>
+                    </mat-select>
+                    <mat-error>Seleccione una opción</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-8 col-sm-8 col-xs-12">
+                  <mat-form-field>
+                    <mat-label for="formlabelCualEsInmunologicosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
+                    <textarea matInput [(ngModel)]="persona.historias[0].historiaLaboral.desp_funciones_cargo" name="Inmunologicos" id="formlabelCualEsInmunologicosOcupacional" rows="1" cols="80" required></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+
             </blockquote>
           </div>
         </div>

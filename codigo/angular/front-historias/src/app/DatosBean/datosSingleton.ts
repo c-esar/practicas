@@ -46,10 +46,21 @@ export class DatosSingleton {
   tablaEnfermedadesIndemnizacion: string;
   labelSI: string;
   labelNO: string;
-  menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo:string;
+  menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo: string;
   tablaFactoresFactoresRiesgo: string;
   tablaFactoresTiempo: string;
   tablaFactoresMedidasControl: string;
   labelMotivacionDeConsulta: string;
   labelAntecedentes: string;
+  menuMotivoConsulta: string;
+  labelAntecednetesPersonales: string;
+  labelCualEs: string;
+  labelPatologicos: string;
+  labelQuirurgicos: string;
+  labelFarmacologicos: string;
+  labelAlergicos: string;
+  labelTramauticos: string;
+  labelToxicos: string;
+  labelHospitalarios: string;
+  lableInmunologicos: string;
 }

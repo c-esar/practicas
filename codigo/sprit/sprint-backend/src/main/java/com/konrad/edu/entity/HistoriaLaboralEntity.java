@@ -1,7 +1,6 @@
 package com.konrad.edu.entity;
 
 import java.io.Serializable;
-import java.sql.Clob;
 import java.util.Date;
 import java.util.List;
 
@@ -53,11 +52,11 @@ public class HistoriaLaboralEntity implements Serializable {
 
 	@Column(name = "desp_funciones_cargo", length = 4000)
 	@Lob
-	private Clob desp_funciones_cargo;
-	
+	private String desp_funciones_cargo;
+
 	@Column(name = "acciones_trabajo_SN", length = 2)
 	private String accionesTrabajoSN;
-	
+
 	@Column(name = "enfermedad_laboral_SN", length = 2)
 	private String enfermedadLaboralSN;
 
@@ -74,7 +73,7 @@ public class HistoriaLaboralEntity implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "hc_laboral_enfermedades", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_enfermedades_lab"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_historia_laboral", "seq_enfermedades_lab" }) })
-	private List<EnfermedadesLaboral> enfermedadesLaboral;
+	private List<EnfermedadesLaboralEntity> enfermedadesLaboral;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "hc_laboral_factoresRiesgo", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_factores"), uniqueConstraints = {
@@ -145,11 +144,11 @@ public class HistoriaLaboralEntity implements Serializable {
 		this.antecedentesTrabajo = antecedentesTrabajo;
 	}
 
-	public List<EnfermedadesLaboral> getEnfermedadesLaboral() {
+	public List<EnfermedadesLaboralEntity> getEnfermedadesLaboral() {
 		return enfermedadesLaboral;
 	}
 
-	public void setEnfermedadesLaboral(List<EnfermedadesLaboral> enfermedadesLaboral) {
+	public void setEnfermedadesLaboral(List<EnfermedadesLaboralEntity> enfermedadesLaboral) {
 		this.enfermedadesLaboral = enfermedadesLaboral;
 	}
 
@@ -161,11 +160,11 @@ public class HistoriaLaboralEntity implements Serializable {
 		this.factoresRiesgo = factoresRiesgo;
 	}
 
-	public Clob getDesp_funciones_cargo() {
+	public String getDesp_funciones_cargo() {
 		return desp_funciones_cargo;
 	}
 
-	public void setDesp_funciones_cargo(Clob desp_funciones_cargo) {
+	public void setDesp_funciones_cargo(String desp_funciones_cargo) {
 		this.desp_funciones_cargo = desp_funciones_cargo;
 	}
 
@@ -185,5 +184,4 @@ public class HistoriaLaboralEntity implements Serializable {
 		this.enfermedadLaboralSN = enfermedadLaboralSN;
 	}
 
-	
 }

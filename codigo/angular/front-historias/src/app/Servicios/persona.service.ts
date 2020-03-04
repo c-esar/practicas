@@ -6,15 +6,16 @@ import { Aseguradora } from '../DatosBean/aseguradora';
 //import { personas } from '../lista-personas/personas.json';
 import { of, Observable} from 'rxjs';
 import{ HttpClient, HttpHeaders  } from '@angular/common/http';
+import {ConstantesService} from './constantes.service';
 @Injectable({
   providedIn: 'root'
 })
 export class PersonaService {
 
-  private url: string = 'http://localhost:8080/';
+  private url: string = this.constante.url;
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(
-    private http: HttpClient
+    private http: HttpClient,private constante: ConstantesService
   ) { }
 
   getPersonas():Observable<Persona[]>{

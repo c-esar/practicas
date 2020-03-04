@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Permiso } from '../DatosBean/permiso';
+import {ConstantesService} from './constantes.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,12 +13,13 @@ export class LoginService implements CanActivate {
 
   private localStorageService:any;
   private currentSession: Login;
-  private url: string = 'http://localhost:8080/login/sesion';
+  private url: string = this.constante.url;
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   public isLogin: boolean;
   public login: Login;
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(private httpClient: HttpClient, private router: Router,
+  private constante: ConstantesService) {
     this.localStorageService = localStorage;
     this.currentSession = this.loadSessionData();
     this.login = new Login();
@@ -36,7 +38,7 @@ export class LoginService implements CanActivate {
   }
 
   getLoginSesion(login: Login): Observable<Login> {
-    return this.httpClient.get<Login>(`${this.url}/${login.nomUsuario}/${login.password}`, { headers: this.httpHeaders });
+    return this.httpClient.get<Login>(`${this.url+"login/sesion"}/${login.nomUsuario}/${login.password}`, { headers: this.httpHeaders });
   }
 
   obtenerPerfilSesion(): Login{
@@ -75,7 +77,6 @@ export class LoginService implements CanActivate {
   }
 
   public isAutorization(): boolean {
-    //console.log("valor autorizado " +this.getCurrentSession().nomUsuario )
     if (this.getCurrentSession() != null && this.getCurrentSession().nomUsuario != "" && this.getCurrentSession().nomUsuario != null) {
       return true;
     } else {

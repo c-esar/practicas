@@ -58,19 +58,32 @@ public class LabelConstantes implements Serializable {
 	private String tablaEnfermedadesCausa;
 	private String tablaEnfermedadesTipoLesion;
 	private String tablaEnfermedadesIncapacidad;
-	private String tablaEnfermedadesSecuelas  ;
-	private String labelTieneEnfermedad  ;
-	private String tablaEnfermedadesDiagnostico  ;
+	private String tablaEnfermedadesSecuelas;
+	private String labelTieneEnfermedad;
+	private String tablaEnfermedadesDiagnostico;
 	private String tablaEnfermedadesRecomendaciones;
 	private String tablaEnfermedadesIndemnizacion;
 	private String labelSI;
 	private String labelNO;
 	private String tablaFactoresFactoresRiesgo;
 	private String tablaFactoresTiempo;
-	private String tablaFactoresMedidasControl  ;
+	private String tablaFactoresMedidasControl;
 	private String labelMotivacionDeConsulta;
+
+	// PARTE 4
 	private String labelAntecedentes;
 	private String menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo;
+	private String menuMotivoConsulta;
+	private String labelAntecednetesPersonales;
+	private String labelCualEs;
+	private String labelPatologicos;
+	private String labelQuirurgicos;
+	private String labelFarmacologicos;
+	private String labelAlergicos;
+	private String labelTramauticos;
+	private String labelToxicos;
+	private String labelHospitalarios;
+	private String lableInmunologicos;
 
 	public LabelConstantes() {
 		this.labelPrimerNombre = IConstantes.LABEL_PRIMER_NOMBRE;
@@ -118,19 +131,30 @@ public class LabelConstantes implements Serializable {
 		this.tablaEnfermedadesCausa = IConstantes.TABLA_ENFERMEDADES_CAUSA;
 		this.tablaEnfermedadesTipoLesion = IConstantes.TABLA_ENFERMEDADES_TIPO_LESION;
 		this.tablaEnfermedadesIncapacidad = IConstantes.TABLA_ENFERMEDADES_INCAPACIDAD;
-		this.tablaEnfermedadesSecuelas  = IConstantes.TABLA_ENFERMEDADES_SECUELAS;
-		this.labelTieneEnfermedad = IConstantes.LABEL_TIENE_ENFERMEDAD ;
-		this.tablaEnfermedadesDiagnostico = IConstantes.TABLA_ENFERMEDADES_DIAGNOSTICO ;
+		this.tablaEnfermedadesSecuelas = IConstantes.TABLA_ENFERMEDADES_SECUELAS;
+		this.labelTieneEnfermedad = IConstantes.LABEL_TIENE_ENFERMEDAD;
+		this.tablaEnfermedadesDiagnostico = IConstantes.TABLA_ENFERMEDADES_DIAGNOSTICO;
 		this.tablaEnfermedadesRecomendaciones = IConstantes.TABLA_ENFERMEDADES_RECOMENDACIONES;
 		this.tablaEnfermedadesIndemnizacion = IConstantes.TABLA_ENFERMEDADES_INDEMNIZACION;
 		this.labelSI = IConstantes.LABEL_SI;
 		this.labelNO = IConstantes.LABEL_NO;
 		this.tablaFactoresFactoresRiesgo = IConstantes.TABLA_FACTORES_FACTORES_RIESGO;
 		this.tablaFactoresTiempo = IConstantes.TABLA_FACTORES_TIEMPO;
-		this.tablaFactoresMedidasControl = IConstantes.TABLA_FACTORES_MEDIDAS_CONTROL ;
+		this.tablaFactoresMedidasControl = IConstantes.TABLA_FACTORES_MEDIDAS_CONTROL;
 		this.labelMotivacionDeConsulta = IConstantes.LABEL_MOTIVACION_DE_CONSULTA;
 		this.labelAntecedentes = IConstantes.LABEL_ANTECEDENTES;
 		this.menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo = IConstantes.MENU_SUBMENU_OCUPACIONAL_HISTORIA_LABORAL_FACTORES_RIESGO;
+		this.menuMotivoConsulta = IConstantes.MENU_MOTIVO_CONSULTA;
+		this.labelAntecednetesPersonales = IConstantes.LABEL_ANTECEDENTES_PERSONALES;
+		this.labelCualEs = IConstantes.LABEL_CUAL_ES;
+		this.labelPatologicos = IConstantes.LABEL_PATOLOGICOS;
+		this.labelQuirurgicos = IConstantes.LABEL_QUIRURGICOS;
+		this.labelFarmacologicos = IConstantes.LABEL_FARMACOLOGICOS;
+		this.labelAlergicos = IConstantes.LABEL_ALERGICOS;
+		this.labelTramauticos = IConstantes.LABEL_TRAUMATICOS;
+		this.labelToxicos = IConstantes.LABEL_TOXICOS;
+		this.labelHospitalarios = IConstantes.LABEL_HOSPITALARIOS;
+		this.lableInmunologicos = IConstantes.LABEL_INMUNOLOGICOS;
 	}
 
 	public String getLabelPrimerNombre() {
@@ -446,7 +470,6 @@ public class LabelConstantes implements Serializable {
 		this.menusubmenuOcupacionalHistoriaLAntecedentesTrabajo = menusubmenuOcupacionalHistoriaLAntecedentesTrabajo;
 	}
 
-	
 	public String getLabelSNaccidentesTrabajo() {
 		return labelSNaccidentesTrabajo;
 	}
@@ -535,7 +558,6 @@ public class LabelConstantes implements Serializable {
 		this.tablaEnfermedadesIndemnizacion = tablaEnfermedadesIndemnizacion;
 	}
 
-	
 	public String getLabelSI() {
 		return labelSI;
 	}
@@ -552,7 +574,6 @@ public class LabelConstantes implements Serializable {
 		this.labelNO = labelNO;
 	}
 
-	
 	public String getTablaFactoresFactoresRiesgo() {
 		return tablaFactoresFactoresRiesgo;
 	}
@@ -593,6 +614,103 @@ public class LabelConstantes implements Serializable {
 		this.labelAntecedentes = labelAntecedentes;
 	}
 
+	public String getMenuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo() {
+		return menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo;
+	}
+
+	public void setMenuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo(
+			String menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo) {
+		this.menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo = menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo;
+	}
+
+	public String getMenuMotivoConsulta() {
+		return menuMotivoConsulta;
+	}
+
+	public void setMenuMotivoConsulta(String menuMotivoConsulta) {
+		this.menuMotivoConsulta = menuMotivoConsulta;
+	}
+
+	public String getLabelAntecednetesPersonales() {
+		return labelAntecednetesPersonales;
+	}
+
+	public void setLabelAntecednetesPersonales(String labelAntecednetesPersonales) {
+		this.labelAntecednetesPersonales = labelAntecednetesPersonales;
+	}
+
+	public String getLabelCualEs() {
+		return labelCualEs;
+	}
+
+	public void setLabelCualEs(String labelCualEs) {
+		this.labelCualEs = labelCualEs;
+	}
+
+	public String getLabelPatologicos() {
+		return labelPatologicos;
+	}
+
+	public void setLabelPatologicos(String labelPatologicos) {
+		this.labelPatologicos = labelPatologicos;
+	}
+
+	public String getLabelQuirurgicos() {
+		return labelQuirurgicos;
+	}
+
+	public void setLabelQuirurgicos(String labelQuirurgicos) {
+		this.labelQuirurgicos = labelQuirurgicos;
+	}
+
+	public String getLabelFarmacologicos() {
+		return labelFarmacologicos;
+	}
+
+	public void setLabelFarmacologicos(String labelFarmacologicos) {
+		this.labelFarmacologicos = labelFarmacologicos;
+	}
+
+	public String getLabelAlergicos() {
+		return labelAlergicos;
+	}
+
+	public void setLabelAlergicos(String labelAlergicos) {
+		this.labelAlergicos = labelAlergicos;
+	}
+
+	public String getLabelTramauticos() {
+		return labelTramauticos;
+	}
+
+	public void setLabelTramauticos(String labelTramauticos) {
+		this.labelTramauticos = labelTramauticos;
+	}
+
+	public String getLabelToxicos() {
+		return labelToxicos;
+	}
+
+	public void setLabelToxicos(String labelToxicos) {
+		this.labelToxicos = labelToxicos;
+	}
+
+	public String getLabelHospitalarios() {
+		return labelHospitalarios;
+	}
+
+	public void setLabelHospitalarios(String labelHospitalarios) {
+		this.labelHospitalarios = labelHospitalarios;
+	}
+
+	public String getLableInmunologicos() {
+		return lableInmunologicos;
+	}
+
+	public void setLableInmunologicos(String lableInmunologicos) {
+		this.lableInmunologicos = lableInmunologicos;
+	}
+
 	@Override
 	public String toString() {
 		return "LabelConstantes [labelPrimerNombre=" + labelPrimerNombre + ", labelSegundoNombre=" + labelSegundoNombre
@@ -626,7 +744,5 @@ public class LabelConstantes implements Serializable {
 				+ ", tablaEnfermedadesRecomendaciones=" + tablaEnfermedadesRecomendaciones
 				+ ", tablaEnfermedadesIndemnizacion=" + tablaEnfermedadesIndemnizacion + "]";
 	}
-
-
 
 }

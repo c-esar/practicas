@@ -1,7 +1,6 @@
 package com.konrad.edu.entity;
 
 import java.io.Serializable;
-import java.sql.Clob;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -34,7 +33,7 @@ public class AntecedentesTrabajoEntity implements Serializable {
 
 	@Column(name = "desp_causa", length = 4000)
 	@Lob
-	private Clob despCausa;
+	private String despCausa;
 
 	@Column(name = "tipo_lesion", length = 50)
 	private String tipoLesion;
@@ -44,11 +43,11 @@ public class AntecedentesTrabajoEntity implements Serializable {
 
 	@Column(name = "desp_incapacidad", length = 4000)
 	@Lob
-	private Clob despIncapacidad;
+	private String despIncapacidad;
 
 	@Column(name = "desp_secuelas", length = 4000)
 	@Lob
-	private Clob despSecuelas;
+	private String despSecuelas;
 
 	public Long getSeqAnt() {
 		return seqAnt;
@@ -74,8 +73,6 @@ public class AntecedentesTrabajoEntity implements Serializable {
 		this.nomEmpresa = nomEmpresa;
 	}
 
-
-
 	public String getTipoLesion() {
 		return tipoLesion;
 	}
@@ -92,30 +89,28 @@ public class AntecedentesTrabajoEntity implements Serializable {
 		this.parteAfectada = parteAfectada;
 	}
 
-	public Clob getDespCausa() {
+	public String getDespCausa() {
 		return despCausa;
 	}
 
-	public void setDespCausa(Clob despCausa) {
+	public void setDespCausa(String despCausa) {
 		this.despCausa = despCausa;
 	}
 
-	public Clob getDespIncapacidad() {
+	public String getDespIncapacidad() {
 		return despIncapacidad;
 	}
 
-	public void setDespIncapacidad(Clob despIncapacidad) {
+	public void setDespIncapacidad(String despIncapacidad) {
 		this.despIncapacidad = despIncapacidad;
 	}
 
-	public Clob getDespSecuelas() {
+	public String getDespSecuelas() {
 		return despSecuelas;
 	}
 
-	public void setDespSecuelas(Clob despSecuelas) {
+	public void setDespSecuelas(String despSecuelas) {
 		this.despSecuelas = despSecuelas;
 	}
-
-	
 
 }

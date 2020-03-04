@@ -34,7 +34,7 @@ export class Persona {
   parentescoEmergencia: string;
   aseguradora: Aseguradora;
   localidad: Localidad;
-  historias: Historias;
+  historias: Historias[];
   rolUsuario: string;
   constructor() {
     this.seqPersona = null;
@@ -68,6 +68,6 @@ export class Persona {
     this.aseguradora= new Aseguradora();
     this.localidad= new Localidad();
     this.rolUsuario= null;
-    this.historias = new Historias();
+    this.historias = new Array<Historias>();
   }
 }

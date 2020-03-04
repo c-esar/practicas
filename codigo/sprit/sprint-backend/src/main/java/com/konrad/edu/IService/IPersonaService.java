@@ -3,7 +3,6 @@ package com.konrad.edu.IService;
 import java.util.List;
 
 import com.konrad.edu.entity.PersonaEntity;
-import com.konrad.edu.entity.TipoDocumentoEntity;
 
 public interface IPersonaService {
 
@@ -14,7 +13,7 @@ public interface IPersonaService {
 	public PersonaEntity save(PersonaEntity persona);
 
 	public void delete(Long id);
-	
+
 	public PersonaEntity findByNumeroDocumento(String numero_documento);
 
 }
