@@ -63,4 +63,16 @@ export class DatosSingleton {
   labelToxicos: string;
   labelHospitalarios: string;
   lableInmunologicos: string;
+  lableFamiliares: string;
+  lableEstilosVida: string;
+  lableTabaquismo: string;
+  lableFrecuencia: string;
+  lableHabito: string;
+  lableExfumador: string;
+  lableConsumoAlcohol: string;
+  lableActividadFisica: string;
+  lableTipo: string;
+  lableActividadesExtra: string;
+  lableRevisionSistemas: string;
+
 }

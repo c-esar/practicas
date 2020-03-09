@@ -76,7 +76,7 @@ public class PersonaEntity implements Serializable {
 	private String celular;
 
 	@Column(name = "fecha_creacion")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date fechaCreacion;
 
 	// falta deinir firma
@@ -88,7 +88,6 @@ public class PersonaEntity implements Serializable {
 	private String estadoCivil;
 
 	@Column(name = "fecha_nacimiento")
-	@Temporal(TemporalType.DATE)
 	private Date fechaNacimiento;
 
 	@OneToOne

@@ -10,6 +10,7 @@ export class BodyAppComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

@@ -29,9 +29,9 @@
                     <li><a href="menuPrincipal/cambioPass">Cambio Contraseña</a></li>
                   </ul>
                 </li>
-                <li><a>Pacientes</a>
+                <li *ngIf="permiso.crearUsuario == 1 || permiso.crearAux == 1"><a>Pacientes</a>
                   <ul>
-                    <li><a href="menuPrincipal/listPersonas">Listado Pacientes</a></li>
+                    <li *ngIf="permiso.crearUsuario == 1"><a href="menuPrincipal/listPersonas">Listado Pacientes</a></li>
                     <li><a >Crear Formularios</a>
                       <ul>
                         <li><a href="menuPrincipal/form-ocupacional">Formulario Ocupacional</a></li>

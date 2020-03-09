@@ -84,17 +84,6 @@ public class LabelConstantes implements Serializable {
 	private String labelToxicos;
 	private String labelHospitalarios;
 	private String lableInmunologicos;
-	private String lableFamiliares;
-	private String lableEstilosVida;
-	private String lableTabaquismo ;
-	private String lableFrecuencia;
-	private String lableHabito;
-	private String lableExfumador;
-	private String lableConsumoAlcohol;
-	private String lableActividadFisica ;
-	private String lableTipo ;
-	private String lableActividadesExtra ;
-	private String lableRevisionSistemas ;
 
 	public LabelConstantes() {
 		this.labelPrimerNombre = IConstantes.LABEL_PRIMER_NOMBRE;
@@ -166,17 +155,6 @@ public class LabelConstantes implements Serializable {
 		this.labelToxicos = IConstantes.LABEL_TOXICOS;
 		this.labelHospitalarios = IConstantes.LABEL_HOSPITALARIOS;
 		this.lableInmunologicos = IConstantes.LABEL_INMUNOLOGICOS;
-		this.lableFamiliares = IConstantes.LABEL_FAMILIARES	;
-		this.lableEstilosVida = IConstantes.LABEL_ESTILOS_VIDA;
-		this.lableTabaquismo = IConstantes.LABEL_TABAQUISMO;
-		this.lableFrecuencia = IConstantes.LABEL_FRECUENCIA;
-		this.lableHabito = IConstantes.LABEL_HABITO;
-		this.lableExfumador = IConstantes.LABEL_EXFUMADOR;
-		this.lableConsumoAlcohol = IConstantes.LABEL_CONSUMO_ALCOHOL;
-		this.lableActividadFisica = IConstantes.LABEL_ACTIVIDAD_FISICA;
-		this.lableTipo = IConstantes.LABEL_TIPO;
-		this.lableActividadesExtra = IConstantes.LABEL_ACTIVIDADES_ESTRA;
-		this.lableRevisionSistemas = IConstantes.LABEL_REVISION_SISTEMAS;
 	}
 
 	public String getLabelPrimerNombre() {
@@ -731,95 +709,6 @@ public class LabelConstantes implements Serializable {
 
 	public void setLableInmunologicos(String lableInmunologicos) {
 		this.lableInmunologicos = lableInmunologicos;
-	}
-
-	
-	public String getLableFamiliares() {
-		return lableFamiliares;
-	}
-
-	public void setLableFamiliares(String lableFamiliares) {
-		this.lableFamiliares = lableFamiliares;
-	}
-
-	public String getLableEstilosVida() {
-		return lableEstilosVida;
-	}
-
-	public void setLableEstilosVida(String lableEstilosVida) {
-		this.lableEstilosVida = lableEstilosVida;
-	}
-
-	public String getLableTabaquismo() {
-		return lableTabaquismo;
-	}
-
-	public void setLableTabaquismo(String lableTabaquismo) {
-		this.lableTabaquismo = lableTabaquismo;
-	}
-
-	public String getLableFrecuencia() {
-		return lableFrecuencia;
-	}
-
-	public void setLableFrecuencia(String lableFrecuencia) {
-		this.lableFrecuencia = lableFrecuencia;
-	}
-
-	public String getLableHabito() {
-		return lableHabito;
-	}
-
-	public void setLableHabito(String lableHabito) {
-		this.lableHabito = lableHabito;
-	}
-
-	public String getLableExfumador() {
-		return lableExfumador;
-	}
-
-	public void setLableExfumador(String lableExfumador) {
-		this.lableExfumador = lableExfumador;
-	}
-
-	public String getLableConsumoAlcohol() {
-		return lableConsumoAlcohol;
-	}
-
-	public void setLableConsumoAlcohol(String lableConsumoAlcohol) {
-		this.lableConsumoAlcohol = lableConsumoAlcohol;
-	}
-
-	public String getLableActividadFisica() {
-		return lableActividadFisica;
-	}
-
-	public void setLableActividadFisica(String lableActividadFisica) {
-		this.lableActividadFisica = lableActividadFisica;
-	}
-
-	public String getLableTipo() {
-		return lableTipo;
-	}
-
-	public void setLableTipo(String lableTipo) {
-		this.lableTipo = lableTipo;
-	}
-
-	public String getLableActividadesExtra() {
-		return lableActividadesExtra;
-	}
-
-	public void setLableActividadesExtra(String lableActividadesExtra) {
-		this.lableActividadesExtra = lableActividadesExtra;
-	}
-
-	public String getLableRevisionSistemas() {
-		return lableRevisionSistemas;
-	}
-
-	public void setLableRevisionSistemas(String lableRevisionSistemas) {
-		this.lableRevisionSistemas = lableRevisionSistemas;
 	}
 
 	@Override

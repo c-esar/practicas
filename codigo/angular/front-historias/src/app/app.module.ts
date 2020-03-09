@@ -28,6 +28,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoginService } from './Servicios/login.service';
 import { PersonaService } from './Servicios/persona.service';
 import { LabelService } from './Servicios/label.service';
+import { TablesComponent } from './tables/tables.component';
 //rutas
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, //ruta principal de la aplicacion
@@ -54,7 +55,8 @@ const routes: Routes = [
     CreacionUsuarioAppComponent,
     FormCambioPassComponent,
     FormGymComponent,
-    ListUsuariosAppComponent
+    ListUsuariosAppComponent,
+    TablesComponent
   ],
   imports: [
     BrowserModule,

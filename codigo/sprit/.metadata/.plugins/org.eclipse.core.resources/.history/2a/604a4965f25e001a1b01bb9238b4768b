@@ -88,16 +88,5 @@ public interface IConstantes {
 	public static final String LABEL_TOXICOS = "F. TÓXICOS";
 	public static final String LABEL_HOSPITALARIOS = "G. HOSPITALARIOS";
 	public static final String LABEL_INMUNOLOGICOS = "H. INMUNOLÓGICOS";
-	public static final String LABEL_FAMILIARES = "5.2 FAMILIARES";
-	public static final String LABEL_ESTILOS_VIDA ="5.3 ESTILOS DE VIDA";
-	public static final String LABEL_TABAQUISMO ="A. TABAQUISMO";
-	public static final String LABEL_FRECUENCIA="FRECUENCIA";
-	public static final String LABEL_HABITO ="AÑOS DE HÁBITOS";
-	public static final String LABEL_EXFUMADOR="EXFUMADOR";
-	public static final String LABEL_CONSUMO_ALCOHOL ="B. CONSUMO DE ALCOHOL";
-	public static final String LABEL_ACTIVIDAD_FISICA ="C. REALIZACIÓN DE ACTIVIDAD FÍSICA";
-	public static final String LABEL_TIPO ="TIPO";
-	public static final String LABEL_ACTIVIDADES_ESTRA ="D. ACTIVIDADES EXTRALABORALES";
-	public static final String LABEL_REVISION_SISTEMAS ="REVISIÓN POR SISTEMAS";
 
 }

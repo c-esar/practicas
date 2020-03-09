@@ -25,10 +25,10 @@ export class Persona {
   lugarDeResidencia: Ciudad;
   escolaridad: string;
   nomCargoDep: string;
-  AFP: string;
-  ARL: string;
+  afp: string;
+  arl: string;
   grupoSanguineo: string;
-  RH: string;
+  rh: string;
   telEmergencia: string;
   nomEmergencia: string;
   parentescoEmergencia: string;
@@ -58,10 +58,10 @@ export class Persona {
     this.lugarDeResidencia= new Ciudad();
     this.escolaridad= null;
     this.nomCargoDep= null;
-    this. AFP= null;
-    this.ARL= null;
+    this.afp= null;
+    this.arl= null;
     this.grupoSanguineo= null;
-    this.RH= null;
+    this.rh= null;
     this.telEmergencia= null;
     this.nomEmergencia= null;
     this.parentescoEmergencia= null;
