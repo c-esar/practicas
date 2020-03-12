@@ -1,0 +1,6 @@
+seq_gravedad;nom_gravedad
+1;Con lesionado hospitalizado
+2;Con lesionado no valorado
+3;Con lesionado valorado
+4;Con victima mortal
+5;Simple
