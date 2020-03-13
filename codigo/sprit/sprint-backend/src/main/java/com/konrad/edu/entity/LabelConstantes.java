@@ -70,7 +70,7 @@ public class LabelConstantes implements Serializable {
 	private String tablaFactoresMedidasControl;
 	private String labelMotivacionDeConsulta;
 
-	// PARTE 4
+	// PARTE 3
 	private String labelAntecedentes;
 	private String menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo;
 	private String menuMotivoConsulta;
@@ -86,15 +86,39 @@ public class LabelConstantes implements Serializable {
 	private String lableInmunologicos;
 	private String lableFamiliares;
 	private String lableEstilosVida;
-	private String lableTabaquismo ;
+	private String lableTabaquismo;
 	private String lableFrecuencia;
 	private String lableHabito;
 	private String lableExfumador;
 	private String lableConsumoAlcohol;
-	private String lableActividadFisica ;
-	private String lableTipo ;
-	private String lableActividadesExtra ;
-	private String lableRevisionSistemas ;
+	private String lableActividadFisica;
+	private String lableTipo;
+	private String lableActividadesExtra;
+	private String lableRevisionSistemas;
+
+	// parte 4
+	private String menuExamenFisico;
+	private String labelTesionArterial;
+	private String labelFrecuenciaCardiaca;
+	private String labelSat02;
+	private String labelFrecuenciaRespiratoria;
+	private String labelPeso;
+	private String labelTalla;
+	private String labelImc;
+	private String labelLateralidad;
+	private String labelCabezaCuello;
+	private String labelTorax;
+	private String labelAbdomen;
+	private String labelGenitourinario;
+	private String labelColumna;
+	private String labelMiembrosSuperioresInferiores;
+	private String labelOsteomuscular;
+	private String labelNeurologico;
+	private String labelPielFaneras;
+	private String menuParaclinicos;
+	private String labelExamen;
+	private String labelFecha;
+	private String labelResultado;
 
 	public LabelConstantes() {
 		this.labelPrimerNombre = IConstantes.LABEL_PRIMER_NOMBRE;
@@ -166,7 +190,7 @@ public class LabelConstantes implements Serializable {
 		this.labelToxicos = IConstantes.LABEL_TOXICOS;
 		this.labelHospitalarios = IConstantes.LABEL_HOSPITALARIOS;
 		this.lableInmunologicos = IConstantes.LABEL_INMUNOLOGICOS;
-		this.lableFamiliares = IConstantes.LABEL_FAMILIARES	;
+		this.lableFamiliares = IConstantes.LABEL_FAMILIARES;
 		this.lableEstilosVida = IConstantes.LABEL_ESTILOS_VIDA;
 		this.lableTabaquismo = IConstantes.LABEL_TABAQUISMO;
 		this.lableFrecuencia = IConstantes.LABEL_FRECUENCIA;
@@ -177,6 +201,28 @@ public class LabelConstantes implements Serializable {
 		this.lableTipo = IConstantes.LABEL_TIPO;
 		this.lableActividadesExtra = IConstantes.LABEL_ACTIVIDADES_ESTRA;
 		this.lableRevisionSistemas = IConstantes.LABEL_REVISION_SISTEMAS;
+		this.menuExamenFisico = IConstantes.MENU_EXAMEN_FISICO;
+		this.labelTesionArterial = IConstantes.LABEL_TENSION_ARTERIAL;
+		this.labelFrecuenciaCardiaca = IConstantes.LABEL_FRECUENCIA_CARDIACA;
+		this.labelSat02 = IConstantes.LABEL_SAT02;
+		this.labelFrecuenciaRespiratoria = IConstantes.LABEL_FRECUENCIA_RESPIRATORIA;
+		this.labelPeso = IConstantes.LABEL_PESO;
+		this.labelTalla = IConstantes.LABEL_TALLA;
+		this.labelImc = IConstantes.LABEL_IMC;
+		this.labelLateralidad = IConstantes.LABEL_LATERALIDAD;
+		this.labelCabezaCuello = IConstantes.LABEL_CABEZA_CUELLO;
+		this.labelTorax = IConstantes.LABEL_TORAX;
+		this.labelAbdomen = IConstantes.LABEL_ABDOMEN;
+		this.labelGenitourinario = IConstantes.LABEL_GENITOURINARIO;
+		this.labelColumna = IConstantes.LABEL_COLUMNA;
+		this.labelMiembrosSuperioresInferiores = IConstantes.LABEL_MIEMBROS_SUPERIORES_INFERIORES;
+		this.labelOsteomuscular = IConstantes.LABEL_OSTEOMUSCULAR;
+		this.labelNeurologico = IConstantes.LABEL_NEUROLOGICO;
+		this.labelPielFaneras = IConstantes.LABEL_PIEL_FANERAS;
+		this.menuParaclinicos = IConstantes.MENU_PARACLINICOS;
+		this.labelExamen = IConstantes.LABEL_EXAMEN;
+		this.labelFecha = IConstantes.LABEL_FECHA;
+		this.labelResultado = IConstantes.LABEL_RESULTADO;
 	}
 
 	public String getLabelPrimerNombre() {
@@ -733,7 +779,6 @@ public class LabelConstantes implements Serializable {
 		this.lableInmunologicos = lableInmunologicos;
 	}
 
-	
 	public String getLableFamiliares() {
 		return lableFamiliares;
 	}
@@ -820,6 +865,183 @@ public class LabelConstantes implements Serializable {
 
 	public void setLableRevisionSistemas(String lableRevisionSistemas) {
 		this.lableRevisionSistemas = lableRevisionSistemas;
+	}
+
+	
+	public String getMenuExamenFisico() {
+		return menuExamenFisico;
+	}
+
+	public void setMenuExamenFisico(String menuExamenFisico) {
+		this.menuExamenFisico = menuExamenFisico;
+	}
+
+	public String getLabelTesionArterial() {
+		return labelTesionArterial;
+	}
+
+	public void setLabelTesionArterial(String labelTesionArterial) {
+		this.labelTesionArterial = labelTesionArterial;
+	}
+
+	public String getLabelFrecuenciaCardiaca() {
+		return labelFrecuenciaCardiaca;
+	}
+
+	public void setLabelFrecuenciaCardiaca(String labelFrecuenciaCardiaca) {
+		this.labelFrecuenciaCardiaca = labelFrecuenciaCardiaca;
+	}
+
+	public String getLabelSat02() {
+		return labelSat02;
+	}
+
+	public void setLabelSat02(String labelSat02) {
+		this.labelSat02 = labelSat02;
+	}
+
+	public String getLabelFrecuenciaRespiratoria() {
+		return labelFrecuenciaRespiratoria;
+	}
+
+	public void setLabelFrecuenciaRespiratoria(String labelFrecuenciaRespiratoria) {
+		this.labelFrecuenciaRespiratoria = labelFrecuenciaRespiratoria;
+	}
+
+	public String getLabelPeso() {
+		return labelPeso;
+	}
+
+	public void setLabelPeso(String labelPeso) {
+		this.labelPeso = labelPeso;
+	}
+
+	public String getLabelTalla() {
+		return labelTalla;
+	}
+
+	public void setLabelTalla(String labelTalla) {
+		this.labelTalla = labelTalla;
+	}
+
+	public String getLabelImc() {
+		return labelImc;
+	}
+
+	public void setLabelImc(String labelImc) {
+		this.labelImc = labelImc;
+	}
+
+	public String getLabelLateralidad() {
+		return labelLateralidad;
+	}
+
+	public void setLabelLateralidad(String labelLateralidad) {
+		this.labelLateralidad = labelLateralidad;
+	}
+
+	public String getLabelCabezaCuello() {
+		return labelCabezaCuello;
+	}
+
+	public void setLabelCabezaCuello(String labelCabezaCuello) {
+		this.labelCabezaCuello = labelCabezaCuello;
+	}
+
+	public String getLabelTorax() {
+		return labelTorax;
+	}
+
+	public void setLabelTorax(String labelTorax) {
+		this.labelTorax = labelTorax;
+	}
+
+	public String getLabelAbdomen() {
+		return labelAbdomen;
+	}
+
+	public void setLabelAbdomen(String labelAbdomen) {
+		this.labelAbdomen = labelAbdomen;
+	}
+
+	public String getLabelGenitourinario() {
+		return labelGenitourinario;
+	}
+
+	public void setLabelGenitourinario(String labelGenitourinario) {
+		this.labelGenitourinario = labelGenitourinario;
+	}
+
+	public String getLabelColumna() {
+		return labelColumna;
+	}
+
+	public void setLabelColumna(String labelColumna) {
+		this.labelColumna = labelColumna;
+	}
+
+	public String getLabelMiembrosSuperioresInferiores() {
+		return labelMiembrosSuperioresInferiores;
+	}
+
+	public void setLabelMiembrosSuperioresInferiores(String labelMiembrosSuperioresInferiores) {
+		this.labelMiembrosSuperioresInferiores = labelMiembrosSuperioresInferiores;
+	}
+
+	public String getLabelOsteomuscular() {
+		return labelOsteomuscular;
+	}
+
+	public void setLabelOsteomuscular(String labelOsteomuscular) {
+		this.labelOsteomuscular = labelOsteomuscular;
+	}
+
+	public String getLabelNeurologico() {
+		return labelNeurologico;
+	}
+
+	public void setLabelNeurologico(String labelNeurologico) {
+		this.labelNeurologico = labelNeurologico;
+	}
+
+	public String getLabelPielFaneras() {
+		return labelPielFaneras;
+	}
+
+	public void setLabelPielFaneras(String labelPielFaneras) {
+		this.labelPielFaneras = labelPielFaneras;
+	}
+
+	public String getMenuParaclinicos() {
+		return menuParaclinicos;
+	}
+
+	public void setMenuParaclinicos(String menuParaclinicos) {
+		this.menuParaclinicos = menuParaclinicos;
+	}
+
+	public String getLabelExamen() {
+		return labelExamen;
+	}
+
+	public void setLabelExamen(String labelExamen) {
+		this.labelExamen = labelExamen;
+	}
+
+	public String getLabelFecha() {
+		return labelFecha;
+	}
+
+	public void setLabelFecha(String labelFecha) {
+		this.labelFecha = labelFecha;
+	}
+
+	public String getLabelResultado() {
+		return labelResultado;
+	}
+
+	public void setLabelResultado(String labelResultado) {
+		this.labelResultado = labelResultado;
 	}
 
 	@Override

@@ -1,8 +1,0 @@
-package com.konrad.edu.IService;
-
-import com.konrad.edu.entity.AntecedentesTrabajoEntity;
-
-public interface IAntecedentesService {
-
-	public AntecedentesTrabajoEntity save(AntecedentesTrabajoEntity antecedentesTrabajoEntity);
-}

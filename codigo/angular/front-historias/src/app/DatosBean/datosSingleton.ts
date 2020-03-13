@@ -74,5 +74,26 @@ export class DatosSingleton {
   lableTipo: string;
   lableActividadesExtra: string;
   lableRevisionSistemas: string;
-
+  menuExamenFisico: string;
+  labelTesionArterial: string;
+  labelFrecuenciaCardiaca: string;
+  labelSat02: string;
+  labelFrecuenciaRespiratoria: string;
+  labelPeso: string;
+  labelTalla: string;
+  labelImc: string;
+  labelLateralidad: string;
+  labelCabezaCuello: string;
+  labelTorax: string;
+  labelAbdomen: string;
+  labelGenitourinario: string;
+  labelColumna: string;
+  labelMiembrosSuperioresInferiores: string;
+  labelOsteomuscular: string;
+  labelNeurologico: string;
+  labelPielFaneras: string;
+  menuParaclinicos: string;
+  labelExamen: string;
+  labelFecha: string;
+  labelResultado: string;
 }

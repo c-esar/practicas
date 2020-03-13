@@ -74,7 +74,7 @@ public interface IConstantes {
 	public static final String TABLA_FACTORES_TIEMPO = "TIEMPO";
 	public static final String TABLA_FACTORES_MEDIDAS_CONTROL = "MEDIDAS DE CONTROL";
 
-	// 4. punto
+	// tercera fase ocupacional
 	public static final String LABEL_MOTIVACION_DE_CONSULTA = "4. MOTIVO DE CONSULTA Y ENFERMEDAD ACTUAL";
 	public static final String LABEL_ANTECEDENTES = "5. ANTECEDENTES";
 	public static final String MENU_MOTIVO_CONSULTA = "MOTIVO CONSULTA";
@@ -89,15 +89,39 @@ public interface IConstantes {
 	public static final String LABEL_HOSPITALARIOS = "G. HOSPITALARIOS";
 	public static final String LABEL_INMUNOLOGICOS = "H. INMUNOLÓGICOS";
 	public static final String LABEL_FAMILIARES = "5.2 FAMILIARES";
-	public static final String LABEL_ESTILOS_VIDA ="5.3 ESTILOS DE VIDA";
-	public static final String LABEL_TABAQUISMO ="A. TABAQUISMO";
-	public static final String LABEL_FRECUENCIA="FRECUENCIA";
-	public static final String LABEL_HABITO ="AÑOS DE HÁBITOS";
-	public static final String LABEL_EXFUMADOR="EXFUMADOR";
-	public static final String LABEL_CONSUMO_ALCOHOL ="B. CONSUMO DE ALCOHOL";
-	public static final String LABEL_ACTIVIDAD_FISICA ="C. REALIZACIÓN DE ACTIVIDAD FÍSICA";
-	public static final String LABEL_TIPO ="TIPO";
-	public static final String LABEL_ACTIVIDADES_ESTRA ="D. ACTIVIDADES EXTRALABORALES";
-	public static final String LABEL_REVISION_SISTEMAS ="REVISIÓN POR SISTEMAS";
+	public static final String LABEL_ESTILOS_VIDA = "5.3 ESTILOS DE VIDA";
+	public static final String LABEL_TABAQUISMO = "A. TABAQUISMO";
+	public static final String LABEL_FRECUENCIA = "FRECUENCIA";
+	public static final String LABEL_HABITO = "AÑOS DE HÁBITOS";
+	public static final String LABEL_EXFUMADOR = "EXFUMADOR";
+	public static final String LABEL_CONSUMO_ALCOHOL = "B. CONSUMO DE ALCOHOL";
+	public static final String LABEL_ACTIVIDAD_FISICA = "C. REALIZACIÓN DE ACTIVIDAD FÍSICA";
+	public static final String LABEL_TIPO = "TIPO";
+	public static final String LABEL_ACTIVIDADES_ESTRA = "D. ACTIVIDADES EXTRALABORALES";
+	public static final String LABEL_REVISION_SISTEMAS = "REVISIÓN POR SISTEMAS";
+
+	// cuarta fase ocupacional
+	public static final String MENU_EXAMEN_FISICO = "EXAMEN FÍSICO";
+	public static final String LABEL_TENSION_ARTERIAL = "TENSIÓN ARTERIAL (mm/hg)";
+	public static final String LABEL_FRECUENCIA_CARDIACA = "FRECUENCIA CARDIACA ()";
+	public static final String LABEL_SAT02 = "SAT02 (%)";
+	public static final String LABEL_FRECUENCIA_RESPIRATORIA = " FRECUENCIA RESPIRATORIA (rpm)";
+	public static final String LABEL_PESO = "PESO (kg)";
+	public static final String LABEL_TALLA = "TALLA (metros)";
+	public static final String LABEL_IMC = "IMC (kg/m^2)";
+	public static final String LABEL_LATERALIDAD = "LATERALIDAD";
+	public static final String LABEL_CABEZA_CUELLO = "CABEZA Y CUELLO";
+	public static final String LABEL_TORAX = "TÓRAX";
+	public static final String LABEL_ABDOMEN = "ABDOMEN";
+	public static final String LABEL_GENITOURINARIO = "GENITOURINARIO";
+	public static final String LABEL_COLUMNA = "COLUMNA";
+	public static final String LABEL_MIEMBROS_SUPERIORES_INFERIORES = "MIEMBROS SUPERIORES E INFERIORES";
+	public static final String LABEL_OSTEOMUSCULAR = "OSTEOMUSCULAR";
+	public static final String LABEL_NEUROLOGICO = "NEUROLÓGICO";
+	public static final String LABEL_PIEL_FANERAS = "PIEL Y FANERAS";
+	public static final String MENU_PARACLINICOS = "PARACLÍNICOS";
+	public static final String LABEL_EXAMEN = "EXAMEN";
+	public static final String LABEL_FECHA = "FECHA";
+	public static final String LABEL_RESULTADO = "RESULTADO";
 
 }

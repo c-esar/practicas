@@ -6,7 +6,7 @@ import {Permiso} from './permiso';
   password: string;
   nomPerfil: string;
   estado: string;
-  persona: Persona;
+  persona: Persona[];
   permisos: Permiso;
 
   constructor(){
@@ -16,7 +16,7 @@ import {Permiso} from './permiso';
     this.nomPerfil= null;
     this.estado= null;
     this.permisos = new Permiso();
-    this.persona = new Persona();
+    this.persona = new Array<Persona>();
   }
 
 }

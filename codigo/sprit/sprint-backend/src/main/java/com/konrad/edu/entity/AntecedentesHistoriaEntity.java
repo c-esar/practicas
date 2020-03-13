@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "hc_antecedentes_historia")
@@ -23,8 +27,10 @@ public class AntecedentesHistoriaEntity implements Serializable {
 	@Column(name = "seq_ant_historias")
 	private Long seqAntHistorias;
 
-	@Column(name = "nom_ant", length = 50)
-	private String nomAntecedente;
+	@ManyToOne
+	@JoinColumn(name = "seq_tipo_antecedente", updatable = false)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private TipoAntecedenteEntity tipoAntecedenteEntity;
 
 	@Column(name = "estado_antecedente", length = 3)
 	private String estadoAntecedente;
@@ -50,14 +56,6 @@ public class AntecedentesHistoriaEntity implements Serializable {
 
 	public void setSeqAntHistorias(Long seqAntHistorias) {
 		this.seqAntHistorias = seqAntHistorias;
-	}
-
-	public String getNomAntecedente() {
-		return nomAntecedente;
-	}
-
-	public void setNomAntecedente(String nomAntecedente) {
-		this.nomAntecedente = nomAntecedente;
 	}
 
 	public String getEstadoAntecedente() {
@@ -108,4 +106,13 @@ public class AntecedentesHistoriaEntity implements Serializable {
 		this.anosHabito = anosHabito;
 	}
 
+	public TipoAntecedenteEntity getTipoAntecedenteEntity() {
+		return tipoAntecedenteEntity;
+	}
+
+	public void setTipoAntecedenteEntity(TipoAntecedenteEntity tipoAntecedenteEntity) {
+		this.tipoAntecedenteEntity = tipoAntecedenteEntity;
+	}
+
+	
 }

@@ -26,17 +26,14 @@ export class PersonaService {
 
 
   getTipoDocumento():Observable<TipoDocumento[]>{
-    console.log(this.http.get<TipoDocumento[]>(this.url+"tipoDocumento/listTipoDocumento"));
     return this.http.get<TipoDocumento[]>(this.url+"tipoDocumento/listTipoDocumento");
   }
 
   getAseguradora():Observable<Aseguradora[]>{
-    console.log(this.http.get<Aseguradora[]>(this.url+"aseguradora/listAseguradora"));
     return this.http.get<Aseguradora[]>(this.url+"aseguradora/listAseguradora");
   }
 
   getCiudad():Observable<Ciudad[]>{
-    console.log(this.http.get<Ciudad[]>(this.url+"ciudad/listCiudad"));
     return this.http.get<Ciudad[]>(this.url+"ciudad/listCiudad");
   }
 

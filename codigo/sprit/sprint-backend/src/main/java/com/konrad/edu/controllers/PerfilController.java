@@ -25,10 +25,9 @@ public class PerfilController {
 	public ResponseEntity<PerfilEntity> RecibirSesion(@PathVariable("nomUsuario") String nom_usuario,
 			@PathVariable("pass") String password) {
 		System.out.println("entre" + nom_usuario + password);
-		PerfilEntity p = new PerfilEntity();
-		p = perfilService.getSession(nom_usuario, password);
+		PerfilEntity p = perfilService.getSession(nom_usuario, password);
 		System.out.println(p.toString());
-		if (p != null && p.getEstado() != null && p.getEstado().equalsIgnoreCase("activo")) {
+		if (p != null && p.getEstado() != null && p.getEstado().equalsIgnoreCase("a")) {
 			System.out.println("entre activo");
 			p.setEstado(IConstantes.ESTADO_SESION_ACTIVO);
 			return ResponseEntity.ok().body(p);

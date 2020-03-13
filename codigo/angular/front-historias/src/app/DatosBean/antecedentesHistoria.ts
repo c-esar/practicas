@@ -1,6 +1,7 @@
+import { TipoAntecedente } from './tipoAntecedente';
 export class AntecedentesHistoria {
   seqAntHistorias: number;
-  nomAntecedente: string;
+  tipoAntecedenteEntity: TipoAntecedente;
   estadoAntecedente: string;
   despAntecedente: string;
   frecuencia: string;
@@ -10,7 +11,7 @@ export class AntecedentesHistoria {
 
   constructor(){
     this.seqAntHistorias = null;
-    this.nomAntecedente= null;
+    this.tipoAntecedenteEntity= new TipoAntecedente();
     this.estadoAntecedente= null;
     this.frecuencia= null;
     this.despAntecedente= null;

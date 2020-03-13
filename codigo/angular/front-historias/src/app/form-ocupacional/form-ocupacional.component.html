@@ -13,20 +13,20 @@
                 <button id="DatosPricipales" class="nav-link btn btn-primary active" (click)="activar('DatosPricipales')">{{datosSingleton.menuOcupacionalDatosPrincipales}}</button>
               </li>
               <li class="nav-item">
-                <button id="DatosHistoriaLaboral" class="nav-link btn btn-primary" *ngIf="medico == true" (click)="activar('DatosHistoriaLaboral')">{{datosSingleton.menuOcupacionalHistoriaLaboral}}</button>
+                <button id="DatosHistoriaLaboral" class="nav-link btn btn-primary" (click)="activar('DatosHistoriaLaboral')">{{datosSingleton.menuOcupacionalHistoriaLaboral}}</button>
               </li>
               <li class="nav-item">
-                <button id="DatosTerceraFase" class="nav-link btn btn-primary " *ngIf="medico == true" (click)="activar('DatosTerceraFase')">{{datosSingleton.menuMotivoConsulta}}</button>
+                <button id="DatosTerceraFase" class="nav-link btn btn-primary " (click)="activar('DatosTerceraFase')">{{datosSingleton.menuMotivoConsulta}}</button>
               </li>
               <li class="nav-item">
-                <button id="DatosExamenFisico" class="nav-link btn btn-primary " *ngIf="medico == true" (click)="activar('DatosExamenFisico')">DatosExamenFisico</button>
+                <button id="DatosExamenFisico" class="nav-link btn btn-primary " (click)="activar('DatosExamenFisico')">{{datosSingleton.menuExamenFisico}}</button>
               </li>
               <li class="nav-item">
-                <button id="DatosFinalFormulario" class="nav-link btn btn-primary " *ngIf="medico == true" (click)="activar('DatosFinalFormulario')">Final Formulario</button>
+                <button id="DatosFinalFormulario" class="nav-link btn btn-primary " (click)="activar('DatosFinalFormulario')">Final Formulario</button>
               </li>
             </ul>
           </div>
-          <div class="card-body " *ngIf="datosPersonales">
+          <div class="card-body " id="datosPersonales" style="display:none;">
             <blockquote class="blockquote mb-0 form-row etiquetas">
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <h3>IDENTIFICACIÓN DEL PACIENTE</h3>
@@ -35,7 +35,8 @@
                 <div class="form-group col-md-8 col-sm-8 col-xs-12">
                   <mat-form-field>
                     <mat-label for="formNoDocumentoOcupacional">{{datosSingleton.labelNoDocumento}}</mat-label>
-                    <input matInput [(ngModel)]="persona.numeroDocumento" name="numeroDocumento" id="formNoDocumentoOcupacional" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelNoDocumento}}" value="" required />
+                    <input matInput [(ngModel)]="persona.numeroDocumento" name="numeroDocumento" id="formNoDocumentoOcupacional" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelNoDocumento}}"
+                      value="{{Spersona.numeroDocumento}}" required />
                   </mat-form-field>
                 </div>
                 <div class="form-group col-md-4 col-sm-4 col-xs-12">
@@ -45,7 +46,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formTipoDocumentoOcupacional">{{datosSingleton.labelTipoDocumento}}</mat-label>
-                  <select matNativeControl id="formTipoDocumentoOcupacional" required [(ngModel)]="persona.tipoDocumento.seqTipoDocumento" name="tipoDocumento">
+                  <select matNativeControl id="formTipoDocumentoOcupacional" [(ngModel)]="persona.tipoDocumento.seqTipoDocumento" name="tipoDocumento">
                     <optgroup label="Valor Seleccionado" *ngIf="buscoPerson == true">
                       <option value="Spersona.tipoDocumento.seqTipoDocumento" *ngIf="buscoPerson == true" selected>{{Spersona.tipoDocumento.siglaDocumento + "-" +Spersona.tipoDocumento.nomDocumento}}</option>
                     </optgroup>
@@ -58,11 +59,10 @@
               </div>
               <!--https://developer.snapappointments.com/bootstrap-select/examples/-->
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
-
                 <mat-form-field>
                   <mat-label for="formPrimerApellidoOcupacional">{{datosSingleton.labelPrimerApellido}}</mat-label>
-                  <input matInput required pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.nomPrimerApellido" name="nomPrimerApellido" id="formPrimerApellidoOcupacional" type="text"
-                    class="form-control campoGrande " value={{Spersona.nomPrimerApellido}} placeholder="{{datosSingleton.labelPrimerApellido}}">
+                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.nomPrimerApellido" name="nomPrimerApellido" id="formPrimerApellidoOcupacional" type="text"
+                    class="form-control campoGrande " placeholder="{{datosSingleton.labelPrimerApellido}}" value="{{Spersona.nomPrimerApellido}}">
                   <mat-error>Texto Incorrecto</mat-error>
                 </mat-form-field>
               </div>
@@ -70,7 +70,7 @@
                 <mat-form-field>
                   <mat-label for="formSegundoApelldioOcupacional">{{datosSingleton.labelSegundoApellido}}</mat-label>
                   <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.nomSegundoApellido" name="nomSegundoApellido" id="formSegundoApelldioOcupacional" type="text"
-                    class="form-control campoGrande" placeholder="{{datosSingleton.labelSegundoApellido}}" required />
+                    class="form-control campoGrande" placeholder="{{datosSingleton.labelSegundoApellido}}" value="{{Spersona.nomSegundoApellido}}" />
                   <mat-error>Texto Incorrecto</mat-error>
                 </mat-form-field>
               </div>
@@ -78,7 +78,7 @@
                 <mat-form-field>
                   <mat-label for="formPrimerNombreOcupacional">{{datosSingleton.labelPrimerNombre}}</mat-label>
                   <input matNativeControl pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.nomPrimerNombre" name="nomPrimerNombre" id="formPrimerNombreOcupacional" type="text"
-                    class="form-control campoGrande" placeholder="{{datosSingleton.labelPrimerNombre}}" required />
+                    class="form-control campoGrande" placeholder="{{datosSingleton.labelPrimerNombre}}" />
                   <mat-error>Texto Incorrecto</mat-error>
                 </mat-form-field>
               </div>
@@ -86,21 +86,21 @@
                 <mat-form-field>
                   <mat-label for="formSegundoNombreOcupacional">{{datosSingleton.labelSegundoNombre}}</mat-label>
                   <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.nomSegundoNombre" name="nomSegundoNombre" id="formSegundoNombreOcupacional" type="text"
-                    class="form-control campoGrande" placeholder={{datosSingleton.labelSegundoNombre}} required />
+                    class="form-control campoGrande" placeholder={{datosSingleton.labelSegundoNombre}} />
                   <mat-error>Texto Incorrecto</mat-error>
                 </mat-form-field>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formedadOcupacional">{{datosSingleton.labeledad}}</mat-label>
-                  <input matInput pattern="[0-9]*" [(ngModel)]="persona.edad" name="edad" id="formedadOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labeledad}} value="" required />
+                  <input matInput pattern="[0-9]*" [(ngModel)]="persona.edad" name="edad" id="formedadOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labeledad}} />
                   <mat-error>Digite la edad de la persona</mat-error>
                 </mat-form-field>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formgeneroOcupacional">{{datosSingleton.labelGenero}}</mat-label>
-                  <mat-select [(ngModel)]="persona.genero" name="genero" required>
+                  <mat-select [(ngModel)]="persona.genero" name="genero">
                     <mat-option value="M">Masculino</mat-option>
                     <mat-option value="F">Femenino</mat-option>
                   </mat-select>
@@ -117,7 +117,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formlugarNacimientoOcupacional">{{datosSingleton.labelLugarDeNacimiento}}</mat-label>
-                  <mat-select required [(ngModel)]="persona.lugarNacimiento.seqCuidad" name="ciudad">
+                  <mat-select [(ngModel)]="persona.lugarNacimiento.seqCuidad" name="ciudad">
                     <mat-option *ngFor="let doc of ciudad" [value]="doc.seqCuidad">
                       {{doc.nomCuidad}}
                     </mat-option>
@@ -128,12 +128,12 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formestadoCivilOcupacional">{{datosSingleton.labelEstadoCivil}}</mat-label>
-                  <mat-select [(ngModel)]="persona.estadoCivil" name="estadoCivil" required>
-                    <mat-option value="Soltero">Soltero</mat-option>
-                    <mat-option value="Casado">Casado</mat-option>
-                    <mat-option value="UniónLibre">Unión Libre</mat-option>
-                    <mat-option value="Viudo">Viudo</mat-option>
-                    <mat-option value="Separado">Separado</mat-option>
+                  <mat-select [(ngModel)]="persona.estadoCivil" name="estadoCivil">
+                    <mat-option value="Soltero">SOLTERO</mat-option>
+                    <mat-option value="Casado">CASADO</mat-option>
+                    <mat-option value="UniónLibre">UNIÓN LIBRE</mat-option>
+                    <mat-option value="Viudo">VIUDO</mat-option>
+                    <mat-option value="Separado">SEPARADO</mat-option>
                   </mat-select>
                   <mat-error>Seleccione una opción</mat-error>
                 </mat-form-field>
@@ -141,7 +141,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formescolaridadOcupacional">{{datosSingleton.labelEscolaridad}}</mat-label>
-                  <mat-select [(ngModel)]="persona.escolaridad" name="escolaridad" required>
+                  <mat-select [(ngModel)]="persona.escolaridad" name="escolaridad">
                     <mat-option value="NINGUNA">NINGUNA</mat-option>
                     <mat-option value="PRIMARIA">PRIMARIA</mat-option>
                     <mat-option value="BACHILLERATO">BACHILLERATO</mat-option>
@@ -159,14 +159,14 @@
                 <mat-form-field>
                   <mat-label for="formnomCargoDepOcupacional">{{datosSingleton.labelCargoDependencia}}</mat-label>
                   <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.nomCargoDep" name="nomCargoDep" id="formnomCargoDepOcupacional" type="text"
-                    class="form-control campoGrande" placeholder={{datosSingleton.labelCargoDependencia}} required />
+                    class="form-control campoGrande" placeholder={{datosSingleton.labelCargoDependencia}} />
                   <mat-error>Texto Incorrecto</mat-error>
                 </mat-form-field>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formdireccionOcupacional">{{datosSingleton.labelDireccionCasa}}</mat-label>
-                  <input matInput [(ngModel)]="persona.direccion" name="direccion" id="formdireccionOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelDireccionCasa}} required />
+                  <input matInput [(ngModel)]="persona.direccion" name="direccion" id="formdireccionOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelDireccionCasa}} />
                 </mat-form-field>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
@@ -174,13 +174,13 @@
                   <mat-label for="formtelefonoOcupacional">{{datosSingleton.labelTelefono}}</mat-label>
                   <mat-icon matSuffix></mat-icon>
                   <mat-error>No son números</mat-error>
-                  <input matInput pattern="[0-9]*" [(ngModel)]="persona.telefono" name="telefono" id="formtelefonoOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelTelefono}} value="" required />
+                  <input matInput pattern="[0-9]*" [(ngModel)]="persona.telefono" name="telefono" id="formtelefonoOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelTelefono}} value="" />
                 </mat-form-field>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formaseguradoraOcupacional">{{datosSingleton.labelAseguradora}}</mat-label>
-                  <mat-select required [(ngModel)]="persona.aseguradora.seqAseguradora" name="aseguradora">
+                  <mat-select [(ngModel)]="persona.aseguradora.seqAseguradora" name="aseguradora">
                     <mat-option *ngFor="let eps of aseguradora" [value]="eps.seqAseguradora">
                       {{eps.nomAseguradora}}
                     </mat-option>
@@ -191,25 +191,23 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formAFPOcupacional">{{datosSingleton.labelAFP}}</mat-label>
-                  <input matInput [(ngModel)]="persona.afp" name="AFP" id="formAFPOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelAFP}} value="" required />
+                  <input matInput [(ngModel)]="persona.afp" name="AFP" id="formAFPOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelAFP}} value="" />
                 </mat-form-field>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formARLOcupacional">{{datosSingleton.labelARL}}</mat-label>
-                  <input matInput [(ngModel)]="persona.arl" name="ARL" id="formARLOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelARL}} value="" required />
+                  <input matInput [(ngModel)]="persona.arl" name="ARL" id="formARLOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelARL}} value="" />
                 </mat-form-field>
               </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3 row">
-                <button  *ngIf="medico == false" mat-raised-button color="primary" role="button" [disabled]="f.invalid" (click)="create()">CREAR PACIENTE</button>
+              <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                <button *ngIf="medico == false" mat-raised-button color="primary" role="button" [disabled]="f.invalid" (click)="create()">CREAR PACIENTE</button>
               </div>
             </blockquote>
           </div>
 
-
-
           <!--Segunda fase [disabled]="f.invalid"-->
-          <div class="card-body" *ngIf="datosHistoriaLaboral">
+          <div class="card-body" id="datosHistoriaLaboral" style="display:none;">
             <blockquote class="blockquote col-md-12 col-sm-12 col-xs-12 form-row etiquetas">
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <h3>{{datosSingleton.menusubmenuOcupacionalHistoriaLTrabajoAC}}</h3>
@@ -484,11 +482,9 @@
             </blockquote>
           </div>
 
-
-
           <!--******************************************************************************-->
           <!--Tercera fase-->
-          <div class="card-body" *ngIf="datosTerceraFase">
+          <div class="card-body" id="datosTerceraFase" style="display:none;">
             <blockquote class="blockquote col-md-12 col-sm-12 col-xs-12 form-row etiquetas">
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <h3>{{datosSingleton.menuMotivoConsulta}}</h3>
@@ -503,11 +499,11 @@
                 <h3>{{datosSingleton.labelAntecedentes}}</h3>
               </div>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
-              <h4 style="font-weight: 500;">{{datosSingleton.labelAntecednetesPersonales}}</h4>
+                <h4 style="font-weight: 500;">{{datosSingleton.labelAntecednetesPersonales}}</h4>
               </div>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                    <mat-label for="formlabelPatologicosOcupacional">{{datosSingleton.labelPatologicos}}</mat-label>
+                  <mat-label for="formlabelPatologicosOcupacional">{{datosSingleton.labelPatologicos}}</mat-label>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field>
@@ -521,14 +517,14 @@
                 <div class="form-group col-md-8 col-sm-8 col-xs-12">
                   <mat-form-field id="formlabelCualPatologicosEsOcupacional">
                     <mat-label for="formlabelCualPatologicosEsOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
-                    <textarea matInput [(ngModel)]="patologicos.despAntecedente" name="patologicos"  rows="1" cols="80" required></textarea>
+                    <textarea matInput [(ngModel)]="patologicos.despAntecedente" name="patologicos" id="formlabelCualPatologicosEsOcupacional" rows="1" cols="80"></textarea>
                   </mat-form-field>
                 </div>
               </div>
               <!--*******-->
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                    <mat-label for="formlabelQuirurgicosOcupacional">{{datosSingleton.labelQuirurgicos}}</mat-label>
+                  <mat-label for="formlabelQuirurgicosOcupacional">{{datosSingleton.labelQuirurgicos}}</mat-label>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field>
@@ -542,14 +538,14 @@
                 <div class="form-group col-md-8 col-sm-8 col-xs-12">
                   <mat-form-field id="formlabelCualEsQuirurgicosOcupacional">
                     <mat-label for="formlabelCualEsQuirurgicosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
-                    <textarea matInput [(ngModel)]="quirurgicos.despAntecedente" name="Quirurgicos"  rows="1" cols="80" required></textarea>
+                    <textarea matInput [(ngModel)]="quirurgicos.despAntecedente" name="Quirurgicos" rows="1" cols="80"></textarea>
                   </mat-form-field>
                 </div>
               </div>
               <!--*******-->
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                    <mat-label for="formlabelFarmacologicosOcupacional">{{datosSingleton.labelFarmacologicos}}</mat-label>
+                  <mat-label for="formlabelFarmacologicosOcupacional">{{datosSingleton.labelFarmacologicos}}</mat-label>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field>
@@ -563,14 +559,14 @@
                 <div class="form-group col-md-8 col-sm-8 col-xs-12">
                   <mat-form-field id="formlabelCualEsFarmacologicosOcupacional">
                     <mat-label for="formlabelCualEsFarmacologicosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
-                    <textarea matInput [(ngModel)]="farmacologicos.despAntecedente" name="Enfermedad"  rows="1" cols="80" required></textarea>
+                    <textarea matInput [(ngModel)]="farmacologicos.despAntecedente" name="Enfermedad" rows="1" cols="80"></textarea>
                   </mat-form-field>
                 </div>
               </div>
               <!--*******-->
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                    <mat-label for="formlabelAlergicosOcupacional">{{datosSingleton.labelAlergicos}}</mat-label>
+                  <mat-label for="formlabelAlergicosOcupacional">{{datosSingleton.labelAlergicos}}</mat-label>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field>
@@ -584,14 +580,14 @@
                 <div class="form-group col-md-8 col-sm-8 col-xs-12">
                   <mat-form-field id="formlabelCualEsAlergicosOcupacional">
                     <mat-label for="formlabelCualEsAlergicosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
-                    <textarea matInput [(ngModel)]="alergicos.despAntecedente" name="alergicos"  rows="1" cols="80" required></textarea>
+                    <textarea matInput [(ngModel)]="alergicos.despAntecedente" name="alergicos" rows="1" cols="80"></textarea>
                   </mat-form-field>
                 </div>
               </div>
               <!--*******-->
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                    <mat-label for="formlabelTramauticosOcupacional">{{datosSingleton.labelTramauticos}}</mat-label>
+                  <mat-label for="formlabelTramauticosOcupacional">{{datosSingleton.labelTramauticos}}</mat-label>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field>
@@ -605,14 +601,14 @@
                 <div class="form-group col-md-8 col-sm-8 col-xs-12">
                   <mat-form-field id="formlabelCualEsTramauticosOcupacional">
                     <mat-label for="formlabelCualEsTramauticosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
-                    <textarea matInput [(ngModel)]="traumaticos.despAntecedente" name="traumaticos"  rows="1" cols="80" required></textarea>
+                    <textarea matInput [(ngModel)]="traumaticos.despAntecedente" name="traumaticos" rows="1" cols="80"></textarea>
                   </mat-form-field>
                 </div>
               </div>
               <!--*******-->
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                    <mat-label for="formlabelToxicosOcupacional">{{datosSingleton.labelToxicos}}</mat-label>
+                  <mat-label for="formlabelToxicosOcupacional">{{datosSingleton.labelToxicos}}</mat-label>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field>
@@ -626,14 +622,14 @@
                 <div class="form-group col-md-8 col-sm-8 col-xs-12">
                   <mat-form-field id="formlabelCualEsToxicosOcupacional">
                     <mat-label for="formlabelCualEsToxicosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
-                    <textarea matInput [(ngModel)]="toxicos.despAntecedente" name="toxicos"  rows="1" cols="80" required></textarea>
+                    <textarea matInput [(ngModel)]="toxicos.despAntecedente" name="toxicos" rows="1" cols="80"></textarea>
                   </mat-form-field>
                 </div>
               </div>
               <!--*******-->
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                    <mat-label for="formlabelHospitalariosOcupacional">{{datosSingleton.labelHospitalarios}}</mat-label>
+                  <mat-label for="formlabelHospitalariosOcupacional">{{datosSingleton.labelHospitalarios}}</mat-label>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field>
@@ -647,14 +643,14 @@
                 <div class="form-group col-md-8 col-sm-8 col-xs-12">
                   <mat-form-field id="formlabelCualEsHospitalariosOcupacional">
                     <mat-label for="formlabelCualEsHospitalariosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
-                    <textarea matInput [(ngModel)]="hospitalarios.despAntecedente" name="Hospitalarios"  rows="1" cols="80" required></textarea>
+                    <textarea matInput [(ngModel)]="hospitalarios.despAntecedente" name="Hospitalarios" rows="1" cols="80"></textarea>
                   </mat-form-field>
                 </div>
               </div>
               <!--*******-->
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                    <mat-label for="formlableInmunologicosOcupacional">{{datosSingleton.lableInmunologicos}}</mat-label>
+                  <mat-label for="formlableInmunologicosOcupacional">{{datosSingleton.lableInmunologicos}}</mat-label>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field>
@@ -668,18 +664,18 @@
                 <div class="form-group col-md-8 col-sm-8 col-xs-12">
                   <mat-form-field id="formlabelCualEsInmunologicosOcupacional">
                     <mat-label for="formlabelCualEsInmunologicosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
-                    <textarea matInput [(ngModel)]="inmunologicos.despAntecedente" name="Inmunologicos"  rows="1" cols="80" required></textarea>
+                    <textarea matInput [(ngModel)]="inmunologicos.despAntecedente" name="Inmunologicos" rows="1" cols="80"></textarea>
                   </mat-form-field>
                 </div>
               </div>
               <!--*******-->
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                    <mat-label for="formlableInmunologicosOcupacional">merarquia</mat-label>
+                  <mat-label for="formlableInmunologicosOcupacional">merarquia</mat-label>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field>
-                    <mat-select [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadLaboralSN" name="lableInmunologicos" required>
+                    <mat-select [(ngModel)]="persona.historias[0].historiaLaboral.enfermedadLaboralSN" name="lablemerarquia" required>
                       <mat-option value="S">{{datosSingleton.labelSI}}</mat-option>
                       <mat-option value="N">{{datosSingleton.labelNO}}</mat-option>
                     </mat-select>
@@ -689,14 +685,14 @@
                 <div class="form-group col-md-8 col-sm-8 col-xs-12">
                   <mat-form-field>
                     <mat-label for="formlabelCualEsInmunologicosOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
-                    <textarea matInput [(ngModel)]="persona.historias[0].historiaLaboral.desp_funciones_cargo" name="Inmunologicos" id="formlabelCualEsInmunologicosOcupacional" rows="1" cols="80" required></textarea>
+                    <textarea matInput [(ngModel)]="persona.historias[0].historiaLaboral.desp_funciones_cargo" name="merarquia" id="formlabelCualEsInmunologicosOcupacional" rows="1" cols="80"></textarea>
                   </mat-form-field>
                 </div>
               </div>
               <!--*******-->
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                    <h4 style="font-weight: 500;">{{datosSingleton.lableFamiliares}}</h4>
+                  <h4 style="font-weight: 500;">{{datosSingleton.lableFamiliares}}</h4>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field>
@@ -710,17 +706,17 @@
                 <div class="form-group col-md-8 col-sm-8 col-xs-12">
                   <mat-form-field id="formlablefamiliarOcupacional">
                     <mat-label for="formlablefamiliarOcupacional">{{datosSingleton.labelCualEs}}</mat-label>
-                    <textarea matInput [(ngModel)]="familiares.despAntecedente" name="familiar"  rows="1" cols="80" required></textarea>
+                    <textarea matInput [(ngModel)]="familiares.despAntecedente" name="familiar" rows="1" cols="80"></textarea>
                   </mat-form-field>
                 </div>
               </div>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                  <h4 style="font-weight: 500;">{{datosSingleton.lableEstilosVida}}</h4>
+                <h4 style="font-weight: 500;">{{datosSingleton.lableEstilosVida}}</h4>
               </div>
               <!--*******-->
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                    <mat-label for="formlabletabaquismoOcupacional">{{datosSingleton.lableTabaquismo}}</mat-label>
+                  <mat-label for="formlabletabaquismoOcupacional">{{datosSingleton.lableTabaquismo}}</mat-label>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field>
@@ -734,29 +730,33 @@
                 <div class="form-group col-md-3 col-sm-3 col-xs-12">
                   <mat-form-field id="formfrecuenciaOcupacional">
                     <mat-label for="formfrecuenciaOcupacional">{{datosSingleton.lableFrecuencia}}</mat-label>
-                    <input matInput [(ngModel)]="tabaquismo.frecuencia" name="frecuencia"  type="text"
-                      class="form-control campoGrande">
+                    <input matInput [(ngModel)]="tabaquismo.frecuencia" name="frecuencia" type="text" class="form-control campoGrande">
                   </mat-form-field>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field id="formhabitoOcupacional">
                     <mat-label for="formhabitoOcupacional">{{datosSingleton.lableHabito}}</mat-label>
-                    <input matInput [(ngModel)]="tabaquismo.anosHabito" name="habito"  type="text"
-                      class="form-control campoGrande">
+                    <mat-select [(ngModel)]="tabaquismo.anosHabito" name="ciudad">
+                      <mat-option *ngFor="let doc of listAnosHabito" [value]="doc">
+                        {{doc}}
+                      </mat-option>
+                    </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field id="formexfumadorOcupacional">
                     <mat-label for="formexfumadorOcupacional">{{datosSingleton.lableExfumador}}</mat-label>
-                    <input matInput [(ngModel)]="tabaquismo.exFumador" name="exfumador"  type="text"
-                      class="form-control campoGrande">
+                    <select matNativeControl [(ngModel)]="tabaquismo.exFumador" name="exfumador">
+                      <option value="S">{{datosSingleton.labelSI}}</option>
+                      <option value="N" selected>{{datosSingleton.labelNO}}</option>
+                    </select>
                   </mat-form-field>
                 </div>
               </div>
               <!--*******-->
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                    <mat-label for="formActividadFisicaOcupacional">{{datosSingleton.lableConsumoAlcohol}}</mat-label>
+                  <mat-label for="formActividadFisicaOcupacional">{{datosSingleton.lableConsumoAlcohol}}</mat-label>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field>
@@ -770,15 +770,14 @@
                 <div class="form-group col-md-3 col-sm-3 col-xs-12">
                   <mat-form-field id="formfrecuenciaAlcoholOcupacional">
                     <mat-label for="formfrecuenciaAlcoholOcupacional">{{datosSingleton.lableFrecuencia}}</mat-label>
-                    <input matInput [(ngModel)]="consumoAlcohol.frecuencia" name="frecuenciaAlcohol"  type="text"
-                      class="form-control campoGrande">
+                    <input matInput [(ngModel)]="consumoAlcohol.frecuencia" name="frecuenciaAlcohol" type="text" class="form-control campoGrande">
                   </mat-form-field>
                 </div>
               </div>
               <!--*******-->
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                    <mat-label for="formActividadFisicaOcupacional">{{datosSingleton.lableActividadFisica}}</mat-label>
+                  <mat-label for="formActividadFisicaOcupacional">{{datosSingleton.lableActividadFisica}}</mat-label>
                 </div>
                 <div class="form-group col-md-2 col-sm-2 col-xs-12">
                   <mat-form-field>
@@ -792,15 +791,13 @@
                 <div class="form-group col-md-4 col-sm-4 col-xs-12">
                   <mat-form-field id="formfrecuenciafisicaOcupacional">
                     <mat-label for="formfrecuenciafisicaOcupacional">{{datosSingleton.lableFrecuencia}}</mat-label>
-                    <input matInput [(ngModel)]="actividadFisica.frecuencia" name="frecuenciaFisica"  type="text"
-                      class="form-control campoGrande">
+                    <input matInput [(ngModel)]="actividadFisica.frecuencia" name="frecuenciaFisica" type="text" class="form-control campoGrande">
                   </mat-form-field>
                 </div>
                 <div class="form-group col-md-4 col-sm-4 col-xs-12">
                   <mat-form-field id="formtipofisicaOcupacional">
                     <mat-label for="formtipofisicahabitoOcupacional">{{datosSingleton.lableTipo}}</mat-label>
-                    <input matInput [(ngModel)]="actividadFisica.tipo" name="tipofisica"  type="text"
-                      class="form-control campoGrande">
+                    <input matInput [(ngModel)]="actividadFisica.tipo" name="tipofisica" type="text" class="form-control campoGrande">
                   </mat-form-field>
                 </div>
               </div>
@@ -808,8 +805,7 @@
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <mat-form-field>
                   <mat-label for="formextralaboralesOcupacional">{{datosSingleton.lableActividadesExtra}}</mat-label>
-                  <input matInput [(ngModel)]="actividadExtralaborales.despAntecedente" name="extralaborales" id="formextralaboralesOcupacional" type="text"
-                    class="form-control campoGrande">
+                  <input matInput required [(ngModel)]="actividadExtralaborales.despAntecedente" name="extralaborales" id="formextralaboralesOcupacional" type="text" class="form-control campoGrande">
                 </mat-form-field>
               </div>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -819,7 +815,167 @@
                 </mat-form-field>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3 row">
-                <button  *ngIf="medico == false" mat-raised-button color="primary" role="button" (click)="create()">CREAR PACIENTE</button>
+                <button mat-raised-button color="primary" role="button" [disabled]="f.invalid" (click)="create()">CREAR PACIENTE</button>
+              </div>
+            </blockquote>
+          </div>
+
+          <!--******************************************************************************-->
+          <!--Cuarta fase-->
+          <div class="card-body " id="datosExamenFisico" style="display:none;">
+            <blockquote class="blockquote mb-0 form-row etiquetas">
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <h3>{{datosSingleton.menuExamenFisico}}</h3>
+              </div>
+              <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                <mat-form-field>
+                  <mat-label for="fromlabelTesionArterial">{{datosSingleton.labelTesionArterial}}</mat-label>
+                  <input matInput [(ngModel)]="examenFisico.numTesion" name="labelTesionArterial" id="fromlabelTesionArterial" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelTesionArterial}}" required />
+                  <mat-hint>Ingrese Solo Números</mat-hint>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                <mat-form-field>
+                  <mat-label for="fromlabelFrecuenciaCardiaca">{{datosSingleton.labelFrecuenciaCardiaca}}</mat-label>
+                  <input matInput [(ngModel)]="examenFisico.numFreCar" name="labelFrecuenciaCardiaca" id="fromlabelFrecuenciaCardiaca" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelFrecuenciaCardiaca}}" required />
+                  <mat-hint>Ingrese Solo Números</mat-hint>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                <mat-form-field>
+                  <mat-label for="fromlabelSat02">{{datosSingleton.labelSat02}}</mat-label>
+                  <input matInput [(ngModel)]="examenFisico.numSat" name="labelSat02" id="fromlabelSat02" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelSat02}}" required />
+                  <mat-hint>Ingrese Solo Números</mat-hint>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                <mat-form-field>
+                  <mat-label for="fromlabelFrecuenciaRespiratoria">{{datosSingleton.labelFrecuenciaRespiratoria}}</mat-label>
+                  <input matInput [(ngModel)]="examenFisico.numFrecResp" name="labelFrecuenciaRespiratoria" id="fromlabelFrecuenciaRespiratoria" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelFrecuenciaRespiratoria}}" required />
+                  <mat-hint>Ingrese Solo Números</mat-hint>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                <mat-form-field>
+                  <mat-label for="fromlabelPeso">{{datosSingleton.labelPeso}}</mat-label>
+                  <input matInput [(ngModel)]="examenFisico.numPeso" name="labelPeso" id="fromlabelPeso" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelPeso}}" required />
+                  <mat-hint>Ingrese Solo Números</mat-hint>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                <mat-form-field>
+                  <mat-label for="fromlabelTalla">{{datosSingleton.labelTalla}}</mat-label>
+                  <input matInput [(ngModel)]="examenFisico.numTalla" name="labelTalla" id="fromlabelTalla" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelTalla}}" required />
+                  <mat-hint>Ingrese Solo Números</mat-hint>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                <mat-form-field>
+                  <mat-label for="fromlabelImc">{{datosSingleton.labelImc}}</mat-label>
+                  <input matInput [(ngModel)]="examenFisico.numImc" name="labelImc" id="fromlabelImc" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelImc}}" required />
+                  <mat-hint>Ingrese Solo Números</mat-hint>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                <mat-form-field>
+                  <mat-label for="fromlabelLateralidad">{{datosSingleton.labelLateralidad}}</mat-label>
+                  <input matInput [(ngModel)]="examenFisico.numLateralidad" name="labelLateralidad" id="fromlabelLateralidad" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelLateralidad}}" required />
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field>
+                  <mat-label for="fromlabelCabezaCuello">{{datosSingleton.labelCabezaCuello}}</mat-label>
+                  <textarea matInput [(ngModel)]="examenFisico.despCapCuello" name="labelCabezaCuello" id="fromlabelCabezaCuello" rows="2" cols="80" required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field>
+                  <mat-label for="fromlabelTorax">{{datosSingleton.labelTorax}}</mat-label>
+                  <textarea matInput [(ngModel)]="examenFisico.despTorax" name="labelTorax" id="fromlabelTorax" rows="2" cols="80" required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field>
+                  <mat-label for="fromlabelAbdomen">{{datosSingleton.labelAbdomen}}</mat-label>
+                  <textarea matInput [(ngModel)]="examenFisico.despAdb" name="labelAbdomen" id="fromlabelAbdomen" rows="2" cols="80" required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field>
+                  <mat-label for="fromlabelGenitourinario">{{datosSingleton.labelGenitourinario}}</mat-label>
+                  <textarea matInput [(ngModel)]="examenFisico.despGenitourinario" name="labelGenitourinario" id="fromlabelGenitourinario" rows="2" cols="80" required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field>
+                  <mat-label for="fromlabelColumna">{{datosSingleton.labelColumna}}</mat-label>
+                  <textarea matInput [(ngModel)]="examenFisico.despColumn" name="labelColumna" id="fromlabelColumna" rows="2" cols="80" required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field>
+                  <mat-label for="fromlabelMiembrosSuperioresInferiores">{{datosSingleton.labelMiembrosSuperioresInferiores}}</mat-label>
+                  <textarea matInput [(ngModel)]="examenFisico.despMiembros" name="labelMiembrosSuperioresInferiores" id="fromlabelMiembrosSuperioresInferiores" rows="2" cols="80" required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field>
+                  <mat-label for="fromlabelOsteomuscular">{{datosSingleton.labelOsteomuscular}}</mat-label>
+                  <textarea matInput [(ngModel)]="examenFisico.despOsteomuscular" name="labelOsteomuscular" id="fromlabelOsteomuscular" rows="2" cols="80" required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field>
+                  <mat-label for="fromlabelNeurologico">{{datosSingleton.labelNeurologico}}</mat-label>
+                  <textarea matInput [(ngModel)]="examenFisico.despNeurologico" name="labelNeurologico" id="fromlabelNeurologico" rows="2" cols="80" required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field>
+                  <mat-label for="fromlabelPielFaneras">{{datosSingleton.labelPielFaneras}}</mat-label>
+                  <textarea matInput [(ngModel)]="examenFisico.despPielfan" name="labelPielFaneras" id="fromlabelPielFaneras" rows="2" cols="80" required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <h3>{{datosSingleton.menuParaclinicos}}</h3>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12 ajusteTablas">
+                <table class="table" id="">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">{{datosSingleton.labelExamen}}</th>
+                      <th scope="col">{{datosSingleton.labelFecha}}</th>
+                      <th scope="col">{{datosSingleton.labelResultado}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[0].despExamen" name="persona.historias[0].paraclinicos[0].despExamen"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[0].fecha" name="persona.historias[0].paraclinicos[0].fecha"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[0].despResultado" name="persona.historias[0].paraclinicos[0].despResultado"></textarea></td>
+                    </tr>
+                    <tr>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[1].despExamen" name="persona.historias[0].paraclinicos[1].despExamen"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[1].fecha" name="persona.historias[0].paraclinicos[1].fecha"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[1].despResultado" name="persona.historias[0].paraclinicos[1].despResultado"></textarea></td>
+                    </tr>
+                    <tr>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[2].despExamen" name="persona.historias[0].paraclinicos[2].despExamen"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[2].fecha" name="persona.historias[0].paraclinicos[2].fecha"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[2].despResultado" name="persona.historias[0].paraclinicos[2].despResultado"></textarea></td>
+                    </tr>
+                    <tr>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[3].despExamen" name="persona.historias[0].paraclinicos[3].despExamen"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[3].fecha" name="persona.historias[0].paraclinicos[3].fecha"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[3].despResultado" name="persona.historias[0].paraclinicos[3].despResultado"></textarea></td>
+                    </tr>
+                    <tr>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[4].despExamen" name="persona.historias[0].paraclinicos[4].despExamen"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[4].fecha" name="persona.historias[0].paraclinicos[4].fecha"></textarea></td>
+                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[4].despResultado" name="persona.historias[0].paraclinicos[4].despResultado"></textarea></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </blockquote>
           </div>

@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -44,25 +44,15 @@ public class PerfilEntity implements Serializable {
 	@Column(name = "nom_perfil")
 	private String nomPerfil;
 
-	@OneToOne
-	@JoinColumn(name = "seq_persona", updatable = false, nullable = false)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private PersonaEntity persona;
+	@OneToMany
+	@JoinColumn(name = "seq_perfil", updatable = false)
+	private List<PersonaEntity> persona;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "hc_perfil_permisos", joinColumns = @JoinColumn(name = "seq_perfil"), inverseJoinColumns = @JoinColumn(name = "seq_permiso"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_perfil", "seq_permiso" }) })
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<PermisosEntity> permisos;
-
-//	public PerfilEntity(PerfilEntity perfilEntity) {
-//		this.seqPerfil = perfilEntity.getSeqPerfil();
-//		this.nomUsuario = perfilEntity.getNomUsuario();
-//		this.password = perfilEntity.getPassword();
-//		this.estado = perfilEntity.getEstado();
-//		this.nomPerfil = perfilEntity.getNomPerfil();
-//		this.persona = new PersonaEntity(perfilEntity.getPersona());
-//	}
 
 	public Long getSeqPerfil() {
 		return seqPerfil;
@@ -104,6 +94,8 @@ public class PerfilEntity implements Serializable {
 		this.nomPerfil = nomPerfil;
 	}
 
+	
+
 	@Override
 	public String toString() {
 		return "PerfilEntity [seqPerfil=" + seqPerfil + ", nomUsuario=" + nomUsuario + ", password=" + password
@@ -119,12 +111,14 @@ public class PerfilEntity implements Serializable {
 		this.permisos = permisos;
 	}
 
-	public PersonaEntity getPersona() {
+	public List<PersonaEntity> getPersona() {
 		return persona;
 	}
 
-	public void setPersona(PersonaEntity persona) {
+	public void setPersona(List<PersonaEntity> persona) {
 		this.persona = persona;
 	}
+
+	
 
 }

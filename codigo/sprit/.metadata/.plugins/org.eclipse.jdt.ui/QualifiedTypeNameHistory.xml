@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="javax.persistence.Column"/>
-<fullyQualifiedTypeName name="javax.persistence.GenerationType"/>
-<fullyQualifiedTypeName name="com.konrad.edu.entity.Historias"/>
-<fullyQualifiedTypeName name="com.konrad.edu.IService.IAseguradoraService"/>
-<fullyQualifiedTypeName name="com.konrad.edu.dao.ICuidadDao"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.ICiudadService"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.ILocalidadService"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.IMunicipioService"/>
@@ -37,7 +32,6 @@
 <fullyQualifiedTypeName name="com.konrad.edu.IService.IAntecedentesService"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.IEmpresaLaboralService"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.IEnfermedadesLaboralService"/>
-<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="com.konrad.edu.dao.IFactoresRiesgoDao"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.IFactoresRiesgoService"/>
 <fullyQualifiedTypeName name="com.konrad.edu.entity.AntecedentesTrabajoEntity"/>
@@ -45,14 +39,8 @@
 <fullyQualifiedTypeName name="com.konrad.edu.entity.EnfermedadesLaboralEntity"/>
 <fullyQualifiedTypeName name="com.konrad.edu.entity.FactoresRiesgoEntity"/>
 <fullyQualifiedTypeName name="com.konrad.edu.entity.HistoriaLaboralEntity"/>
-<fullyQualifiedTypeName name="com.konrad.edu.entity.HistoriasEntity"/>
-<fullyQualifiedTypeName name="javax.persistence.CascadeType"/>
 <fullyQualifiedTypeName name="javax.persistence.ManyToMany"/>
 <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
-<fullyQualifiedTypeName name="javax.persistence.Entity"/>
-<fullyQualifiedTypeName name="javax.persistence.Table"/>
-<fullyQualifiedTypeName name="javax.persistence.Id"/>
-<fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="com.konrad.edu.entity.TipoEvaluacionEntity"/>
 <fullyQualifiedTypeName name="com.konrad.edu.entity.AntecedentesHistoriaEntity"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.IAntecedenteHistoriaService"/>
@@ -60,4 +48,16 @@
 <fullyQualifiedTypeName name="com.konrad.edu.entity.ExamenFisico"/>
 <fullyQualifiedTypeName name="com.konrad.edu.IService.IExamenFisicoService"/>
 <fullyQualifiedTypeName name="com.konrad.edu.dao.IExamenFisicoDao"/>
+<fullyQualifiedTypeName name="javax.persistence.CascadeType"/>
+<fullyQualifiedTypeName name="javax.persistence.FetchType"/>
+<fullyQualifiedTypeName name="javax.persistence.Entity"/>
+<fullyQualifiedTypeName name="javax.persistence.Table"/>
+<fullyQualifiedTypeName name="javax.persistence.Id"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="com.konrad.edu.entity.HistoriasEntity"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.konrad.edu.dao.ITipoAntecedenteDao"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="com.konrad.edu.IService.ITipoAntecedenteService"/>
+<fullyQualifiedTypeName name="com.konrad.edu.entity.TipoAntecedenteEntity"/>
 </qualifiedTypeNameHistroy>

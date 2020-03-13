@@ -2,6 +2,7 @@ import { EmpresaLaboral } from './empresaLaboral';
 import { AntecedentesTrabajo } from './antecedentesTrabajo';
 import { EnfermedadesLaboral } from './enfermedadesLaboral';
 import { FactoresRiesgo } from './factoresRiesgo';
+import { Historias } from './historias';
 export class HistoriaLaboral{
   seqHistoriaLaboral:number;
   nomEmpresa:string;
@@ -16,7 +17,6 @@ export class HistoriaLaboral{
   factoresRiesgo: FactoresRiesgo[];
   accionesTrabajoSN: string;
   enfermedadLaboralSN: string;
-
   constructor(){
     this.seqHistoriaLaboral = null;
     this.nomEmpresa = null;

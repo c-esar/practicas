@@ -1,6 +1,7 @@
 package com.konrad.edu.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,13 +13,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "hc_historia_laboral")
@@ -60,26 +59,28 @@ public class HistoriaLaboralEntity implements Serializable {
 	@Column(name = "enfermedad_laboral_SN", length = 2)
 	private String enfermedadLaboralSN;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "hc_laboral_empresa", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_empresa"), uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "seq_historia_laboral", "seq_empresa" }) })
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "seq_historia_laboral")
 	private List<EmpresaLaboralEntity> empresaLaboral;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "hc_laboral_antTrabajo", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_ant"), uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "seq_historia_laboral", "seq_ant" }) })
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "seq_historia_laboral")
 	private List<AntecedentesTrabajoEntity> antecedentesTrabajo;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "hc_laboral_enfermedades", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_enfermedades_lab"), uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "seq_historia_laboral", "seq_enfermedades_lab" }) })
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "seq_historia_laboral")
 	private List<EnfermedadesLaboralEntity> enfermedadesLaboral;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "hc_laboral_factoresRiesgo", joinColumns = @JoinColumn(name = "seq_historia_laboral"), inverseJoinColumns = @JoinColumn(name = "seq_factores"), uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "seq_historia_laboral", "seq_factores" }) })
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "seq_historia_laboral")
 	private List<FactoresRiesgoEntity> factoresRiesgo;
-
+	
+	public HistoriaLaboralEntity() {
+		this.antecedentesTrabajo = new ArrayList<>();
+		this.enfermedadesLaboral= new ArrayList<>();
+		this.factoresRiesgo= new ArrayList<>();
+		this.empresaLaboral= new ArrayList<>();
+	}
 	public Long getSeqHistoriaLaboral() {
 		return seqHistoriaLaboral;
 	}

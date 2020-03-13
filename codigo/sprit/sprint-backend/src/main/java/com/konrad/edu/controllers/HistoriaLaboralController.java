@@ -1,8 +1,11 @@
 package com.konrad.edu.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +18,14 @@ import com.konrad.edu.IService.IEmpresaLaboralService;
 import com.konrad.edu.IService.IEnfermedadesLaboralService;
 import com.konrad.edu.IService.IFactoresRiesgoService;
 import com.konrad.edu.IService.IHistoriaLaboralService;
+import com.konrad.edu.IService.ITipoAntecedenteService;
 import com.konrad.edu.entity.AntecedentesTrabajoEntity;
 import com.konrad.edu.entity.EmpresaLaboralEntity;
 import com.konrad.edu.entity.EnfermedadesLaboralEntity;
 import com.konrad.edu.entity.FactoresRiesgoEntity;
 import com.konrad.edu.entity.HistoriaLaboralEntity;
+import com.konrad.edu.entity.TipoAntecedenteEntity;
+import com.konrad.edu.entity.TipoDocumentoEntity;
 
 @CrossOrigin(origins = { IConstantes.RUTA })
 @RestController
@@ -36,6 +42,8 @@ public class HistoriaLaboralController {
 	private IEnfermedadesLaboralService enfermedadesLaboralService;
 	@Autowired
 	private IFactoresRiesgoService factoresRiesgoService;
+	@Autowired
+	private ITipoAntecedenteService tipoAntecedenteService;
 
 	@PostMapping("/createAntecedente")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -65,5 +73,10 @@ public class HistoriaLaboralController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public HistoriaLaboralEntity create(@RequestBody HistoriaLaboralEntity historiaLaboralEntity) {
 		return historiaLaboralService.save(historiaLaboralEntity);
+	}
+	
+	@GetMapping("/listTipoAntecedentes")
+	public List<TipoAntecedenteEntity> index() {
+		return tipoAntecedenteService.findAll();
 	}
 }

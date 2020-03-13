@@ -11,6 +11,7 @@ import { EmpresaLaboral } from '../DatosBean/empresaLaboral';
 import { AntecedentesTrabajo } from '../DatosBean/antecedentesTrabajo';
 import { EnfermedadesLaboral } from '../DatosBean/enfermedadesLaboral';
 import { FactoresRiesgo } from '../DatosBean/factoresRiesgo';
+import { TipoAntecedente} from '../DatosBean/tipoAntecedente';
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +48,10 @@ export class HistoriasService {
 
   createHistoria(historias: Historias): Observable<Historias> {
     return this.http.post<Historias>(this.url + "historiaPaciente/createHistoria", historias, { headers: this.httpHeaders });
+  }
+
+  getTipoAntecedente():Observable<TipoAntecedente[]>{
+    console.log(this.http.get<TipoAntecedente[]>(this.url+"historiaLaboral/listTipoAntecedentes"));
+    return this.http.get<TipoAntecedente[]>(this.url+"historiaLaboral/listTipoAntecedentes");
   }
 }

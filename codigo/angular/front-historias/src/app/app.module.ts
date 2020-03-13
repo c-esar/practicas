@@ -29,6 +29,7 @@ import { LoginService } from './Servicios/login.service';
 import { PersonaService } from './Servicios/persona.service';
 import { LabelService } from './Servicios/label.service';
 import { TablesComponent } from './tables/tables.component';
+import { FormAuxiliarComponent } from './form-auxiliar/form-auxiliar.component';
 //rutas
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, //ruta principal de la aplicacion
@@ -40,7 +41,8 @@ const routes: Routes = [
   { path: 'menuPrincipal/creacionUsuario', component: CreacionUsuarioAppComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/cambioPass', component: FormCambioPassComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/form-gym', component: FormGymComponent, canActivate: [LoginService] },
-  { path: 'menuPrincipal/list-usuariosApp', component: ListUsuariosAppComponent, canActivate: [LoginService] }
+  { path: 'menuPrincipal/list-usuariosApp', component: ListUsuariosAppComponent, canActivate: [LoginService] },
+  { path: 'menuPrincipal/form-ocupacional/auxiliar', component: FormAuxiliarComponent, canActivate: [LoginService] }
 ];
 
 @NgModule({
@@ -56,7 +58,8 @@ const routes: Routes = [
     FormCambioPassComponent,
     FormGymComponent,
     ListUsuariosAppComponent,
-    TablesComponent
+    TablesComponent,
+    FormAuxiliarComponent
   ],
   imports: [
     BrowserModule,

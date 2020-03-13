@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if (this.loginService.isAutorization()) {
       this.router.navigate(['menuPrincipal'])
-    } 
+    }
   }
 
   public iniciarLogin(): void {
@@ -37,7 +37,6 @@ export class LoginComponent implements OnInit {
           console.log(respuesta.permisos);
           if (respuesta['estado'] == "ACTIVO" || respuesta['estado'] == "activo") {
             this.loginService.isLogin = true;
-            debugger;
             this.loginService.correctLogin(respuesta);
             this.router.navigate(['menuPrincipal'])
           } else {

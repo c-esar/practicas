@@ -34,7 +34,8 @@
                     <li *ngIf="permiso.crearUsuario == 1"><a href="menuPrincipal/listPersonas">Listado Pacientes</a></li>
                     <li><a >Crear Formularios</a>
                       <ul>
-                        <li><a href="menuPrincipal/form-ocupacional">Formulario Ocupacional</a></li>
+                        <li *ngIf="permiso.crearUsuario == 1" ><a href="menuPrincipal/form-ocupacional">Formulario Ocupacional</a></li>
+                        <li *ngIf="permiso.crearAux == 1" ><a href="menuPrincipal/form-ocupacional/auxiliar">Formulario Ocupacional</a></li>
                         <li><a href="menuPrincipal/form-gym">Formulario GYM</a></li>
                         <li><a href="">otro</a></li>
                       </ul>

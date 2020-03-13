@@ -1,6 +1,7 @@
 package com.konrad.edu.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,14 +13,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -36,7 +36,7 @@ public class HistoriasEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long seqHistoria;
 
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "seq_tipo_historia", updatable = false)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoHistorias seqTipoHistoria;
@@ -46,26 +46,28 @@ public class HistoriasEntity implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private ExamenFisicoEntity examenFisico;
 
-	@OneToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "seq_historia_laboral", updatable = false)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="seq_historia_laboral")
 	private HistoriaLaboralEntity historiaLaboral;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "hc_historia_antecedentehistoria", joinColumns = @JoinColumn(name = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_ant_historias"), uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "seq_historia", "seq_ant_historias" }) })
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "seq_historia")
 	private List<AntecedentesHistoriaEntity> antecedentesHistoriaEntity;
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "seq_historia")
+	private List<ParaclinicosEntity> paraclinicosEntity;
 
 	@OneToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "seq_eval", updatable = false)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoEvaluacionEntity tipoEvaluacionEntity;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "seq_ciudad", updatable = false)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private CiudadEntity ciudadHistoria;
-
+	 
 	@Column(name = "dia_historia")
 	@Temporal(TemporalType.DATE)
 	private Date diaHistoria;
@@ -93,6 +95,11 @@ public class HistoriasEntity implements Serializable {
 	// falta concepto
 
 	// falta exam_fisico
+	
+	public HistoriasEntity() {
+		this.antecedentesHistoriaEntity = new ArrayList<>();
+	}
+	
 	public Long getSeqHistoria() {
 		return seqHistoria;
 	}
@@ -197,4 +204,21 @@ public class HistoriasEntity implements Serializable {
 		this.examenFisico = examenFisico;
 	}
 
+	public List<ParaclinicosEntity> getParaclinicosEntity() {
+		return paraclinicosEntity;
+	}
+
+	public void setParaclinicosEntity(List<ParaclinicosEntity> paraclinicosEntity) {
+		this.paraclinicosEntity = paraclinicosEntity;
+	}
+
+	public CiudadEntity getCiudadHistoria() {
+		return ciudadHistoria;
+	}
+
+	public void setCiudadHistoria(CiudadEntity ciudadHistoria) {
+		this.ciudadHistoria = ciudadHistoria;
+	}
+
+	
 }

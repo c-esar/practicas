@@ -4071,3 +4071,225 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact com.microsoft
 2020-03-07 11:14:30,249 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
 2020-03-07 11:14:30,261 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2020-03-07 11:14:30,261 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-09 07:10:05,751 [Worker-598: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-09 07:10:05,797 [Worker-598: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-03-09 07:10:05,799 [Worker-598: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-09 07:10:05,863 [Worker-598: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-09 07:10:05,864 [Worker-598: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 06:37:57,257 [Worker-700: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 06:37:57,276 [Worker-700: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 06:37:57,331 [Worker-700: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 06:37:57,341 [Worker-700: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 06:37:57,341 [Worker-700: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 06:51:00,722 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 06:51:00,722 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 06:51:00,722 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 06:51:00,733 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 06:51:00,733 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 07:21:47,944 [Worker-707: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:21:47,947 [Worker-707: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:21:47,991 [Worker-707: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:21:47,991 [Worker-707: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:21:47,991 [Worker-707: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 07:24:52,535 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:24:52,539 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:24:52,540 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:24:52,580 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:24:52,586 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 07:25:59,463 [Worker-707: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:25:59,469 [Worker-707: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:25:59,471 [Worker-707: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:25:59,585 [Worker-707: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:25:59,585 [Worker-707: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 07:29:54,869 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:29:54,869 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:29:54,875 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:29:54,905 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:29:54,905 [Worker-688: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 07:35:46,548 [Worker-712: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:35:46,555 [Worker-712: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:35:46,659 [Worker-712: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:35:46,670 [Worker-712: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:35:46,670 [Worker-712: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 07:36:16,124 [Worker-710: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:36:16,128 [Worker-710: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:36:16,134 [Worker-710: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:36:16,196 [Worker-710: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:36:16,197 [Worker-710: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 07:45:03,720 [Worker-710: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:45:03,734 [Worker-710: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:45:03,753 [Worker-710: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:45:03,763 [Worker-710: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:45:03,763 [Worker-710: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 07:45:24,223 [Worker-715: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:45:24,225 [Worker-715: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:45:24,234 [Worker-715: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:45:24,251 [Worker-715: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:45:24,251 [Worker-715: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 07:47:12,118 [Worker-713: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:47:12,119 [Worker-713: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:47:12,125 [Worker-713: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:47:12,131 [Worker-713: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:47:12,131 [Worker-713: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 07:47:26,626 [Worker-716: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:47:26,629 [Worker-716: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:47:26,635 [Worker-716: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:47:26,652 [Worker-716: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:47:26,655 [Worker-716: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 07:51:39,425 [Worker-692: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:51:39,428 [Worker-692: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:51:39,431 [Worker-692: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 07:51:39,439 [Worker-692: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 07:51:39,442 [Worker-692: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 08:39:29,093 [Worker-722: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 08:39:29,096 [Worker-722: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 08:39:29,103 [Worker-722: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 08:39:29,113 [Worker-722: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 08:39:29,113 [Worker-722: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 08:49:53,981 [Worker-718: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 08:49:53,985 [Worker-718: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 08:49:53,989 [Worker-718: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 08:49:54,018 [Worker-718: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 08:49:54,018 [Worker-718: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 09:31:40,168 [Worker-725: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 09:31:40,198 [Worker-725: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 09:31:40,236 [Worker-725: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 09:31:40,261 [Worker-725: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 09:31:40,263 [Worker-725: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 09:32:28,143 [Worker-726: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 09:32:28,148 [Worker-726: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 09:32:28,165 [Worker-726: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 09:32:28,173 [Worker-726: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 09:32:28,174 [Worker-726: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 09:33:48,972 [Worker-725: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 09:33:48,972 [Worker-725: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 09:33:48,984 [Worker-725: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 09:33:48,992 [Worker-725: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 09:33:48,992 [Worker-725: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 10:42:33,095 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:42:33,099 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:42:33,105 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:42:33,148 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:42:33,148 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 10:43:19,580 [Worker-732: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:43:19,582 [Worker-732: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:43:19,588 [Worker-732: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:43:19,595 [Worker-732: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:43:19,599 [Worker-732: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 10:43:22,269 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:43:22,274 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:43:22,281 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:43:22,335 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:43:22,335 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 10:47:20,403 [Worker-734: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:47:20,404 [Worker-734: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:47:20,407 [Worker-734: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:47:20,444 [Worker-734: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:47:20,449 [Worker-734: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 10:48:52,655 [Worker-739: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:48:52,670 [Worker-739: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:48:52,676 [Worker-739: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:48:52,727 [Worker-739: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:48:52,727 [Worker-739: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 10:50:34,364 [Worker-739: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:50:34,370 [Worker-739: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:50:34,393 [Worker-739: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:50:34,412 [Worker-739: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:50:34,412 [Worker-739: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 10:53:42,876 [Worker-737: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:53:42,879 [Worker-737: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-03-11 10:53:42,880 [Worker-737: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:53:42,897 [Worker-737: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:53:42,898 [Worker-737: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 10:54:37,096 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:54:37,099 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-03-11 10:54:37,100 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:54:37,145 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:54:37,145 [Worker-731: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 10:57:08,748 [Worker-711: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:57:08,762 [Worker-711: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:57:08,777 [Worker-711: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 10:57:08,782 [Worker-711: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 10:57:08,785 [Worker-711: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 11:40:37,014 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2020-03-11 11:40:59,233 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 11:40:59,252 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 11:40:59,341 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 11:40:59,353 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 11:40:59,354 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 11:59:25,982 [Worker-3: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2020-03-11 12:00:09,559 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 12:00:09,575 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 12:00:09,696 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 12:00:09,985 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 12:00:09,985 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 18:41:52,538 [Worker-67: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 18:41:52,593 [Worker-67: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 18:41:52,641 [Worker-67: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 18:41:52,666 [Worker-67: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 18:41:52,666 [Worker-67: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 19:07:41,828 [Worker-75: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 19:07:41,855 [Worker-75: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 19:07:41,863 [Worker-75: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 19:07:41,863 [Worker-75: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 19:07:41,863 [Worker-75: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 19:15:42,117 [Worker-80: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 19:15:42,123 [Worker-80: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 19:15:42,159 [Worker-80: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 19:15:42,193 [Worker-80: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 19:15:42,206 [Worker-80: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 19:19:03,981 [Worker-83: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 19:19:03,981 [Worker-83: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 19:19:04,022 [Worker-83: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 19:19:04,032 [Worker-83: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 19:19:04,032 [Worker-83: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 19:37:57,095 [Worker-93: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 19:37:57,095 [Worker-93: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 19:37:57,156 [Worker-93: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 19:37:57,162 [Worker-93: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 19:37:57,163 [Worker-93: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-11 20:04:36,989 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 20:04:36,995 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 20:04:36,999 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-11 20:04:37,006 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-11 20:04:37,007 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-12 06:31:31,334 [Worker-115: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-12 06:31:31,336 [Worker-115: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-12 06:31:31,343 [Worker-115: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-12 06:31:31,353 [Worker-115: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-12 06:31:31,354 [Worker-115: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-12 07:32:12,410 [Worker-120: Launching sprint-backend - SprintBackendApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-12 07:32:12,414 [Worker-120: Launching sprint-backend - SprintBackendApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-12 07:32:12,420 [Worker-120: Launching sprint-backend - SprintBackendApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-12 07:32:12,430 [Worker-120: Launching sprint-backend - SprintBackendApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-12 07:32:12,430 [Worker-120: Launching sprint-backend - SprintBackendApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-13 10:24:13,608 [Worker-188: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-13 10:24:13,619 [Worker-188: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-13 10:24:13,657 [Worker-188: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-13 10:24:13,666 [Worker-188: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-13 10:24:13,667 [Worker-188: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-13 10:35:53,790 [Worker-188: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-13 10:35:53,793 [Worker-188: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-13 10:35:53,805 [Worker-188: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-13 10:35:53,806 [Worker-188: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-13 10:35:53,806 [Worker-188: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-13 11:42:46,834 [Worker-190: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-13 11:42:46,899 [Worker-190: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-13 11:42:46,904 [Worker-190: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-13 11:42:46,911 [Worker-190: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-13 11:42:46,911 [Worker-190: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-13 11:47:41,393 [Worker-190: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-13 11:47:41,395 [Worker-190: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-13 11:47:41,399 [Worker-190: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-13 11:47:41,405 [Worker-190: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-13 11:47:41,405 [Worker-190: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-13 12:24:22,800 [Worker-195: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-13 12:24:22,802 [Worker-195: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-13 12:24:22,807 [Worker-195: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-13 12:24:22,814 [Worker-195: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-13 12:24:22,814 [Worker-195: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources
+2020-03-13 14:04:15,147 [Worker-195: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-13 14:04:15,150 [Worker-195: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-13 14:04:15,155 [Worker-195: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-03-13 14:04:15,161 [Worker-195: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-03-13 14:04:15,161 [Worker-195: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Administrator\Documents\GitHub\practicas\codigo\sprit\sprint-backend\src\test\resources

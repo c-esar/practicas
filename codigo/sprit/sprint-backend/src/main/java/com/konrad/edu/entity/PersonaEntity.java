@@ -1,6 +1,7 @@
 package com.konrad.edu.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,14 +13,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -51,11 +50,6 @@ public class PersonaEntity implements Serializable {
 
 	@Column(name = "nom_segundo_apellido", length = 50)
 	private String nomSegundoApellido;
-
-	@OneToOne
-	@JoinColumn(name = "seq_tipo_documento", updatable = false)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private TipoDocumentoEntity tipoDocumento;
 
 	@Column(name = "numero_documento")
 	private String numeroDocumento;
@@ -91,18 +85,8 @@ public class PersonaEntity implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fechaNacimiento;
 
-	@OneToOne
-	@JoinColumn(name = "seq_lugarNacimiento", updatable = false)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private CiudadEntity lugarNacimiento;
-
 	@Column(length = 50)
 	private String barrio;
-
-	@OneToOne
-	@JoinColumn(name = "seq_lugarResidencia", updatable = false)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private CiudadEntity lugarDeResidencia;
 
 	@Column(length = 50)
 	private String escolaridad;
@@ -131,26 +115,49 @@ public class PersonaEntity implements Serializable {
 	@Column(name = "parentesco_emergencia", length = 50)
 	private String parentescoEmergencia;
 
-	@OneToOne
-	@JoinColumn(name = "seq_aseguradora", updatable = false)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private AseguradoraEntity aseguradora;
-
-	@OneToOne
-	@JoinColumn(name = "seq_localidad", updatable = false)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private LocalidadEntity localidad;
-
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "hc_persona_historia", joinColumns = @JoinColumn(name = "seq_persona"), inverseJoinColumns = @JoinColumn(name = "seq_historia"), uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "seq_persona", "seq_historia" }) })
-	private List<HistoriasEntity> historias;
+//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name = "hc_persona_historia", joinColumns = @JoinColumn(name = "seq_persona"), inverseJoinColumns = @JoinColumn(name = "seq_historia"), uniqueConstraints = {
+//			@UniqueConstraint(columnNames = { "seq_persona", "seq_historia" }) })
 
 	private String rolUsuario;
 
 	@PrePersist
 	public void prePersist() {
 		this.fechaCreacion = new Date();
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "seq_lugarNacimiento", updatable = false)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private CiudadEntity lugarNacimiento;
+
+	@ManyToOne
+	@JoinColumn(name = "seq_aseguradora", updatable = false)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private AseguradoraEntity aseguradora;
+
+	@ManyToOne
+	@JoinColumn(name = "seq_localidad", updatable = false)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private LocalidadEntity localidad;
+
+	@ManyToOne
+	@JoinColumn(name = "seq_tipo_documento", updatable = false)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private TipoDocumentoEntity tipoDocumento;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "seq_persona")
+	private List<HistoriasEntity> historias;
+
+	@ManyToOne
+	@JoinColumn(name = "seq_lugarResidencia", updatable = false)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private CiudadEntity lugarDeResidencia;
+
+	
+	public PersonaEntity() {
+		this.historias = new ArrayList<>();
 	}
 
 	public Integer getSeqPersona() {
@@ -289,7 +296,6 @@ public class PersonaEntity implements Serializable {
 		this.nomCargoDep = nomCargoDep;
 	}
 
-
 	public String getGrupoSanguineo() {
 		return grupoSanguineo;
 	}
@@ -297,7 +303,6 @@ public class PersonaEntity implements Serializable {
 	public void setGrupoSanguineo(String grupoSanguineo) {
 		this.grupoSanguineo = grupoSanguineo;
 	}
-
 
 	public String getTelEmergencia() {
 		return telEmergencia;
