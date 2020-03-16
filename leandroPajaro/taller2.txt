@@ -36,7 +36,7 @@ no_opera varchar(2)
 );
 create table fecha( 
 seq_fecha int primary key,
-instante date, 
+instante date unique, 
 ano varchar(10),
 mes varchar (20),
 dia varchar(20)
@@ -44,11 +44,11 @@ dia varchar(20)
 
 create table accidentalidad( 
 Id_accidentalidad int primary key,
-seq_fecha int,
+seq_fecha date,
 franja_horaria varchar(20),
 r_franja varchar(20),
 seq_tipo_accidente int,
-seq_afectación int,
+seq_afectacion int,
 seq_tipo_servicio int,
 seq_empresa_operadora int,
 concesion int,
@@ -59,19 +59,19 @@ coordenada_Y varchar(20),
 desp_suceso varchar(5000),
 num_lesionados_valorados int,
 num_lesionados_trasladados int,
-num_víctimas_fatales int,
+num_victimas_fatales int,
 gravedad_afectados int,
-conciliación varchar(5),
+conciliacion varchar(5),
 placa varchar(10),
 inmovilizado varchar(20),
 sentido varchar(20)
 );
 
-alter table accidentalidad add foreign key (seq_fecha) references fecha(seq_fecha);
+alter table accidentalidad add foreign key (seq_fecha) references fecha(instante);
 
 alter table accidentalidad add foreign key (seq_tipo_accidente) references tipo_accidente(seq_tipo_accidente);
 
-alter table accidentalidad add foreign key (seq_afectación) references afectacion(seq_afectacion);
+alter table accidentalidad add foreign key (seq_afectacion) references afectacion(seq_afectacion);
 
 alter table accidentalidad add foreign key (concesion) references concesion(seq_concesion);
 
@@ -99,29 +99,54 @@ LOAD DATA LOCAL INFILE 'C:/temp/archivos_csv/vehiculo.csv' IGNORE INTO TABLE veh
 
 LOAD DATA LOCAL INFILE 'C:/temp/archivos_csv/fecha.csv' IGNORE INTO TABLE fecha CHARACTER SET UTF8 FIELDS TERMINATED BY ';' ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 LINES (seq_fecha,instante,ano,mes,dia);
 
-LOAD DATA LOCAL INFILE 'C:/temp/archivos_csv/accidentalidad.csv' IGNORE INTO TABLE accidentalidad CHARACTER SET UTF8 FIELDS TERMINATED BY ';' ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 LINES (Id_accidentalidad,seq_fecha,franja_horaria,r_franja,seq_tipo_accidente,seq_afectación,seq_tipo_servicio,seq_empresa_operadora,concesion,linea,ruta,coordenada_X,coordenada_Y,desp_suceso,num_lesionados_valorados,num_lesionados_trasladados,num_víctimas_fatales,gravedad_afectados,conciliación,placa,inmovilizado,sentido);
+LOAD DATA LOCAL INFILE 'C:/temp/archivos_csv/accidentalidad.csv' IGNORE INTO TABLE accidentalidad CHARACTER SET UTF8 FIELDS TERMINATED BY ';' ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 LINES (Id_accidentalidad,seq_fecha,franja_horaria,r_franja,seq_tipo_accidente,seq_afectacion,seq_tipo_servicio,seq_empresa_operadora,concesion,linea,ruta,coordenada_X,coordenada_Y,desp_suceso,num_lesionados_valorados,num_lesionados_trasladados,num_victimas_fatales,gravedad_afectados,conciliacion,placa,inmovilizado,sentido);
 
 
 select f.dia,count(a.seq_tipo_accidente) as Cantidad_accidentes_por_dia
 from accidentalidad ac 
-inner join fecha f  on ac.seq_fecha = f.seq_fecha 
+inner join fecha f  on ac.seq_fecha = f.instante
 inner join tipo_accidente a on ac.seq_tipo_accidente = a.seq_tipo_accidente  
 group by  f.dia;
 
+select ac.r_franja,count(a.seq_tipo_accidente) as Cantidad_accidentes_por_franja_Horaria
+from accidentalidad ac 
+inner join tipo_accidente a on ac.seq_tipo_accidente = a.seq_tipo_accidente  
+group by  ac.r_franja;
 
 select a.tipo,count(a.seq_tipo_accidente) as Cantidad_accidnetes_por_tipo
 from accidentalidad ac 
 inner join tipo_accidente a on ac.seq_tipo_accidente = a.seq_tipo_accidente  
 group by  a.tipo;
 
-select emp.nom_empresa , count(af.seq_afectacion)
+select emp.nom_empresa , count(af.seq_afectacion) as Cantidad_accidentes_por_empresa
 from accidentalidad ac
 inner join empresa emp on ac.seq_empresa_operadora = emp.seq_empresa
-inner join afectacion af on ac.seq_afectación = af.seq_afectacion
+inner join afectacion af on ac.seq_afectacion = af.seq_afectacion
 where af.nom_afectacion = "Accidente"
 group by emp.nom_empresa
 order by count(af.seq_afectacion) desc;
 
-select ve.marca , count(nom.afectacion)
+select ve.marca , count(a.seq_tipo_accidente) as Marca_Vehiculo_mas_Accidente
 from accidentalidad ac
-inner join
+inner join vehiculo ve on ac.placa = ve.placa
+inner join tipo_accidente a on ac.seq_tipo_accidente = a.seq_tipo_accidente 
+group by ve.marca 
+order by count(a.seq_tipo_accidente) desc;
+
+
+select emp.nom_empresa, concesion.nom_concesion, f.dia, tipo.tipo , servicio.nom_tipo_servicio, gravedad.nom_gravedad
+from accidentalidad ac 
+inner join empresa emp on ac.seq_empresa_operadora = emp.seq_empresa
+inner join concesion concesion on ac.concesion = concesion.seq_concesion
+inner join fecha f  on ac.seq_fecha = f.instante
+inner join tipo_accidente tipo on ac.seq_tipo_accidente = tipo.seq_tipo_accidente  
+inner join tipo_servicio servicio on ac.seq_tipo_servicio = servicio.seq_tipo_servicio
+inner join gravedad gravedad on ac.gravedad_afectados = gravedad.seq_gravedad
+where ac.num_lesionados_trasladados > 0;
+
+select f.dia , emp.nom_empresa ,sum(ac.num_victimas_fatales) as numero_victimas
+from accidentalidad ac
+inner join empresa emp on ac.seq_empresa_operadora = emp.seq_empresa
+inner join fecha f  on ac.seq_fecha = f.instante
+where ac.num_victimas_fatales > 0
+group by f.dia,emp.nom_empresa;
