@@ -22,7 +22,7 @@
                 <button id="DatosExamenFisico" class="nav-link btn btn-primary " (click)="activar('DatosExamenFisico')">{{datosSingleton.menuExamenFisico}}</button>
               </li>
               <li class="nav-item">
-                <button id="DatosFinalFormulario" class="nav-link btn btn-primary " (click)="activar('DatosFinalFormulario')">Final Formulario</button>
+                <button id="DatosFinalFormulario" class="nav-link btn btn-primary " (click)="activar('DatosFinalFormulario')">ÚLTIMA PARTE</button>
               </li>
             </ul>
           </div>
@@ -805,7 +805,7 @@
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <mat-form-field>
                   <mat-label for="formextralaboralesOcupacional">{{datosSingleton.lableActividadesExtra}}</mat-label>
-                  <input matInput required [(ngModel)]="actividadExtralaborales.despAntecedente" name="extralaborales" id="formextralaboralesOcupacional" type="text" class="form-control campoGrande">
+                  <textarea matInput [(ngModel)]="actividadExtralaborales.despAntecedente" name="extralaborales" id="formextralaboralesOcupacional" type="text" rows="3" cols="80" required></textarea>
                 </mat-form-field>
               </div>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -851,7 +851,8 @@
               <div class="form-group col-md-3 col-sm-3 col-xs-6">
                 <mat-form-field>
                   <mat-label for="fromlabelFrecuenciaRespiratoria">{{datosSingleton.labelFrecuenciaRespiratoria}}</mat-label>
-                  <input matInput [(ngModel)]="examenFisico.numFrecResp" name="labelFrecuenciaRespiratoria" id="fromlabelFrecuenciaRespiratoria" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelFrecuenciaRespiratoria}}" required />
+                  <input matInput [(ngModel)]="examenFisico.numFrecResp" name="labelFrecuenciaRespiratoria" id="fromlabelFrecuenciaRespiratoria" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelFrecuenciaRespiratoria}}"
+                    required />
                   <mat-hint>Ingrese Solo Números</mat-hint>
                 </mat-form-field>
               </div>
@@ -879,7 +880,12 @@
               <div class="form-group col-md-3 col-sm-3 col-xs-6">
                 <mat-form-field>
                   <mat-label for="fromlabelLateralidad">{{datosSingleton.labelLateralidad}}</mat-label>
-                  <input matInput [(ngModel)]="examenFisico.numLateralidad" name="labelLateralidad" id="fromlabelLateralidad" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelLateralidad}}" required />
+                  <mat-select [(ngModel)]="examenFisico.numLateralidad" name="fromlabelLateralidad" required>
+                    <mat-option value="DIESTRO">DIESTRO</mat-option>
+                    <mat-option value="SURDO">SURDO</mat-option>
+                    <mat-option value="AMBIDIESTRO">AMBIDIESTRO</mat-option>
+                  </mat-select>
+                  <mat-error>Seleccione una opción</mat-error>
                 </mat-form-field>
               </div>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -951,31 +957,101 @@
                   <tbody>
                     <tr>
                       <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[0].despExamen" name="persona.historias[0].paraclinicos[0].despExamen"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[0].fecha" name="persona.historias[0].paraclinicos[0].fecha"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].paraclinicos[0].fecha" name="persona.historias[0].paraclinicos[0].fecha" /></td>
                       <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[0].despResultado" name="persona.historias[0].paraclinicos[0].despResultado"></textarea></td>
                     </tr>
                     <tr>
                       <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[1].despExamen" name="persona.historias[0].paraclinicos[1].despExamen"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[1].fecha" name="persona.historias[0].paraclinicos[1].fecha"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].paraclinicos[1].fecha" name="persona.historias[0].paraclinicos[1].fecha" /></td>
                       <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[1].despResultado" name="persona.historias[0].paraclinicos[1].despResultado"></textarea></td>
                     </tr>
                     <tr>
                       <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[2].despExamen" name="persona.historias[0].paraclinicos[2].despExamen"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[2].fecha" name="persona.historias[0].paraclinicos[2].fecha"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].paraclinicos[2].fecha" name="persona.historias[0].paraclinicos[2].fecha"></td>
                       <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[2].despResultado" name="persona.historias[0].paraclinicos[2].despResultado"></textarea></td>
                     </tr>
                     <tr>
                       <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[3].despExamen" name="persona.historias[0].paraclinicos[3].despExamen"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[3].fecha" name="persona.historias[0].paraclinicos[3].fecha"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].paraclinicos[3].fecha" name="persona.historias[0].paraclinicos[3].fecha"></td>
                       <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[3].despResultado" name="persona.historias[0].paraclinicos[3].despResultado"></textarea></td>
                     </tr>
                     <tr>
                       <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[4].despExamen" name="persona.historias[0].paraclinicos[4].despExamen"></textarea></td>
-                      <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[4].fecha" name="persona.historias[0].paraclinicos[4].fecha"></textarea></td>
+                      <td><input type="date" [(ngModel)]="persona.historias[0].paraclinicos[4].fecha" name="persona.historias[0].paraclinicos[4].fecha" /></td>
                       <td><textarea rows="2" cols="30" [(ngModel)]="persona.historias[0].paraclinicos[4].despResultado" name="persona.historias[0].paraclinicos[4].despResultado"></textarea></td>
                     </tr>
                   </tbody>
                 </table>
+              </div>
+            </blockquote>
+          </div>
+
+          <!--******************************************************************************-->
+          <!--Tercera fase-->
+          <div class="card-body" id="datosFinalFormulario" style="display:none;">
+            <blockquote class="blockquote col-md-12 col-sm-12 col-xs-12 form-row etiquetas">
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <h3>{{datosSingleton.menuImpresionDiagnostico}}</h3>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field>
+                  <mat-label for="formlabelMotivoConsultaOcupaciona">{{datosSingleton.labelMotivacionDeConsulta}}</mat-label>
+                  <textarea matInput [(ngModel)]="persona.historias[0].despMotivoConsulta" name="labelMotivoConsula" id="formlabelMotivoConsultaOcupaciona" rows="3" cols="80" required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <h3>{{datosSingleton.menuConcepto}}</h3>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-6">
+                <mat-form-field>
+                  <mat-label for="form">{{datosSingleton.labelIngreso}}</mat-label>
+                  <select matNativeControl id="" [(ngModel)]="persona.historias[0].concepto[0].seqConcepto" name="labelIngreso">
+                    <option *ngFor="let doc of conceptoIngreso" [value]="doc.seqConcepto" >{{doc.nomConcepto}}</option>
+                  </select>
+                  <mat-error>Seleccione una opción</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-6">
+                <mat-form-field>
+                  <mat-label for="form">{{datosSingleton.labelPeriodico}}</mat-label>
+                  <select matNativeControl id="" [(ngModel)]="persona.historias[0].concepto[1].seqConcepto" name="labelPeriodico">
+                    <option *ngFor="let doc of conceptoPeriodico" [value]="doc.seqConcepto">{{doc.nomConcepto}}</option>
+                  </select>
+                  <mat-error>Seleccione una opción</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-6">
+                <mat-form-field>
+                  <mat-label for="form">{{datosSingleton.labelEgreso}}</mat-label>
+                  <select matNativeControl id="" [(ngModel)]="persona.historias[0].concepto[1].seqConcepto" name="labelEgreso">
+                    <option *ngFor="let doc of conceptoEgreso" [value]="doc.seqConcepto" >{{doc.nomConcepto}}</option>
+                  </select>
+                  <mat-error>Seleccione una opción</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <h3>{{datosSingleton.menuRecomendaciones}}</h3>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field>
+                  <mat-label for="formRecomendaciones1">RECOMENDACIONES MÉDICAS (REMISIONES, TRATAMIENTOS)</mat-label>
+                  <textarea matInput [(ngModel)]="persona.historias[0].recomMedicas" name="Recomendaciones1" id="formRecomendaciones1" type="text" rows="3" cols="80" required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field>
+                  <mat-label for="formRecomendaciones2">RECOMENDACIONES OCUPACIONALES (USO DE EPP, INGRESO A SVE, RECOMEDACIONES, REUBICACIONES)</mat-label>
+                  <textarea matInput [(ngModel)]="persona.historias[0].recomOcupacionales" name="Recomendaciones2" id="formRecomendaciones2" rows="3" cols="80" required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field>
+                  <mat-label for="formRecomendaciones3">HÁBITOS Y ESTILOS DE VIDA SALUDABLES</mat-label>
+                  <textarea matInput [(ngModel)]="persona.historias[0].recomHabitos" name="Recomendaciones3" id="formRecomendaciones3" rows="3" cols="80" required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-6 col-sm-6 col-xs-3 row">
+                <button mat-raised-button color="primary" role="button" [disabled]="f.invalid" (click)="create()">CREAR PACIENTE</button>
               </div>
             </blockquote>
           </div>

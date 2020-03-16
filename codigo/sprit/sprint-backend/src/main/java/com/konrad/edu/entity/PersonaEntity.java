@@ -155,7 +155,6 @@ public class PersonaEntity implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private CiudadEntity lugarDeResidencia;
 
-	
 	public PersonaEntity() {
 		this.historias = new ArrayList<>();
 	}

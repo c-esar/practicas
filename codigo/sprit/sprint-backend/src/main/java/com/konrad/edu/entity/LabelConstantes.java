@@ -120,6 +120,11 @@ public class LabelConstantes implements Serializable {
 	private String labelFecha;
 	private String labelResultado;
 
+	// ULTIMA PARTE
+	private String menuImpresionDiagnostico;
+	private String menuConcepto;
+	private String menuRecomendaciones;
+
 	public LabelConstantes() {
 		this.labelPrimerNombre = IConstantes.LABEL_PRIMER_NOMBRE;
 		this.labelSegundoNombre = IConstantes.LABEL_SEGUNDO_NOMBRE;
@@ -223,6 +228,9 @@ public class LabelConstantes implements Serializable {
 		this.labelExamen = IConstantes.LABEL_EXAMEN;
 		this.labelFecha = IConstantes.LABEL_FECHA;
 		this.labelResultado = IConstantes.LABEL_RESULTADO;
+		this.menuImpresionDiagnostico = IConstantes.MENU_IMPRESION_DIAGNOSTICO;
+		this.menuConcepto = IConstantes.MENU_CONCEPTO;
+		this.menuRecomendaciones = IConstantes.MENU_RECOMENDACIONES;
 	}
 
 	public String getLabelPrimerNombre() {
@@ -867,7 +875,6 @@ public class LabelConstantes implements Serializable {
 		this.lableRevisionSistemas = lableRevisionSistemas;
 	}
 
-	
 	public String getMenuExamenFisico() {
 		return menuExamenFisico;
 	}
@@ -1042,6 +1049,30 @@ public class LabelConstantes implements Serializable {
 
 	public void setLabelResultado(String labelResultado) {
 		this.labelResultado = labelResultado;
+	}
+
+	public String getMenuImpresionDiagnostico() {
+		return menuImpresionDiagnostico;
+	}
+
+	public void setMenuImpresionDiagnostico(String menuImpresionDiagnostico) {
+		this.menuImpresionDiagnostico = menuImpresionDiagnostico;
+	}
+
+	public String getMenuConcepto() {
+		return menuConcepto;
+	}
+
+	public void setMenuConcepto(String menuConcepto) {
+		this.menuConcepto = menuConcepto;
+	}
+
+	public String getMenuRecomendaciones() {
+		return menuRecomendaciones;
+	}
+
+	public void setMenuRecomendaciones(String menuRecomendaciones) {
+		this.menuRecomendaciones = menuRecomendaciones;
 	}
 
 	@Override

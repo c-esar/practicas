@@ -96,4 +96,10 @@ export class DatosSingleton {
   labelExamen: string;
   labelFecha: string;
   labelResultado: string;
+  menuImpresionDiagnostico: string;
+  menuConcepto: string;
+  menuRecomendaciones: string;
+  labelIngreso: string;
+  labelPeriodico: string;
+  labelEgreso: string;
 }

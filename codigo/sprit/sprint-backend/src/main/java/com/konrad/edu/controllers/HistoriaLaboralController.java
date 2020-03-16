@@ -74,7 +74,7 @@ public class HistoriaLaboralController {
 	public HistoriaLaboralEntity create(@RequestBody HistoriaLaboralEntity historiaLaboralEntity) {
 		return historiaLaboralService.save(historiaLaboralEntity);
 	}
-	
+
 	@GetMapping("/listTipoAntecedentes")
 	public List<TipoAntecedenteEntity> index() {
 		return tipoAntecedenteService.findAll();

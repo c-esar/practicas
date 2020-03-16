@@ -5,12 +5,16 @@ import { AntecedentesHistoria } from './antecedentesHistoria';
 import { ExamenFisico } from './examenFisico';
 import { TipoHistoria } from './tipoHistoria';
 import { Paraclinicos } from './paraclinicos';
+import { Concepto } from './concepto';
+import { DiagnosticoOcupacional} from'./diagnosticoOcupacional';
 export class Historias {
   seqHistoria: number;
   historiaLaboral: HistoriaLaboral;
   examenFisico: ExamenFisico;
   antecedentesHistoriaEntity: AntecedentesHistoria[];
   paraclinicos: Paraclinicos[];
+  concepto: Concepto[];
+  diagnosticoOcupacional: DiagnosticoOcupacional[];
   tipoEvaluacionEntity: TipoEvaluacion;
   ciudadHistoria: Ciudad;
   diaHistoria = new Date();
@@ -25,6 +29,8 @@ export class Historias {
     this.examenFisico = new ExamenFisico();
     this.antecedentesHistoriaEntity = new Array<AntecedentesHistoria>();
     this.paraclinicos = new Array<Paraclinicos>();
+    this.concepto = new Array<Concepto>();
+    this.diagnosticoOcupacional = new Array<DiagnosticoOcupacional>();
     this.tipoEvaluacionEntity = new TipoEvaluacion();
     this.ciudadHistoria = new Ciudad();
     this.diaHistoria = new Date();

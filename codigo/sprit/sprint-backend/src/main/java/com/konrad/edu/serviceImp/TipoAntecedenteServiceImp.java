@@ -10,15 +10,14 @@ import com.konrad.edu.dao.ITipoAntecedenteDao;
 import com.konrad.edu.entity.TipoAntecedenteEntity;
 
 @Service
-public class TipoAntecedenteServiceImp implements ITipoAntecedenteService{
+public class TipoAntecedenteServiceImp implements ITipoAntecedenteService {
 
 	@Autowired
 	private ITipoAntecedenteDao tipoAntecedenteDao;
-	
+
 	@Override
 	public List<TipoAntecedenteEntity> findAll() {
 		return (List<TipoAntecedenteEntity>) tipoAntecedenteDao.findAll();
 	}
-
 
 }

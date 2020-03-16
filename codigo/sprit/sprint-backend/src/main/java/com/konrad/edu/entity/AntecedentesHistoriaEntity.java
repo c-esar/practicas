@@ -114,5 +114,4 @@ public class AntecedentesHistoriaEntity implements Serializable {
 		this.tipoAntecedenteEntity = tipoAntecedenteEntity;
 	}
 
-	
 }

@@ -94,8 +94,6 @@ public class PerfilEntity implements Serializable {
 		this.nomPerfil = nomPerfil;
 	}
 
-	
-
 	@Override
 	public String toString() {
 		return "PerfilEntity [seqPerfil=" + seqPerfil + ", nomUsuario=" + nomUsuario + ", password=" + password
@@ -118,7 +116,5 @@ public class PerfilEntity implements Serializable {
 	public void setPersona(List<PersonaEntity> persona) {
 		this.persona = persona;
 	}
-
-	
 
 }

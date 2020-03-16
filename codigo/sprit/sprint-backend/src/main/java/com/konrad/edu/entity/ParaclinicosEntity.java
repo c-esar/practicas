@@ -13,8 +13,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="hc_paraclinicos")
-public class ParaclinicosEntity implements Serializable{
+@Table(name = "hc_paraclinicos")
+public class ParaclinicosEntity implements Serializable {
 
 	/**
 	 * 
@@ -23,17 +23,17 @@ public class ParaclinicosEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="seq_paraclinicos")
+	@Column(name = "seq_paraclinicos")
 	private Long seqParaclinicos;
-	
-	@Column(name="desp_examen")
+
+	@Column(name = "desp_examen")
 	private String despExamen;
-	
-	@Column(name="dat_fecha")
+
+	@Column(name = "dat_fecha")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecha;
-	
-	@Column(name="desp_resultado")
+
+	@Column(name = "desp_resultado")
 	private String despResultado;
 
 	public Long getSeqParaclinicos() {
@@ -67,6 +67,5 @@ public class ParaclinicosEntity implements Serializable{
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	
-	
+
 }

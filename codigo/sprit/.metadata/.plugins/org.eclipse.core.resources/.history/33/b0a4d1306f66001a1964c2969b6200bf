@@ -1,0 +1,8 @@
+package com.konrad.edu.entity;
+
+@Entity
+@Table(name="hc_concepto_historia")
+public class ConceptoHistoria {
+
+	@
+}

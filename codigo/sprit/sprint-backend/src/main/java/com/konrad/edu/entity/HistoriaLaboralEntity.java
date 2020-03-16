@@ -74,13 +74,14 @@ public class HistoriaLaboralEntity implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "seq_historia_laboral")
 	private List<FactoresRiesgoEntity> factoresRiesgo;
-	
+
 	public HistoriaLaboralEntity() {
 		this.antecedentesTrabajo = new ArrayList<>();
-		this.enfermedadesLaboral= new ArrayList<>();
-		this.factoresRiesgo= new ArrayList<>();
-		this.empresaLaboral= new ArrayList<>();
+		this.enfermedadesLaboral = new ArrayList<>();
+		this.factoresRiesgo = new ArrayList<>();
+		this.empresaLaboral = new ArrayList<>();
 	}
+
 	public Long getSeqHistoriaLaboral() {
 		return seqHistoriaLaboral;
 	}

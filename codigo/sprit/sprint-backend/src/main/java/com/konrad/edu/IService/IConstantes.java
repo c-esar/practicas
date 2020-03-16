@@ -124,4 +124,9 @@ public interface IConstantes {
 	public static final String LABEL_FECHA = "FECHA";
 	public static final String LABEL_RESULTADO = "RESULTADO";
 
+	// parte final
+	public static final String MENU_IMPRESION_DIAGNOSTICO = "IMPRESIÓN DIAGNÓSTICA";
+	public static final String MENU_CONCEPTO = "CONCEPTO";
+	public static final String MENU_RECOMENDACIONES = "RECOMENDACIONES";
+
 }
