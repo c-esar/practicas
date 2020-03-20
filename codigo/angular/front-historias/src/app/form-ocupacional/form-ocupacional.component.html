@@ -54,6 +54,16 @@
                 </mat-form-field>
               </div>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <h3>TIPO DE EVALUACIÓN</h3>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+              <mat-radio-group onchange="change(this.value)" aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="tipoEvaluacionSelecionado">
+                <mat-radio-button class="example-radio-button" onchange="change(this.value)" *ngFor="let tipo of tipoEvaluacion" [value]="tipo">
+                  {{tipo }}
+                </mat-radio-button>
+              </mat-radio-group>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <h3>IDENTIFICACIÓN DEL PACIENTE</h3>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
@@ -86,7 +96,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formPrimerApellidoOcupacional">{{datosSingleton.labelPrimerApellido}}</mat-label>
-                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"  [(ngModel)]="persona.nomPrimerApellido" name="nomPrimerApellido" id="formPrimerApellidoOcupacional" type="text"
+                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.nomPrimerApellido" name="nomPrimerApellido" id="formPrimerApellidoOcupacional" type="text"
                     class="form-control campoGrande " placeholder="{{datosSingleton.labelPrimerApellido}}" value="{{Spersona.nomPrimerApellido}}">
                   <mat-error>Texto Incorrecto</mat-error>
                 </mat-form-field>

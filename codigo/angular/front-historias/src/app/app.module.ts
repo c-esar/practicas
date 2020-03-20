@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { BodyAppComponent } from './body-app/body-app.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatRadioModule} from '@angular/material/radio'
 import { ReactiveFormsModule } from '@angular/forms';
 //componentes
 import { ListaPersonasComponent } from './lista-personas/lista-personas.component';
@@ -77,7 +78,8 @@ const routes: Routes = [
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatRadioModule
   ],
   exports: [
   ],

@@ -22,14 +22,17 @@ import { ExamenFisico } from '../DatosBean/examenFisico';
 import { Paraclinicos } from '../DatosBean/paraclinicos';
 import { Concepto } from '../DatosBean/concepto';
 import Swal from 'sweetalert2';
+import { FormControl } from '@angular/forms';
 declare var jQuery: any;
 declare var $: any;
+let contador: number = 0;
 @Component({
   selector: 'app-form-ocupacional',
   templateUrl: './form-ocupacional.component.html',
   styleUrls: ['./form-ocupacional.component.css']
 })
 export class FormOcupacionalComponent implements OnInit {
+  date = new FormControl(new Date());
   persona: Persona;
   Spersona: Persona;
   buscoPerson: boolean;
@@ -66,12 +69,23 @@ export class FormOcupacionalComponent implements OnInit {
   listaElementosBLoquear: string[];
   sinAgregarLista: boolean;
   listAnosHabito: number[];
-
+  //tipo evaluacion
+  tipoEvaluacion: string[];
+  tipoEvaluacionSelecionado: string;
   constructor(private labelService: LabelService,
     private loginService: LoginService,
     private personaService: PersonaService,
     private router: Router,
     private historiaService: HistoriasService) {
+  }
+
+  ngOnInit(): void {
+    this.onCargarAtributos();
+    this.onCargarFunciones();
+    this.getAnosHabitosList();
+  }
+
+  onCargarAtributos(): void {
     this.conceptoIngreso = new Array<Concepto>();
     this.conceptoPeriodico = new Array<Concepto>();
     this.conceptoEgreso = new Array<Concepto>();
@@ -86,106 +100,16 @@ export class FormOcupacionalComponent implements OnInit {
     this.sinAgregarLista = true;
   }
 
-  ngOnInit(): void {
-    this.obtenerPermisos();
+  onCargarFunciones(): void {
+    this.getPermisos();
     this.getAuxOMedico();
-    this.activarLabels();
-    this.activar("DatosPricipales");
-    this.obtenerTipoDocumento();
-    this.obtenerTipoAntecedente();
-    this.obtenerCiudad();
-    this.obtenerAseguradora();
-    this.obtenerAnosHabitosList();
-  }
-
-  private activarLabels(): void {
-    this.labelService.getLabel().subscribe(
-      (respuesta) => {
-        this.datosSingleton = respuesta
-        console.log(respuesta)
-      }
-    );
-  }
-
-  private obtenerTipoDocumento(): void {
-    this.personaService.getTipoDocumento().subscribe(
-      (respuesta) => {
-        this.tipoDocumento = respuesta
-        console.log(respuesta)
-      }
-    )
-  }
-
-  private obtenerConcepto(): void {
-    this.historiaService.getConcepto().subscribe(
-      (respuesta) => {
-        debugger
-        this.concepto = respuesta
-        this.getListConcepto();
-        console.log(respuesta)
-      }
-    )
-    debugger
-
-  }
-
-  private getListConcepto(): void {
-    for (let i = 0; i < this.concepto.length; i++) {
-      switch (this.concepto[i].tipoConcepto) {
-        case "INGRESO": {
-          this.conceptoIngreso.push(this.concepto[i]);
-          break;
-        }
-        case "PERIODICOS": {
-          this.conceptoPeriodico.push(this.concepto[i]);
-          break;
-        }
-        case "EGRESO": {
-          this.conceptoEgreso.push(this.concepto[i]);
-          break;
-        }
-      }
-    }
-  }
-  private obtenerCiudad(): void {
-    this.personaService.getCiudad().subscribe(
-      (respuesta) => {
-        this.ciudad = respuesta
-        console.log(respuesta)
-      }
-    )
-  }
-
-  private obtenerAseguradora(): void {
-    this.personaService.getAseguradora().subscribe(
-      (respuesta) => {
-        this.aseguradora = respuesta
-        console.log(respuesta)
-      }
-    )
-  }
-
-  private obtenerTipoAntecedente(): void {
-    this.historiaService.getTipoAntecedente().subscribe(
-      (respuesta) => {
-        this.tipoAntecedente = respuesta;
-        this.cargarListas();
-        this.obtenerConcepto();
-        console.log(respuesta);
-      }
-    )
-  }
-  private obtenerAnosHabitosList(): void {
-    for (let i = 1; i <= 40; i++) {
-      this.listAnosHabito.push(i);
-    }
-  }
-
-  private obtenerPermisos(): void {
-    this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos.crearAux;
-    this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos.crearUsuario;
-    this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos.gestionarUsuario;
-    this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos.descargar;
+    this.onLabels();
+    this.tipoEvaluacion = ["INGRESO", "PERIÓDICO", "EGRESO", "OTRO"];
+    this.onActivarSubMenu("DatosPricipales");
+    this.getTipoDocumento();
+    this.getCiudad();
+    this.getAseguradora();
+    this.getTipoAntecedente();
   }
 
   public onValidatePersona(): void {
@@ -328,19 +252,11 @@ export class FormOcupacionalComponent implements OnInit {
       }
     }
   }
-
-  private getAuxOMedico(): void {
-    if (this.permiso.crearUsuario == 0) {
-      if (this.permiso.crearAux == 1) {
-        this.aux = true;
-        this.medico = false;
-      }
-    } else if (this.permiso.crearUsuario == 1) {
-      this.medico = true;
-    }
+  change(opcion:string):void{
+    console.log(opcion);
   }
 
-  public activar(id: String) {
+  onActivarSubMenu(id: String) {
     var menues = $(".nav-link");
     menues.removeClass("active");
     menues.removeClass("disabled");
@@ -361,7 +277,7 @@ export class FormOcupacionalComponent implements OnInit {
         document.getElementById("datosHistoriaLaboral").style.display = "none";
         document.getElementById("datosTerceraFase").style.display = "none";
         document.getElementById("datosExamenFisico").style.display = "none";
-        //document.getElementById("datosFinalFormulario").style.display = "none";
+        document.getElementById("datosFinalFormulario").style.display = "none";
         break;
       }
       case "DatosHistoriaLaboral": {
@@ -455,6 +371,7 @@ export class FormOcupacionalComponent implements OnInit {
   }
 
   private createEmpresa(): void {
+    contador = 0;
     for (let i = 0; i < this.persona.historias[0].historiaLaboral.empresaLaboral.length; i++) {
       if (!(this.persona.historias[0].historiaLaboral.empresaLaboral[i].cargo != null &&
         this.persona.historias[0].historiaLaboral.empresaLaboral[i].nomEmpresa != null &&
@@ -469,12 +386,13 @@ export class FormOcupacionalComponent implements OnInit {
         //);
       }
     }
-
+    if (contador === 0) {
+      this.persona.historias[0].historiaLaboral.antecedentesTrabajo = null;
+    }
   }
 
   private createAntecedentes(): void {
-    debugger
-    let contador: number = 0;
+    contador = 0;
     for (let i = 0; i < this.persona.historias[0].historiaLaboral.antecedentesTrabajo.length; i++) {
       if (!(this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i].despCaus != null &&
         this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i].despIncapacidad != null &&
@@ -497,6 +415,7 @@ export class FormOcupacionalComponent implements OnInit {
   }
 
   private createEnfermedades(): void {
+    contador = 0;
     for (let i = 0; i < this.persona.historias[0].historiaLaboral.enfermedadesLaboral.length; i++) {
       if (!(this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i].despDiagnostico != null &&
         this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i].despIndemnizar != null &&
@@ -513,9 +432,13 @@ export class FormOcupacionalComponent implements OnInit {
 
       }
     }
+    if (contador === 0) {
+      this.persona.historias[0].historiaLaboral.antecedentesTrabajo = null;
+    }
   }
 
   private createFactoresRiesgo(): void {
+    contador = 0;
     for (let i = 0; i < this.persona.historias[0].historiaLaboral.factoresRiesgo.length; i++) {
       if (!(this.persona.historias[0].historiaLaboral.factoresRiesgo[i].despFactores != null &&
         this.persona.historias[0].historiaLaboral.factoresRiesgo[i].despMedidasControl != null &&
@@ -530,6 +453,9 @@ export class FormOcupacionalComponent implements OnInit {
         //  }
         //);
       }
+    }
+    if (contador === 0) {
+      this.persona.historias[0].historiaLaboral.antecedentesTrabajo = null;
     }
   }
 
@@ -743,5 +669,101 @@ export class FormOcupacionalComponent implements OnInit {
       this.onValidarSelect("no", this.listaElementosBLoquear[i]);
     }
     this.sinAgregarLista = true;
+  }
+
+  onLabels(): void {
+    this.labelService.getLabel().subscribe(
+      (respuesta) => {
+        this.datosSingleton = respuesta
+        console.log(respuesta)
+      }
+    );
+  }
+
+  getTipoDocumento(): void {
+    this.personaService.getTipoDocumento().subscribe(
+      (respuesta) => {
+        this.tipoDocumento = respuesta
+        console.log(respuesta)
+      }
+    )
+  }
+
+  getConcepto(): void {
+    this.historiaService.getConcepto().subscribe(
+      (respuesta) => {
+        this.concepto = respuesta
+        this.getListConcepto();
+      }
+    )
+  }
+
+  private getListConcepto(): void {
+    for (let i = 0; i < this.concepto.length; i++) {
+      switch (this.concepto[i].tipoConcepto) {
+        case "INGRESO": {
+          this.conceptoIngreso.push(this.concepto[i]);
+          break;
+        }
+        case "PERIODICOS": {
+          this.conceptoPeriodico.push(this.concepto[i]);
+          break;
+        }
+        case "EGRESO": {
+          this.conceptoEgreso.push(this.concepto[i]);
+          break;
+        }
+      }
+    }
+  }
+  getCiudad(): void {
+    this.personaService.getCiudad().subscribe(
+      (respuesta) => {
+        this.ciudad = respuesta
+        console.log(respuesta)
+      }
+    )
+  }
+
+  getAseguradora(): void {
+    this.personaService.getAseguradora().subscribe(
+      (respuesta) => {
+        this.aseguradora = respuesta
+        console.log(respuesta)
+      }
+    )
+  }
+
+  getTipoAntecedente(): void {
+    this.historiaService.getTipoAntecedente().subscribe(
+      (respuesta) => {
+        this.tipoAntecedente = respuesta;
+        this.cargarListas();
+        this.getConcepto();
+      }
+    )
+  }
+  getAnosHabitosList(): void {
+    for (let i = 1; i <= 40; i++) {
+      this.listAnosHabito.push(i);
+    }
+  }
+
+  getPermisos(): void {
+    this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos.crearAux;
+    this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos.crearUsuario;
+    this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos.gestionarUsuario;
+    this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos.descargar;
+  }
+
+  getAuxOMedico(): void {
+    if (this.permiso.crearUsuario == 0) {
+      if (this.permiso.crearAux == 1) {
+        this.aux = true;
+        this.medico = false;
+      }
+    } else if (this.permiso.crearUsuario == 1) {
+      this.medico = true;
+    }
   }
 }
