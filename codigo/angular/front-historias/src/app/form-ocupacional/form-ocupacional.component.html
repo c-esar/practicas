@@ -10,24 +10,49 @@
           <div class="card-header col-md-12 col-sm-12 col-xs-12">
             <ul class="nav nav-pills card-header-pills">
               <li class="nav-item">
-                <button id="DatosPricipales" class="nav-link btn btn-primary active" (click)="activar('DatosPricipales')">{{datosSingleton.menuOcupacionalDatosPrincipales}}</button>
+                <button id="DatosPricipales" class="nav-link btn btn-primary active" (click)="onActivarSubMenu('DatosPricipales')">{{datosSingleton.menuOcupacionalDatosPrincipales}}</button>
               </li>
               <li class="nav-item">
-                <button id="DatosHistoriaLaboral" class="nav-link btn btn-primary" (click)="activar('DatosHistoriaLaboral')">{{datosSingleton.menuOcupacionalHistoriaLaboral}}</button>
+                <button id="DatosHistoriaLaboral" class="nav-link btn btn-primary" (click)="onActivarSubMenu('DatosHistoriaLaboral')">{{datosSingleton.menuOcupacionalHistoriaLaboral}}</button>
               </li>
               <li class="nav-item">
-                <button id="DatosTerceraFase" class="nav-link btn btn-primary " (click)="activar('DatosTerceraFase')">{{datosSingleton.menuMotivoConsulta}}</button>
+                <button id="DatosTerceraFase" class="nav-link btn btn-primary " (click)="onActivarSubMenu('DatosTerceraFase')">{{datosSingleton.menuMotivoConsulta}}</button>
               </li>
               <li class="nav-item">
-                <button id="DatosExamenFisico" class="nav-link btn btn-primary " (click)="activar('DatosExamenFisico')">{{datosSingleton.menuExamenFisico}}</button>
+                <button id="DatosExamenFisico" class="nav-link btn btn-primary " (click)="onActivarSubMenu('DatosExamenFisico')">{{datosSingleton.menuExamenFisico}}</button>
               </li>
               <li class="nav-item">
-                <button id="DatosFinalFormulario" class="nav-link btn btn-primary " (click)="activar('DatosFinalFormulario')">ÚLTIMA PARTE</button>
+                <button id="DatosFinalFormulario" class="nav-link btn btn-primary " (click)="onActivarSubMenu('DatosFinalFormulario')">ÚLTIMA PARTE</button>
               </li>
             </ul>
           </div>
           <div class="card-body " id="datosPersonales" style="display:none;">
             <blockquote class="blockquote mb-0 form-row etiquetas">
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <h3>HISTORIA CLÍNICA OCUPACIONAL</h3>
+              </div>
+              <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                <mat-form-field>
+                  <mat-label for="formciudadHistoria">{{datosSingleton.labelCiudad}}</mat-label>
+                  <select matNativeControl id="formciudadHistoria" [(ngModel)]="persona.historias[0].ciudadHistoria.seqCuidad" name="ciudadHistoria">
+                    <optgroup label="Valor Seleccionado">
+                      <option value="persona.historias[0].ciudadHistoria.seqCuidad" selected>{{persona.historias[0].ciudadHistoria.nomCuidad}}</option>
+                    </optgroup>
+                    <optgroup label="Seleccionar">
+                      <option *ngFor="let ciu of ciudad" value={{ciu.seqCuidad}}>{{ciu.nomCuidad}}</option>
+                    </optgroup>
+                  </select>
+                  <mat-error>Seleccione una opción</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                <mat-form-field>
+                  <mat-label for="formlabelFechaHistoriaClinica">{{datosSingleton.labelFechaHistoriaClinica}}</mat-label>
+                  <input matInput [matDatepicker]="picker1" [formControl]="date">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </div>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <h3>IDENTIFICACIÓN DEL PACIENTE</h3>
               </div>
@@ -61,7 +86,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formPrimerApellidoOcupacional">{{datosSingleton.labelPrimerApellido}}</mat-label>
-                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.nomPrimerApellido" name="nomPrimerApellido" id="formPrimerApellidoOcupacional" type="text"
+                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"  [(ngModel)]="persona.nomPrimerApellido" name="nomPrimerApellido" id="formPrimerApellidoOcupacional" type="text"
                     class="form-control campoGrande " placeholder="{{datosSingleton.labelPrimerApellido}}" value="{{Spersona.nomPrimerApellido}}">
                   <mat-error>Texto Incorrecto</mat-error>
                 </mat-form-field>
@@ -1006,7 +1031,7 @@
                 <mat-form-field>
                   <mat-label for="form">{{datosSingleton.labelIngreso}}</mat-label>
                   <select matNativeControl id="" [(ngModel)]="persona.historias[0].concepto[0].seqConcepto" name="labelIngreso">
-                    <option *ngFor="let doc of conceptoIngreso" [value]="doc.seqConcepto" >{{doc.nomConcepto}}</option>
+                    <option *ngFor="let doc of conceptoIngreso" [value]="doc.seqConcepto">{{doc.nomConcepto}}</option>
                   </select>
                   <mat-error>Seleccione una opción</mat-error>
                 </mat-form-field>
@@ -1024,7 +1049,7 @@
                 <mat-form-field>
                   <mat-label for="form">{{datosSingleton.labelEgreso}}</mat-label>
                   <select matNativeControl id="" [(ngModel)]="persona.historias[0].concepto[1].seqConcepto" name="labelEgreso">
-                    <option *ngFor="let doc of conceptoEgreso" [value]="doc.seqConcepto" >{{doc.nomConcepto}}</option>
+                    <option *ngFor="let doc of conceptoEgreso" [value]="doc.seqConcepto">{{doc.nomConcepto}}</option>
                   </select>
                   <mat-error>Seleccione una opción</mat-error>
                 </mat-form-field>

@@ -11,9 +11,10 @@ import { AccordionModule } from 'primeng/accordion';
 import { MenuItem } from 'primeng/api';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
-import { FormOcupacionalComponent } from './form-ocupacional/form-ocupacional.component';
 import { BodyAppComponent } from './body-app/body-app.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ReactiveFormsModule } from '@angular/forms';
 //componentes
 import { ListaPersonasComponent } from './lista-personas/lista-personas.component';
 import { CreacionUsuarioAppComponent } from './creacion-usuario-app/creacion-usuario-app.component';
@@ -24,6 +25,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { FormOcupacionalComponent } from './form-ocupacional/form-ocupacional.component';
 //servicios
 import { LoginService } from './Servicios/login.service';
 import { PersonaService } from './Servicios/persona.service';
@@ -73,16 +75,15 @@ const routes: Routes = [
     MatButtonModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule
   ],
   exports: [
-    MatDatepickerModule,
-    MatInputModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatSelectModule
   ],
   providers: [
+    MatDatepickerModule,
+    MatNativeDateModule,
     LoginService,
     PersonaService,
     LabelService

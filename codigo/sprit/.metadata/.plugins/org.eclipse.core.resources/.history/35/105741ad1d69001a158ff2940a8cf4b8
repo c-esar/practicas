@@ -72,7 +72,7 @@ public class HistoriasEntity implements Serializable {
 	private CiudadEntity ciudadHistoria;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "hc_concepto_historia", joinColumns = @JoinColumn(name = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_concepto"), uniqueConstraints = {
+	@JoinTable(name = "hc_concpeto_historia", joinColumns = @JoinColumn(name = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_concepto"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_historia", "seq_concepto" }) })
 	private List<ConceptoEntity> conceptoConcepto;
 	

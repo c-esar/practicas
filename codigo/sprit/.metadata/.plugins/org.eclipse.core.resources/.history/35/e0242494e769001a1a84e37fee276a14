@@ -29,7 +29,7 @@ public class LabelConstantes implements Serializable {
 	private String labelAFP;
 	private String labelARL;
 
-	private String labelCiudad;
+	private String labelCuidad;
 	private String labelDepartamento;
 	private String labelFechaHistoriaClinica;
 	private String labelIngreso;
@@ -124,7 +124,6 @@ public class LabelConstantes implements Serializable {
 	private String menuImpresionDiagnostico;
 	private String menuConcepto;
 	private String menuRecomendaciones;
-	
 
 	public LabelConstantes() {
 		this.labelPrimerNombre = IConstantes.LABEL_PRIMER_NOMBRE;
@@ -145,7 +144,7 @@ public class LabelConstantes implements Serializable {
 		this.labelAseguradora = IConstantes.LABEL_ASEGURADORA;
 		this.labelAFP = IConstantes.LABEL_AFP;
 		this.labelARL = IConstantes.LABEL_ARL;
-		this.labelCiudad = IConstantes.LABEL_CIUDAD;
+		this.labelCuidad = IConstantes.LABEL_CIUDAD;
 		this.labelDepartamento = IConstantes.LABEL_DEPARTAMENTO;
 		this.labelFechaHistoriaClinica = IConstantes.LABEL_FECHA_HISTORIACLINICA;
 		this.labelIngreso = IConstantes.LABEL_INGRESO;
@@ -376,6 +375,14 @@ public class LabelConstantes implements Serializable {
 
 	public void setLabelARL(String labelARL) {
 		this.labelARL = labelARL;
+	}
+
+	public String getLabelCuidad() {
+		return labelCuidad;
+	}
+
+	public void setLabelCuidad(String labelCuidad) {
+		this.labelCuidad = labelCuidad;
 	}
 
 	public String getLabelDepartamento() {
@@ -1068,15 +1075,6 @@ public class LabelConstantes implements Serializable {
 		this.menuRecomendaciones = menuRecomendaciones;
 	}
 
-	
-	public String getLabelCiudad() {
-		return labelCiudad;
-	}
-
-	public void setLabelCiudad(String labelCiudad) {
-		this.labelCiudad = labelCiudad;
-	}
-
 	@Override
 	public String toString() {
 		return "LabelConstantes [labelPrimerNombre=" + labelPrimerNombre + ", labelSegundoNombre=" + labelSegundoNombre
@@ -1087,7 +1085,7 @@ public class LabelConstantes implements Serializable {
 				+ ", labelEscolaridad=" + labelEscolaridad + ", labelCargoDependencia=" + labelCargoDependencia
 				+ ", labelDireccionCasa=" + labelDireccionCasa + ", labelTelefono=" + labelTelefono
 				+ ", labelAseguradora=" + labelAseguradora + ", labelAFP=" + labelAFP + ", labelARL=" + labelARL
-				+ ", labelCuidad=" + labelCiudad + ", labelDepartamento=" + labelDepartamento
+				+ ", labelCuidad=" + labelCuidad + ", labelDepartamento=" + labelDepartamento
 				+ ", labelFechaHistoriaClinica=" + labelFechaHistoriaClinica + ", labelIngreso=" + labelIngreso
 				+ ", labelPeriodico=" + labelPeriodico + ", labelEgreso=" + labelEgreso + ", labelOtroEvaluacion="
 				+ labelOtroEvaluacion + ", menuOcupacionalDatosPrincipales=" + menuOcupacionalDatosPrincipales

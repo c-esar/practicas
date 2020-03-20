@@ -63,3 +63,9 @@ ul, ol {
   right: -200px;
   top: 0px;
 }
+
+#navbar-wrapper{
+  padding:1%;
+  background:black;
+  border-radius: 10px;
+}
