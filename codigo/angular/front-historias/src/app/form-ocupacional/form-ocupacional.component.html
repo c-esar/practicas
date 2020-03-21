@@ -332,6 +332,9 @@
                     </tr>
                   </tbody>
                 </table>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12 row">
+                  <button mat-raised-button color="primary" role="button" (click)="abrirModal(trabajosPrevios)">{{datosSingleton.labelNuevo}}</button>
+                </div>
               </div>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <h3>{{datosSingleton.menusubmenuOcupacionalHistoriaLAntecedentesTrabajo}}</h3>
@@ -405,6 +408,9 @@
                     </tr>
                   </tbody>
                 </table>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12 row">
+                  <button mat-raised-button color="primary" role="button" (click)="abrirModal(accidentesTrabajo)">{{datosSingleton.labelNuevo}}</button>
+                </div>
               </div>
               <!--Pregunta enfermedad-->
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -466,6 +472,9 @@
                     </tr>
                   </tbody>
                 </table>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12 row">
+                  <button mat-raised-button color="primary" role="button" (click)="abrirModal(enfermedadesLaborales)">{{datosSingleton.labelNuevo}}</button>
+                </div>
               </div>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <h3>{{datosSingleton.menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo}}</h3>
@@ -513,6 +522,9 @@
                     </tr>
                   </tbody>
                 </table>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12 row">
+                  <button mat-raised-button color="primary" role="button" (click)="abrirModal(factoresRiesgo)">{{datosSingleton.labelNuevo}}</button>
+                </div>
               </div>
             </blockquote>
           </div>
@@ -1022,7 +1034,7 @@
           </div>
 
           <!--******************************************************************************-->
-          <!--Tercera fase-->
+          <!--Tercera final-->
           <div class="card-body" id="datosFinalFormulario" style="display:none;">
             <blockquote class="blockquote col-md-12 col-sm-12 col-xs-12 form-row etiquetas">
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -1095,3 +1107,48 @@
     </div>
   </div>
 </div>
+
+<ng-template #trabajosPrevios>
+  <div class="modal-header">
+     <h4 class="modal-title pull-left">{{datosSingleton.labelModaltrabajo}}</h4>
+     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     <button color="primary" role="button" (click)="modalRef.hide()">{{datosSingleton.lableCerrar}}</button>
+   </div>
+</ng-template>
+<ng-template #accidentesTrabajo>
+  <div class="modal-header">
+     <h4 class="modal-title pull-left">{{datosSingleton.label_Modalaccidente}}</h4>
+     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     <button color="primary" role="button" (click)="modalRef.hide()">{{datosSingleton.lableCerrar}}</button>
+   </div>
+</ng-template>
+<ng-template #enfermedadesLaborales>
+  <div class="modal-header">
+     <h4 class="modal-title pull-left">{{datosSingleton.label_Modalenfermedades}}</h4>
+     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     <button color="primary" role="button" (click)="modalRef.hide()">{{datosSingleton.lableCerrar}}</button>
+   </div>
+</ng-template>
+<ng-template #factoresRiesgo>
+  <div class="modal-header">
+     <h4 class="modal-title pull-left">{{datosSingleton.menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo}}</h4>
+     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     <button color="primary" role="button" (click)="modalRef.hide()">{{datosSingleton.lableCerrar}}</button>
+   </div>
+</ng-template>

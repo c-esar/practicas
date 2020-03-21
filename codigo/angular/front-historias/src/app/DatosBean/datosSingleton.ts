@@ -103,6 +103,11 @@ export class DatosSingleton {
   labelPeriodico: string;
   labelEgreso: string;
   labelFechaHistoriaClinica: string;
-  labelOtroEvaluacion:string;
-  labelCiudad:string;
+  labelOtroEvaluacion: string;
+  labelCiudad: string;
+  labelNuevo: string;
+  lableCerrar: string;
+  labelModaltrabajo: string;
+  label_Modalaccidente: string;
+  label_Modalenfermedades: string;
 }

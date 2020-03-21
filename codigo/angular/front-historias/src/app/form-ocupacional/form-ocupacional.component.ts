@@ -1,4 +1,4 @@
-import { ElementRef, ViewChild, Component, OnInit, Input } from '@angular/core';
+import { ElementRef, TemplateRef, ViewChild, Component, OnInit, Input } from '@angular/core';
 import { LabelService } from '../Servicios/label.service';
 import { LoginService } from '../Servicios/login.service';
 import { HistoriasService } from '../Servicios/historias.service';
@@ -21,6 +21,7 @@ import { TipoAntecedente } from '../DatosBean/tipoAntecedente';
 import { ExamenFisico } from '../DatosBean/examenFisico';
 import { Paraclinicos } from '../DatosBean/paraclinicos';
 import { Concepto } from '../DatosBean/concepto';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
 declare var jQuery: any;
@@ -33,6 +34,7 @@ let contador: number = 0;
 })
 export class FormOcupacionalComponent implements OnInit {
   date = new FormControl(new Date());
+  modalRef: BsModalRef;
   persona: Persona;
   Spersona: Persona;
   buscoPerson: boolean;
@@ -76,7 +78,8 @@ export class FormOcupacionalComponent implements OnInit {
     private loginService: LoginService,
     private personaService: PersonaService,
     private router: Router,
-    private historiaService: HistoriasService) {
+    private historiaService: HistoriasService,
+    private modalService: BsModalService) {
   }
 
   ngOnInit(): void {
@@ -671,6 +674,9 @@ export class FormOcupacionalComponent implements OnInit {
     this.sinAgregarLista = true;
   }
 
+  abrirModal(template: TemplateRef<any>): void{
+    this.modalRef = this.modalService.show(template);
+  }
   onLabels(): void {
     this.labelService.getLabel().subscribe(
       (respuesta) => {

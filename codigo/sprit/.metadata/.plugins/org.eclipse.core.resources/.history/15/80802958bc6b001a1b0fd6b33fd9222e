@@ -125,10 +125,6 @@ public class LabelConstantes implements Serializable {
 	private String menuConcepto;
 	private String menuRecomendaciones;
 	private String labelNuevo;
-	private String lableCerrar;
-	private String labelModaltrabajo;
-	private String label_Modalaccidente;
-	private String label_Modalenfermedades;
 
 	public LabelConstantes() {
 		this.labelPrimerNombre = IConstantes.LABEL_PRIMER_NOMBRE;
@@ -237,10 +233,6 @@ public class LabelConstantes implements Serializable {
 		this.menuConcepto = IConstantes.MENU_CONCEPTO;
 		this.menuRecomendaciones = IConstantes.MENU_RECOMENDACIONES;
 		this.labelNuevo = IConstantes.LABEL_NUEVO;
-		this.lableCerrar = IConstantes.LABEL_CERRAR;
-		this.labelModaltrabajo = IConstantes.LABEL_MODALTRABAJO;
-		this.label_Modalaccidente = IConstantes.LABEL_MODALACCIDENTE;
-		this.label_Modalenfermedades = IConstantes.LABEL_MODALENFERMEDADES;
 	}
 
 	public String getLabelPrimerNombre() {
@@ -1093,39 +1085,6 @@ public class LabelConstantes implements Serializable {
 
 	public void setLabelNuevo(String labelNuevo) {
 		this.labelNuevo = labelNuevo;
-	}
-
-	
-	public String getLableCerrar() {
-		return lableCerrar;
-	}
-
-	public void setLableCerrar(String lableCerrar) {
-		this.lableCerrar = lableCerrar;
-	}
-
-	public String getLabelModaltrabajo() {
-		return labelModaltrabajo;
-	}
-
-	public void setLabelModaltrabajo(String labelModaltrabajo) {
-		this.labelModaltrabajo = labelModaltrabajo;
-	}
-
-	public String getLabel_Modalaccidente() {
-		return label_Modalaccidente;
-	}
-
-	public void setLabel_Modalaccidente(String label_Modalaccidente) {
-		this.label_Modalaccidente = label_Modalaccidente;
-	}
-
-	public String getLabel_Modalenfermedades() {
-		return label_Modalenfermedades;
-	}
-
-	public void setLabel_Modalenfermedades(String label_Modalenfermedades) {
-		this.label_Modalenfermedades = label_Modalenfermedades;
 	}
 
 	@Override

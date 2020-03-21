@@ -129,8 +129,4 @@ public interface IConstantes {
 	public static final String MENU_CONCEPTO = "CONCEPTO";
 	public static final String MENU_RECOMENDACIONES = "RECOMENDACIONES";
 	public static final String LABEL_NUEVO ="NUEVO";
-	public static final String LABEL_CERRAR ="CERRAR";
-	public static final String LABEL_MODALTRABAJO ="TRABAJOS PREVIOS";
-	public static final String LABEL_MODALACCIDENTE ="ACCIDENTES TRABAJO";
-	public static final String LABEL_MODALENFERMEDADES ="ENFERMEDADES LABORALES";
 }

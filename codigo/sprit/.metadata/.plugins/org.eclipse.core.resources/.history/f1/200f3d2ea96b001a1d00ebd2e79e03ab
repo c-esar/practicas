@@ -73,6 +73,10 @@ public class HistoriaLaboralEntity implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "seq_historia_laboral")
 	private List<FactoresRiesgoEntity> factoresRiesgo;
+
+	@OneToOne
+	@MapsId
+	private HistoriasEntity historiaEntity;
 	
 	public HistoriaLaboralEntity() {
 		this.antecedentesTrabajo = new ArrayList<>();
@@ -183,6 +187,14 @@ public class HistoriaLaboralEntity implements Serializable {
 
 	public void setEnfermedadLaboralSN(String enfermedadLaboralSN) {
 		this.enfermedadLaboralSN = enfermedadLaboralSN;
+	}
+
+	public HistoriasEntity getHistoriaEntity() {
+		return historiaEntity;
+	}
+
+	public void setHistoriaEntity(HistoriasEntity historiaEntity) {
+		this.historiaEntity = historiaEntity;
 	}
 
 	

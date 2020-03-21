@@ -9,12 +9,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,6 +29,7 @@ public class HistoriaLaboralEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "seq_historia_laboral")
 	private Long seqHistoriaLaboral;
 
@@ -73,7 +74,7 @@ public class HistoriaLaboralEntity implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "seq_historia_laboral")
 	private List<FactoresRiesgoEntity> factoresRiesgo;
-	
+
 	public HistoriaLaboralEntity() {
 		this.antecedentesTrabajo = new ArrayList<>();
 		this.enfermedadesLaboral = new ArrayList<>();
@@ -185,5 +186,4 @@ public class HistoriaLaboralEntity implements Serializable {
 		this.enfermedadLaboralSN = enfermedadLaboralSN;
 	}
 
-	
 }

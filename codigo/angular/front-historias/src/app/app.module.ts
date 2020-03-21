@@ -16,6 +16,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio'
 import { ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
 //componentes
 import { ListaPersonasComponent } from './lista-personas/lista-personas.component';
 import { CreacionUsuarioAppComponent } from './creacion-usuario-app/creacion-usuario-app.component';
@@ -79,7 +80,8 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    MatRadioModule
+    MatRadioModule,
+    ModalModule.forRoot()
   ],
   exports: [
   ],
