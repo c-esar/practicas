@@ -1,0 +1,50 @@
+<div class="container-fluid">
+  <div class="row row-col-3">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <form  #contactForm="ngForm" class="form-inline" style="overflow: scroll;">
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+          <mat-form-field>
+            <mat-label for="formfechaNacimientoOcupacional">{{datosSingleton.tablaEnfermedadesFecha}}</mat-label>
+            <input matInput [(ngModel)]="enfermedadesLaboral.fechaAnt" type="date" name="fechaNacimiento">
+            <mat-error>Coloque la fecha mm/dd/yyyy</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+          <mat-form-field >
+            <mat-label for="formtablaEnfermedadesEmpresa">{{datosSingleton.tablaEnfermedadesEmpresa}}</mat-label>
+            <input matInput required pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="enfermedadesLaboral.nomEmpresa" name="tablaEnfermedadesEmpresa" id="formtablaEnfermedadesEmpresa" type="text" class="form-control campoGrande "
+              placeholder="{{datosSingleton.tablaEnfermedadesEmpresa}}">
+            <mat-error>Texto Incorrecto</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+          <mat-form-field >
+            <mat-label for="formtablaEnfermedadesDiagnostico">{{datosSingleton.tablaEnfermedadesDiagnostico}}</mat-label>
+            <input matInput required pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="enfermedadesLaboral.despDiagnostico" name="tablaEnfermedadesDiagnostico" id="formtablaEnfermedadesDiagnostico" type="text"
+              class="form-control campoGrande " placeholder="{{datosSingleton.tablaEnfermedadesDiagnostico}}">
+            <mat-error>Texto Incorrecto</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+          <mat-form-field >
+            <mat-label for="formtablaEnfermedadesRecomendaciones">{{datosSingleton.tablaEnfermedadesRecomendaciones}}</mat-label>
+            <input matInput required pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="enfermedadesLaboral.despRecomendaciones" name="tablaEnfermedadesRecomendaciones" id="formtablaEnfermedadesRecomendaciones" type="text"
+              class="form-control campoGrande " placeholder="{{datosSingleton.tablaEnfermedadesRecomendaciones}}">
+            <mat-error>Texto Incorrecto</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+          <mat-form-field >
+            <mat-label for="formtablaEnfermedadesIndemnizacion">{{datosSingleton.tablaEnfermedadesIndemnizacion}}</mat-label>
+            <input matInput required pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="enfermedadesLaboral.despIndemnizar" name="tablaEnfermedadesIndemnizacion" id="formtablaEnfermedadesIndemnizacion" type="text"
+              class="form-control campoGrande " placeholder="{{datosSingleton.tablaEnfermedadesIndemnizacion}}">
+            <mat-error>Texto Incorrecto</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+          <button mat-raised-button color="primary" role="button" [disabled]="!contactForm.form.valid" (click)="guardarDatosGrillas()">GUARDAR</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

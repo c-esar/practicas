@@ -14,4 +14,7 @@
 			<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
 		</section>
 	</section>
+	<section name="com.genuitec.eclipse.code.angular.ui.project.ImportAngularProjectRootArea">
+		<item key="OUTSIDE_LOCATION" value="C:\Users\Administrator\Documents\GitHub\practicas\codigo\angular\front-historias"/>
+	</section>
 </section>

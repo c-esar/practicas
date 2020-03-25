@@ -3,21 +3,21 @@ import { AntecedentesTrabajo } from './antecedentesTrabajo';
 import { EnfermedadesLaboral } from './enfermedadesLaboral';
 import { FactoresRiesgo } from './factoresRiesgo';
 import { Historias } from './historias';
-export class HistoriaLaboral{
-  seqHistoriaLaboral:number;
-  nomEmpresa:string;
-  actEconomica:string;
-  fechaIngreso:Date;
-  antiguedad:string;
-  cargo:string;
-  desp_funciones_cargo:string;
+export class HistoriaLaboral {
+  seqHistoriaLaboral: number;
+  nomEmpresa: string;
+  actEconomica: string;
+  fechaIngreso: Date;
+  antiguedad: string;
+  cargo: string;
+  desp_funciones_cargo: string;
   empresaLaboral: EmpresaLaboral[];
   antecedentesTrabajo: AntecedentesTrabajo[];
   enfermedadesLaboral: EnfermedadesLaboral[];
   factoresRiesgo: FactoresRiesgo[];
   accionesTrabajoSN: string;
   enfermedadLaboralSN: string;
-  constructor(){
+  constructor() {
     this.seqHistoriaLaboral = null;
     this.nomEmpresa = null;
     this.actEconomica = null;

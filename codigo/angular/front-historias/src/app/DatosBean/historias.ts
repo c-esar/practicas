@@ -24,6 +24,7 @@ export class Historias {
   recomOcupacionales: string;
   recomHabitos: string;
   tipoHistoria: TipoHistoria;
+  otroEvaluacion: string;
   constructor() {
     this.historiaLaboral = new HistoriaLaboral();
     this.examenFisico = new ExamenFisico();
@@ -40,5 +41,6 @@ export class Historias {
     this.recomMedicas = null;
     this.recomOcupacionales = null;
     this.recomHabitos = null;
+    this.otroEvaluacion= null;
   }
 }

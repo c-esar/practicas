@@ -10,7 +10,7 @@ export class AntecedentesTrabajo {
 
   constructor(){
     this.seqAnt = null;
-    this.fechaAnt = new Date();
+    this.fechaAnt = null;
     this.nomEmpresa= null;
     this.despCaus= null;
     this.tipoLesion= null;

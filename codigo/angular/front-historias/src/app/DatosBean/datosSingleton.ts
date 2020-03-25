@@ -110,4 +110,9 @@ export class DatosSingleton {
   labelModaltrabajo: string;
   label_Modalaccidente: string;
   label_Modalenfermedades: string;
+  label_eliminar: string;
+  labelMenarquia: string;
+	labelFur: string;
+	labelPlanificacion: string;
+  labelCcv: string;
 }

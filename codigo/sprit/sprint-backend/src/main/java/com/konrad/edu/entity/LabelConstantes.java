@@ -95,6 +95,10 @@ public class LabelConstantes implements Serializable {
 	private String lableTipo;
 	private String lableActividadesExtra;
 	private String lableRevisionSistemas;
+	private String labelMenarquia;
+	private String labelFur;
+	private String labelPlanificacion;
+	private String labelCcv;
 
 	// parte 4
 	private String menuExamenFisico;
@@ -129,6 +133,7 @@ public class LabelConstantes implements Serializable {
 	private String labelModaltrabajo;
 	private String label_Modalaccidente;
 	private String label_Modalenfermedades;
+	private String label_eliminar;
 
 	public LabelConstantes() {
 		this.labelPrimerNombre = IConstantes.LABEL_PRIMER_NOMBRE;
@@ -241,6 +246,11 @@ public class LabelConstantes implements Serializable {
 		this.labelModaltrabajo = IConstantes.LABEL_MODALTRABAJO;
 		this.label_Modalaccidente = IConstantes.LABEL_MODALACCIDENTE;
 		this.label_Modalenfermedades = IConstantes.LABEL_MODALENFERMEDADES;
+		this.label_eliminar = IConstantes.LABEL_ELIMINAR;
+		this.labelMenarquia = IConstantes.LABEL_MENARQUIA;
+		this.labelFur = IConstantes.LABEL_FUR;
+		this.labelPlanificacion = IConstantes.LABEL_PLANIFICACION;
+		this.labelCcv = IConstantes.LABEL_CCV;
 	}
 
 	public String getLabelPrimerNombre() {
@@ -1126,6 +1136,48 @@ public class LabelConstantes implements Serializable {
 
 	public void setLabel_Modalenfermedades(String label_Modalenfermedades) {
 		this.label_Modalenfermedades = label_Modalenfermedades;
+	}
+
+	
+	public String getLabel_eliminar() {
+		return label_eliminar;
+	}
+
+	public void setLabel_eliminar(String label_eliminar) {
+		this.label_eliminar = label_eliminar;
+	}
+
+	
+	public String getLabelMenarquia() {
+		return labelMenarquia;
+	}
+
+	public void setLabelMenarquia(String labelMenarquia) {
+		this.labelMenarquia = labelMenarquia;
+	}
+
+	public String getLabelFur() {
+		return labelFur;
+	}
+
+	public void setLabelFur(String labelFur) {
+		this.labelFur = labelFur;
+	}
+
+	public String getLabelPlanificacion() {
+		return labelPlanificacion;
+	}
+
+	public void setLabelPlanificacion(String labelPlanificacion) {
+		this.labelPlanificacion = labelPlanificacion;
+	}
+
+	public String getLabelCcv() {
+		return labelCcv;
+	}
+
+	public void setLabelCcv(String labelCcv) {
+		this.labelCcv = labelCcv;
 	}
 
 	@Override

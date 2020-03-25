@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.konrad.edu.IService.IConceptoService;
 import com.konrad.edu.IService.IConstantes;
+import com.konrad.edu.IService.IDiagnosticaOcupacionalService;
 import com.konrad.edu.IService.IHistoriaService;
 import com.konrad.edu.entity.ConceptoEntity;
+import com.konrad.edu.entity.DiagnosticoOcupacionalEntity;
 import com.konrad.edu.entity.HistoriasEntity;
 
 @CrossOrigin(origins = { IConstantes.RUTA })
@@ -28,6 +30,9 @@ public class HistoriaController {
 
 	@Autowired
 	private IConceptoService conceptoService;
+	
+	@Autowired
+	private IDiagnosticaOcupacionalService diagnosticaService;
 
 	@PostMapping("/createHistoria")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -38,5 +43,10 @@ public class HistoriaController {
 	@GetMapping("/listConcepto")
 	public List<ConceptoEntity> getListConcepto() {
 		return conceptoService.findAll();
+	}
+	
+	@GetMapping("/listImpresionDiagnostica")
+	public List<DiagnosticoOcupacionalEntity> getListImpresionDiagnostica() {
+		return diagnosticaService.findAll();
 	}
 }

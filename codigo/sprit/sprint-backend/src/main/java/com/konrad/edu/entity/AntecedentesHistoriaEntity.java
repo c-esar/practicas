@@ -1,6 +1,7 @@
 package com.konrad.edu.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -49,6 +52,18 @@ public class AntecedentesHistoriaEntity implements Serializable {
 
 	@Column(name = "anos_habito")
 	private int anosHabito;
+	
+	private String planificacion;
+	
+	//fecha ultima citoligias y resultados
+	private String ccv;
+	
+	//fecha ultima mestruacion
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fur;
+	
+	@Column(name="menarquia_list")
+	private String menarquiaList;
 
 	public Long getSeqAntHistorias() {
 		return seqAntHistorias;
@@ -114,4 +129,38 @@ public class AntecedentesHistoriaEntity implements Serializable {
 		this.tipoAntecedenteEntity = tipoAntecedenteEntity;
 	}
 
+	public String getPlanificacion() {
+		return planificacion;
+	}
+
+	public void setPlanificacion(String planificacion) {
+		this.planificacion = planificacion;
+	}
+
+	public String getCcv() {
+		return ccv;
+	}
+
+	public void setCcv(String ccv) {
+		this.ccv = ccv;
+	}
+
+
+	public String getMenarquiaList() {
+		return menarquiaList;
+	}
+
+	public void setMenarquiaList(String menarquiaList) {
+		this.menarquiaList = menarquiaList;
+	}
+
+	public Date getFur() {
+		return fur;
+	}
+
+	public void setFur(Date fur) {
+		this.fur = fur;
+	}
+
+	
 }

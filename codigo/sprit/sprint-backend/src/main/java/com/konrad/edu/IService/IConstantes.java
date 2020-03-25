@@ -88,6 +88,10 @@ public interface IConstantes {
 	public static final String LABEL_TOXICOS = "F. TÓXICOS";
 	public static final String LABEL_HOSPITALARIOS = "G. HOSPITALARIOS";
 	public static final String LABEL_INMUNOLOGICOS = "H. INMUNOLÓGICOS";
+	public static final String LABEL_MENARQUIA = "I. G/O: MENARQUIA";
+	public static final String LABEL_FUR = "FECHA ÚLTIMA MENSTRUACIÓN";
+	public static final String LABEL_PLANIFICACION = "PLANIFICACIÓN";
+	public static final String LABEL_CCV ="FECHA ÚLTIMA CITOLOGIA Y RESULTADO";
 	public static final String LABEL_FAMILIARES = "5.2 FAMILIARES";
 	public static final String LABEL_ESTILOS_VIDA = "5.3 ESTILOS DE VIDA";
 	public static final String LABEL_TABAQUISMO = "A. TABAQUISMO";
@@ -133,4 +137,5 @@ public interface IConstantes {
 	public static final String LABEL_MODALTRABAJO ="TRABAJOS PREVIOS";
 	public static final String LABEL_MODALACCIDENTE ="ACCIDENTES TRABAJO";
 	public static final String LABEL_MODALENFERMEDADES ="ENFERMEDADES LABORALES";
+	public static final String LABEL_ELIMINAR ="ELIMINAR";
 }

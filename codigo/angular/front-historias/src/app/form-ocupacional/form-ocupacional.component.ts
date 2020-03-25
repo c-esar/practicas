@@ -1,4 +1,4 @@
-import { ElementRef, TemplateRef, ViewChild, Component, OnInit, Input } from '@angular/core';
+import { ElementRef, TemplateRef, ViewChild, Component, OnInit, Input, Output } from '@angular/core';
 import { LabelService } from '../Servicios/label.service';
 import { LoginService } from '../Servicios/login.service';
 import { HistoriasService } from '../Servicios/historias.service';
@@ -22,18 +22,30 @@ import { ExamenFisico } from '../DatosBean/examenFisico';
 import { Paraclinicos } from '../DatosBean/paraclinicos';
 import { Concepto } from '../DatosBean/concepto';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+//ng add ngx-bootstrap
+import { GridComponent } from '@syncfusion/ej2-angular-grids';
+import { PageSettingsModel } from '@syncfusion/ej2-angular-grids';
+import { DiagnosticoOcupacional } from '../DatosBean/diagnosticoOcupacional';
 import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
 declare var jQuery: any;
 declare var $: any;
-let contador: number = 0;
 @Component({
   selector: 'app-form-ocupacional',
   templateUrl: './form-ocupacional.component.html',
   styleUrls: ['./form-ocupacional.component.css']
 })
 export class FormOcupacionalComponent implements OnInit {
+
+  //guardarDatosGrillas
+  @ViewChild('gridTrabajosPrevios') public gridTrabajosPrevios: GridComponent;
+  @ViewChild('gridAntecedentesTrabajo') public gridAntecedentesTrabajo: GridComponent;
+  @ViewChild('gridEnfermedades') public gridEnfermedades: GridComponent;
+  @ViewChild('gridFactoresRiesgo') public gridFactoresRiesgo: GridComponent;
+  @ViewChild('gridParaclinicos') public gridParaclinicos: GridComponent;
+  public pageSettings: PageSettingsModel;
   date = new FormControl(new Date());
+  dateNacimiento = new FormControl(new Date());
   modalRef: BsModalRef;
   persona: Persona;
   Spersona: Persona;
@@ -48,6 +60,7 @@ export class FormOcupacionalComponent implements OnInit {
   examenFisico: ExamenFisico;
   //constantes
   private PERSONA_PACIENTE: string = "Paciente";
+
   //antecedentes historias
   patologicos: AntecedentesHistoria;
   quirurgicos: AntecedentesHistoria;
@@ -67,6 +80,7 @@ export class FormOcupacionalComponent implements OnInit {
   conceptoIngreso: Concepto[];
   conceptoPeriodico: Concepto[];
   conceptoEgreso: Concepto[];
+  diagnostica: DiagnosticoOcupacional[];
   //lista elementos a bloquear
   listaElementosBLoquear: string[];
   sinAgregarLista: boolean;
@@ -86,6 +100,7 @@ export class FormOcupacionalComponent implements OnInit {
     this.onCargarAtributos();
     this.onCargarFunciones();
     this.getAnosHabitosList();
+    this.pageSettings = { pageSize: 6 };
   }
 
   onCargarAtributos(): void {
@@ -101,6 +116,7 @@ export class FormOcupacionalComponent implements OnInit {
     this.listaElementosBLoquear = new Array<string>();
     this.listAnosHabito = new Array<number>();
     this.sinAgregarLista = true;
+    $('#formOtroEvaluacion').hide();
   }
 
   onCargarFunciones(): void {
@@ -113,11 +129,13 @@ export class FormOcupacionalComponent implements OnInit {
     this.getCiudad();
     this.getAseguradora();
     this.getTipoAntecedente();
+    this.getImpresionDiagnostica();
   }
 
   public onValidatePersona(): void {
     this.persona.rolUsuario = this.PERSONA_PACIENTE;
     this.Spersona = new Persona();
+    debugger
     this.personaService.onBuscarDocumento(this.persona).subscribe(
       (respuesta) => {
         if (respuesta == null || respuesta.nomPrimerNombre == null) {
@@ -255,11 +273,41 @@ export class FormOcupacionalComponent implements OnInit {
       }
     }
   }
-  change(opcion:string):void{
-    console.log(opcion);
+
+  onOpcionEvaluacion($event): void {
+    console.log($event);
+    $('#formOtroEvaluacion').hide();
+    $('#conceptoPeriodico').hide();
+    $('#conceptoEgreso').hide();
+    this.persona.historias[0].otroEvaluacion = null;
+    switch ($event.value) {
+      case "INGRESO": {
+        this.persona.historias[0].tipoEvaluacionEntity.seqEval = 1;
+        $('#conceptoIngreso').show();
+        break;
+      }
+      case this.datosSingleton.labelPeriodico: {
+        this.persona.historias[0].tipoEvaluacionEntity.seqEval = 2;
+        $('#conceptoPeriodico').show();
+        break;
+      }
+      case "EGRESO": {
+        this.persona.historias[0].tipoEvaluacionEntity.seqEval = 3;
+        $('#conceptoEgreso').show();
+        break;
+      }
+      case "OTRO": {
+        this.persona.historias[0].tipoEvaluacionEntity.seqEval = 4;
+        $('#formOtroEvaluacion').show();
+        $('#formOtroEvaluacion').show();
+        $('#conceptoPeriodico').show();
+        $('#conceptoEgreso').show();
+        break;
+      }
+    }
   }
 
-  onActivarSubMenu(id: String) {
+  onActivarSubMenu(id: string) {
     var menues = $(".nav-link");
     menues.removeClass("active");
     menues.removeClass("disabled");
@@ -346,7 +394,6 @@ export class FormOcupacionalComponent implements OnInit {
         if (this.buscoPerson) {
           this.actualizarPerson(this.Spersona);
         }
-        this.verificarEntityHistoriaLaboral();
         this.cargarDatosActededentesHistoria();
       }
       console.log(this.persona)
@@ -366,132 +413,12 @@ export class FormOcupacionalComponent implements OnInit {
     }
   }
 
-  private verificarEntityHistoriaLaboral(): void {
-    this.createEmpresa();
-    this.createAntecedentes();
-    this.createEnfermedades();
-    this.createFactoresRiesgo();
-  }
-
-  private createEmpresa(): void {
-    contador = 0;
-    for (let i = 0; i < this.persona.historias[0].historiaLaboral.empresaLaboral.length; i++) {
-      if (!(this.persona.historias[0].historiaLaboral.empresaLaboral[i].cargo != null &&
-        this.persona.historias[0].historiaLaboral.empresaLaboral[i].nomEmpresa != null &&
-        this.persona.historias[0].historiaLaboral.empresaLaboral[i].tiempo != null)) {
-        this.persona.historias[0].historiaLaboral.empresaLaboral.splice(i, 1);
-        i = i - 1;
-        //this.historiaService.createEmpresa(this.persona.historias[0].historiaLaboral.empresaLaboral[i]).subscribe(
-        //  (respuesta) => {
-        //    this.persona.historias[0].historiaLaboral.empresaLaboral[i] = respuesta;
-        //    console.log(respuesta);
-        //  }
-        //);
-      }
-    }
-    if (contador === 0) {
-      this.persona.historias[0].historiaLaboral.antecedentesTrabajo = null;
-    }
-  }
-
-  private createAntecedentes(): void {
-    contador = 0;
-    for (let i = 0; i < this.persona.historias[0].historiaLaboral.antecedentesTrabajo.length; i++) {
-      if (!(this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i].despCaus != null &&
-        this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i].despIncapacidad != null &&
-        this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i].despSecuelas != null &&
-        this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i].nomEmpresa != null)) {
-        this.persona.historias[0].historiaLaboral.antecedentesTrabajo.splice(i, 1);
-        i = i - 1;
-        contador = i;
-        //this.historiaService.createAntecedentes(this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i]).subscribe(
-        //  (respuesta) => {
-        //    this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i] = respuesta;
-        //    console.log(respuesta);
-        //  }
-        //);
-      }
-    }
-    if (contador === 0) {
-      this.persona.historias[0].historiaLaboral.antecedentesTrabajo = null;
-    }
-  }
-
-  private createEnfermedades(): void {
-    contador = 0;
-    for (let i = 0; i < this.persona.historias[0].historiaLaboral.enfermedadesLaboral.length; i++) {
-      if (!(this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i].despDiagnostico != null &&
-        this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i].despIndemnizar != null &&
-        this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i].despRecomendaciones != null &&
-        this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i].nomEmpresa != null)) {
-        this.persona.historias[0].historiaLaboral.enfermedadesLaboral.splice(i, 1);
-        i = i - 1;
-        //this.historiaService.createEnfermedades(this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i]).subscribe(
-        //  (respuesta) => {
-        //    this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i] = respuesta;
-        //    console.log(respuesta);
-        //  }
-        //);
-
-      }
-    }
-    if (contador === 0) {
-      this.persona.historias[0].historiaLaboral.antecedentesTrabajo = null;
-    }
-  }
-
-  private createFactoresRiesgo(): void {
-    contador = 0;
-    for (let i = 0; i < this.persona.historias[0].historiaLaboral.factoresRiesgo.length; i++) {
-      if (!(this.persona.historias[0].historiaLaboral.factoresRiesgo[i].despFactores != null &&
-        this.persona.historias[0].historiaLaboral.factoresRiesgo[i].despMedidasControl != null &&
-        this.persona.historias[0].historiaLaboral.factoresRiesgo[i].nomEmpresa != null &&
-        this.persona.historias[0].historiaLaboral.factoresRiesgo[i].tiempo != null)) {
-        this.persona.historias[0].historiaLaboral.factoresRiesgo.splice(i, 1);
-        i = i - 1;
-        //this.historiaService.createFactoresRiesgo(this.persona.historias[0].historiaLaboral.factoresRiesgo[i]).subscribe(
-        //  (respuesta) => {
-        //    this.persona.historias[0].historiaLaboral.factoresRiesgo[i] = respuesta;
-        //    console.log(respuesta);
-        //  }
-        //);
-      }
-    }
-    if (contador === 0) {
-      this.persona.historias[0].historiaLaboral.antecedentesTrabajo = null;
-    }
-  }
-
   private cargarListas(): void {
     this.persona.historias.push(new Historias());
-    this.persona.historias[0].concepto.push(new Concepto);
-    this.persona.historias[0].concepto.push(new Concepto);
-    this.persona.historias[0].concepto.push(new Concepto);
-    this.persona.historias[0].historiaLaboral.empresaLaboral.push(new EmpresaLaboral);
-    this.persona.historias[0].historiaLaboral.empresaLaboral.push(new EmpresaLaboral);
-    this.persona.historias[0].historiaLaboral.empresaLaboral.push(new EmpresaLaboral);
-    this.persona.historias[0].historiaLaboral.empresaLaboral.push(new EmpresaLaboral);
-    this.persona.historias[0].historiaLaboral.empresaLaboral.push(new EmpresaLaboral);
-    this.persona.historias[0].historiaLaboral.antecedentesTrabajo.push(new AntecedentesTrabajo);
-    this.persona.historias[0].historiaLaboral.antecedentesTrabajo.push(new AntecedentesTrabajo);
-    this.persona.historias[0].historiaLaboral.antecedentesTrabajo.push(new AntecedentesTrabajo);
-    this.persona.historias[0].historiaLaboral.antecedentesTrabajo.push(new AntecedentesTrabajo);
-    this.persona.historias[0].historiaLaboral.antecedentesTrabajo.push(new AntecedentesTrabajo);
-    this.persona.historias[0].historiaLaboral.enfermedadesLaboral.push(new EnfermedadesLaboral);
-    this.persona.historias[0].historiaLaboral.enfermedadesLaboral.push(new EnfermedadesLaboral);
-    this.persona.historias[0].historiaLaboral.enfermedadesLaboral.push(new EnfermedadesLaboral);
-    this.persona.historias[0].historiaLaboral.enfermedadesLaboral.push(new EnfermedadesLaboral);
-    this.persona.historias[0].historiaLaboral.enfermedadesLaboral.push(new EnfermedadesLaboral);
-    this.persona.historias[0].historiaLaboral.factoresRiesgo.push(new FactoresRiesgo);
-    this.persona.historias[0].historiaLaboral.factoresRiesgo.push(new FactoresRiesgo);
-    this.persona.historias[0].historiaLaboral.factoresRiesgo.push(new FactoresRiesgo);
-    this.persona.historias[0].historiaLaboral.factoresRiesgo.push(new FactoresRiesgo);
-    this.persona.historias[0].historiaLaboral.factoresRiesgo.push(new FactoresRiesgo);
-    this.persona.historias[0].paraclinicos.push(new Paraclinicos);
-    this.persona.historias[0].paraclinicos.push(new Paraclinicos);
-    this.persona.historias[0].paraclinicos.push(new Paraclinicos);
-    this.persona.historias[0].paraclinicos.push(new Paraclinicos);
-    this.persona.historias[0].paraclinicos.push(new Paraclinicos);
+    this.persona.historias[0].concepto.push(new Concepto());
+    $('#conceptoIngreso').hide();
+    $('#conceptoPeriodico').hide();
+    $('#conceptoEgreso').hide();
     for (let i = 0; i < this.tipoAntecedente.length; i++) {
       switch (this.tipoAntecedente[i].seqTipoAntecedente) {
         case 1: {
@@ -674,9 +601,128 @@ export class FormOcupacionalComponent implements OnInit {
     this.sinAgregarLista = true;
   }
 
-  abrirModal(template: TemplateRef<any>): void{
+  abrirModal(template: TemplateRef<any>): void {
     this.modalRef = this.modalService.show(template);
   }
+
+  guardarDatosGrillas(grilla: string, $event): void {
+    let number = 0;
+    console.log($event);
+    switch (grilla) {
+      case "factoresRiesgo": {
+        this.persona.historias[0].historiaLaboral.factoresRiesgo.push(new FactoresRiesgo());
+        number = this.persona.historias[0].historiaLaboral.factoresRiesgo.length - 1;
+        this.persona.historias[0].historiaLaboral.factoresRiesgo[number] = $event
+        this.gridFactoresRiesgo.refresh();
+        this.modalRef.hide();
+        Swal.fire('Exitoso', 'Se agrego el dato en Factores Riesgo', 'success');
+        break;
+      }
+      case "enfermedadesLaborales": {
+        this.persona.historias[0].historiaLaboral.enfermedadesLaboral.push(new EnfermedadesLaboral());
+        number = this.persona.historias[0].historiaLaboral.enfermedadesLaboral.length - 1;
+        this.persona.historias[0].historiaLaboral.enfermedadesLaboral[number] = $event;
+        this.gridEnfermedades.refresh();
+        this.modalRef.hide();
+        Swal.fire('Exitoso', 'Se agrego el dato en Enfermedades Laborales', 'success');
+        break;
+      }
+      case "accidentesTrabajo": {
+        this.persona.historias[0].historiaLaboral.antecedentesTrabajo.push(new AntecedentesTrabajo());
+        number = this.persona.historias[0].historiaLaboral.antecedentesTrabajo.length - 1;
+        this.persona.historias[0].historiaLaboral.antecedentesTrabajo[number] = $event;
+        this.gridAntecedentesTrabajo.refresh();
+        this.modalRef.hide();
+        Swal.fire('Exitoso', 'Se agrego el dato en Accidentes Trabajo', 'success');
+        break;
+      }
+      case "trabajosPrevios": {
+        this.persona.historias[0].historiaLaboral.empresaLaboral.push(new EmpresaLaboral());
+        number = this.persona.historias[0].historiaLaboral.empresaLaboral.length - 1;
+        this.persona.historias[0].historiaLaboral.empresaLaboral[number] = $event;
+        this.gridTrabajosPrevios.refresh();
+        this.modalRef.hide();
+        Swal.fire('Exitoso', 'Se agrego el dato en Trabajos Previos', 'success');
+        break;
+      }
+      case "paraclinicos": {
+        this.persona.historias[0].paraclinicos.push(new Paraclinicos());
+        number = this.persona.historias[0].paraclinicos.length - 1;
+        this.persona.historias[0].paraclinicos[number] = $event;
+        this.gridParaclinicos.refresh();
+        this.modalRef.hide();
+        Swal.fire('Exitoso', 'Se agrego el dato en Paraclinicos', 'success');
+        break;
+      }
+      default:
+        break;
+    }
+  }
+  delete(id: string): void {
+    switch (id) {
+      case "trabajosPrevios": {
+        const selectedRow: number = this.gridTrabajosPrevios.getSelectedRowIndexes()[0];
+        console.log(selectedRow);
+        if (this.gridTrabajosPrevios.getSelectedRowIndexes().length) {
+          (this.gridTrabajosPrevios.dataSource as object[]).splice(selectedRow, 1);
+          this.persona.historias[0].historiaLaboral.empresaLaboral.splice(selectedRow, 1);
+        } else {
+          alert('No selecciono ningún dato para eliminar');
+        }
+        this.gridTrabajosPrevios.refresh();
+        break;
+      }
+      case "accidentesTrabajo": {
+        const selectedRow: number = this.gridAntecedentesTrabajo.getSelectedRowIndexes()[0];
+        console.log(selectedRow);
+        if (this.gridAntecedentesTrabajo.getSelectedRowIndexes().length) {
+          (this.gridAntecedentesTrabajo.dataSource as object[]).splice(selectedRow, 1);
+          this.persona.historias[0].historiaLaboral.antecedentesTrabajo.splice(selectedRow, 1);
+        } else {
+          alert('No selecciono ningún dato para eliminar');
+        }
+        this.gridAntecedentesTrabajo.refresh();
+        break;
+      }
+      case "enfermedadesLaborales": {
+        const selectedRow: number = this.gridEnfermedades.getSelectedRowIndexes()[0];
+        console.log(selectedRow);
+        if (this.gridEnfermedades.getSelectedRowIndexes().length) {
+          (this.gridEnfermedades.dataSource as object[]).splice(selectedRow, 1);
+          this.persona.historias[0].historiaLaboral.enfermedadesLaboral.splice(selectedRow, 1);
+        } else {
+          alert('No selecciono ningún dato para eliminar');
+        }
+        this.gridEnfermedades.refresh();
+        break;
+      }
+      case "factoresRiesgo": {
+        const selectedRow: number = this.gridFactoresRiesgo.getSelectedRowIndexes()[0];
+        console.log(selectedRow);
+        if (this.gridFactoresRiesgo.getSelectedRowIndexes().length) {
+          (this.gridFactoresRiesgo.dataSource as object[]).splice(selectedRow, 1);
+          this.persona.historias[0].historiaLaboral.factoresRiesgo.splice(selectedRow, 1);
+        } else {
+          alert('No selecciono ningún dato para eliminar');
+        }
+        this.gridFactoresRiesgo.refresh();
+        break;
+      }
+      case "paraclinicos": {
+        const selectedRow: number = this.gridParaclinicos.getSelectedRowIndexes()[0];
+        console.log(selectedRow);
+        if (this.gridParaclinicos.getSelectedRowIndexes().length) {
+          (this.gridParaclinicos.dataSource as object[]).splice(selectedRow, 1);
+          this.persona.historias[0].paraclinicos.splice(selectedRow, 1);
+        } else {
+          alert('No selecciono ningún dato para eliminar');
+        }
+        this.gridParaclinicos.refresh();
+        break;
+      }
+    }
+  }
+
   onLabels(): void {
     this.labelService.getLabel().subscribe(
       (respuesta) => {
@@ -704,6 +750,14 @@ export class FormOcupacionalComponent implements OnInit {
     )
   }
 
+   getImpresionDiagnostica(): void {
+    this.historiaService.getImpresionDiagnostica().subscribe(
+      (respuesta) => {
+        this.diagnostica = respuesta;
+      }
+    )
+  }
+
   private getListConcepto(): void {
     for (let i = 0; i < this.concepto.length; i++) {
       switch (this.concepto[i].tipoConcepto) {
@@ -722,6 +776,7 @@ export class FormOcupacionalComponent implements OnInit {
       }
     }
   }
+
   getCiudad(): void {
     this.personaService.getCiudad().subscribe(
       (respuesta) => {
@@ -749,6 +804,7 @@ export class FormOcupacionalComponent implements OnInit {
       }
     )
   }
+
   getAnosHabitosList(): void {
     for (let i = 1; i <= 40; i++) {
       this.listAnosHabito.push(i);
@@ -763,12 +819,12 @@ export class FormOcupacionalComponent implements OnInit {
   }
 
   getAuxOMedico(): void {
-    if (this.permiso.crearUsuario == 0) {
-      if (this.permiso.crearAux == 1) {
+    if (this.permiso.crearUsuario === 0) {
+      if (this.permiso.crearAux === 1) {
         this.aux = true;
         this.medico = false;
       }
-    } else if (this.permiso.crearUsuario == 1) {
+    } else if (this.permiso.crearUsuario === 1) {
       this.medico = true;
     }
   }

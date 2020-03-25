@@ -1,14 +1,14 @@
-export class Paraclinicos{
+export class Paraclinicos {
 
-  seqParaclinicos:number;
-  despExamen:string;
-  fecha:Date;
-  despResultado:string;
+  seqParaclinicos: number;
+  despExamen: string;
+  fecha: Date;
+  despResultado: string;
 
-  constructor(){
+  constructor() {
     this.seqParaclinicos = null;
     this.despExamen = null;
-    this.fecha = new Date();
+    this.fecha = null;
     this.despResultado = null;
   }
 

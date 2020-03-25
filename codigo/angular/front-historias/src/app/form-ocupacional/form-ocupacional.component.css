@@ -164,3 +164,30 @@
 mat-form-field{
   width: 100%;
 }
+caption{
+  display:none;
+}
+ejs-grid{
+  height: 150px;
+  overflow-y: auto;
+  width: 100% !important;
+}
+table{
+  width:100%;
+}
+th{
+  width: 350px;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+td{
+  width:350px;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+tr{
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}

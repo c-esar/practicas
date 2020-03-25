@@ -99,6 +99,9 @@ public class HistoriasEntity implements Serializable {
 
 	@Column(name = "recom_habitos", length = 4000)
 	private String recomHabitos;
+	
+	@Column(name="otro_evaluacion")
+	private String otroEvaluacion;
 
 	@PrePersist
 	public void prePersist() {
@@ -237,4 +240,13 @@ public class HistoriasEntity implements Serializable {
 		this.conceptoConcepto = conceptoConcepto;
 	}
 
+	public String getOtroEvaluacion() {
+		return otroEvaluacion;
+	}
+
+	public void setOtroEvaluacion(String otroEvaluacion) {
+		this.otroEvaluacion = otroEvaluacion;
+	}
+
+	
 }

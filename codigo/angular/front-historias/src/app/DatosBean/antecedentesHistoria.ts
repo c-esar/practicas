@@ -8,15 +8,22 @@ export class AntecedentesHistoria {
   tipo: string;
   exFumador: string;
   anosHabito: number;
-
-  constructor(){
+  planificacion: string;
+  ccv: string;
+  fur: Date;
+  menarquiaList: string;
+  constructor() {
     this.seqAntHistorias = null;
-    this.tipoAntecedenteEntity= new TipoAntecedente();
-    this.estadoAntecedente= null;
-    this.frecuencia= null;
-    this.despAntecedente= null;
-    this.tipo= null;
-    this.exFumador= null;
-    this.anosHabito= null;
+    this.tipoAntecedenteEntity = new TipoAntecedente();
+    this.estadoAntecedente = null;
+    this.frecuencia = null;
+    this.despAntecedente = null;
+    this.tipo = null;
+    this.exFumador = null;
+    this.anosHabito = null;
+    this.planificacion = null;
+    this.ccv = null;
+    this.fur = null;
+    this.menarquiaList = null;
   }
 }

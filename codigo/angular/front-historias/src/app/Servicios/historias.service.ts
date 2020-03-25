@@ -11,8 +11,9 @@ import { EmpresaLaboral } from '../DatosBean/empresaLaboral';
 import { AntecedentesTrabajo } from '../DatosBean/antecedentesTrabajo';
 import { EnfermedadesLaboral } from '../DatosBean/enfermedadesLaboral';
 import { FactoresRiesgo } from '../DatosBean/factoresRiesgo';
-import { TipoAntecedente} from '../DatosBean/tipoAntecedente';
-import { Concepto} from '../DatosBean/concepto';
+import { TipoAntecedente } from '../DatosBean/tipoAntecedente';
+import { Concepto } from '../DatosBean/concepto';
+import { DiagnosticoOcupacional } from '../DatosBean/diagnosticoOcupacional';
 @Injectable({
   providedIn: 'root'
 })
@@ -50,11 +51,15 @@ export class HistoriasService {
     return this.http.post<Historias>(this.url + "historiaPaciente/createHistoria", historias, { headers: this.httpHeaders });
   }
 
-  getTipoAntecedente():Observable<TipoAntecedente[]>{
-    return this.http.get<TipoAntecedente[]>(this.url+"historiaLaboral/listTipoAntecedentes");
+  getTipoAntecedente(): Observable<TipoAntecedente[]> {
+    return this.http.get<TipoAntecedente[]>(this.url + "historiaLaboral/listTipoAntecedentes");
   }
 
-  getConcepto():Observable<Concepto[]>{
-    return this.http.get<Concepto[]>(this.url+"historiaPaciente/listConcepto");
+  getConcepto(): Observable<Concepto[]> {
+    return this.http.get<Concepto[]>(this.url + "historiaPaciente/listConcepto");
+  }
+
+  getImpresionDiagnostica(): Observable<DiagnosticoOcupacional[]> {
+    return this.http.get<DiagnosticoOcupacional[]>(this.url + "historiaPaciente/listImpresionDiagnostica");
   }
 }

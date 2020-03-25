@@ -17,6 +17,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio'
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { GridModule } from '@syncfusion/ej2-angular-grids';
 //componentes
 import { ListaPersonasComponent } from './lista-personas/lista-personas.component';
 import { CreacionUsuarioAppComponent } from './creacion-usuario-app/creacion-usuario-app.component';
@@ -34,6 +35,11 @@ import { PersonaService } from './Servicios/persona.service';
 import { LabelService } from './Servicios/label.service';
 import { TablesComponent } from './tables/tables.component';
 import { FormAuxiliarComponent } from './form-auxiliar/form-auxiliar.component';
+import { FactoresRiesgoComponent } from './form-factores-riesgo/factores-riesgo.component';
+import { EnfermedadesLaboralesComponent } from './form-enfermedades-laborales/enfermedades-laborales.component';
+import { AccidentesTrabajoComponent } from './form-accidentes-trabajo/accidentes-trabajo.component';
+import { TrabajosPreviosComponent } from './form-trabajos-previos/trabajos-previos.component';
+import { FormParaclinicosComponent } from './form-paraclinicos/form-paraclinicos.component';
 //rutas
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, //ruta principal de la aplicacion
@@ -63,7 +69,12 @@ const routes: Routes = [
     FormGymComponent,
     ListUsuariosAppComponent,
     TablesComponent,
-    FormAuxiliarComponent
+    FormAuxiliarComponent,
+    FactoresRiesgoComponent,
+    EnfermedadesLaboralesComponent,
+    AccidentesTrabajoComponent,
+    TrabajosPreviosComponent,
+    FormParaclinicosComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +92,8 @@ const routes: Routes = [
     MatNativeDateModule,
     ReactiveFormsModule,
     MatRadioModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    GridModule
   ],
   exports: [
   ],
