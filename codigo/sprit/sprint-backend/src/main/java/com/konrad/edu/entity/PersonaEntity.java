@@ -39,10 +39,10 @@ public class PersonaEntity implements Serializable {
 	@Column(name = "seq_persona")
 	private Integer seqPersona;
 
-	@Column(name = "nom_primer_nombre", length = 50)
+	@Column(name = "nom_primer_nombre", length = 50, nullable=false)
 	private String nomPrimerNombre;
 
-	@Column(name = "nom_primer_apellido", length = 50)
+	@Column(name = "nom_primer_apellido", length = 50,nullable=false)
 	private String nomPrimerApellido;
 
 	@Column(name = "nom_segundo_nombre", length = 50)

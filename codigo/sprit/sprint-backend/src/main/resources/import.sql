@@ -5,6 +5,7 @@ INSERT INTO hc_tipo_antecedente values('FARMACOLOGICOS');
 INSERT INTO hc_tipo_antecedente values('TRAUMATICOS');
 INSERT INTO hc_tipo_antecedente values('TOXICOS');
 INSERT INTO hc_tipo_antecedente values('INMUNOLOGICOS');
+INSERT INTO hc_tipo_antecedente values('MENARQUIA');
 INSERT INTO hc_tipo_antecedente values('HOSPITALARIOS');
 INSERT INTO hc_tipo_antecedente values('FAMILIARES');
 INSERT INTO hc_tipo_antecedente values('TABAQUISMO');
@@ -25,6 +26,13 @@ INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('NO APTO PARA MANIPU
 INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('APTO PARA CONDUCIR','INGRESO');
 INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('NO APTO PARA CONDUCIR','INGRESO');
 
+INSERT INTO hc_tipo_evaluacion (nom_eval) values('INGRESO');
+INSERT INTO hc_tipo_evaluacion (nom_eval) values('PERIÓDICO');
+INSERT INTO hc_tipo_evaluacion (nom_eval) values('EGRESO');
+INSERT INTO hc_tipo_evaluacion (nom_eval) values('OTRO');
+
+INSERT INTO hc_tipo_historia (nom_tipo_historia) values ('OCUPACIONAL');
+INSERT INTO hc_tipo_historia (nom_tipo_historia) values ('GYM');
 
 INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('CON HALLAZGOS QUE GENERAN RECOMENDACIONES','PERIODICOS');
 INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('SIN HALLAZGOS QUE GENERAN RECOMENDACIONES','PERIODICOS');

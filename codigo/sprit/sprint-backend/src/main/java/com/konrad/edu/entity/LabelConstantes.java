@@ -134,6 +134,16 @@ public class LabelConstantes implements Serializable {
 	private String label_Modalaccidente;
 	private String label_Modalenfermedades;
 	private String label_eliminar;
+	private String labelRecomendacionesMedicas;
+	private String labelRecomendacinesOcupacionales;
+	private String labelHabitos;
+	
+	//CONSTANTES
+	private String actividadFisica;
+	
+	//separadores
+	private String separadorPrincipal;
+	private String separadorEvaluacion;
 
 	public LabelConstantes() {
 		this.labelPrimerNombre = IConstantes.LABEL_PRIMER_NOMBRE;
@@ -251,6 +261,12 @@ public class LabelConstantes implements Serializable {
 		this.labelFur = IConstantes.LABEL_FUR;
 		this.labelPlanificacion = IConstantes.LABEL_PLANIFICACION;
 		this.labelCcv = IConstantes.LABEL_CCV;
+		this.labelRecomendacionesMedicas = IConstantes.LABEL_RECOMENDACIONES_MEDICAS;
+		this.labelRecomendacinesOcupacionales = IConstantes.LABEL_RECOMENDACIONES_OCUPACIONALES;
+		this.labelHabitos = IConstantes.LABEL_HABITOS;
+		this.actividadFisica = IConstantes.ACTIVIDAD_FISICA;
+		this.separadorPrincipal = IConstantes.SEPARADOR_PRINCIPAL;
+		this.separadorEvaluacion = IConstantes.SEPARADOR_EVALUACION;
 	}
 
 	public String getLabelPrimerNombre() {
@@ -1178,6 +1194,57 @@ public class LabelConstantes implements Serializable {
 
 	public void setLabelCcv(String labelCcv) {
 		this.labelCcv = labelCcv;
+	}
+
+	
+	public String getLabelRecomendacionesMedicas() {
+		return labelRecomendacionesMedicas;
+	}
+
+	public void setLabelRecomendacionesMedicas(String labelRecomendacionesMedicas) {
+		this.labelRecomendacionesMedicas = labelRecomendacionesMedicas;
+	}
+
+	public String getLabelRecomendacinesOcupacionales() {
+		return labelRecomendacinesOcupacionales;
+	}
+
+	public void setLabelRecomendacinesOcupacionales(String labelRecomendacinesOcupacionales) {
+		this.labelRecomendacinesOcupacionales = labelRecomendacinesOcupacionales;
+	}
+
+	public String getLabelHabitos() {
+		return labelHabitos;
+	}
+
+	public void setLabelHabitos(String labelHabitos) {
+		this.labelHabitos = labelHabitos;
+	}
+
+	
+	public String getActividadFisica() {
+		return actividadFisica;
+	}
+
+	public void setActividadFisica(String actividadFisica) {
+		this.actividadFisica = actividadFisica;
+	}
+	
+
+	public String getSeparadorPrincipal() {
+		return separadorPrincipal;
+	}
+
+	public void setSeparadorPrincipal(String separadorPrincipal) {
+		this.separadorPrincipal = separadorPrincipal;
+	}
+
+	public String getSeparadorEvaluacion() {
+		return separadorEvaluacion;
+	}
+
+	public void setSeparadorEvaluacion(String separadorEvaluacion) {
+		this.separadorEvaluacion = separadorEvaluacion;
 	}
 
 	@Override

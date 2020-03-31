@@ -39,10 +39,10 @@ public class HistoriasEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long seqHistoria;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "seq_tipo_historia", updatable = false)
+	@ManyToOne
+	@JoinColumn(name = "seq_tipo_historia")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private TipoHistorias seqTipoHistoria;
+	private TipoHistoriasEntity seqTipoHistoria;
 
 	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "seq_exa_fisico", updatable = false)
@@ -51,6 +51,7 @@ public class HistoriasEntity implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "seq_historia_laboral", unique = true )
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private HistoriaLaboralEntity historiaLaboral;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -61,8 +62,8 @@ public class HistoriasEntity implements Serializable {
 	@JoinColumn(name = "seq_historia")
 	private List<ParaclinicosEntity> paraclinicosEntity;
 
-	@OneToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "seq_eval", updatable = false)
+	@ManyToOne
+	@JoinColumn(name = "seq_eval")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoEvaluacionEntity tipoEvaluacionEntity;
 
@@ -107,9 +108,13 @@ public class HistoriasEntity implements Serializable {
 	public void prePersist() {
 		this.diaHistoria = new Date();
 	}
+	
 
 	public HistoriasEntity() {
 		this.antecedentesHistoriaEntity = new ArrayList<>();
+		this.paraclinicosEntity = new ArrayList<>();
+		this.conceptoConcepto = new ArrayList<>();
+		this.diagnosticoOcupacionalEntity = new ArrayList<>();
 	}
 
 	public Long getSeqHistoria() {
@@ -120,11 +125,11 @@ public class HistoriasEntity implements Serializable {
 		this.seqHistoria = seqHistoria;
 	}
 
-	public TipoHistorias getSeqTipoHistoria() {
+	public TipoHistoriasEntity getSeqTipoHistoria() {
 		return seqTipoHistoria;
 	}
 
-	public void setSeqTipoHistoria(TipoHistorias seqTipoHistoria) {
+	public void setSeqTipoHistoria(TipoHistoriasEntity seqTipoHistoria) {
 		this.seqTipoHistoria = seqTipoHistoria;
 	}
 

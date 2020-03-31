@@ -10,6 +10,10 @@ public interface IConstantes {
 //	public static final String RUTA = "http://localhost:"+IConstantes.PUERTO;
 //	public static final String PUERTO = "4200";
 
+	//separadores
+	public static final String SEPARADOR_PRINCIPAL ="HISTORIA CLÍNICA OCUPACIONAL";
+	public static final String SEPARADOR_EVALUACION="TIPO DE EVALUACIÓN";
+	
 	public static final String ESTADO_PERDIDA_CONEXION = "FALLO";
 	public static final String ESTADO_SESION_ACTIVO = "ACTIVO";
 	public static final String ESTADO_SESION_INACTIVO = "INACTIVO";
@@ -138,4 +142,10 @@ public interface IConstantes {
 	public static final String LABEL_MODALACCIDENTE ="ACCIDENTES TRABAJO";
 	public static final String LABEL_MODALENFERMEDADES ="ENFERMEDADES LABORALES";
 	public static final String LABEL_ELIMINAR ="ELIMINAR";
+	public static final String LABEL_RECOMENDACIONES_MEDICAS = "RECOMENDACIONES MÉDICAS (REMISIONES, TRATAMIENTOS)";
+	public static final String LABEL_RECOMENDACIONES_OCUPACIONALES ="RECOMENDACIONES OCUPACIONALES (USO DE EPP, INGRESO A SVE,RECOMEDACIONES, REUBICACIONES)";
+	public static final String LABEL_HABITOS ="HÁBITOS Y ESTILOS DE VIDA SALUDABLES";
+	
+	//constantes front
+	public static final String ACTIVIDAD_FISICA ="ACTIVIDAD FÍSICA";
 }

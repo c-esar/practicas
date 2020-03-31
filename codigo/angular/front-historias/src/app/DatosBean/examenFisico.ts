@@ -8,7 +8,7 @@ export class ExamenFisico {
   numPeso: number;
   numTalla: number;
   numImc: number;
-  numLateralidad: number;
+  lateralidad: string;
   despCapCuello: string;
   despTorax: string;
   despAdb: string;
@@ -28,7 +28,7 @@ export class ExamenFisico {
     this.numPeso = null;
     this.numTalla = null;
     this.numImc = null;
-    this.numLateralidad = null;
+    this.lateralidad = null;
     this.despCapCuello = null;
     this.despTorax = null;
     this.despAdb = null;

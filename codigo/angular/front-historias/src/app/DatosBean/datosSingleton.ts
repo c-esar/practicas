@@ -115,4 +115,10 @@ export class DatosSingleton {
 	labelFur: string;
 	labelPlanificacion: string;
   labelCcv: string;
+  labelRecomendacionesMedicas: string;
+	labelRecomendacinesOcupacionales: string;
+  labelHabitos: string;
+  actividadFisica: string;
+  separadorPrincipal: string;
+	separadorEvaluacion: string;
 }

@@ -4,12 +4,14 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "hc_tipo_historia")
-public class TipoHistorias implements Serializable {
+public class TipoHistoriasEntity implements Serializable {
 
 	/**
 	 * 
@@ -18,10 +20,8 @@ public class TipoHistorias implements Serializable {
 
 	@Id
 	@Column(name = "seq_tipo_historia")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long seqTipoHistoria;
-
-	@Column(name = "cod_historia")
-	private String codHistoria;
 
 	@Column(name = "nom_tipo_historia")
 	private String nomTipoHistoria;
@@ -34,13 +34,6 @@ public class TipoHistorias implements Serializable {
 		this.seqTipoHistoria = seqTipoHistoria;
 	}
 
-	public String getCodHistoria() {
-		return codHistoria;
-	}
-
-	public void setCodHistoria(String codHistoria) {
-		this.codHistoria = codHistoria;
-	}
 
 	public String getNomTipoHistoria() {
 		return nomTipoHistoria;
