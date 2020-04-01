@@ -140,6 +140,7 @@ public class LabelConstantes implements Serializable {
 	
 	//CONSTANTES
 	private String actividadFisica;
+	private String mensajeBarProgress;
 	
 	//separadores
 	private String separadorPrincipal;
@@ -267,6 +268,7 @@ public class LabelConstantes implements Serializable {
 		this.actividadFisica = IConstantes.ACTIVIDAD_FISICA;
 		this.separadorPrincipal = IConstantes.SEPARADOR_PRINCIPAL;
 		this.separadorEvaluacion = IConstantes.SEPARADOR_EVALUACION;
+		this.mensajeBarProgress = IConstantes.MENSAJE_BAR_PROGRESS;
 	}
 
 	public String getLabelPrimerNombre() {
@@ -1245,6 +1247,15 @@ public class LabelConstantes implements Serializable {
 
 	public void setSeparadorEvaluacion(String separadorEvaluacion) {
 		this.separadorEvaluacion = separadorEvaluacion;
+	}
+	
+
+	public String getMensajeBarProgress() {
+		return mensajeBarProgress;
+	}
+
+	public void setMensajeBarProgress(String mensajeBarProgress) {
+		this.mensajeBarProgress = mensajeBarProgress;
 	}
 
 	@Override

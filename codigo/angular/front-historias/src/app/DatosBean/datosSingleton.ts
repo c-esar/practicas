@@ -120,5 +120,6 @@ export class DatosSingleton {
   labelHabitos: string;
   actividadFisica: string;
   separadorPrincipal: string;
-	separadorEvaluacion: string;
+  separadorEvaluacion: string;
+  mensajeBarProgress: string;
 }

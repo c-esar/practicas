@@ -18,6 +18,7 @@ import {MatRadioModule} from '@angular/material/radio'
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 //componentes
 import { ListaPersonasComponent } from './lista-personas/lista-personas.component';
 import { CreacionUsuarioAppComponent } from './creacion-usuario-app/creacion-usuario-app.component';
@@ -93,7 +94,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatRadioModule,
     ModalModule.forRoot(),
-    GridModule
+    GridModule,
+    MatProgressSpinnerModule
   ],
   exports: [
   ],

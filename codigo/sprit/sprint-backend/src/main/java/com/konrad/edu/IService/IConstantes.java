@@ -148,4 +148,5 @@ public interface IConstantes {
 	
 	//constantes front
 	public static final String ACTIVIDAD_FISICA ="ACTIVIDAD FÍSICA";
+	public static final String MENSAJE_BAR_PROGRESS = "GUARDANDO INFORMACIÓN ESPERE UN MOMENTO";
 }

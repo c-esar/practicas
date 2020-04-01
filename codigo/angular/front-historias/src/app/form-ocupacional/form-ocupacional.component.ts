@@ -52,7 +52,9 @@ export class FormOcupacionalComponent implements OnInit {
   modalRef: BsModalRef;
   persona: Persona;
   Spersona: Persona;
+  barProgres: boolean;
   buscoPerson: boolean;
+  guardado: boolean;
   permiso: Permiso;
   datosSingleton: DatosSingleton;
   tipoDocumento: TipoDocumento[];
@@ -93,6 +95,7 @@ export class FormOcupacionalComponent implements OnInit {
   //tipo evaluacion
   tipoEvaluacion: TipoEvaluacion[];
   tipoEvaluacionSelecionado: string;
+
   constructor(private labelService: LabelService,
     private loginService: LoginService,
     private personaService: PersonaService,
@@ -116,15 +119,17 @@ export class FormOcupacionalComponent implements OnInit {
     this.datosSingleton = new DatosSingleton();
     this.Spersona = new Persona();
     this.examenFisico = new ExamenFisico();
-    this.buscoPerson = false;
     this.listaElementosBLoquear = new Array<string>();
     this.listAnosHabito = new Array<number>();
     this.sinAgregarLista = true;
+    this.barProgres = false;
     $('#formOtroEvaluacion').hide();
+    this.barProgres = false;
+    this.buscoPerson = false;
+    this.guardado = true;
   }
 
   onCargarFunciones(): void {
-    debugger
     this.getPermisos();
     this.getAuxOMedico();
     this.onLabels();
@@ -150,12 +155,10 @@ export class FormOcupacionalComponent implements OnInit {
           this.persona = new Persona();
           this.persona.numeroDocumento = tmpDoc;
           this.cargarListas();
-          this.buscoPerson = false;
           Swal.fire('Error', 'Persona No Registrada', 'error');
         } else {
           this.Spersona = respuesta;
           this.persona.seqPersona = this.Spersona.seqPersona
-          this.buscoPerson = true;
           Swal.fire('Exitoso', 'Persona Registrada', 'success');
         }
       }
@@ -398,30 +401,70 @@ export class FormOcupacionalComponent implements OnInit {
 
   public create(): void {
     debugger
-    this.persona.localidad.seqLocalidad = 0;
-    this.persona.lugarDeResidencia.seqCuidad = 0;
-    this.persona.rolUsuario = this.PERSONA_PACIENTE;
-    this.cargarDatosActededentesHistoria();
-    //this.persona.historias[0].seqTipoHistoria.seqTipoHistoria = 1;
-    if (this.onValidarAntecedentes()) {
-      if (this.permiso.crearUsuario === 1) {
-        this.persona.historias[0].examenFisico = this.examenFisico;
-        console.log(this.persona)
-        this.personaService.create(this.persona).subscribe(
-          response => {
-            console.log(response);
-            if (response == null) {
-              Swal.fire('Error', 'Persona No Registrada', 'error');
-            } else {
-              Swal.fire('Exitoso', 'Persona Registrada', 'success');
-              this.router.navigate(['/menuPrincipal'])
+
+    setTimeout(() => {
+      Swal.fire({
+        title: 'Auto close alert!',
+        html: 'I will close in <b></b> milliseconds.',
+        timer: 2000,
+        timerProgressBar: true,
+      })
+    }, 1000);
+
+    setTimeout(() => {
+      this.onBarProgress('inicio');
+      this.persona.localidad.seqLocalidad = 0;
+      this.persona.lugarDeResidencia.seqCuidad = 0;
+      this.persona.rolUsuario = this.PERSONA_PACIENTE;
+      this.barProgres = true;
+      this.cargarDatosActededentesHistoria();
+      if (this.onValidarAntecedentes() && this.guardado) {
+        if (this.permiso.crearUsuario === 1) {
+          this.persona.historias[0].examenFisico = this.examenFisico;
+          console.log(this.persona)
+          this.personaService.create(this.persona).subscribe(
+            response => {
+              console.log(response);
+              if (response == null) {
+                this.guardado = false;
+                this.onBarProgress('salir');
+                Swal.fire('Error', 'Persona No Registrada', 'error');
+              } else {
+                this.guardado = false;
+                this.onBarProgress('salir');
+                Swal.fire('Exitoso', 'Persona Registrada', 'success');
+                this.router.navigate(['/menuPrincipal'])
+              }
             }
-          }
-        );
+          );
+        }
+      } else {
+        this.persona.historias[0].antecedentesHistoriaEntity = new Array<AntecedentesHistoria>();
+        this.onBarProgress('salir');
+        Swal.fire('Error', 'Falta completar información necesaria en la sección MOTIVO CONSULTA verificar campos', 'error');
       }
-    } else {
-      this.persona.historias[0].antecedentesHistoriaEntity = new Array<AntecedentesHistoria>();
-      Swal.fire('Error', 'Falta completar información necesaria en la sección MOTIVO CONSULTA verificar campos', 'error');
+      this.onBarProgress('salir');
+    }, 3000);
+  }
+
+  private onBarProgress(tmp: string): void {
+    debugger
+    switch (tmp) {
+      case "inicio": {
+        document.getElementById("container-fluid").style.opacity = "0.2";
+        document.getElementById("container-fluid").style.pointerEvents = "none";
+        document.getElementById("contenidoFormulario").style.pointerEvents = "none";
+        document.getElementById("contenidoFormulario").style.opacity = "0.2";
+        this.barProgres = true;
+        break;
+      }
+      case "salir": {
+        document.getElementById("container-fluid").style.opacity = "1";
+        document.getElementById("container-fluid").style.pointerEvents = "all";
+        document.getElementById("contenidoFormulario").style.pointerEvents = "all";
+        document.getElementById("contenidoFormulario").style.opacity = "1";
+        this.barProgres = false;
+      }
     }
   }
 
