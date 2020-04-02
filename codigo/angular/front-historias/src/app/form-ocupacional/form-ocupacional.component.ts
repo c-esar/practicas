@@ -401,15 +401,14 @@ export class FormOcupacionalComponent implements OnInit {
 
   public create(): void {
     debugger
-
     setTimeout(() => {
       Swal.fire({
-        title: 'Auto close alert!',
-        html: 'I will close in <b></b> milliseconds.',
-        timer: 2000,
+        title: this.datosSingleton.mensajeBarProgress,
+        timer: 10000,
         timerProgressBar: true,
+        showConfirmButton: false
       })
-    }, 1000);
+    }, 500);
 
     setTimeout(() => {
       this.onBarProgress('inicio');
@@ -444,7 +443,7 @@ export class FormOcupacionalComponent implements OnInit {
         Swal.fire('Error', 'Falta completar información necesaria en la sección MOTIVO CONSULTA verificar campos', 'error');
       }
       this.onBarProgress('salir');
-    }, 3000);
+    }, 1000);
   }
 
   private onBarProgress(tmp: string): void {
@@ -544,7 +543,7 @@ export class FormOcupacionalComponent implements OnInit {
 
   private cargarListas(): void {
     this.persona.historias.push(new Historias());
-    this.persona.historias[0].concepto.push(new Concepto());
+    this.persona.historias[0].conceptoConcepto.push(new Concepto());
     $('#conceptoIngreso').hide();
     $('#conceptoPeriodico').hide();
     $('#conceptoEgreso').hide();
@@ -746,9 +745,9 @@ export class FormOcupacionalComponent implements OnInit {
         break;
       }
       case "paraclinicos": {
-        this.persona.historias[0].paraclinicos.push(new Paraclinicos());
-        number = this.persona.historias[0].paraclinicos.length - 1;
-        this.persona.historias[0].paraclinicos[number] = $event;
+        this.persona.historias[0].paraclinicosEntity.push(new Paraclinicos());
+        number = this.persona.historias[0].paraclinicosEntity.length - 1;
+        this.persona.historias[0].paraclinicosEntity[number] = $event;
         this.gridParaclinicos.refresh();
         this.modalRef.hide();
         Swal.fire('Exitoso', 'Se agrego el dato en Paraclinicos', 'success');
@@ -813,7 +812,7 @@ export class FormOcupacionalComponent implements OnInit {
         console.log(selectedRow);
         if (this.gridParaclinicos.getSelectedRowIndexes().length) {
           (this.gridParaclinicos.dataSource as object[]).splice(selectedRow, 1);
-          this.persona.historias[0].paraclinicos.splice(selectedRow, 1);
+          this.persona.historias[0].paraclinicosEntity.splice(selectedRow, 1);
         } else {
           alert('No selecciono ning�n dato para eliminar');
         }

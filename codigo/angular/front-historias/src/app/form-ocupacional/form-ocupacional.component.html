@@ -1052,7 +1052,7 @@
                   (click)="delete('paraclinicos')">{{datosSingleton.label_eliminar}}</button>
               </div>
               <div class="form-group col-md-12 col-sm-12 col-xs-12 ">
-                <ejs-grid #gridParaclinicos [dataSource]='this.persona.historias[0].paraclinicos'
+                <ejs-grid #gridParaclinicos [dataSource]='this.persona.historias[0].paraclinicosEntity'
                   [pageSettings]='pageSettings'>
                   <e-columns>
                     <e-column field='despExamen' headerText='{{datosSingleton.labelExamen}}'></e-column>
@@ -1074,7 +1074,7 @@
               <div class="form-group col-md-12 col-sm-12 col-xs-6" id="ImpresionDiagnostico">
                 <mat-form-field>
                   <mat-label>{{datosSingleton.menuImpresionDiagnostico}}</mat-label>
-                  <mat-select multiple [(ngModel)]="persona.historias[0].diagnosticoOcupacional"
+                  <mat-select multiple [(ngModel)]="persona.historias[0].diagnosticoOcupacionalEntity"
                     name="labeldiagnostica">
                     <mat-option *ngFor="let doc of diagnostica" [value]="doc">
                       {{doc.codDiagnostico + " " + doc.desDiagnostico}}</mat-option>
@@ -1088,7 +1088,7 @@
               <div class="form-group col-md-12 col-sm-12 col-xs-6" id="conceptoIngreso">
                 <mat-form-field>
                   <mat-label>{{datosSingleton.labelIngreso}}</mat-label>
-                  <mat-select required [(ngModel)]="persona.historias[0].concepto[0].seqConcepto" name="labelIngreso">
+                  <mat-select required [(ngModel)]="persona.historias[0].conceptoConcepto[0].seqConcepto" name="labelIngreso">
                     <mat-option *ngFor="let doc of conceptoIngreso" [value]="doc.seqConcepto">{{doc.nomConcepto}}
                     </mat-option>
                   </mat-select>
@@ -1098,7 +1098,7 @@
               <div class="form-group col-md-12 col-sm-12 col-xs-6" id="conceptoPeriodico">
                 <mat-form-field>
                   <mat-label>{{datosSingleton.labelPeriodico}}</mat-label>
-                  <mat-select required [(ngModel)]="persona.historias[0].concepto[0].seqConcepto" name="labelPeriodico">
+                  <mat-select required [(ngModel)]="persona.historias[0].conceptoConcepto[0].seqConcepto" name="labelPeriodico">
                     <mat-option *ngFor="let doc of conceptoPeriodico" [value]="doc.seqConcepto">{{doc.nomConcepto}}
                     </mat-option>
                   </mat-select>
@@ -1108,7 +1108,7 @@
               <div class="form-group col-md-12 col-sm-12 col-xs-6" id="conceptoEgreso">
                 <mat-form-field>
                   <mat-label>{{datosSingleton.labelEgreso}}</mat-label>
-                  <mat-select required [(ngModel)]="persona.historias[0].concepto[0].seqConcepto" name="labelEgreso">
+                  <mat-select required [(ngModel)]="persona.historias[0].conceptoConcepto[0].seqConcepto" name="labelEgreso">
                     <mat-option *ngFor="let doc of conceptoEgreso" [value]="doc.seqConcepto">{{doc.nomConcepto}}
                     </mat-option>
                   </mat-select>

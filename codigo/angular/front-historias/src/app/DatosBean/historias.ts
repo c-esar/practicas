@@ -12,9 +12,9 @@ export class Historias {
   historiaLaboral: HistoriaLaboral;
   examenFisico: ExamenFisico;
   antecedentesHistoriaEntity: AntecedentesHistoria[];
-  paraclinicos: Paraclinicos[];
-  concepto: Concepto[];
-  diagnosticoOcupacional: DiagnosticoOcupacional[];
+  paraclinicosEntity: Paraclinicos[];
+  conceptoConcepto: Concepto[];
+  diagnosticoOcupacionalEntity: DiagnosticoOcupacional[];
   tipoEvaluacionEntity: TipoEvaluacion;
   ciudadHistoria: Ciudad;
   diaHistoria = new Date();
@@ -30,9 +30,9 @@ export class Historias {
     this.historiaLaboral = new HistoriaLaboral();
     this.examenFisico = new ExamenFisico();
     this.antecedentesHistoriaEntity = new Array<AntecedentesHistoria>();
-    this.paraclinicos = new Array<Paraclinicos>();
-    this.concepto = new Array<Concepto>();
-    this.diagnosticoOcupacional = new Array<DiagnosticoOcupacional>();
+    this.paraclinicosEntity = new Array<Paraclinicos>();
+    this.conceptoConcepto = new Array<Concepto>();
+    this.diagnosticoOcupacionalEntity = new Array<DiagnosticoOcupacional>();
     this.tipoEvaluacionEntity = new TipoEvaluacion();
     this.ciudadHistoria = new Ciudad();
     this.diaHistoria = new Date();

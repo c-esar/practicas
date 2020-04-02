@@ -45,7 +45,7 @@ public class HistoriasEntity implements Serializable {
 	private TipoHistoriasEntity seqTipoHistoria;
 
 	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "seq_exa_fisico", updatable = false)
+	@JoinColumn(name = "seq_exa_fisico", unique = false)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private ExamenFisicoEntity examenFisico;
 
@@ -72,12 +72,12 @@ public class HistoriasEntity implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private CiudadEntity ciudadHistoria;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "hc_concepto_historia", joinColumns = @JoinColumn(name = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_concepto"), uniqueConstraints = {
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "hc_concepto_historia", joinColumns = @JoinColumn(name = "seq_historia",referencedColumnName = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_concepto",referencedColumnName = "seq_concepto"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_historia", "seq_concepto" }) })
 	private List<ConceptoEntity> conceptoConcepto;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "hc_diagnosticoOcupacional_historia", joinColumns = @JoinColumn(name = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_diagnostico"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_historia", "seq_diagnostico" }) })
 	private List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity;
@@ -253,5 +253,14 @@ public class HistoriasEntity implements Serializable {
 		this.otroEvaluacion = otroEvaluacion;
 	}
 
+
+	public List<DiagnosticoOcupacionalEntity> getDiagnosticoOcupacionalEntity() {
+		return diagnosticoOcupacionalEntity;
+	}
+
+
+	public void setDiagnosticoOcupacionalEntity(List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity) {
+		this.diagnosticoOcupacionalEntity = diagnosticoOcupacionalEntity;
+	}
 	
 }
