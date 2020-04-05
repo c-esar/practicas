@@ -6,7 +6,7 @@ import { ExamenFisico } from './examenFisico';
 import { TipoHistoria } from './tipoHistoria';
 import { Paraclinicos } from './paraclinicos';
 import { Concepto } from './concepto';
-import { DiagnosticoOcupacional} from'./diagnosticoOcupacional';
+import { DiagnosticoOcupacional } from './diagnosticoOcupacional';
 export class Historias {
   seqHistoria: number;
   historiaLaboral: HistoriaLaboral;
@@ -42,6 +42,6 @@ export class Historias {
     this.recomMedicas = null;
     this.recomOcupacionales = null;
     this.recomHabitos = null;
-    this.otroEvaluacion= null;
+    this.otroEvaluacion = null;
   }
 }

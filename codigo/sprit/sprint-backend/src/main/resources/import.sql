@@ -13,6 +13,15 @@ INSERT INTO hc_tipo_antecedente values('CONSUMO ALCOHOL');
 INSERT INTO hc_tipo_antecedente values('ACTIVIDAD FÍSICA');
 INSERT INTO hc_tipo_antecedente values('ACTIVIDAD EXTRA LABORAL');
 
+INSERT INTO hc_tipo_usuario VALUES ('ESTUDIANTE');
+INSERT INTO hc_tipo_usuario VALUES ('ADMINISTRATIVO');
+INSERT INTO hc_tipo_usuario VALUES ('DOCENTE');
+INSERT INTO hc_tipo_usuario VALUES ('EGRESADO');
+INSERT INTO hc_tipo_usuario VALUES ('OTRO');
+INSERT INTO hc_tipo_usuario VALUES ('ADMINISTRADOR');
+INSERT INTO hc_tipo_usuario VALUES ('MEDICO');
+INSERT INTO hc_tipo_usuario VALUES ('AUXILIAR');
+
 INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('SIN RESTRICCIONES','INGRESO');
 INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('CON RESTRICCIONES QUE INTERFIEREN EN LA LABOR','INGRESO');
 INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('CON RESTRICCIONES QUE NO INTERFIEREN EN LA LABOR','INGRESO');
@@ -58,8 +67,8 @@ INSERT INTO hc_tipo_documento(cod_documento,sigla_documento,nom_documento)values
 INSERT INTO hc_perfiles (nom_usuario,password,estado,nom_perfil) values('cesar','12345','A','admin');
 INSERT INTO hc_perfiles (nom_usuario,password,estado,nom_perfil) values('carlos','12345','A','aux');
 
-INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,rol_usuario,seq_tipo_documento,seq_perfil) values('Cesar','Diaz','1030691234','Administrador','1',1);
-INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,rol_usuario,seq_tipo_documento,seq_perfil) values('Carlos','Chacon','1010','Paciente',3,2);
+INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,seq_tipo_usuario,seq_tipo_documento,seq_perfil) values('Cesar','Diaz','1030691234',6,'1',1);
+INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,seq_tipo_usuario,seq_tipo_documento,seq_perfil) values('Carlos','Chacon','1010',2,3,2);
 
 INSERT INTO hc_permisos (crear_usuario,gestionar_usuario,descargar,crear_aux) values (1,1,1,0);
 INSERT INTO hc_permisos (crear_usuario,gestionar_usuario,descargar,crear_aux) values (0,0,0,1);

@@ -21,6 +21,7 @@ import { TipoAntecedente } from '../DatosBean/tipoAntecedente';
 import { ExamenFisico } from '../DatosBean/examenFisico';
 import { Paraclinicos } from '../DatosBean/paraclinicos';
 import { Concepto } from '../DatosBean/concepto';
+import { TipoUsuario } from '../DatosBean/tipoUsuario';
 import { TipoHistoria } from '../DatosBean/tipoHistoria';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 //ng add ngx-bootstrap
@@ -60,6 +61,7 @@ export class FormOcupacionalComponent implements OnInit {
   tipoDocumento: TipoDocumento[];
   ciudad: Ciudad[];
   aseguradora: Aseguradora[];
+  tipoUsuario: TipoUsuario[];
   medico: boolean;
   aux: boolean;
   examenFisico: ExamenFisico;
@@ -105,9 +107,19 @@ export class FormOcupacionalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.onCargarAtributos();
-    this.onCargarFunciones();
-    this.pageSettings = { pageSize: 6 };
+    setTimeout(() => {
+      Swal.fire({
+        title: 'Cargando Informacion',
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
+    }, 500);
+    setTimeout(() => {
+      this.onCargarAtributos();
+      this.onCargarFunciones();
+      this.pageSettings = { pageSize: 6 };
+    }, 1000);
   }
 
   onCargarAtributos(): void {
@@ -141,10 +153,10 @@ export class FormOcupacionalComponent implements OnInit {
     this.getImpresionDiagnostica();
     this.getTipoEvaluacion();
     this.getAnosHabitosList();
+    this.getTipoUsuario();
   }
 
   public onValidatePersona(): void {
-    this.persona.rolUsuario = this.PERSONA_PACIENTE;
     let tmpDoc = this.persona.numeroDocumento;
     this.Spersona = new Persona();
     debugger
@@ -414,7 +426,7 @@ export class FormOcupacionalComponent implements OnInit {
       this.onBarProgress('inicio');
       this.persona.localidad.seqLocalidad = 0;
       this.persona.lugarDeResidencia.seqCuidad = 0;
-      this.persona.rolUsuario = this.PERSONA_PACIENTE;
+      this.persona.rolUsuario = this.tipoUsuario[1];
       this.barProgres = true;
       this.cargarDatosActededentesHistoria();
       if (this.onValidarAntecedentes() && this.guardado) {
@@ -937,6 +949,15 @@ export class FormOcupacionalComponent implements OnInit {
     this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos.crearUsuario;
     this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos.gestionarUsuario;
     this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos.descargar;
+  }
+
+  getTipoUsuario(): void {
+    this.historiaService.getTipoUsuario().subscribe(
+      (respuesta) => {
+        this.tipoUsuario = respuesta
+        console.log(respuesta)
+      }
+    )
   }
 
   getAuxOMedico(): void {

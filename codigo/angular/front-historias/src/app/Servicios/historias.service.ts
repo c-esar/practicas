@@ -16,6 +16,7 @@ import { TipoEvaluacion } from '../DatosBean/tipoEvaluacion';
 import { TipoHistoria } from '../DatosBean/tipoHistoria';
 import { Concepto } from '../DatosBean/concepto';
 import { DiagnosticoOcupacional } from '../DatosBean/diagnosticoOcupacional';
+import { TipoUsuario } from '../DatosBean/tipoUsuario';
 @Injectable({
   providedIn: 'root'
 })
@@ -71,5 +72,9 @@ export class HistoriasService {
 
   getTipoHistorias(): Observable<TipoHistoria[]> {
     return this.http.get<TipoHistoria[]>(this.url + "historiaPaciente/listTipoHistoria");
+  }
+
+  getTipoUsuario(): Observable<TipoUsuario[]> {
+    return this.http.get<TipoUsuario[]>(this.url + "historiaPaciente/listTipoUsuario");
   }
 }

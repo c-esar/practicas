@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.konrad.edu.IService.IHistoriaService;
 import com.konrad.edu.dao.IHistoriaDao;
-import com.konrad.edu.entity.HistoriasEntity;
+import com.konrad.edu.entity.HistoriaOcupacionalEntity;
 
 @Service
 public class HistoriaServiceImp implements IHistoriaService {
@@ -14,7 +14,7 @@ public class HistoriaServiceImp implements IHistoriaService {
 	private IHistoriaDao historiaDao;
 
 	@Override
-	public HistoriasEntity save(HistoriasEntity historia) {
+	public HistoriaOcupacionalEntity save(HistoriaOcupacionalEntity historia) {
 		return historiaDao.save(historia);
 	}
 }

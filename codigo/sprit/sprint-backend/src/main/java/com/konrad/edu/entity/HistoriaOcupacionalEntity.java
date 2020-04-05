@@ -27,8 +27,8 @@ import javax.persistence.UniqueConstraint;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "hc_historias")
-public class HistoriasEntity implements Serializable {
+@Table(name = "hc_historia_ocupacional")
+public class HistoriaOcupacionalEntity implements Serializable {
 
 	/**
 	 * 
@@ -110,7 +110,7 @@ public class HistoriasEntity implements Serializable {
 	}
 	
 
-	public HistoriasEntity() {
+	public HistoriaOcupacionalEntity() {
 		this.antecedentesHistoriaEntity = new ArrayList<>();
 		this.paraclinicosEntity = new ArrayList<>();
 		this.conceptoConcepto = new ArrayList<>();
@@ -262,5 +262,6 @@ public class HistoriasEntity implements Serializable {
 	public void setDiagnosticoOcupacionalEntity(List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity) {
 		this.diagnosticoOcupacionalEntity = diagnosticoOcupacionalEntity;
 	}
+	
 	
 }
