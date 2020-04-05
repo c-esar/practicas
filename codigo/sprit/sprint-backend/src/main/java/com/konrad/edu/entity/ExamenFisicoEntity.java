@@ -43,8 +43,8 @@ public class ExamenFisicoEntity implements Serializable {
 	@Column(name = "num_imc")
 	private double numImc;
 
-	@Column(name = "num_lateralidad")
-	private double numLateralidad;
+	@Column(name = "lateralidad")
+	private String lateralidad;
 
 	@Column(name = "desp_cap_cuello", length = 4000)
 	private String despCapCuello;
@@ -137,14 +137,6 @@ public class ExamenFisicoEntity implements Serializable {
 		this.numImc = numImc;
 	}
 
-	public double getNumLateralidad() {
-		return numLateralidad;
-	}
-
-	public void setNumLateralidad(double numLateralidad) {
-		this.numLateralidad = numLateralidad;
-	}
-
 	public String getDespCapCuello() {
 		return despCapCuello;
 	}
@@ -217,4 +209,13 @@ public class ExamenFisicoEntity implements Serializable {
 		this.despPielfan = despPielfan;
 	}
 
+	public String getLateralidad() {
+		return lateralidad;
+	}
+
+	public void setLateralidad(String lateralidad) {
+		this.lateralidad = lateralidad;
+	}
+
+	
 }

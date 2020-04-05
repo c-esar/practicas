@@ -105,7 +105,7 @@ export class FormAuxiliarComponent implements OnInit {
   }
 
   public onValidatePersona(): void {
-    this.persona.rolUsuario = this.PERSONA_PACIENTE;
+  
     this.Spersona = new Persona();
     this.personaService.onBuscarDocumento(this.persona).subscribe(
       (respuesta) => {
@@ -141,7 +141,6 @@ export class FormAuxiliarComponent implements OnInit {
   public create(): void {
     this.persona.localidad.seqLocalidad = 0;
     this.persona.lugarDeResidencia.seqCuidad = 0;
-    this.persona.rolUsuario = this.PERSONA_PACIENTE;
     if (this.permiso.crearAux == 1) {
       this.persona.historias = null;
       if (this.buscoPerson) {

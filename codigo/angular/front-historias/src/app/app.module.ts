@@ -14,10 +14,11 @@ import { FormsModule } from '@angular/forms';
 import { BodyAppComponent } from './body-app/body-app.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatRadioModule} from '@angular/material/radio'
+import { MatRadioModule } from '@angular/material/radio'
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 //componentes
 import { ListaPersonasComponent } from './lista-personas/lista-personas.component';
 import { CreacionUsuarioAppComponent } from './creacion-usuario-app/creacion-usuario-app.component';
@@ -46,11 +47,11 @@ const routes: Routes = [
   // rutas secundarias se hace referencia con el component de cada uno
   { path: 'login', component: LoginComponent },
   { path: 'menuPrincipal/listPersonas', component: ListaPersonasComponent, canActivate: [LoginService] },
-  { path: 'menuPrincipal/form-ocupacional', component: FormOcupacionalComponent, canActivate: [LoginService] },
+  { path: 'menuPrincipal/form-ocupacional', component: FormOcupacionalComponent, canActivate: [LoginService], data: { animation: 'HomePage' } },
   { path: 'menuPrincipal', component: BodyAppComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/creacionUsuario', component: CreacionUsuarioAppComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/cambioPass', component: FormCambioPassComponent, canActivate: [LoginService] },
-  { path: 'menuPrincipal/form-gym', component: FormGymComponent, canActivate: [LoginService] },
+  { path: 'menuPrincipal/form-gym', component: FormGymComponent, canActivate: [LoginService], data: { animation: 'HomePage' } },
   { path: 'menuPrincipal/list-usuariosApp', component: ListUsuariosAppComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/form-ocupacional/auxiliar', component: FormAuxiliarComponent, canActivate: [LoginService] }
 ];
@@ -93,7 +94,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatRadioModule,
     ModalModule.forRoot(),
-    GridModule
+    GridModule,
+    MatProgressSpinnerModule
   ],
   exports: [
   ],

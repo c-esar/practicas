@@ -134,6 +134,47 @@ public class LabelConstantes implements Serializable {
 	private String label_Modalaccidente;
 	private String label_Modalenfermedades;
 	private String label_eliminar;
+	private String labelRecomendacionesMedicas;
+	private String labelRecomendacinesOcupacionales;
+	private String labelHabitos;
+	
+	//CONSTANTES
+	private String actividadFisica;
+	private String mensajeBarProgress;
+	
+	//separadores
+	private String separadorPrincipal;
+	private String separadorEvaluacion;
+	
+	//gym
+	private String labelCodigo;
+	private String labelGrupoSanguuineo;
+	private String labelContactoEmergencia;
+	private String labelParentesco;
+	private String menuPersonal;
+	private String despMenuPersonal;
+	private String labelObservaciones;
+	private String labelPreguntaEmbarazo;
+	private String labelPreguntaFuma;
+	private String labelPreguntaFumaCuantos;
+	private String labelPreguntaFumaTiempo;
+	private String labelPreguntaLicor;
+	private String labelPreguntaLicorCuantas;
+	private String labelPreguntaEjercicio;
+	private String labelPreguntaEjercicioCual;
+	private String labelPreguntaEjercicioCuantas;
+	private String labelPreguntaEnergizantes;
+	private String labelPreguntaEnergizanteCuantas;
+	private String labelPreguntaSustancias;
+	private String labelPreguntaSustanciasCuales;
+	private String labelMenuFamiliar;
+	private String despMenuFamiliar;
+	private String menuCuestionario;
+	private String despMenuCuestionario;
+	private String parteFinal;
+	private String ultimaParte;
+	private String labelRh;
+	private String tipoUsuario;
 
 	public LabelConstantes() {
 		this.labelPrimerNombre = IConstantes.LABEL_PRIMER_NOMBRE;
@@ -251,6 +292,41 @@ public class LabelConstantes implements Serializable {
 		this.labelFur = IConstantes.LABEL_FUR;
 		this.labelPlanificacion = IConstantes.LABEL_PLANIFICACION;
 		this.labelCcv = IConstantes.LABEL_CCV;
+		this.labelRecomendacionesMedicas = IConstantes.LABEL_RECOMENDACIONES_MEDICAS;
+		this.labelRecomendacinesOcupacionales = IConstantes.LABEL_RECOMENDACIONES_OCUPACIONALES;
+		this.labelHabitos = IConstantes.LABEL_HABITOS;
+		this.actividadFisica = IConstantes.ACTIVIDAD_FISICA;
+		this.separadorPrincipal = IConstantes.SEPARADOR_PRINCIPAL;
+		this.separadorEvaluacion = IConstantes.SEPARADOR_EVALUACION;
+		this.mensajeBarProgress = IConstantes.MENSAJE_BAR_PROGRESS;
+		this.labelCodigo = IConstantes.LABEL_CODIGO;
+		this.labelGrupoSanguuineo = IConstantes.LABEL_GRUPO_SANGUUINEO;
+		this.labelContactoEmergencia = IConstantes.LABEL_CONTACTO_EMERGENCIA;
+		this.labelParentesco = IConstantes.LABEL_PARENTESCO;
+		this.menuPersonal = IConstantes.MENU_PERSONAL;
+		this.despMenuPersonal = IConstantes.DESP_MENU_PERSONAL;
+		this.labelObservaciones = IConstantes.LABEL_OBSERVACIONES;
+		this.labelPreguntaEmbarazo = IConstantes.LABEL_PREGUNTA_EMBARAZO;
+		this.labelPreguntaFuma = IConstantes.LABEL_PREGUNTA_FUMA;
+		this.labelPreguntaFumaCuantos = IConstantes.LABEL_PREGUNTA_FUMA_CUANTOS;
+		this.labelPreguntaFumaTiempo = IConstantes.LABEL_PREGUNTA_FUMA_TIEMPO;
+		this.labelPreguntaLicor = IConstantes.LABEL_PREGUNTA_LICOR;
+		this.labelPreguntaLicorCuantas = IConstantes.LABEL_PREGUNTA_LICOR_CUANTAS;
+		this.labelPreguntaEjercicio = IConstantes.LABEL_PREGUNTA_EJERCICIO;
+		this.labelPreguntaEjercicioCual = IConstantes.LABEL_PREGUNTA_EJERCICIO_CUAL;
+		this.labelPreguntaEjercicioCuantas = IConstantes.LABEL_PREGUNTA_EJERCICIO_CUANTAS;
+		this.labelPreguntaEnergizantes = IConstantes.LABEL_PREGUNTA_ENERGIZANTES;
+		this.labelPreguntaEnergizanteCuantas = IConstantes.LABEL_PREGUNTA_ENERGIZANTE_CUANTAS;
+		this.labelPreguntaSustancias = IConstantes.LABEL_PREGUNTA_SUSTANCIAS;
+		this.labelPreguntaSustanciasCuales = IConstantes.LABEL_PREGUNTA_SUSTANCIAS_CUALES;
+		this.labelMenuFamiliar = IConstantes.LABEL_MENU_FAMILIAR;
+		this.despMenuFamiliar = IConstantes.DESP_MENU_FAMILIAR;
+		this.menuCuestionario = IConstantes.MENU_CUESTIONARIO;
+		this.despMenuCuestionario = IConstantes.DESP_MENU_CUESTIONARIO;
+		this.parteFinal = IConstantes.PARTE_FINAL;
+		this.ultimaParte = IConstantes.ULTIMA_PARTE;
+		this.labelRh = IConstantes.LABEL_RH;
+		this.tipoUsuario = IConstantes.TIPO_USUARIO;
 	}
 
 	public String getLabelPrimerNombre() {
@@ -1180,6 +1256,292 @@ public class LabelConstantes implements Serializable {
 		this.labelCcv = labelCcv;
 	}
 
+	
+	public String getLabelRecomendacionesMedicas() {
+		return labelRecomendacionesMedicas;
+	}
+
+	public void setLabelRecomendacionesMedicas(String labelRecomendacionesMedicas) {
+		this.labelRecomendacionesMedicas = labelRecomendacionesMedicas;
+	}
+
+	public String getLabelRecomendacinesOcupacionales() {
+		return labelRecomendacinesOcupacionales;
+	}
+
+	public void setLabelRecomendacinesOcupacionales(String labelRecomendacinesOcupacionales) {
+		this.labelRecomendacinesOcupacionales = labelRecomendacinesOcupacionales;
+	}
+
+	public String getLabelHabitos() {
+		return labelHabitos;
+	}
+
+	public void setLabelHabitos(String labelHabitos) {
+		this.labelHabitos = labelHabitos;
+	}
+
+	
+	public String getActividadFisica() {
+		return actividadFisica;
+	}
+
+	public void setActividadFisica(String actividadFisica) {
+		this.actividadFisica = actividadFisica;
+	}
+	
+
+	public String getSeparadorPrincipal() {
+		return separadorPrincipal;
+	}
+
+	public void setSeparadorPrincipal(String separadorPrincipal) {
+		this.separadorPrincipal = separadorPrincipal;
+	}
+
+	public String getSeparadorEvaluacion() {
+		return separadorEvaluacion;
+	}
+
+	public void setSeparadorEvaluacion(String separadorEvaluacion) {
+		this.separadorEvaluacion = separadorEvaluacion;
+	}
+	
+
+	public String getMensajeBarProgress() {
+		return mensajeBarProgress;
+	}
+
+	public void setMensajeBarProgress(String mensajeBarProgress) {
+		this.mensajeBarProgress = mensajeBarProgress;
+	}
+
+	public String getLabelCodigo() {
+		return labelCodigo;
+	}
+
+	public void setLabelCodigo(String labelCodigo) {
+		this.labelCodigo = labelCodigo;
+	}
+
+	public String getLabelGrupoSanguuineo() {
+		return labelGrupoSanguuineo;
+	}
+
+	public void setLabelGrupoSanguuineo(String labelGrupoSanguuineo) {
+		this.labelGrupoSanguuineo = labelGrupoSanguuineo;
+	}
+
+	public String getLabelContactoEmergencia() {
+		return labelContactoEmergencia;
+	}
+
+	public void setLabelContactoEmergencia(String labelContactoEmergencia) {
+		this.labelContactoEmergencia = labelContactoEmergencia;
+	}
+
+	public String getLabelParentesco() {
+		return labelParentesco;
+	}
+
+	public void setLabelParentesco(String labelParentesco) {
+		this.labelParentesco = labelParentesco;
+	}
+
+	public String getMenuPersonal() {
+		return menuPersonal;
+	}
+
+	public void setMenuPersonal(String menuPersonal) {
+		this.menuPersonal = menuPersonal;
+	}
+
+	public String getDespMenuPersonal() {
+		return despMenuPersonal;
+	}
+
+	public void setDespMenuPersonal(String despMenuPersonal) {
+		this.despMenuPersonal = despMenuPersonal;
+	}
+
+	public String getLabelObservaciones() {
+		return labelObservaciones;
+	}
+
+	public void setLabelObservaciones(String labelObservaciones) {
+		this.labelObservaciones = labelObservaciones;
+	}
+
+	public String getLabelPreguntaEmbarazo() {
+		return labelPreguntaEmbarazo;
+	}
+
+	public void setLabelPreguntaEmbarazo(String labelPreguntaEmbarazo) {
+		this.labelPreguntaEmbarazo = labelPreguntaEmbarazo;
+	}
+
+	public String getLabelPreguntaFuma() {
+		return labelPreguntaFuma;
+	}
+
+	public void setLabelPreguntaFuma(String labelPreguntaFuma) {
+		this.labelPreguntaFuma = labelPreguntaFuma;
+	}
+
+	public String getLabelPreguntaFumaCuantos() {
+		return labelPreguntaFumaCuantos;
+	}
+
+	public void setLabelPreguntaFumaCuantos(String labelPreguntaFumaCuantos) {
+		this.labelPreguntaFumaCuantos = labelPreguntaFumaCuantos;
+	}
+
+	public String getLabelPreguntaFumaTiempo() {
+		return labelPreguntaFumaTiempo;
+	}
+
+	public void setLabelPreguntaFumaTiempo(String labelPreguntaFumaTiempo) {
+		this.labelPreguntaFumaTiempo = labelPreguntaFumaTiempo;
+	}
+
+	public String getLabelPreguntaLicor() {
+		return labelPreguntaLicor;
+	}
+
+	public void setLabelPreguntaLicor(String labelPreguntaLicor) {
+		this.labelPreguntaLicor = labelPreguntaLicor;
+	}
+
+	public String getLabelPreguntaLicorCuantas() {
+		return labelPreguntaLicorCuantas;
+	}
+
+	public void setLabelPreguntaLicorCuantas(String labelPreguntaLicorCuantas) {
+		this.labelPreguntaLicorCuantas = labelPreguntaLicorCuantas;
+	}
+
+	public String getLabelPreguntaEjercicio() {
+		return labelPreguntaEjercicio;
+	}
+
+	public void setLabelPreguntaEjercicio(String labelPreguntaEjercicio) {
+		this.labelPreguntaEjercicio = labelPreguntaEjercicio;
+	}
+
+	public String getLabelPreguntaEjercicioCual() {
+		return labelPreguntaEjercicioCual;
+	}
+
+	public void setLabelPreguntaEjercicioCual(String labelPreguntaEjercicioCual) {
+		this.labelPreguntaEjercicioCual = labelPreguntaEjercicioCual;
+	}
+
+	public String getLabelPreguntaEjercicioCuantas() {
+		return labelPreguntaEjercicioCuantas;
+	}
+
+	public void setLabelPreguntaEjercicioCuantas(String labelPreguntaEjercicioCuantas) {
+		this.labelPreguntaEjercicioCuantas = labelPreguntaEjercicioCuantas;
+	}
+
+	public String getLabelPreguntaEnergizantes() {
+		return labelPreguntaEnergizantes;
+	}
+
+	public void setLabelPreguntaEnergizantes(String labelPreguntaEnergizantes) {
+		this.labelPreguntaEnergizantes = labelPreguntaEnergizantes;
+	}
+
+	public String getLabelPreguntaEnergizanteCuantas() {
+		return labelPreguntaEnergizanteCuantas;
+	}
+
+	public void setLabelPreguntaEnergizanteCuantas(String labelPreguntaEnergizanteCuantas) {
+		this.labelPreguntaEnergizanteCuantas = labelPreguntaEnergizanteCuantas;
+	}
+
+	public String getLabelPreguntaSustancias() {
+		return labelPreguntaSustancias;
+	}
+
+	public void setLabelPreguntaSustancias(String labelPreguntaSustancias) {
+		this.labelPreguntaSustancias = labelPreguntaSustancias;
+	}
+
+	public String getLabelPreguntaSustanciasCuales() {
+		return labelPreguntaSustanciasCuales;
+	}
+
+	public void setLabelPreguntaSustanciasCuales(String labelPreguntaSustanciasCuales) {
+		this.labelPreguntaSustanciasCuales = labelPreguntaSustanciasCuales;
+	}
+
+	public String getLabelMenuFamiliar() {
+		return labelMenuFamiliar;
+	}
+
+	public void setLabelMenuFamiliar(String labelMenuFamiliar) {
+		this.labelMenuFamiliar = labelMenuFamiliar;
+	}
+
+	public String getDespMenuFamiliar() {
+		return despMenuFamiliar;
+	}
+
+	public void setDespMenuFamiliar(String despMenuFamiliar) {
+		this.despMenuFamiliar = despMenuFamiliar;
+	}
+
+	public String getMenuCuestionario() {
+		return menuCuestionario;
+	}
+
+	public void setMenuCuestionario(String menuCuestionario) {
+		this.menuCuestionario = menuCuestionario;
+	}
+
+	public String getDespMenuCuestionario() {
+		return despMenuCuestionario;
+	}
+
+	public void setDespMenuCuestionario(String despMenuCuestionario) {
+		this.despMenuCuestionario = despMenuCuestionario;
+	}
+
+	public String getParteFinal() {
+		return parteFinal;
+	}
+
+	public void setParteFinal(String parteFinal) {
+		this.parteFinal = parteFinal;
+	}
+
+	public String getUltimaParte() {
+		return ultimaParte;
+	}
+
+	public void setUltimaParte(String ultimaParte) {
+		this.ultimaParte = ultimaParte;
+	}
+
+	
+	public String getLabelRh() {
+		return labelRh;
+	}
+
+	public void setLabelRh(String labelRh) {
+		this.labelRh = labelRh;
+	}
+
+	
+	public String getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
 	@Override
 	public String toString() {
 		return "LabelConstantes [labelPrimerNombre=" + labelPrimerNombre + ", labelSegundoNombre=" + labelSegundoNombre
@@ -1190,7 +1552,7 @@ public class LabelConstantes implements Serializable {
 				+ ", labelEscolaridad=" + labelEscolaridad + ", labelCargoDependencia=" + labelCargoDependencia
 				+ ", labelDireccionCasa=" + labelDireccionCasa + ", labelTelefono=" + labelTelefono
 				+ ", labelAseguradora=" + labelAseguradora + ", labelAFP=" + labelAFP + ", labelARL=" + labelARL
-				+ ", labelCuidad=" + labelCiudad + ", labelDepartamento=" + labelDepartamento
+				+ ", labelCiudad=" + labelCiudad + ", labelDepartamento=" + labelDepartamento
 				+ ", labelFechaHistoriaClinica=" + labelFechaHistoriaClinica + ", labelIngreso=" + labelIngreso
 				+ ", labelPeriodico=" + labelPeriodico + ", labelEgreso=" + labelEgreso + ", labelOtroEvaluacion="
 				+ labelOtroEvaluacion + ", menuOcupacionalDatosPrincipales=" + menuOcupacionalDatosPrincipales
@@ -1211,7 +1573,55 @@ public class LabelConstantes implements Serializable {
 				+ tablaEnfermedadesSecuelas + ", labelTieneEnfermedad=" + labelTieneEnfermedad
 				+ ", tablaEnfermedadesDiagnostico=" + tablaEnfermedadesDiagnostico
 				+ ", tablaEnfermedadesRecomendaciones=" + tablaEnfermedadesRecomendaciones
-				+ ", tablaEnfermedadesIndemnizacion=" + tablaEnfermedadesIndemnizacion + "]";
+				+ ", tablaEnfermedadesIndemnizacion=" + tablaEnfermedadesIndemnizacion + ", labelSI=" + labelSI
+				+ ", labelNO=" + labelNO + ", tablaFactoresFactoresRiesgo=" + tablaFactoresFactoresRiesgo
+				+ ", tablaFactoresTiempo=" + tablaFactoresTiempo + ", tablaFactoresMedidasControl="
+				+ tablaFactoresMedidasControl + ", labelMotivacionDeConsulta=" + labelMotivacionDeConsulta
+				+ ", labelAntecedentes=" + labelAntecedentes + ", menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo="
+				+ menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo + ", menuMotivoConsulta=" + menuMotivoConsulta
+				+ ", labelAntecednetesPersonales=" + labelAntecednetesPersonales + ", labelCualEs=" + labelCualEs
+				+ ", labelPatologicos=" + labelPatologicos + ", labelQuirurgicos=" + labelQuirurgicos
+				+ ", labelFarmacologicos=" + labelFarmacologicos + ", labelAlergicos=" + labelAlergicos
+				+ ", labelTramauticos=" + labelTramauticos + ", labelToxicos=" + labelToxicos + ", labelHospitalarios="
+				+ labelHospitalarios + ", lableInmunologicos=" + lableInmunologicos + ", lableFamiliares="
+				+ lableFamiliares + ", lableEstilosVida=" + lableEstilosVida + ", lableTabaquismo=" + lableTabaquismo
+				+ ", lableFrecuencia=" + lableFrecuencia + ", lableHabito=" + lableHabito + ", lableExfumador="
+				+ lableExfumador + ", lableConsumoAlcohol=" + lableConsumoAlcohol + ", lableActividadFisica="
+				+ lableActividadFisica + ", lableTipo=" + lableTipo + ", lableActividadesExtra=" + lableActividadesExtra
+				+ ", lableRevisionSistemas=" + lableRevisionSistemas + ", labelMenarquia=" + labelMenarquia
+				+ ", labelFur=" + labelFur + ", labelPlanificacion=" + labelPlanificacion + ", labelCcv=" + labelCcv
+				+ ", menuExamenFisico=" + menuExamenFisico + ", labelTesionArterial=" + labelTesionArterial
+				+ ", labelFrecuenciaCardiaca=" + labelFrecuenciaCardiaca + ", labelSat02=" + labelSat02
+				+ ", labelFrecuenciaRespiratoria=" + labelFrecuenciaRespiratoria + ", labelPeso=" + labelPeso
+				+ ", labelTalla=" + labelTalla + ", labelImc=" + labelImc + ", labelLateralidad=" + labelLateralidad
+				+ ", labelCabezaCuello=" + labelCabezaCuello + ", labelTorax=" + labelTorax + ", labelAbdomen="
+				+ labelAbdomen + ", labelGenitourinario=" + labelGenitourinario + ", labelColumna=" + labelColumna
+				+ ", labelMiembrosSuperioresInferiores=" + labelMiembrosSuperioresInferiores + ", labelOsteomuscular="
+				+ labelOsteomuscular + ", labelNeurologico=" + labelNeurologico + ", labelPielFaneras="
+				+ labelPielFaneras + ", menuParaclinicos=" + menuParaclinicos + ", labelExamen=" + labelExamen
+				+ ", labelFecha=" + labelFecha + ", labelResultado=" + labelResultado + ", menuImpresionDiagnostico="
+				+ menuImpresionDiagnostico + ", menuConcepto=" + menuConcepto + ", menuRecomendaciones="
+				+ menuRecomendaciones + ", labelNuevo=" + labelNuevo + ", lableCerrar=" + lableCerrar
+				+ ", labelModaltrabajo=" + labelModaltrabajo + ", label_Modalaccidente=" + label_Modalaccidente
+				+ ", label_Modalenfermedades=" + label_Modalenfermedades + ", label_eliminar=" + label_eliminar
+				+ ", labelRecomendacionesMedicas=" + labelRecomendacionesMedicas + ", labelRecomendacinesOcupacionales="
+				+ labelRecomendacinesOcupacionales + ", labelHabitos=" + labelHabitos + ", actividadFisica="
+				+ actividadFisica + ", mensajeBarProgress=" + mensajeBarProgress + ", separadorPrincipal="
+				+ separadorPrincipal + ", separadorEvaluacion=" + separadorEvaluacion + ", labelCodigo=" + labelCodigo
+				+ ", labelGrupoSanguuineo=" + labelGrupoSanguuineo + ", labelContactoEmergencia="
+				+ labelContactoEmergencia + ", labelParentesco=" + labelParentesco + ", menuPersonal=" + menuPersonal
+				+ ", despMenuPersonal=" + despMenuPersonal + ", labelObservaciones=" + labelObservaciones
+				+ ", labelPreguntaEmbarazo=" + labelPreguntaEmbarazo + ", labelPreguntaFuma=" + labelPreguntaFuma
+				+ ", labelPreguntaFumaCuantos=" + labelPreguntaFumaCuantos + ", labelPreguntaFumaTiempo="
+				+ labelPreguntaFumaTiempo + ", labelPreguntaLicor=" + labelPreguntaLicor
+				+ ", labelPreguntaLicorCuantas=" + labelPreguntaLicorCuantas + ", labelPreguntaEjercicio="
+				+ labelPreguntaEjercicio + ", labelPreguntaEjercicioCual=" + labelPreguntaEjercicioCual
+				+ ", labelPreguntaEjercicioCuantas=" + labelPreguntaEjercicioCuantas + ", labelPreguntaEnergizantes="
+				+ labelPreguntaEnergizantes + ", labelPreguntaEnergizanteCuantas=" + labelPreguntaEnergizanteCuantas
+				+ ", labelPreguntaSustancias=" + labelPreguntaSustancias + ", labelPreguntaSustanciasCuales="
+				+ labelPreguntaSustanciasCuales + ", labelMenuFamiliar=" + labelMenuFamiliar + ", despMenuFamiliar="
+				+ despMenuFamiliar + ", menuCuestionario=" + menuCuestionario + ", despMenuCuestionario="
+				+ despMenuCuestionario + ", parteFinal=" + parteFinal + "]";
 	}
 
 }

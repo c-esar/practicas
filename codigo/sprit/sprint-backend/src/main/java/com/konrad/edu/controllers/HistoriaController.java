@@ -16,9 +16,15 @@ import com.konrad.edu.IService.IConceptoService;
 import com.konrad.edu.IService.IConstantes;
 import com.konrad.edu.IService.IDiagnosticaOcupacionalService;
 import com.konrad.edu.IService.IHistoriaService;
+import com.konrad.edu.IService.ITipoEvaluacionService;
+import com.konrad.edu.IService.ITipoHistoriaService;
+import com.konrad.edu.IService.ITipoUsuarioService;
 import com.konrad.edu.entity.ConceptoEntity;
 import com.konrad.edu.entity.DiagnosticoOcupacionalEntity;
-import com.konrad.edu.entity.HistoriasEntity;
+import com.konrad.edu.entity.HistoriaOcupacionalEntity;
+import com.konrad.edu.entity.TipoEvaluacionEntity;
+import com.konrad.edu.entity.TipoHistoriasEntity;
+import com.konrad.edu.entity.TipoUsuarioEntity;
 
 @CrossOrigin(origins = { IConstantes.RUTA })
 @RestController
@@ -33,10 +39,19 @@ public class HistoriaController {
 	
 	@Autowired
 	private IDiagnosticaOcupacionalService diagnosticaService;
+	
+	@Autowired
+	private ITipoEvaluacionService tipoEvaluacionService;
+	
+	@Autowired
+	private ITipoHistoriaService tipoHistoriaService;
+	
+	@Autowired
+	private ITipoUsuarioService tipoUsuarioService;
 
 	@PostMapping("/createHistoria")
 	@ResponseStatus(HttpStatus.CREATED)
-	public HistoriasEntity create(@RequestBody HistoriasEntity historiaEntity) {
+	public HistoriaOcupacionalEntity create(@RequestBody HistoriaOcupacionalEntity historiaEntity) {
 		return historiaService.save(historiaEntity);
 	}
 
@@ -48,5 +63,20 @@ public class HistoriaController {
 	@GetMapping("/listImpresionDiagnostica")
 	public List<DiagnosticoOcupacionalEntity> getListImpresionDiagnostica() {
 		return diagnosticaService.findAll();
+	}
+	
+	@GetMapping("/listTipoEvaluacion")
+	public List<TipoEvaluacionEntity> getListTipoEvaluacion() {
+		return tipoEvaluacionService.findAll();
+	}
+	
+	@GetMapping("/listTipoHistoria")
+	public List<TipoHistoriasEntity> getListTipoHistoria() {
+		return tipoHistoriaService.findAll();
+	}
+	
+	@GetMapping("/listTipoUsuario")
+	public List<TipoUsuarioEntity> getListTipoUsuario() {
+		return tipoUsuarioService.findAll();
 	}
 }

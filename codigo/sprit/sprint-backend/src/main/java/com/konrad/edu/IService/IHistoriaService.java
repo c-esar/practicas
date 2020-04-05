@@ -1,8 +1,8 @@
 package com.konrad.edu.IService;
 
-import com.konrad.edu.entity.HistoriasEntity;
+import com.konrad.edu.entity.HistoriaOcupacionalEntity;
 
 public interface IHistoriaService {
 
-	public HistoriasEntity save(HistoriasEntity historia);
+	public HistoriaOcupacionalEntity save(HistoriaOcupacionalEntity historia);
 }

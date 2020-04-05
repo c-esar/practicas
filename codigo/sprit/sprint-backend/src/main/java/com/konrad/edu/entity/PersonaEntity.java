@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -39,10 +40,10 @@ public class PersonaEntity implements Serializable {
 	@Column(name = "seq_persona")
 	private Integer seqPersona;
 
-	@Column(name = "nom_primer_nombre", length = 50)
+	@Column(name = "nom_primer_nombre", length = 50, nullable=false)
 	private String nomPrimerNombre;
 
-	@Column(name = "nom_primer_apellido", length = 50)
+	@Column(name = "nom_primer_apellido", length = 50,nullable=false)
 	private String nomPrimerApellido;
 
 	@Column(name = "nom_segundo_nombre", length = 50)
@@ -68,6 +69,9 @@ public class PersonaEntity implements Serializable {
 
 	@Column
 	private String celular;
+	
+	@Column
+	private String codigo;
 
 	@Column(name = "fecha_creacion")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -119,8 +123,6 @@ public class PersonaEntity implements Serializable {
 //	@JoinTable(name = "hc_persona_historia", joinColumns = @JoinColumn(name = "seq_persona"), inverseJoinColumns = @JoinColumn(name = "seq_historia"), uniqueConstraints = {
 //			@UniqueConstraint(columnNames = { "seq_persona", "seq_historia" }) })
 
-	private String rolUsuario;
-
 	@PrePersist
 	public void prePersist() {
 		this.fechaCreacion = new Date();
@@ -148,15 +150,24 @@ public class PersonaEntity implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "seq_persona")
-	private List<HistoriasEntity> historias;
+	private List<HistoriaOcupacionalEntity> historias;
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "seq_persona")
+	private List<HistoriaGYMEntity> historiasGym;
 
 	@ManyToOne
 	@JoinColumn(name = "seq_lugarResidencia", updatable = false)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private CiudadEntity lugarDeResidencia;
+	
+	@OneToOne
+	@JoinColumn(name = "seq_tipo_usuario", updatable = false, nullable = false)
+	private TipoUsuarioEntity rolUsuario;
 
 	public PersonaEntity() {
 		this.historias = new ArrayList<>();
+		this.historiasGym = new ArrayList<>();
 	}
 
 	public Integer getSeqPersona() {
@@ -343,11 +354,11 @@ public class PersonaEntity implements Serializable {
 		this.localidad = localidad;
 	}
 
-	public List<HistoriasEntity> getHistorias() {
+	public List<HistoriaOcupacionalEntity> getHistorias() {
 		return historias;
 	}
 
-	public void setHistorias(List<HistoriasEntity> historias) {
+	public void setHistorias(List<HistoriaOcupacionalEntity> historias) {
 		this.historias = historias;
 	}
 
@@ -365,14 +376,6 @@ public class PersonaEntity implements Serializable {
 
 	public void setLugarDeResidencia(CiudadEntity lugarDeResidencia) {
 		this.lugarDeResidencia = lugarDeResidencia;
-	}
-
-	public String getRolUsuario() {
-		return rolUsuario;
-	}
-
-	public void setRolUsuario(String rolUsuario) {
-		this.rolUsuario = rolUsuario;
 	}
 
 	public TipoDocumentoEntity getTipoDocumento() {
@@ -415,4 +418,29 @@ public class PersonaEntity implements Serializable {
 		this.rh = rh;
 	}
 
+	public List<HistoriaGYMEntity> getHistoriasGym() {
+		return historiasGym;
+	}
+
+	public void setHistoriasGym(List<HistoriaGYMEntity> historiasGym) {
+		this.historiasGym = historiasGym;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public TipoUsuarioEntity getRolUsuario() {
+		return rolUsuario;
+	}
+
+	public void setRolUsuario(TipoUsuarioEntity rolUsuario) {
+		this.rolUsuario = rolUsuario;
+	}
+	
+	
 }

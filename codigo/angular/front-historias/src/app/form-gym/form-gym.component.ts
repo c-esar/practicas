@@ -8,17 +8,12 @@ import { Persona } from '../DatosBean/persona';
 import { TipoDocumento } from '../DatosBean/tipoDocumento';
 import { Ciudad } from '../DatosBean/ciudad';
 import { Aseguradora } from '../DatosBean/aseguradora';
+import { TipoUsuario } from '../DatosBean/tipoUsuario';
 import { Router } from '@angular/router';
 import { Permiso } from '../DatosBean/permiso';
-import { Historias } from '../DatosBean/historias';
-import { HistoriaLaboral } from '../DatosBean/historiaLaboral';
-import { EmpresaLaboral } from '../DatosBean/empresaLaboral';
-import { AntecedentesTrabajo } from '../DatosBean/antecedentesTrabajo';
-import { AntecedentesHistoria } from '../DatosBean/antecedentesHistoria';
-import { EnfermedadesLaboral } from '../DatosBean/enfermedadesLaboral';
-import { FactoresRiesgo } from '../DatosBean/factoresRiesgo';
-
+import { FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { HistoriaGym } from '../DatosBean/historiaGym';
 declare var jQuery: any;
 declare var $: any;
 
@@ -31,6 +26,8 @@ declare var $: any;
 export class FormGymComponent implements OnInit {
 
   persona: Persona;
+  date = new FormControl(new Date());
+  date2 = new FormControl(new Date());
   Spersona: Persona;
   buscoPerson: boolean;
   permiso: Permiso;
@@ -38,112 +35,71 @@ export class FormGymComponent implements OnInit {
   tipoDocumento: TipoDocumento[];
   ciudad: Ciudad[];
   aseguradora: Aseguradora[];
-  //boolean menu
-  datosPersonales: boolean;
-  datosHistoriaLaboral: boolean;
-  datosTerceraFase: boolean;
-  datosExamenFisico: boolean;
-  datosFinalFormulario: boolean;
+  tipoUsuario: TipoUsuario[];
   medico: boolean;
   aux: boolean;
   //constantes
   private PERSONA_PACIENTE: string = "Paciente";
-  //antecedentes historias
-  patologicos: AntecedentesHistoria;
-  quirurgicos: AntecedentesHistoria;
-  farmacologicos: AntecedentesHistoria;
-  alergicos: AntecedentesHistoria;
-  traumaticos: AntecedentesHistoria;
-  toxicos: AntecedentesHistoria;
-  hospitalarios: AntecedentesHistoria;
-  inmunologicos: AntecedentesHistoria;
-  familiares: AntecedentesHistoria;
-  tabaquismo: AntecedentesHistoria;
-  consumoAlcohol: AntecedentesHistoria;
-  actividadFisica: AntecedentesHistoria;
-  actividadExtralaborales: AntecedentesHistoria;
 
   constructor(private labelService: LabelService,
     private loginService: LoginService,
     private personaService: PersonaService,
     private router: Router,
     private historiaService: HistoriasService) {
+  }
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      Swal.fire({
+        title: 'Cargando Informacion',
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
+    }, 500);
+    setTimeout(() => {
+      this.onCargarAtributos();
+      this.onCargarFunciones();
+    }, 1000);
+  }
+
+  onCargarAtributos(): void {
     this.persona = new Persona();
+    this.persona.historiaGym = new Array<HistoriaGym>();
+    debugger
     this.permiso = new Permiso();
+    this.tipoUsuario = new Array<TipoUsuario>();
     this.datosSingleton = new DatosSingleton();
     this.Spersona = new Persona();
     this.buscoPerson = false;
   }
 
-  ngOnInit(): void {
-    this.activarLabels();
-    this.obtenerPermisos();
-    this.activar("DatosPricipales");
-    this.obtenerTipoDocumento();
-    this.obtenerCiudad();
-    this.obtenerAseguradora();
+  onCargarFunciones(): void {
+    this.getPermisos();
     this.getAuxOMedico();
-    this.cargarListas();
+    this.onLabels();
+    this.getTipoDocumento();
+    this.getCiudad();
+    this.getAseguradora();
+    this.getTipoUsuario();
+    this.onActivarSubMenu("DatosPricipales");
+
   }
 
-  private activarLabels(): void {
-    this.labelService.getLabel().subscribe(
-      (respuesta) => {
-        this.datosSingleton = respuesta
-        console.log(respuesta)
-      }
-    );
-  }
-  private obtenerTipoDocumento(): void {
-    this.personaService.getTipoDocumento().subscribe(
-      (respuesta) => {
-        this.tipoDocumento = respuesta
-        console.log(respuesta)
-      }
-    )
-  }
-
-  private obtenerCiudad(): void {
-    this.personaService.getCiudad().subscribe(
-      (respuesta) => {
-        this.ciudad = respuesta
-        console.log(respuesta)
-      }
-    )
-  }
-
-  private obtenerAseguradora(): void {
-    this.personaService.getAseguradora().subscribe(
-      (respuesta) => {
-        this.aseguradora = respuesta
-        console.log(respuesta)
-      }
-    )
-  }
-
-  private obtenerPermisos(): void {
-    this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos.crearAux;
-    this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos.crearUsuario;
-    this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos.gestionarUsuario;
-    this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos.descargar;
-    console.log(this.permiso.crearAux);
-  }
 
   public onValidatePersona(): void {
-    this.persona.rolUsuario = this.PERSONA_PACIENTE;
+    let tmpDoc = this.persona.numeroDocumento;
+    this.Spersona = new Persona();
     this.personaService.onBuscarDocumento(this.persona).subscribe(
-      respuesta => {
-        debugger
-        if (respuesta == null || respuesta.nomPrimerNombre == null) {
+      (respuesta) => {
+        if (respuesta == null) {
           this.Spersona = new Persona();
-          this.buscoPerson = false;
+          this.persona = new Persona();
+          this.persona.numeroDocumento = tmpDoc;
           Swal.fire('Error', 'Persona No Registrada', 'error');
         } else {
           this.Spersona = respuesta;
-          if (this.permiso.crearAux == 1) {
-            this.Spersona.historias = null;
-          }
-          this.buscoPerson = true;
+          this.persona.seqPersona = this.Spersona.seqPersona
           Swal.fire('Exitoso', 'Persona Registrada', 'success');
         }
       }
@@ -267,16 +223,16 @@ export class FormGymComponent implements OnInit {
   }
 
   private getAuxOMedico(): void {
-    if (this.permiso.crearUsuario == 0) {
-      if (this.permiso.crearAux == 1) {
+    if (this.permiso.crearUsuario === 0) {
+      if (this.permiso.crearAux === 1) {
         this.aux = true;
       }
-    } else if (this.permiso.crearUsuario == 1) {
+    } else if (this.permiso.crearUsuario === 1) {
       this.medico = true;
     }
   }
 
-  public activar(id: String) {
+  onActivarSubMenu(id: string) {
     var menues = $(".nav-link");
     menues.removeClass("active");
     menues.removeClass("disabled");
@@ -285,59 +241,73 @@ export class FormGymComponent implements OnInit {
     menues.css("color", "black");
     switch (id) {
       case "DatosPricipales": {
-        if (this.permiso.crearUsuario == 0) {
-          if (this.permiso.crearAux == 1) {
+        if (this.permiso.crearUsuario === 0) {
+          if (this.permiso.crearAux === 1) {
             this.activarSubMenu(id);
             $('#DatosHistoriaLaboral').addClass("disabled");
           }
-        } else if (this.permiso.crearUsuario == 1) {
+        } else if (this.permiso.crearUsuario === 1) {
           this.activarSubMenu(id);
         }
-        this.datosPersonales = true;
-        this.datosHistoriaLaboral = false;
-        this.datosTerceraFase = false;
-        this.datosExamenFisico = false;
-        this.datosFinalFormulario = false;
+        document.getElementById("DatosPricipalesHtml").style.display = "block";
+        document.getElementById("DatosHistoriaPersonalHtml").style.display = "none";
+        document.getElementById("DatosHistoriaFamiliarHtml").style.display = "none";
+        document.getElementById("DatosCuestionarioHtml").style.display = "none";
+        document.getElementById("DatosExamenFisicoHtml").style.display = "none";
+        document.getElementById("DatosFinalFormularioHtml").style.display = "none";
         break;
       }
-      case "DatosHistoriaLaboral": {
+      case "DatosHistoriaPersonal": {
         this.activarSubMenu(id);
-        this.datosPersonales = false;
-        this.datosHistoriaLaboral = true;
-        this.datosTerceraFase = false;
-        this.datosExamenFisico = false;
-        this.datosFinalFormulario = false;
+        document.getElementById("DatosPricipalesHtml").style.display = "none";
+        document.getElementById("DatosHistoriaPersonalHtml").style.display = "block";
+        document.getElementById("DatosHistoriaFamiliarHtml").style.display = "none";
+        document.getElementById("DatosCuestionarioHtml").style.display = "none";
+        document.getElementById("DatosExamenFisicoHtml").style.display = "none";
+        document.getElementById("DatosFinalFormularioHtml").style.display = "none";
         break;
       }
-      case "DatosTerceraFase": {
+      case "DatosHistoriaFamiliar": {
         this.activarSubMenu(id);
-        this.datosPersonales = false;
-        this.datosHistoriaLaboral = false;
-        this.datosTerceraFase = true;
-        this.datosExamenFisico = false;
-        this.datosFinalFormulario = false;
+        document.getElementById("DatosPricipalesHtml").style.display = "none";
+        document.getElementById("DatosHistoriaPersonalHtml").style.display = "none";
+        document.getElementById("DatosHistoriaFamiliarHtml").style.display = "block";
+        document.getElementById("DatosCuestionarioHtml").style.display = "none";
+        document.getElementById("DatosExamenFisicoHtml").style.display = "none";
+        document.getElementById("DatosFinalFormularioHtml").style.display = "none";
+        break;
+      }
+      case "DatosCuestionario": {
+        this.activarSubMenu(id);
+        document.getElementById("DatosPricipalesHtml").style.display = "none";
+        document.getElementById("DatosHistoriaPersonalHtml").style.display = "none";
+        document.getElementById("DatosHistoriaFamiliarHtml").style.display = "none";
+        document.getElementById("DatosCuestionarioHtml").style.display = "block";
+        document.getElementById("DatosExamenFisicoHtml").style.display = "none";
+        document.getElementById("DatosFinalFormularioHtml").style.display = "none";
         break;
       }
       case "DatosExamenFisico": {
         this.activarSubMenu(id);
-        this.datosPersonales = false;
-        this.datosHistoriaLaboral = false;
-        this.datosTerceraFase = false;
-        this.datosExamenFisico = true;
-        this.datosFinalFormulario = false;
+        document.getElementById("DatosPricipalesHtml").style.display = "none";
+        document.getElementById("DatosHistoriaPersonalHtml").style.display = "none";
+        document.getElementById("DatosHistoriaFamiliarHtml").style.display = "none";
+        document.getElementById("DatosCuestionarioHtml").style.display = "none";
+        document.getElementById("DatosExamenFisicoHtml").style.display = "block";
+        document.getElementById("DatosFinalFormularioHtml").style.display = "none";
         break;
       }
       case "DatosFinalFormulario": {
         this.activarSubMenu(id);
-        this.datosPersonales = false;
-        this.datosHistoriaLaboral = false;
-        this.datosTerceraFase = false;
-        this.datosExamenFisico = false;
-        this.datosFinalFormulario = true;
+        document.getElementById("DatosPricipalesHtml").style.display = "none";
+        document.getElementById("DatosHistoriaPersonalHtml").style.display = "none";
+        document.getElementById("DatosHistoriaFamiliarHtml").style.display = "none";
+        document.getElementById("DatosCuestionarioHtml").style.display = "none";
+        document.getElementById("DatosExamenFisicoHtml").style.display = "none";
+        document.getElementById("DatosFinalFormularioHtml").style.display = "block";
         break;
       }
       default: {
-        //statements;
         break;
       }
     }
@@ -355,19 +325,17 @@ export class FormGymComponent implements OnInit {
   public create(): void {
     this.persona.localidad.seqLocalidad = 0;
     this.persona.lugarDeResidencia.seqCuidad = 0;
-    this.persona.rolUsuario = this.PERSONA_PACIENTE;
-    if (this.permiso.crearAux == 1) {
+    if (this.permiso.crearAux === 1) {
       this.persona.historias = null;
-    } else if (this.permiso.crearUsuario == 1) {
-      this.verificarEntityHistoriaLaboral();
+    } else if (this.permiso.crearUsuario === 1) {
     }
     console.log(this.persona)
     this.personaService.create(this.persona).subscribe(
       response => {
         console.log(response);
-        if(response == null){
+        if (response == null) {
           Swal.fire('Error', 'Persona No Registrada', 'error');
-        }else{
+        } else {
           Swal.fire('Exitoso', 'Persona Registrada', 'success');
         }
         this.router.navigate(['/menuPrincipal'])
@@ -375,121 +343,57 @@ export class FormGymComponent implements OnInit {
     );
   }
 
-  private verificarEntityHistoriaLaboral(): void {
-    this.createEmpresa();
-    this.createAntecedentes();
-    this.createEnfermedades();
-    this.createFactoresRiesgo();
-  }
 
-  private createEmpresa(): void {
-    for (let i = 0; i < this.persona.historias[0].historiaLaboral.empresaLaboral.length; i++) {
-      if (!(this.persona.historias[0].historiaLaboral.empresaLaboral[i].cargo != null &&
-        this.persona.historias[0].historiaLaboral.empresaLaboral[i].nomEmpresa != null &&
-        this.persona.historias[0].historiaLaboral.empresaLaboral[i].tiempo != null)) {
-        this.persona.historias[0].historiaLaboral.empresaLaboral.splice(i, 1);
-        //this.historiaService.createEmpresa(this.persona.historias[0].historiaLaboral.empresaLaboral[i]).subscribe(
-        //  (respuesta) => {
-        //    this.persona.historias[0].historiaLaboral.empresaLaboral[i] = respuesta;
-        //    console.log(respuesta);
-        //  }
-        //);
+  private onLabels(): void {
+    this.labelService.getLabel().subscribe(
+      (respuesta) => {
+        this.datosSingleton = respuesta
+        console.log(respuesta)
       }
-    }
-
+    );
   }
-
-  private createAntecedentes(): void {
-    debugger
-    for (let i = 0; i < this.persona.historias[0].historiaLaboral.antecedentesTrabajo.length; i++) {
-      if (!(this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i].despCaus != null &&
-        this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i].despIncapacidad != null &&
-        this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i].despSecuelas != null &&
-        this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i].fechaAnt != null &&
-        this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i].nomEmpresa != null &&
-        this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i].tipoLesion != null)) {
-        this.persona.historias[0].historiaLaboral.antecedentesTrabajo.splice(i, 1);
-        //this.historiaService.createAntecedentes(this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i]).subscribe(
-        //  (respuesta) => {
-        //    this.persona.historias[0].historiaLaboral.antecedentesTrabajo[i] = respuesta;
-        //    console.log(respuesta);
-        //  }
-        //);
+  private getTipoDocumento(): void {
+    this.personaService.getTipoDocumento().subscribe(
+      (respuesta) => {
+        this.tipoDocumento = respuesta
+        console.log(respuesta)
       }
-    }
+    )
   }
 
-  private createEnfermedades(): void {
-    for (let i = 0; i < this.persona.historias[0].historiaLaboral.enfermedadesLaboral.length; i++) {
-      if (!(this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i].despDiagnostico != null &&
-        this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i].despIndemnizar != null &&
-        this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i].despRecomendaciones != null &&
-        this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i].fechaAnt != null &&
-        this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i].nomEmpresa != null)) {
-        this.persona.historias[0].historiaLaboral.enfermedadesLaboral.splice(i, 1);
-        //this.historiaService.createEnfermedades(this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i]).subscribe(
-        //  (respuesta) => {
-        //    this.persona.historias[0].historiaLaboral.enfermedadesLaboral[i] = respuesta;
-        //    console.log(respuesta);
-        //  }
-        //);
-
+  private getCiudad(): void {
+    this.personaService.getCiudad().subscribe(
+      (respuesta) => {
+        this.ciudad = respuesta
+        console.log(respuesta)
       }
-    }
+    )
   }
 
-  private createFactoresRiesgo(): void {
-    for (let i = 0; i < this.persona.historias[0].historiaLaboral.factoresRiesgo.length; i++) {
-      if (!(this.persona.historias[0].historiaLaboral.factoresRiesgo[i].despFactores != null &&
-        this.persona.historias[0].historiaLaboral.factoresRiesgo[i].despMedidasControl != null &&
-        this.persona.historias[0].historiaLaboral.factoresRiesgo[i].nomEmpresa != null &&
-        this.persona.historias[0].historiaLaboral.factoresRiesgo[i].tiempo != null)) {
-        this.persona.historias[0].historiaLaboral.factoresRiesgo.splice(i, 1);
-        //this.historiaService.createFactoresRiesgo(this.persona.historias[0].historiaLaboral.factoresRiesgo[i]).subscribe(
-        //  (respuesta) => {
-        //    this.persona.historias[0].historiaLaboral.factoresRiesgo[i] = respuesta;
-        //    console.log(respuesta);
-        //  }
-        //);
+  private getAseguradora(): void {
+    this.personaService.getAseguradora().subscribe(
+      (respuesta) => {
+        this.aseguradora = respuesta
+        console.log(respuesta)
       }
-    }
+    )
   }
 
-  private cargarListas(): void {
-    this.persona.historias.push(new Historias);
-    this.persona.historias[0].historiaLaboral.empresaLaboral.push(new EmpresaLaboral);
-    this.persona.historias[0].historiaLaboral.empresaLaboral.push(new EmpresaLaboral);
-    this.persona.historias[0].historiaLaboral.empresaLaboral.push(new EmpresaLaboral);
-    this.persona.historias[0].historiaLaboral.empresaLaboral.push(new EmpresaLaboral);
-    this.persona.historias[0].historiaLaboral.empresaLaboral.push(new EmpresaLaboral);
-    this.persona.historias[0].historiaLaboral.antecedentesTrabajo.push(new AntecedentesTrabajo);
-    this.persona.historias[0].historiaLaboral.antecedentesTrabajo.push(new AntecedentesTrabajo);
-    this.persona.historias[0].historiaLaboral.antecedentesTrabajo.push(new AntecedentesTrabajo);
-    this.persona.historias[0].historiaLaboral.antecedentesTrabajo.push(new AntecedentesTrabajo);
-    this.persona.historias[0].historiaLaboral.antecedentesTrabajo.push(new AntecedentesTrabajo);
-    this.persona.historias[0].historiaLaboral.enfermedadesLaboral.push(new EnfermedadesLaboral);
-    this.persona.historias[0].historiaLaboral.enfermedadesLaboral.push(new EnfermedadesLaboral);
-    this.persona.historias[0].historiaLaboral.enfermedadesLaboral.push(new EnfermedadesLaboral);
-    this.persona.historias[0].historiaLaboral.enfermedadesLaboral.push(new EnfermedadesLaboral);
-    this.persona.historias[0].historiaLaboral.enfermedadesLaboral.push(new EnfermedadesLaboral);
-    this.persona.historias[0].historiaLaboral.factoresRiesgo.push(new FactoresRiesgo);
-    this.persona.historias[0].historiaLaboral.factoresRiesgo.push(new FactoresRiesgo);
-    this.persona.historias[0].historiaLaboral.factoresRiesgo.push(new FactoresRiesgo);
-    this.persona.historias[0].historiaLaboral.factoresRiesgo.push(new FactoresRiesgo);
-    this.persona.historias[0].historiaLaboral.factoresRiesgo.push(new FactoresRiesgo);
-    this.patologicos = new AntecedentesHistoria();
-    this.quirurgicos= new AntecedentesHistoria();
-    this.alergicos= new AntecedentesHistoria();
-    this.farmacologicos= new AntecedentesHistoria();
-    this.traumaticos= new AntecedentesHistoria();
-    this.toxicos= new AntecedentesHistoria();
-    this.inmunologicos= new AntecedentesHistoria();
-    this.hospitalarios= new AntecedentesHistoria();
-    this.familiares= new AntecedentesHistoria();
-    this.tabaquismo= new AntecedentesHistoria();
-    this.consumoAlcohol= new AntecedentesHistoria();
-    this.actividadFisica= new AntecedentesHistoria();
-    this.actividadExtralaborales= new AntecedentesHistoria();
+  private getTipoUsuario(): void {
+    this.historiaService.getTipoUsuario().subscribe(
+      (respuesta) => {
+        this.tipoUsuario = respuesta
+        console.log(respuesta)
+      }
+    )
+  }
+
+  private getPermisos(): void {
+    this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos.crearAux;
+    this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos.crearUsuario;
+    this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos.gestionarUsuario;
+    this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos.descargar;
+    console.log(this.permiso.crearAux);
   }
 
 }

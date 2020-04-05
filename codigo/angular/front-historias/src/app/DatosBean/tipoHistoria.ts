@@ -1,12 +1,10 @@
-export class TipoHistoria{
+export class TipoHistoria {
 
-  seqTipoHistoria:number;
-  codHistoria:string;
-  nomTipoHistoria:string;
+  seqTipoHistoria: number;
+  nomTipoHistoria: string;
 
-  constructor(){
+  constructor() {
     this.seqTipoHistoria = null;
-    this.codHistoria = null;
     this.nomTipoHistoria = null;
   }
 

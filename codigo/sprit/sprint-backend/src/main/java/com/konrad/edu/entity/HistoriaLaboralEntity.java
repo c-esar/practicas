@@ -9,6 +9,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -30,6 +32,7 @@ public class HistoriaLaboralEntity implements Serializable {
 
 	@Id
 	@Column(name = "seq_historia_laboral")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long seqHistoriaLaboral;
 
 	@Column(name = "nom_empresa", length = 50)
@@ -49,7 +52,6 @@ public class HistoriaLaboralEntity implements Serializable {
 	private String cargo;
 
 	@Column(name = "desp_funciones_cargo", length = 4000)
-	@Lob
 	private String desp_funciones_cargo;
 
 	@Column(name = "acciones_trabajo_SN", length = 2)

@@ -5,12 +5,22 @@ INSERT INTO hc_tipo_antecedente values('FARMACOLOGICOS');
 INSERT INTO hc_tipo_antecedente values('TRAUMATICOS');
 INSERT INTO hc_tipo_antecedente values('TOXICOS');
 INSERT INTO hc_tipo_antecedente values('INMUNOLOGICOS');
+INSERT INTO hc_tipo_antecedente values('MENARQUIA');
 INSERT INTO hc_tipo_antecedente values('HOSPITALARIOS');
 INSERT INTO hc_tipo_antecedente values('FAMILIARES');
 INSERT INTO hc_tipo_antecedente values('TABAQUISMO');
 INSERT INTO hc_tipo_antecedente values('CONSUMO ALCOHOL');
 INSERT INTO hc_tipo_antecedente values('ACTIVIDAD FÍSICA');
 INSERT INTO hc_tipo_antecedente values('ACTIVIDAD EXTRA LABORAL');
+
+INSERT INTO hc_tipo_usuario VALUES ('ESTUDIANTE');
+INSERT INTO hc_tipo_usuario VALUES ('ADMINISTRATIVO');
+INSERT INTO hc_tipo_usuario VALUES ('DOCENTE');
+INSERT INTO hc_tipo_usuario VALUES ('EGRESADO');
+INSERT INTO hc_tipo_usuario VALUES ('OTRO');
+INSERT INTO hc_tipo_usuario VALUES ('ADMINISTRADOR');
+INSERT INTO hc_tipo_usuario VALUES ('MEDICO');
+INSERT INTO hc_tipo_usuario VALUES ('AUXILIAR');
 
 INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('SIN RESTRICCIONES','INGRESO');
 INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('CON RESTRICCIONES QUE INTERFIEREN EN LA LABOR','INGRESO');
@@ -25,6 +35,13 @@ INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('NO APTO PARA MANIPU
 INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('APTO PARA CONDUCIR','INGRESO');
 INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('NO APTO PARA CONDUCIR','INGRESO');
 
+INSERT INTO hc_tipo_evaluacion (nom_eval) values('INGRESO');
+INSERT INTO hc_tipo_evaluacion (nom_eval) values('PERIÓDICO');
+INSERT INTO hc_tipo_evaluacion (nom_eval) values('EGRESO');
+INSERT INTO hc_tipo_evaluacion (nom_eval) values('OTRO');
+
+INSERT INTO hc_tipo_historia (nom_tipo_historia) values ('OCUPACIONAL');
+INSERT INTO hc_tipo_historia (nom_tipo_historia) values ('GYM');
 
 INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('CON HALLAZGOS QUE GENERAN RECOMENDACIONES','PERIODICOS');
 INSERT INTO hc_concepto (nom_concepto,tipo_concepto) values('SIN HALLAZGOS QUE GENERAN RECOMENDACIONES','PERIODICOS');
@@ -50,8 +67,8 @@ INSERT INTO hc_tipo_documento(cod_documento,sigla_documento,nom_documento)values
 INSERT INTO hc_perfiles (nom_usuario,password,estado,nom_perfil) values('cesar','12345','A','admin');
 INSERT INTO hc_perfiles (nom_usuario,password,estado,nom_perfil) values('carlos','12345','A','aux');
 
-INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,rol_usuario,seq_tipo_documento,seq_perfil) values('Cesar','Diaz','1030691234','Administrador','1',1);
-INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,rol_usuario,seq_tipo_documento,seq_perfil) values('Carlos','Chacon','1010','Paciente',3,2);
+INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,seq_tipo_usuario,seq_tipo_documento,seq_perfil) values('Cesar','Diaz','1030691234',6,'1',1);
+INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,seq_tipo_usuario,seq_tipo_documento,seq_perfil) values('Carlos','Chacon','1010',2,3,2);
 
 INSERT INTO hc_permisos (crear_usuario,gestionar_usuario,descargar,crear_aux) values (1,1,1,0);
 INSERT INTO hc_permisos (crear_usuario,gestionar_usuario,descargar,crear_aux) values (0,0,0,1);

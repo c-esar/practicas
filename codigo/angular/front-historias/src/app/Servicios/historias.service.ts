@@ -12,8 +12,11 @@ import { AntecedentesTrabajo } from '../DatosBean/antecedentesTrabajo';
 import { EnfermedadesLaboral } from '../DatosBean/enfermedadesLaboral';
 import { FactoresRiesgo } from '../DatosBean/factoresRiesgo';
 import { TipoAntecedente } from '../DatosBean/tipoAntecedente';
+import { TipoEvaluacion } from '../DatosBean/tipoEvaluacion';
+import { TipoHistoria } from '../DatosBean/tipoHistoria';
 import { Concepto } from '../DatosBean/concepto';
 import { DiagnosticoOcupacional } from '../DatosBean/diagnosticoOcupacional';
+import { TipoUsuario } from '../DatosBean/tipoUsuario';
 @Injectable({
   providedIn: 'root'
 })
@@ -61,5 +64,17 @@ export class HistoriasService {
 
   getImpresionDiagnostica(): Observable<DiagnosticoOcupacional[]> {
     return this.http.get<DiagnosticoOcupacional[]>(this.url + "historiaPaciente/listImpresionDiagnostica");
+  }
+
+  getTipoEvaluacion(): Observable<TipoEvaluacion[]> {
+    return this.http.get<TipoEvaluacion[]>(this.url + "historiaPaciente/listTipoEvaluacion");
+  }
+
+  getTipoHistorias(): Observable<TipoHistoria[]> {
+    return this.http.get<TipoHistoria[]>(this.url + "historiaPaciente/listTipoHistoria");
+  }
+
+  getTipoUsuario(): Observable<TipoUsuario[]> {
+    return this.http.get<TipoUsuario[]>(this.url + "historiaPaciente/listTipoUsuario");
   }
 }

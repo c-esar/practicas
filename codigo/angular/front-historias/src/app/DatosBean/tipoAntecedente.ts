@@ -1,9 +1,9 @@
-export class TipoAntecedente{
+export class TipoAntecedente {
 
-  seqTipoAntecedente:number;
-  nomAntecedente:string;
+  seqTipoAntecedente: number;
+  nomAntecedente: string;
 
-  constructor(){
+  constructor() {
     this.nomAntecedente = null
   }
 }
