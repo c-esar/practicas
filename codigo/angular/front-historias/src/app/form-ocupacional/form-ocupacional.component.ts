@@ -167,11 +167,28 @@ export class FormOcupacionalComponent implements OnInit {
           this.Spersona = new Persona();
           this.persona = new Persona();
           this.persona.numeroDocumento = tmpDoc;
+          this.buscoPerson = false;
+          this.persona.aseguradora = new Aseguradora();
+          this.persona.aseguradora.seqAseguradora = 0;
+          this.persona.tipoDocumento = new TipoDocumento();
+          this.persona.lugarNacimiento = new Ciudad();
           this.cargarListas();
           Swal.fire('Error', 'Persona No Registrada', 'error');
         } else {
+          debugger
+          console.log(respuesta);
           this.Spersona = respuesta;
-          this.persona.seqPersona = this.Spersona.seqPersona
+          if (this.Spersona.aseguradora === null) {
+            this.Spersona.aseguradora = new Aseguradora();
+          }
+          if (this.Spersona.tipoDocumento === null) {
+            this.persona.tipoDocumento = new TipoDocumento();
+          }
+          if (this.persona.lugarNacimiento === null) {
+            this.persona.lugarNacimiento = new Ciudad();
+          }
+          this.persona.seqPersona = this.Spersona.seqPersona;
+          this.buscoPerson = true;
           Swal.fire('Exitoso', 'Persona Registrada', 'success');
         }
       }
@@ -425,6 +442,7 @@ export class FormOcupacionalComponent implements OnInit {
 
     setTimeout(() => {
       this.onBarProgress('inicio');
+      this.actualizarPerson(this.Spersona);
       this.persona.localidad.seqLocalidad = 0;
       this.persona.lugarDeResidencia.seqCuidad = 0;
       this.persona.rolUsuario = this.tipoUsuario[1];

@@ -103,24 +103,19 @@
                   </mat-form-field>
                 </div>
                 <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                  <button id="BuscarPersona" mat-raised-button color="primary" (click)="onValidatePersona()">Buscar
-                    Persona</button>
+                  <button id="BuscarPersona" mat-raised-button color="primary" (click)="onValidatePersona()">Buscar</button>
                 </div>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formTipoDocumentoOcupacional">{{datosSingleton.labelTipoDocumento}}</mat-label>
-                  <select matNativeControl id="formTipoDocumentoOcupacional"
-                    [(ngModel)]="persona.tipoDocumento.seqTipoDocumento" name="tipoDocumento">
-                    <optgroup label="Valor Seleccionado" *ngIf="buscoPerson == true">
-                      <option value="Spersona.tipoDocumento.seqTipoDocumento" *ngIf="buscoPerson == true" selected>
-                        {{Spersona.tipoDocumento.siglaDocumento + "-" +Spersona.tipoDocumento.nomDocumento}}</option>
-                    </optgroup>
-                    <optgroup label="Seleccionar">
-                      <option *ngFor="let doc of tipoDocumento" value={{doc.seqTipoDocumento}}>
-                        {{doc.siglaDocumento + "-" + doc.nomDocumento}}</option>
-                    </optgroup>
-                  </select>
+                  <mat-select id="formTipoDocumentoOcupacional"
+                    [ngModel]="Spersona.tipoDocumento.seqTipoDocumento" name="tipoDocumento"
+                    (ngModelChange)="persona.tipoDocumento.seqTipoDocumento = $event" >
+                      <mat-option *ngFor="let doc of tipoDocumento" [value]="doc.seqTipoDocumento">
+                        {{doc.siglaDocumento + "-" + doc.nomDocumento}}
+                      </mat-option>
+                  </mat-select>
                   <mat-error>Seleccione una opción</mat-error>
                 </mat-form-field>
               </div>
@@ -174,7 +169,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formedadOcupacional">{{datosSingleton.labeledad}}</mat-label>
-                  <input matInput required pattern="[0-9]*" [ngModel]="Spersona.edad"
+                  <input matInput required pattern="[0-9]*" [ngModel]="Spersona.edad" 
                     (ngModelChange)="persona.edad = $event" name="edad" id="formedadOcupacional" type="text"
                     class="form-control campoGrande" placeholder={{datosSingleton.labeledad}} />
                   <mat-error>Digite la edad de la persona</mat-error>
@@ -183,7 +178,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formgeneroOcupacional">{{datosSingleton.labelGenero}}</mat-label>
-                  <mat-select [ngModel]="persona.genero" (ngModelChange)="persona.genero = $event" required
+                  <mat-select [ngModel]="Spersona.genero" (ngModelChange)="persona.genero = $event" required
                     name="genero">
                     <mat-option value="M">Masculino</mat-option>
                     <mat-option value="F">Femenino</mat-option>
@@ -194,7 +189,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formfechaNacimientoOcupacional">{{datosSingleton.labelFechaNacimiento}}</mat-label>
-                  <input matInput required [matDatepicker]="picker2" [ngModel]="persona.fechaNacimiento"
+                  <input matInput required [matDatepicker]="picker2" [ngModel]="Spersona.fechaNacimiento"
                     name="fechaNacimiento" (ngModelChange)="persona.fechaNacimiento = $event">
                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                   <mat-datepicker #picker2></mat-datepicker>
@@ -203,7 +198,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formlugarNacimientoOcupacional">{{datosSingleton.labelLugarDeNacimiento}}</mat-label>
-                  <mat-select required [ngModel]="persona.lugarNacimiento.seqCuidad"
+                  <mat-select required [ngModel]="Spersona.lugarNacimiento.seqCuidad"
                     (ngModelChange)="persona.lugarNacimiento.seqCuidad = $event" name="ciudad">
                     <mat-option *ngFor="let doc of ciudad" [value]="doc.seqCuidad">
                       {{doc.nomCuidad}}
@@ -215,7 +210,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formestadoCivilOcupacional">{{datosSingleton.labelEstadoCivil}}</mat-label>
-                  <mat-select required [ngModel]="persona.estadoCivil" (ngModelChange)="persona.estadoCivil = $event"
+                  <mat-select required [ngModel]="Spersona.estadoCivil" (ngModelChange)="persona.estadoCivil = $event"
                     name="estadoCivil">
                     <mat-option value="Soltero">SOLTERO</mat-option>
                     <mat-option value="Casado">CASADO</mat-option>
@@ -229,7 +224,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formescolaridadOcupacional">{{datosSingleton.labelEscolaridad}}</mat-label>
-                  <mat-select required [ngModel]="persona.escolaridad" (ngModelChange)="persona.escolaridad = $event"
+                  <mat-select required [ngModel]="Spersona.escolaridad" (ngModelChange)="persona.escolaridad = $event"
                     name="escolaridad">
                     <mat-option value="NINGUNA">NINGUNA</mat-option>
                     <mat-option value="PRIMARIA">PRIMARIA</mat-option>
@@ -249,7 +244,7 @@
                   <mat-label for="formnomCargoDepOcupacional">{{datosSingleton.labelCargoDependencia}}</mat-label>
                   <input matInput required
                     pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
-                    [ngModel]="persona.nomCargoDep" (ngModelChange)="persona.nomCargoDep = $event" name="nomCargoDep"
+                    [ngModel]="Spersona.nomCargoDep" (ngModelChange)="persona.nomCargoDep = $event" name="nomCargoDep"
                     id="formnomCargoDepOcupacional" type="text" class="form-control campoGrande"
                     placeholder={{datosSingleton.labelCargoDependencia}} />
                   <mat-error>Texto Incorrecto</mat-error>
@@ -258,7 +253,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formdireccionOcupacional">{{datosSingleton.labelDireccionCasa}}</mat-label>
-                  <input matInput required [ngModel]="persona.direccion" (ngModelChange)="persona.direccion = $event"
+                  <input matInput required [ngModel]="Spersona.direccion" (ngModelChange)="persona.direccion = $event"
                     name="direccion" id="formdireccionOcupacional" type="text" class="form-control campoGrande"
                     placeholder={{datosSingleton.labelDireccionCasa}} />
                 </mat-form-field>
@@ -267,7 +262,7 @@
                 <mat-form-field>
                   <mat-label for="formtelefonoOcupacional">{{datosSingleton.labelTelefono}}</mat-label>
                   <mat-error>No son números</mat-error>
-                  <input matInput required pattern="[0-9]*" [ngModel]="persona.telefono" name="telefono"
+                  <input matInput required pattern="[0-9]*" [ngModel]="Spersona.telefono" name="telefono"
                     id="formtelefonoOcupacional" type="text" (ngModelChange)="persona.telefono = $event"
                     class="form-control campoGrande" placeholder={{datosSingleton.labelTelefono}} value="" />
                 </mat-form-field>
@@ -275,7 +270,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formaseguradoraOcupacional">{{datosSingleton.labelAseguradora}}</mat-label>
-                  <mat-select required [ngModel]="persona.aseguradora.seqAseguradora"
+                  <mat-select required [ngModel]="Spersona.aseguradora.seqAseguradora"
                     (ngModelChange)="persona.aseguradora.seqAseguradora = $event" name="aseguradora">
                     <mat-option *ngFor="let eps of aseguradora" [value]="eps.seqAseguradora">
                       {{eps.nomAseguradora}}
@@ -287,7 +282,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formAFPOcupacional">{{datosSingleton.labelAFP}}</mat-label>
-                  <input matInput [ngModel]="persona.afp" (ngModelChange)="persona.afp = $event" name="AFP"
+                  <input matInput [ngModel]="Spersona.afp" (ngModelChange)="persona.afp = $event" name="AFP"
                     id="formAFPOcupacional" type="text" class="form-control campoGrande"
                     placeholder={{datosSingleton.labelAFP}} value="" />
                 </mat-form-field>
@@ -295,7 +290,7 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formARLOcupacional">{{datosSingleton.labelARL}}</mat-label>
-                  <input matInput [ngModel]="persona.arl" (ngModelChange)="persona.arl = $event" name="ARL"
+                  <input matInput [ngModel]="Spersona.arl" (ngModelChange)="persona.arl = $event" name="ARL"
                     id="formARLOcupacional" type="text" class="form-control campoGrande"
                     placeholder={{datosSingleton.labelARL}} value="" />
                 </mat-form-field>

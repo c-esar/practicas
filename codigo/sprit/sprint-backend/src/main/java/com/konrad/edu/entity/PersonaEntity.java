@@ -129,7 +129,7 @@ public class PersonaEntity implements Serializable {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "seq_lugarNacimiento", updatable = false)
+	@JoinColumn(name = "seq_lugar_nacimiento", updatable = false)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private CiudadEntity lugarNacimiento;
 
