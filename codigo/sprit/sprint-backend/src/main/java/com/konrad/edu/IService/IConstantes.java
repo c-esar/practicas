@@ -184,6 +184,11 @@ public interface IConstantes {
 	public static final String ULTIMA_PARTE ="ÚLTIMA PARTE";
 	public static final String LABEL_RH = "RH";
 	public static final String TIPO_USUARIO = "TIPO USUARIO";
+	public static final String LABEL_CONDUCTA = "CONDUCTA";
+	public static final String LABEL_ITEM = "ÍTEM";
+	public static final String LABEL_SI_NO = "SI / NO";
+	public static final String LABEL_CANCER = "CÁNCER";
+	public static final String LABEL_TIPO_CANCER ="TIPO CÁNCER";
 			
 	
 }

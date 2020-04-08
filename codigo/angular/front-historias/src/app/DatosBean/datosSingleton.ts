@@ -149,4 +149,9 @@ export class DatosSingleton {
   parteFinal: string;
   ultimaParte: string;
   labelRh: string;
+  labelConducta: string;
+  labelItem: string;
+  labelSiNo: string;
+  labelCancer: string;
+  labelTipoCancer: string;
 }

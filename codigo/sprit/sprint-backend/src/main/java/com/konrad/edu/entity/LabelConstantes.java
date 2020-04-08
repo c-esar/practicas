@@ -175,6 +175,11 @@ public class LabelConstantes implements Serializable {
 	private String ultimaParte;
 	private String labelRh;
 	private String tipoUsuario;
+	private String labelConducta;
+	private String labelItem;
+	private String labelSiNo;
+	private String labelCancer;
+	private String labelTipoCancer;
 
 	public LabelConstantes() {
 		this.labelPrimerNombre = IConstantes.LABEL_PRIMER_NOMBRE;
@@ -327,6 +332,11 @@ public class LabelConstantes implements Serializable {
 		this.ultimaParte = IConstantes.ULTIMA_PARTE;
 		this.labelRh = IConstantes.LABEL_RH;
 		this.tipoUsuario = IConstantes.TIPO_USUARIO;
+		this.labelConducta = IConstantes.LABEL_CONDUCTA;
+		this.labelItem = IConstantes.LABEL_ITEM;
+		this.labelSiNo = IConstantes.LABEL_SI_NO;
+		this.labelCancer = IConstantes.LABEL_CANCER;
+		this.labelTipoCancer = IConstantes.LABEL_TIPO_CANCER;
 	}
 
 	public String getLabelPrimerNombre() {
@@ -1540,6 +1550,49 @@ public class LabelConstantes implements Serializable {
 
 	public void setTipoUsuario(String tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+
+	
+	public String getLabelConducta() {
+		return labelConducta;
+	}
+
+	public void setLabelConducta(String labelConducta) {
+		this.labelConducta = labelConducta;
+	}
+
+	
+	public String getLabelItem() {
+		return labelItem;
+	}
+
+	public void setLabelItem(String labelItem) {
+		this.labelItem = labelItem;
+	}
+
+	public String getLabelSiNo() {
+		return labelSiNo;
+	}
+
+	public void setLabelSiNo(String labelSiNo) {
+		this.labelSiNo = labelSiNo;
+	}
+
+	public String getLabelCancer() {
+		return labelCancer;
+	}
+
+	public void setLabelCancer(String labelCancer) {
+		this.labelCancer = labelCancer;
+	}
+	
+
+	public String getLabelTipoCancer() {
+		return labelTipoCancer;
+	}
+
+	public void setLabelTipoCancer(String labelTipoCancer) {
+		this.labelTipoCancer = labelTipoCancer;
 	}
 
 	@Override

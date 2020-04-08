@@ -63,18 +63,38 @@ public class HistoriaGYMEntity implements Serializable {
 	@JoinTable(name = "hc_diagnosticoGym_historia", joinColumns = @JoinColumn(name = "seq_historia_gym"), inverseJoinColumns = @JoinColumn(name = "seq_diagnostico"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_historia_gym", "seq_diagnostico" }) })
 	private List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity;
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "hc_condiciones_historiaGym", joinColumns = @JoinColumn(name = "seq_historia_gym"), inverseJoinColumns = @JoinColumn(name = "seq_condicion_gym"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "seq_historia_gym", "seq_condicion_gym" }) })
+	private List<CondicionGymEntity> condicionGymEntity;
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "hc_familiar_historiaGym", joinColumns = @JoinColumn(name = "seq_historia_gym"), inverseJoinColumns = @JoinColumn(name = "seq_familiar_gym"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "seq_historia_gym", "seq_familiar_gym" }) })
+	private List<FamiliarGymEntity> familiarGymEntity;
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "seq_historia_gym")
+	private List<CuestionarioGymEntity> cuestionarioGymEntity;
 
 	@Column(name = "dia_historia_gym")
 	@Temporal(TemporalType.DATE)
 	private Date diaHistoriaGym;
 
-	@Column(name = "desp_motivo_consulta", length = 4000)
+	@Column(name = "observaciones_historia", length = 4000)
 	private String observacionesHistoria;
 
-	@Column(name = "revision_sistemas", length = 4000)
+	@Column(name = "otra_condicion", length = 4000)
 	private String otraCondicion;
+	
+	@Column(name="otra_familiar", length = 4000)
+	private String otraFamiliar;
+	
+	@Column(name="tipo_cancer", length = 4000)
+	private String tipoCancer;
 
-	@Column(name = "recom_habitos", length = 4000)
+	@Column(name = "conducta", length = 4000)
 	private String conducta;
 
 
@@ -87,6 +107,8 @@ public class HistoriaGYMEntity implements Serializable {
 	public HistoriaGYMEntity() {
 		this.historiaPreguntasGyms = new ArrayList<>();
 		this.diagnosticoOcupacionalEntity = new ArrayList<>();
+		this.condicionGymEntity = new ArrayList<>();
+		this.familiarGymEntity = new ArrayList<>();
 	}
 
 
@@ -188,4 +210,48 @@ public class HistoriaGYMEntity implements Serializable {
 	public void setConducta(String conducta) {
 		this.conducta = conducta;
 	}
+
+
+	public List<CuestionarioGymEntity> getCuestionarioGymEntity() {
+		return cuestionarioGymEntity;
+	}
+
+
+	public void setCuestionarioGymEntity(List<CuestionarioGymEntity> cuestionarioGymEntity) {
+		this.cuestionarioGymEntity = cuestionarioGymEntity;
+	}
+
+
+	public List<CondicionGymEntity> getCondicionGymEntity() {
+		return condicionGymEntity;
+	}
+
+
+	public void setCondicionGymEntity(List<CondicionGymEntity> condicionGymEntity) {
+		this.condicionGymEntity = condicionGymEntity;
+	}
+
+
+	public String getOtraFamiliar() {
+		return otraFamiliar;
+	}
+
+
+	public void setOtraFamiliar(String otraFamiliar) {
+		this.otraFamiliar = otraFamiliar;
+	}
+
+
+	public List<FamiliarGymEntity> getFamiliarGymEntity() {
+		return familiarGymEntity;
+	}
+
+
+	public void setFamiliarGymEntity(List<FamiliarGymEntity> familiarGymEntity) {
+		this.familiarGymEntity = familiarGymEntity;
+	}
+
+	
+	
+	
 }

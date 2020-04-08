@@ -13,17 +13,25 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.konrad.edu.IService.IConceptoService;
+import com.konrad.edu.IService.ICondicionGymService;
 import com.konrad.edu.IService.IConstantes;
 import com.konrad.edu.IService.IDiagnosticaOcupacionalService;
-import com.konrad.edu.IService.IHistoriaService;
+import com.konrad.edu.IService.IFamiliarGymService;
+import com.konrad.edu.IService.IHistoriaOcupacionalService;
+import com.konrad.edu.IService.ITipoCuestioService;
 import com.konrad.edu.IService.ITipoEvaluacionService;
 import com.konrad.edu.IService.ITipoHistoriaService;
+import com.konrad.edu.IService.ITipoPreguntaHistoriaService;
 import com.konrad.edu.IService.ITipoUsuarioService;
 import com.konrad.edu.entity.ConceptoEntity;
+import com.konrad.edu.entity.CondicionGymEntity;
 import com.konrad.edu.entity.DiagnosticoOcupacionalEntity;
+import com.konrad.edu.entity.FamiliarGymEntity;
 import com.konrad.edu.entity.HistoriaOcupacionalEntity;
+import com.konrad.edu.entity.TipoCuestionarioEntity;
 import com.konrad.edu.entity.TipoEvaluacionEntity;
 import com.konrad.edu.entity.TipoHistoriasEntity;
+import com.konrad.edu.entity.TipoPreguntaHistoriaGymEntity;
 import com.konrad.edu.entity.TipoUsuarioEntity;
 
 @CrossOrigin(origins = { IConstantes.RUTA })
@@ -32,7 +40,7 @@ import com.konrad.edu.entity.TipoUsuarioEntity;
 public class HistoriaController {
 
 	@Autowired
-	private IHistoriaService historiaService;
+	private IHistoriaOcupacionalService historiaService;
 
 	@Autowired
 	private IConceptoService conceptoService;
@@ -48,6 +56,18 @@ public class HistoriaController {
 	
 	@Autowired
 	private ITipoUsuarioService tipoUsuarioService;
+	
+	@Autowired
+	private ITipoPreguntaHistoriaService tipoPreguntaGym;
+	
+	@Autowired
+	private ITipoCuestioService tipoCuestion;
+	
+	@Autowired
+	private IFamiliarGymService familiarservice;
+	
+	@Autowired
+	private ICondicionGymService condicionService;
 
 	@PostMapping("/createHistoria")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -78,5 +98,25 @@ public class HistoriaController {
 	@GetMapping("/listTipoUsuario")
 	public List<TipoUsuarioEntity> getListTipoUsuario() {
 		return tipoUsuarioService.findAll();
+	}
+	
+	@GetMapping("/listTipoPreguntaHistoriaGym")
+	public List<TipoPreguntaHistoriaGymEntity> getListTipoPreguntaHistoriaGym() {
+		return tipoPreguntaGym.findAll();
+	}
+	
+	@GetMapping("/listTipoCuestionario")
+	public List<TipoCuestionarioEntity> getListTipoCuestionario() {
+		return tipoCuestion.findAll();
+	}
+	
+	@GetMapping("/listFamiliarGym")
+	public List<FamiliarGymEntity> getListFamiliarGym() {
+		return familiarservice.findAll();
+	}
+	
+	@GetMapping("/listCondicionGym")
+	public List<CondicionGymEntity> getListCondicionGym() {
+		return condicionService.findAll();
 	}
 }

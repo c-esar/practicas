@@ -127,6 +127,7 @@ export class FormOcupacionalComponent implements OnInit {
     this.conceptoPeriodico = new Array<Concepto>();
     this.conceptoEgreso = new Array<Concepto>();
     this.persona = new Persona();
+    this.persona.historias.push(new Historias());
     this.permiso = new Permiso();
     this.datosSingleton = new DatosSingleton();
     this.Spersona = new Persona();
@@ -554,7 +555,6 @@ export class FormOcupacionalComponent implements OnInit {
   }
 
   private cargarListas(): void {
-    this.persona.historias.push(new Historias());
     this.persona.historias[0].conceptoConcepto.push(new Concepto());
     $('#conceptoIngreso').hide();
     $('#conceptoPeriodico').hide();
@@ -930,7 +930,6 @@ export class FormOcupacionalComponent implements OnInit {
         this.tipoHistoria = respuesta;
       }
     )
-    debugger
     for (let i = 0; i < this.tipoHistoria.length; i++) {
       if (this.tipoHistoria[i].nomTipoHistoria === "OCUPACIONAL") {
         this.persona.historias[0].seqTipoHistoria = this.tipoHistoria[i];

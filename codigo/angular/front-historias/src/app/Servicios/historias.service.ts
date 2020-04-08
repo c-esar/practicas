@@ -15,8 +15,12 @@ import { TipoAntecedente } from '../DatosBean/tipoAntecedente';
 import { TipoEvaluacion } from '../DatosBean/tipoEvaluacion';
 import { TipoHistoria } from '../DatosBean/tipoHistoria';
 import { Concepto } from '../DatosBean/concepto';
+import { TipoPreguntaHistoriaGym } from '../DatosBean/tipopreguntahistoriagym';
 import { DiagnosticoOcupacional } from '../DatosBean/diagnosticoOcupacional';
 import { TipoUsuario } from '../DatosBean/tipoUsuario';
+import { TipoCuestionario } from '../DatosBean/tipoCuestionario';
+import { CondicionGym } from '../DatosBean/condiciongym';
+import { familiarGym } from '../DatosBean/familiargym';
 @Injectable({
   providedIn: 'root'
 })
@@ -76,5 +80,21 @@ export class HistoriasService {
 
   getTipoUsuario(): Observable<TipoUsuario[]> {
     return this.http.get<TipoUsuario[]>(this.url + "historiaPaciente/listTipoUsuario");
+  }
+
+  getTipoPreguntaHistoriaGym(): Observable<TipoPreguntaHistoriaGym[]> {
+    return this.http.get<TipoPreguntaHistoriaGym[]>(this.url + "historiaPaciente/listTipoPreguntaHistoriaGym");
+  }
+
+  getTipoCuestionarioGym(): Observable<TipoCuestionario[]> {
+    return this.http.get<TipoCuestionario[]>(this.url + "historiaPaciente/listTipoCuestionario");
+  }
+
+  getCondicionGym(): Observable<CondicionGym[]> {
+    return this.http.get<CondicionGym[]>(this.url + "historiaPaciente/listCondicionGym");
+  }
+
+  getFamiliarGym(): Observable<familiarGym[]> {
+    return this.http.get<familiarGym[]>(this.url + "historiaPaciente/listFamiliarGym");
   }
 }

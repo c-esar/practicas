@@ -9,11 +9,19 @@ import { TipoDocumento } from '../DatosBean/tipoDocumento';
 import { Ciudad } from '../DatosBean/ciudad';
 import { Aseguradora } from '../DatosBean/aseguradora';
 import { TipoUsuario } from '../DatosBean/tipoUsuario';
+import { HistoriaPreguntaGym } from '../DatosBean/historiapreguntagym';
+import { TipoPreguntaHistoriaGym } from '../DatosBean/tipopreguntahistoriagym';
 import { Router } from '@angular/router';
 import { Permiso } from '../DatosBean/permiso';
+import { ExamenFisico } from '../DatosBean/examenFisico';
 import { FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { HistoriaGym } from '../DatosBean/historiaGym';
+import { DiagnosticoOcupacional } from '../DatosBean/diagnosticoOcupacional';
+import { TipoCuestionario } from '../DatosBean/tipoCuestionario';
+import { CuestionarioGym } from '../DatosBean/cuestionariogym';
+import { CondicionGym } from '../DatosBean/condiciongym';
+import { familiarGym } from '../DatosBean/familiargym';
 declare var jQuery: any;
 declare var $: any;
 
@@ -36,8 +44,24 @@ export class FormGymComponent implements OnInit {
   ciudad: Ciudad[];
   aseguradora: Aseguradora[];
   tipoUsuario: TipoUsuario[];
+  listAnosHabito: number[];
+  diagnostica: DiagnosticoOcupacional[];
+  examenFisico: ExamenFisico;
   medico: boolean;
   aux: boolean;
+  tipoPreguntaHistoriaGym: TipoPreguntaHistoriaGym[];
+  tipoCuestionario: TipoCuestionario[];
+  EMBARAZO: HistoriaPreguntaGym;
+  FUMA: HistoriaPreguntaGym;
+  LICOR: HistoriaPreguntaGym;
+  EJERCICIO: HistoriaPreguntaGym;
+  ENERGIZANTES: HistoriaPreguntaGym;
+  PSICOACTIVAS: HistoriaPreguntaGym;
+  condicionGym: CondicionGym[];
+  familiarsGym: familiarGym[];
+  estadoCondicion: boolean;
+  estadoFamiliar: boolean;
+  estadoTipoCancer: boolean;
   //constantes
   private PERSONA_PACIENTE: string = "Paciente";
 
@@ -65,13 +89,23 @@ export class FormGymComponent implements OnInit {
 
   onCargarAtributos(): void {
     this.persona = new Persona();
-    this.persona.historiaGym = new Array<HistoriaGym>();
-    debugger
+    this.persona.historiaGym.push(new HistoriaGym());
     this.permiso = new Permiso();
     this.tipoUsuario = new Array<TipoUsuario>();
     this.datosSingleton = new DatosSingleton();
     this.Spersona = new Persona();
+    this.EMBARAZO = new HistoriaPreguntaGym();
+    this.FUMA = new HistoriaPreguntaGym();
+    this.LICOR = new HistoriaPreguntaGym();
+    this.EJERCICIO = new HistoriaPreguntaGym();
+    this.ENERGIZANTES = new HistoriaPreguntaGym();
+    this.PSICOACTIVAS = new HistoriaPreguntaGym();
+    this.listAnosHabito = new Array<number>();
+    this.examenFisico = new ExamenFisico();
     this.buscoPerson = false;
+    this.estadoCondicion = false;
+    this.estadoFamiliar = false;
+    this.estadoTipoCancer = false;
   }
 
   onCargarFunciones(): void {
@@ -82,6 +116,12 @@ export class FormGymComponent implements OnInit {
     this.getCiudad();
     this.getAseguradora();
     this.getTipoUsuario();
+    this.getTipoPreguntaHistoriaGym();
+    this.getImpresionDiagnostica();
+    this.getAnosHabitosList();
+    this.getTipoCuestionarioGym();
+    this.getCondicionGym();
+    this.getFamiliarGym();
     this.onActivarSubMenu("DatosPricipales");
 
   }
@@ -89,6 +129,7 @@ export class FormGymComponent implements OnInit {
 
   public onValidatePersona(): void {
     let tmpDoc = this.persona.numeroDocumento;
+    debugger
     this.Spersona = new Persona();
     this.personaService.onBuscarDocumento(this.persona).subscribe(
       (respuesta) => {
@@ -110,116 +151,105 @@ export class FormGymComponent implements OnInit {
     console.log("entre validar select");
     if (value == "si") {
       switch (id) {
-        case "formlabelCualPatologicosEsOcupacional": {
+        case "formcantidadCigarrilloGym": {
           $('#' + id).show();
           break;
         }
-        case "formlabelCualEsQuirurgicosOcupacional": {
+        case "formcantidadlicorGym": {
           $('#' + id).show();
           break;
         }
-        case "formlabelCualEsFarmacologicosOcupacional": {
+        case "formejercicioGym": {
           $('#' + id).show();
           break;
         }
-        case "formlabelCualEsAlergicosOcupacional": {
+        case "formcantidadenergizanteGym": {
           $('#' + id).show();
           break;
         }
-        case "formlabelCualEsTramauticosOcupacional": {
+        case "formcantidadsustanciasGym": {
           $('#' + id).show();
-          break;
-        }
-        case "formlabelCualEsToxicosOcupacional": {
-          $('#' + id).show();
-          break;
-        }
-        case "formlabelCualEsHospitalariosOcupacional": {
-          $('#' + id).show();
-          break;
-        }
-        case "formlabelCualEsInmunologicosOcupacional": {
-          $('#' + id).show();
-          break;
-        }
-        case "formlablefamiliarOcupacional": {
-          $('#' + id).show();
-          break;
-        }
-        case "formfrecuenciaOcupacional": {
-          $('#' + id).show();
-          $('#formhabitoOcupacional').show();
-          $('#formexfumadorOcupacional').show();
-          break;
-        }
-        case "formfrecuenciaAlcoholOcupacional": {
-          $('#' + id).show();
-          break;
-        }
-        case "formfrecuenciafisicaOcupacional": {
-          $('#' + id).show();
-          $('#formtipofisicaOcupacional').show();
           break;
         }
       }
     } else if (value == "no") {
       switch (id) {
-        case "formlabelCualPatologicosEsOcupacional": {
+        case "formcantidadCigarrilloGym": {
           $('#' + id).hide();
           break;
         }
-        case "formlabelCualEsQuirurgicosOcupacional": {
+        case "formcantidadlicorGym": {
           $('#' + id).hide();
           break;
         }
-        case "formlabelCualEsFarmacologicosOcupacional": {
+        case "formejercicioGym": {
           $('#' + id).hide();
           break;
         }
-        case "formlabelCualEsAlergicosOcupacional": {
+        case "formcantidadenergizanteGym": {
           $('#' + id).hide();
           break;
         }
-        case "formlabelCualEsTramauticosOcupacional": {
+        case "formcantidadsustanciasGym": {
           $('#' + id).hide();
-          break;
-        }
-        case "formlabelCualEsToxicosOcupacional": {
-          $('#' + id).hide();
-          break;
-        }
-        case "formlabelCualEsHospitalariosOcupacional": {
-          $('#' + id).hide();
-          break;
-        }
-        case "formlabelCualEsInmunologicosOcupacional": {
-          $('#' + id).hide();
-          break;
-        }
-        case "formlablefamiliarOcupacional": {
-          $('#' + id).hide();
-          break;
-        }
-        case "formfrecuenciaOcupacional": {
-          $('#' + id).hide();
-          $('#formhabitoOcupacional').hide();
-          $('#formexfumadorOcupacional').hide();
-          break;
-        }
-        case "formfrecuenciaAlcoholOcupacional": {
-          $('#' + id).hide();
-          break;
-        }
-        case "formfrecuenciafisicaOcupacional": {
-          $('#' + id).hide();
-          $('#formtipofisicaOcupacional').hide();
           break;
         }
       }
     }
-    //$("#formlabelCualPatologicosEsOcupacional").attr("disabled", "disabled");
-    //$('#formlabelCualPatologicosEsOcupacional').removeAttr('required');​​​​​
-    //$('#formlabelCualPatologicosEsOcupacional').prop('required', false);
+  }
+
+  public onGuardarCuestionario(estado: string, id: string): void {
+    debugger;
+    let entre = true;
+    let pos = this.persona.historiaGym[0].cuestionarioGymEntity.length;
+    for (let i = 0; i < this.persona.historiaGym[0].cuestionarioGymEntity.length; i++) {
+      if (this.persona.historiaGym[0].cuestionarioGymEntity[i].tipoCuestionarioEntity.seqTipoCuestionario === id) {
+        this.persona.historiaGym[0].cuestionarioGymEntity[i].estadoCuestionario = estado;
+        entre = false;
+      }
+    }
+    if (entre) {
+      this.persona.historiaGym[0].cuestionarioGymEntity.push(new CuestionarioGym());
+      this.persona.historiaGym[0].cuestionarioGymEntity[pos].tipoCuestionarioEntity.seqTipoCuestionario = id;
+      this.persona.historiaGym[0].cuestionarioGymEntity[pos].estadoCuestionario = estado;
+    }
+  }
+
+  private cargarListas(): void {
+    for (let i = 0; i < this.tipoPreguntaHistoriaGym.length; i++) {
+      switch (this.tipoPreguntaHistoriaGym[i].nomPregunta) {
+        case "EMBARAZO": {
+          this.EMBARAZO.estadoPregunta = "S";
+          this.EMBARAZO.tipoPreguntaHistoriaGymEntity = this.tipoPreguntaHistoriaGym[i];
+          break;
+        }
+        case "FUMA": {
+          this.FUMA.estadoPregunta = "S";
+          this.FUMA.tipoPreguntaHistoriaGymEntity = this.tipoPreguntaHistoriaGym[i];
+          break;
+        }
+        case "LICOR": {
+          this.LICOR.estadoPregunta = "S";
+          this.LICOR.tipoPreguntaHistoriaGymEntity = this.tipoPreguntaHistoriaGym[i];
+          break;
+        }
+        case "EJERCICIO": {
+          this.EJERCICIO.estadoPregunta = "S";
+          this.EJERCICIO.tipoPreguntaHistoriaGymEntity = this.tipoPreguntaHistoriaGym[i];
+          break;
+        }
+        case "ENERGIZANTES": {
+          this.ENERGIZANTES.estadoPregunta = "S";
+          this.ENERGIZANTES.tipoPreguntaHistoriaGymEntity = this.tipoPreguntaHistoriaGym[i];
+          break;
+        }
+        case "PSICOACTIVAS": {
+          this.PSICOACTIVAS.estadoPregunta = "S";
+          this.PSICOACTIVAS.tipoPreguntaHistoriaGymEntity = this.tipoPreguntaHistoriaGym[i];
+          break;
+        }
+      }
+    }
   }
 
   private getAuxOMedico(): void {
@@ -229,6 +259,38 @@ export class FormGymComponent implements OnInit {
       }
     } else if (this.permiso.crearUsuario === 1) {
       this.medico = true;
+    }
+  }
+
+  public onFuncionHistoriaPersonal(nom: string, id: number, estado: string): void {
+    if (nom === "OTRA" && id === 14 && this.estadoCondicion) {
+      document.getElementById("formotracondicionym").style.display = "none";
+      this.persona.historiaGym[0].otraCondicion = null;
+      this.estadoCondicion = false;
+    } else if (nom === "OTRA" && id === 14 && this.estadoCondicion === false) {
+      document.getElementById("formotracondicionym").style.display = "block";
+      this.estadoCondicion = true;
+    }
+  }
+
+  public onFuncionesHistoriaFamiliar(nom: string, id: number): void {
+    debugger
+    if (nom === "OTROS" && id === 10 && this.estadoFamiliar) {
+      document.getElementById("formotrafamiliargym").style.display = "none";
+      this.persona.historiaGym[0].otraFamiliar = null;
+      this.estadoFamiliar = false;
+    } else if (nom === "OTROS" && id === 10 && this.estadoFamiliar === false) {
+      document.getElementById("formotrafamiliargym").style.display = "block";
+      this.estadoFamiliar = true;
+    }
+
+    if (nom === this.datosSingleton.labelCancer && id === 7 && this.estadoTipoCancer) {
+      document.getElementById("formtipocancergym").style.display = "none";
+      this.persona.historiaGym[0].tipoCancer = null;
+      this.estadoTipoCancer = false;
+    } else if (nom === this.datosSingleton.labelCancer && id === 7 && this.estadoTipoCancer === false) {
+      document.getElementById("formtipocancergym").style.display = "block";
+      this.estadoTipoCancer = true;
     }
   }
 
@@ -384,6 +446,53 @@ export class FormGymComponent implements OnInit {
       (respuesta) => {
         this.tipoUsuario = respuesta
         console.log(respuesta)
+      }
+    )
+  }
+
+  private getTipoPreguntaHistoriaGym(): void {
+    this.historiaService.getTipoPreguntaHistoriaGym().subscribe(
+      (respuesta) => {
+        this.tipoPreguntaHistoriaGym = respuesta
+        console.log(respuesta)
+      }
+    )
+  }
+
+  getAnosHabitosList(): void {
+    for (let i = 1; i <= 40; i++) {
+      this.listAnosHabito.push(i);
+    }
+  }
+
+  getImpresionDiagnostica(): void {
+    this.historiaService.getImpresionDiagnostica().subscribe(
+      (respuesta) => {
+        this.diagnostica = respuesta;
+      }
+    )
+  }
+
+  getTipoCuestionarioGym(): void {
+    this.historiaService.getTipoCuestionarioGym().subscribe(
+      (respuesta) => {
+        this.tipoCuestionario = respuesta;
+      }
+    )
+  }
+
+  getCondicionGym(): void {
+    this.historiaService.getCondicionGym().subscribe(
+      (respuesta) => {
+        this.condicionGym = respuesta;
+      }
+    )
+  }
+
+  getFamiliarGym(): void {
+    this.historiaService.getFamiliarGym().subscribe(
+      (respuesta) => {
+        this.familiarsGym = respuesta;
       }
     )
   }

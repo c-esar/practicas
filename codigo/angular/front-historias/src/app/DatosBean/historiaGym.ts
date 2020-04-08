@@ -3,6 +3,9 @@ import { Ciudad } from './ciudad';
 import { ExamenFisico } from './examenFisico';
 import { TipoHistoria } from './tipoHistoria';
 import { DiagnosticoOcupacional } from './diagnosticoOcupacional';
+import { CuestionarioGym } from './cuestionariogym';
+import { CondicionGym } from './condiciongym';
+import { familiarGym } from './familiargym';
 export class HistoriaGym {
     seqHistoriaGym: number;
     seqTipoHistoria: TipoHistoria;
@@ -13,7 +16,13 @@ export class HistoriaGym {
     diaHistoriaGym: Date;
     observacionesHistoria: string;
     otraCondicion: string;
+    tipoCancer: string;
+    otraFamiliar: string;
     conducta: string;
+    cuestionarioGymEntity: CuestionarioGym[];
+    condicionGymEntity: CondicionGym[];
+    familiarGymEntity: familiarGym[];
+
 
     constructor() {
         this.seqHistoriaGym = null;
@@ -26,5 +35,10 @@ export class HistoriaGym {
         this.observacionesHistoria = null;
         this.otraCondicion = null;
         this.conducta = null;
+        this.cuestionarioGymEntity = new Array<CuestionarioGym>();
+        this.condicionGymEntity = new Array<CondicionGym>();
+        this.familiarGymEntity = new Array<familiarGym>();
+        this.tipoCancer = null;
+        this.otraFamiliar = null;
     }
 }

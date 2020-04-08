@@ -7,12 +7,12 @@ export class HistoriaPreguntaGym {
     tiempoFumando: string;
     despCuales: string;
 
-    constructor(){
-    this.seqHistoriasPreguntasGym = null;
-    this.tipoPreguntaHistoriaGymEntity = new TipoPreguntaHistoriaGym();
-    this.estadoPregunta = null;
-    this.cantidad = null;
-    this.tiempoFumando = null;
-    this.despCuales = null;
+    constructor() {
+        this.seqHistoriasPreguntasGym = null;
+        this.tipoPreguntaHistoriaGymEntity = new TipoPreguntaHistoriaGym();
+        this.estadoPregunta = null;
+        this.cantidad = null;
+        this.tiempoFumando = null;
+        this.despCuales = null;
     }
 }

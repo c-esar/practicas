@@ -162,7 +162,7 @@ public class PersonaEntity implements Serializable {
 	private CiudadEntity lugarDeResidencia;
 	
 	@OneToOne
-	@JoinColumn(name = "seq_tipo_usuario", updatable = false, nullable = false)
+	@JoinColumn(name = "seq_tipo_usuario", updatable = false)
 	private TipoUsuarioEntity rolUsuario;
 
 	public PersonaEntity() {
