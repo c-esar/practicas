@@ -76,19 +76,18 @@
                   </mat-form-field>
                 </div>
                 <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                  <button id="BuscarPersona" mat-raised-button color="primary" (click)="onValidatePersona()">Buscar
-                    Persona</button>
+                  <button id="BuscarPersona" mat-raised-button color="primary"
+                    (click)="onValidatePersona()">Buscar</button>
                 </div>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formTipoDocumentoGym">{{datosSingleton.labelTipoDocumento}}</mat-label>
-                  <mat-select id="formTipoDocumentoGym"
-                    [ngModel]="Spersona.tipoDocumento.seqTipoDocumento" name="tipoDocumento"
-                    (ngModelChange)="persona.tipoDocumento.seqTipoDocumento = $event" >
-                      <mat-option *ngFor="let doc of tipoDocumento" [value]="doc.seqTipoDocumento">
-                        {{doc.siglaDocumento + "-" + doc.nomDocumento}}
-                      </mat-option>
+                  <mat-select id="formTipoDocumentoGym" [ngModel]="Spersona.tipoDocumento.seqTipoDocumento"
+                    name="tipoDocumento" (ngModelChange)="persona.tipoDocumento.seqTipoDocumento = $event">
+                    <mat-option *ngFor="let doc of tipoDocumento" [value]="doc.seqTipoDocumento">
+                      {{doc.siglaDocumento + "-" + doc.nomDocumento}}
+                    </mat-option>
                   </mat-select>
                   <mat-error>Seleccione una opción</mat-error>
                 </mat-form-field>
@@ -152,8 +151,8 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-6">
                 <mat-form-field>
                   <mat-label>{{datosSingleton.tipoUsuario}}</mat-label>
-                  <mat-select required [ngModel]="Spersona.rolUsuario.seqTipoUsuario" 
-                  (ngModelChange)="persona.rolUsuario.seqTipoUsuario = $event" name="tipoUsuario">
+                  <mat-select required [ngModel]="Spersona.rolUsuario.seqTipoUsuario"
+                    (ngModelChange)="persona.rolUsuario.seqTipoUsuario = $event" name="tipoUsuario">
                     <mat-option *ngFor="let doc of tipoUsuario" [value]="doc.seqTipoUsuario">
                       {{doc.nomTipoUsuario}}
                     </mat-option>
@@ -400,7 +399,7 @@
                     <mat-form-field>
                       <mat-label for="formejercicioGym">{{datosSingleton.labelPreguntaEjercicioCual}}</mat-label>
                       <textarea matInput [(ngModel)]="EJERCICIO.despCuales" name="cualesEjercicio" type="text" rows="3"
-                        cols="80" required></textarea>
+                        cols="80"></textarea>
                     </mat-form-field>
                   </div>
                   <div class="form-group col-md-6 col-sm-6 col-xs-12">
@@ -459,15 +458,12 @@
                   </mat-form-field>
                 </div>
                 <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                  <mat-form-field id="formcantidadsustanciasGym">
-                    <mat-label for="formcantidadsustanciasGym">{{datosSingleton.labelPreguntaSustanciasCuales}}
-                    </mat-label>
-                    <mat-select [(ngModel)]="PSICOACTIVAS.cantidad" name="cantidadsustancias">
-                      <mat-option *ngFor="let doc of listAnosHabito" [value]="doc">
-                        {{doc}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                    <mat-form-field id="formcantidadsustanciasGym">
+                      <mat-label for="formcantidadsustanciasGym">{{datosSingleton.labelPreguntaSustanciasCuales}}
+                      </mat-label>
+                      <textarea matInput [(ngModel)]="PSICOACTIVAS.despCuales" name="cantidadsustancias" type="text" rows="3"
+                        cols="80"></textarea>
+                    </mat-form-field>
                 </div>
               </div>
             </blockquote>
@@ -485,8 +481,8 @@
                 <mat-form-field>
                   <mat-label>OPCIONES</mat-label>
                   <mat-select multiple [(ngModel)]="persona.historiaGym[0].familiarGymEntity" name="labelfamiliar">
-                    <mat-option *ngFor="let doc of familiarsGym" [value]="doc" 
-                    (click)="onFuncionesHistoriaFamiliar(doc.nomFamiliar, doc.seqFamiliarGym)">
+                    <mat-option *ngFor="let doc of familiarsGym" [value]="doc"
+                      (click)="onFuncionesHistoriaFamiliar(doc.nomFamiliar, doc.seqFamiliarGym)">
                       {{doc.nomFamiliar}}</mat-option>
                   </mat-select>
                   <mat-error>Seleccione una opción</mat-error>
@@ -703,6 +699,10 @@
               </div>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <h4>{{datosSingleton.parteFinal}}</h4>
+              </div>
+              <div class="form-group col-md-6 col-sm-6 col-xs-3 row">
+                <button mat-raised-button color="primary" role="button" (click)="create()">CREAR
+                  PACIENTE</button>
               </div>
             </blockquote>
           </div>

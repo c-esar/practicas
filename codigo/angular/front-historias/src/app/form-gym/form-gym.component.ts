@@ -62,6 +62,7 @@ export class FormGymComponent implements OnInit {
   estadoCondicion: boolean;
   estadoFamiliar: boolean;
   estadoTipoCancer: boolean;
+  guardado: boolean;
   //constantes
   private PERSONA_PACIENTE: string = "Paciente";
 
@@ -106,6 +107,7 @@ export class FormGymComponent implements OnInit {
     this.estadoCondicion = false;
     this.estadoFamiliar = false;
     this.estadoTipoCancer = false;
+    this.guardado = true;
   }
 
   onCargarFunciones(): void {
@@ -401,28 +403,156 @@ export class FormGymComponent implements OnInit {
     $('#' + id).css("background-color", "#007bff")
   }
 
+
   public create(): void {
-    this.persona.localidad.seqLocalidad = 0;
-    this.persona.lugarDeResidencia.seqCuidad = 0;
-    if (this.permiso.crearAux === 1) {
-      this.persona.historias = null;
-    } else if (this.permiso.crearUsuario === 1) {
-    }
-    console.log(this.persona)
-    this.personaService.create(this.persona).subscribe(
-      response => {
-        console.log(response);
-        if (response == null) {
-          Swal.fire('Error', 'Persona No Registrada', 'error');
-        } else {
-          Swal.fire('Exitoso', 'Persona Registrada', 'success');
+    debugger
+    setTimeout(() => {
+      Swal.fire({
+        title: this.datosSingleton.mensajeBarProgress,
+        timer: 10000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
+    }, 500);
+
+    setTimeout(() => {
+      this.actualizarPerson(this.Spersona);
+      this.persona.localidad.seqLocalidad = 0;
+      this.persona.lugarDeResidencia.seqCuidad = 0;
+      this.onCargarPreguntas();
+      if (this.onValidarPreguntas() && this.guardado) {
+        if (this.permiso.crearUsuario === 1) {
+          console.log(this.persona)
+          this.personaService.create(this.persona).subscribe(
+            response => {
+              console.log(response);
+              if (response == null) {
+                this.guardado = false;
+                Swal.fire('Error', 'Persona No Registrada', 'error');
+              } else {
+                this.guardado = false;
+                Swal.fire('Exitoso', 'Persona Registrada', 'success');
+                this.router.navigate(['/menuPrincipal'])
+              }
+            }
+          );
         }
-        this.router.navigate(['/menuPrincipal'])
+      } else {
+        this.persona.historiaGym[0].historiaPreguntasGyms = new Array<HistoriaPreguntaGym>();
+        Swal.fire('Error', 'Falta completar información necesaria en la sección HISTORIA PERSONAL verificar campos', 'error');
       }
-    );
+    }, 1000);
   }
 
+  private onValidarPreguntas(): boolean {
+    debugger
+    for (var i = 0; i < this.persona.historiaGym[0].historiaPreguntasGyms.length; i++) {
+      switch (this.persona.historiaGym[0].historiaPreguntasGyms[i].tipoPreguntaHistoriaGymEntity.nomPregunta) {
+        case "EMBARAZO": {
+          if (this.persona.historiaGym[0].historiaPreguntasGyms[i].estadoPregunta == null) {
+            return false;
+          }
+          break;
+        } case "FUMA": {
+          if (this.persona.historiaGym[0].historiaPreguntasGyms[i].estadoPregunta === "S") {
+            if (this.persona.historiaGym[0].historiaPreguntasGyms[i].cantidad === null ||
+              this.persona.historiaGym[0].historiaPreguntasGyms[i].tiempoFumando == null) {
+              return false;
+            }
+          } else if (this.persona.historiaGym[0].historiaPreguntasGyms[i].estadoPregunta === "N") {
+            this.persona.historiaGym[0].historiaPreguntasGyms[i].cantidad = null;
+            this.persona.historiaGym[0].historiaPreguntasGyms[i].tiempoFumando = null;
+          }
+          break;
+        } case "LICOR": {
+          if (this.persona.historiaGym[0].historiaPreguntasGyms[i].estadoPregunta === "S") {
+            if (this.persona.historiaGym[0].historiaPreguntasGyms[i].cantidad === null) {
+              return false;
+            }
+          } else if (this.persona.historiaGym[0].historiaPreguntasGyms[i].estadoPregunta === "N") {
+            this.persona.historiaGym[0].historiaPreguntasGyms[i].cantidad = null;
+          }
+          break;
+        } case "EJERCICIO": {
+          if (this.persona.historiaGym[0].historiaPreguntasGyms[i].estadoPregunta === "S") {
+            if (this.persona.historiaGym[0].historiaPreguntasGyms[i].cantidad === null ||
+              this.persona.historiaGym[0].historiaPreguntasGyms[i].despCuales === null) {
+              return false;
+            }
+          } else if (this.persona.historiaGym[0].historiaPreguntasGyms[i].estadoPregunta === "N") {
+            this.persona.historiaGym[0].historiaPreguntasGyms[i].cantidad = null;
+            this.persona.historiaGym[0].historiaPreguntasGyms[i].despCuales = null;
+          }
+          break;
+        } case "ENERGIZANTES": {
+          if (this.persona.historiaGym[0].historiaPreguntasGyms[i].estadoPregunta === "S") {
+            if (this.persona.historiaGym[0].historiaPreguntasGyms[i].cantidad === null) {
+              return false;
+            }
+          } else if (this.persona.historiaGym[0].historiaPreguntasGyms[i].estadoPregunta === "N") {
+            this.persona.historiaGym[0].historiaPreguntasGyms[i].cantidad = null;
+          }
+          break;
+        } case "PSICOACTIVAS": {
+          if (this.persona.historiaGym[0].historiaPreguntasGyms[i].estadoPregunta === "S") {
+            if (this.persona.historiaGym[0].historiaPreguntasGyms[i].despCuales === null) {
+              return false;
+            }
+          } else if (this.persona.historiaGym[0].historiaPreguntasGyms[i].estadoPregunta === "N") {
+            this.persona.historiaGym[0].historiaPreguntasGyms[i].despCuales = null;
+          }
+          break;
+        }
+      }
+    }
+    return true;
+  }
 
+  private onCargarPreguntas(): void {
+    this.EMBARAZO.tipoPreguntaHistoriaGymEntity = this.tipoPreguntaHistoriaGym[0];
+    this.persona.historiaGym[0].historiaPreguntasGyms.push(this.EMBARAZO);
+    this.FUMA.tipoPreguntaHistoriaGymEntity = this.tipoPreguntaHistoriaGym[1];
+    this.persona.historiaGym[0].historiaPreguntasGyms.push(this.FUMA);
+    this.LICOR.tipoPreguntaHistoriaGymEntity = this.tipoPreguntaHistoriaGym[2];
+    this.persona.historiaGym[0].historiaPreguntasGyms.push(this.LICOR);
+    this.EJERCICIO.tipoPreguntaHistoriaGymEntity = this.tipoPreguntaHistoriaGym[3];
+    this.persona.historiaGym[0].historiaPreguntasGyms.push(this.EJERCICIO);
+    this.ENERGIZANTES.tipoPreguntaHistoriaGymEntity = this.tipoPreguntaHistoriaGym[4];
+    this.persona.historiaGym[0].historiaPreguntasGyms.push(this.ENERGIZANTES);
+    this.PSICOACTIVAS.tipoPreguntaHistoriaGymEntity = this.tipoPreguntaHistoriaGym[5];
+    this.persona.historiaGym[0].historiaPreguntasGyms.push(this.PSICOACTIVAS);
+  }
+
+  private actualizarPerson(per: Persona): void {
+    this.persona.historiaGym[0].examenFisico = this.examenFisico;
+    this.persona.seqPersona = per.seqPersona;
+    this.persona.nomPrimerNombre = this.persona.nomPrimerNombre == null ? per.nomPrimerNombre : this.persona.nomPrimerNombre;
+    this.persona.nomPrimerApellido = this.persona.nomPrimerApellido == null ? per.nomPrimerApellido : this.persona.nomPrimerApellido;
+    this.persona.nomSegundoNombre = this.persona.nomSegundoNombre == null ? per.nomSegundoNombre : this.persona.nomSegundoNombre;
+    this.persona.nomSegundoApellido = this.persona.nomSegundoApellido == null ? per.nomSegundoApellido : this.persona.nomSegundoApellido;
+    this.persona.tipoDocumento = this.persona.tipoDocumento == null ? per.tipoDocumento : this.persona.tipoDocumento;
+    this.persona.numeroDocumento = this.persona.numeroDocumento == null ? per.numeroDocumento : this.persona.numeroDocumento;
+    this.persona.edad = this.persona.edad == null ? per.edad : this.persona.edad;
+    this.persona.direccion = this.persona.direccion == null ? per.direccion : this.persona.direccion;
+    this.persona.telefono = this.persona.telefono == null ? per.telefono : this.persona.telefono;
+    this.persona.celular = this.persona.celular == null ? per.celular : this.persona.celular;
+    this.persona.genero = this.persona.genero == null ? per.genero : this.persona.genero;
+    //this.persona.estadoCivil = this.persona.estadoCivil == null ? per.estadoCivil : this.persona.estadoCivil;
+    //this.persona.fechaNacimiento = this.persona.fechaNacimiento == null ? per.fechaNacimiento : this.persona.fechaNacimiento;
+    //this.persona.lugarNacimiento = this.persona.lugarNacimiento == null ? per.lugarNacimiento : this.persona.lugarNacimiento;
+    this.persona.lugarDeResidencia = this.persona.lugarDeResidencia == null ? per.lugarDeResidencia : this.persona.lugarDeResidencia;
+    //this.persona.escolaridad = this.persona.escolaridad == null ? per.escolaridad : this.persona.escolaridad;
+    this.persona.nomCargoDep = this.persona.nomCargoDep == null ? per.nomCargoDep : this.persona.nomCargoDep;
+    //this.persona.afp = this.persona.afp == null ? per.afp : this.persona.afp;
+    //this.persona.arl = this.persona.arl == null ? per.arl : this.persona.arl;
+    this.persona.aseguradora = this.persona.aseguradora == null ? per.aseguradora : this.persona.aseguradora;
+    this.persona.rh = this.persona.rh == null ? per.rh : this.persona.rh;
+    this.persona.nomEmergencia = this.persona.nomEmergencia == null ? per.nomEmergencia : this.persona.nomEmergencia;
+    this.persona.telEmergencia = this.persona.telEmergencia == null ? per.telEmergencia : this.persona.telEmergencia;
+    this.persona.parentescoEmergencia = this.persona.parentescoEmergencia == null ? per.parentescoEmergencia : this.persona.parentescoEmergencia;
+    this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
+    this.persona.rolUsuario = this.persona.rolUsuario == null ? per.rolUsuario : this.persona.rolUsuario;
+  }
   private onLabels(): void {
     this.labelService.getLabel().subscribe(
       (respuesta) => {
