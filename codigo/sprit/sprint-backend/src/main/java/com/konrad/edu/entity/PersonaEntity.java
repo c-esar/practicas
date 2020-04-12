@@ -85,7 +85,7 @@ public class PersonaEntity implements Serializable {
 	@Column(name = "estado_civil")
 	private String estadoCivil;
 
-	@Column(name = "fecha_nacimiento")
+	@Column(name = "fecha_nacimiento", nullable = true)
 	@Temporal(TemporalType.DATE)
 	private Date fechaNacimiento;
 
@@ -129,22 +129,22 @@ public class PersonaEntity implements Serializable {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "seq_lugar_nacimiento", updatable = false)
+	@JoinColumn(name = "seq_lugar_nacimiento", nullable = true)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private CiudadEntity lugarNacimiento;
 
 	@ManyToOne
-	@JoinColumn(name = "seq_aseguradora", updatable = false)
+	@JoinColumn(name = "seq_aseguradora", nullable= true)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private AseguradoraEntity aseguradora;
 
 	@ManyToOne
-	@JoinColumn(name = "seq_localidad", updatable = false)
+	@JoinColumn(name = "seq_localidad", nullable= true)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private LocalidadEntity localidad;
 
 	@ManyToOne
-	@JoinColumn(name = "seq_tipo_documento", updatable = false)
+	@JoinColumn(name = "seq_tipo_documento", nullable= true)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoDocumentoEntity tipoDocumento;
 
@@ -152,17 +152,16 @@ public class PersonaEntity implements Serializable {
 	@JoinColumn(name = "seq_persona")
 	private List<HistoriaOcupacionalEntity> historias;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "seq_persona")
+	@OneToMany(mappedBy = "persona", cascade = CascadeType.ALL)
 	private List<HistoriaGYMEntity> historiasGym;
 
 	@ManyToOne
-	@JoinColumn(name = "seq_lugarResidencia", updatable = false)
+	@JoinColumn(name = "seq_lugarResidencia", nullable = true)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private CiudadEntity lugarDeResidencia;
 	
 	@OneToOne
-	@JoinColumn(name = "seq_tipo_usuario", updatable = false)
+	@JoinColumn(name = "seq_tipo_usuario", nullable = true)
 	private TipoUsuarioEntity rolUsuario;
 
 	public PersonaEntity() {

@@ -10,186 +10,230 @@
           <div class="card-header col-md-12 col-sm-12 col-xs-12">
             <ul class="nav nav-pills card-header-pills">
               <li class="nav-item">
-                <button id="DatosPricipales" class="nav-link btn btn-primary active">{{datosSingleton.menuOcupacionalDatosPrincipales}}</button>
+                <button id="DatosPricipales"
+                  class="nav-link btn btn-primary active">{{datosSingleton.menuOcupacionalDatosPrincipales}}</button>
               </li>
             </ul>
           </div>
-          <div class="card-body " id="datosPersonales" style="display:none;">
+          <div class="card-body " id="datosPersonales">
             <blockquote class="blockquote mb-0 form-row etiquetas">
-              <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                <h3>IDENTIFICACIÓN DEL PACIENTE</h3>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <div class="form-group col-md-8 col-sm-8 col-xs-12">
+              <form novalidate #datos="ngForm" class="form-inline" style="width: 100%;">
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                  <h3>DATOS DEL PACIENTE</h3>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <div class="form-group col-md-8 col-sm-8 col-xs-12">
+                    <mat-form-field>
+                      <mat-label for="formNoDocumentoOcupacional">{{datosSingleton.labelNoDocumento}}</mat-label>
+                      <input matInput [(ngModel)]="persona.numeroDocumento" name="numeroDocumento"
+                        id="formNoDocumentoOcupacional" type="text" class="form-control campoGrande"
+                        placeholder="{{datosSingleton.labelNoDocumento}}" value="{{Spersona.numeroDocumento}}"
+                        required />
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                    <button id="BuscarPersona" mat-raised-button color="primary"
+                      (click)="onValidatePersona()">Buscar</button>
+                  </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
                   <mat-form-field>
-                    <mat-label for="formNoDocumentoOcupacional">{{datosSingleton.labelNoDocumento}}</mat-label>
-                    <input matInput [(ngModel)]="persona.numeroDocumento" name="numeroDocumento" id="formNoDocumentoOcupacional" type="text" class="form-control campoGrande" placeholder="{{datosSingleton.labelNoDocumento}}" value="{{Spersona.numeroDocumento}}" required />
+                    <mat-label for="formTipoDocumentoOcupacional">{{datosSingleton.labelTipoDocumento}}</mat-label>
+                    <mat-select id="formTipoDocumentoOcupacional" [ngModel]="Spersona.tipoDocumento.seqTipoDocumento"
+                      name="tipoDocumento" (ngModelChange)="persona.tipoDocumento.seqTipoDocumento = $event">
+                      <mat-option *ngFor="let doc of tipoDocumento" [value]="doc.seqTipoDocumento">
+                        {{doc.siglaDocumento + "-" + doc.nomDocumento}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error>Seleccione una opción</mat-error>
                   </mat-form-field>
                 </div>
-                <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                  <button id="BuscarPersona" mat-raised-button color="primary" (click)="onValidatePersona()">Buscar Persona</button>
+                <!--https://developer.snapappointments.com/bootstrap-select/examples/-->
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formPrimerApellidoOcupacional">{{datosSingleton.labelPrimerApellido}}</mat-label>
+                    <input matInput required
+                      pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                      [ngModel]="Spersona.nomPrimerApellido" (ngModelChange)="persona.nomPrimerApellido = $event"
+                      name="nomPrimerApellido" id="formPrimerApellidoOcupacional" type="text"
+                      class="form-control campoGrande " placeholder="{{datosSingleton.labelPrimerApellido}}"
+                      value="{{persona.nomPrimerApellido}}">
+                    <mat-error>Texto Incorrecto</mat-error>
+                  </mat-form-field>
                 </div>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formTipoDocumentoOcupacional">{{datosSingleton.labelTipoDocumento}}</mat-label>
-                  <select matNativeControl id="formTipoDocumentoOcupacional"[(ngModel)]="persona.tipoDocumento.seqTipoDocumento" name="tipoDocumento">
-                    <optgroup label="Valor Seleccionado" *ngIf="buscoPerson == true">
-                      <option value="Spersona.tipoDocumento.seqTipoDocumento" *ngIf="buscoPerson == true" selected>{{Spersona.tipoDocumento.siglaDocumento + "-" +Spersona.tipoDocumento.nomDocumento}}</option>
-                    </optgroup>
-                    <optgroup label="Seleccionar">
-                      <option *ngFor="let doc of tipoDocumento" value={{doc.seqTipoDocumento}}>{{doc.siglaDocumento + "-" + doc.nomDocumento}}</option>
-                    </optgroup>
-                  </select>
-                  <mat-error>Seleccione una opción</mat-error>
-                </mat-form-field>
-              </div>
-              <!--https://developer.snapappointments.com/bootstrap-select/examples/-->
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formPrimerApellidoOcupacional">{{datosSingleton.labelPrimerApellido}}</mat-label>
-                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.nomPrimerApellido" name="nomPrimerApellido" id="formPrimerApellidoOcupacional" type="text"
-                    class="form-control campoGrande " placeholder="{{datosSingleton.labelPrimerApellido}}" value="{{Spersona.nomPrimerApellido}}">
-                  <mat-error>Texto Incorrecto</mat-error>
-                    </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formSegundoApelldioOcupacional">{{datosSingleton.labelSegundoApellido}}</mat-label>
-                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.nomSegundoApellido" name="nomSegundoApellido" id="formSegundoApelldioOcupacional" type="text"
-                    class="form-control campoGrande" placeholder="{{datosSingleton.labelSegundoApellido}}" value="{{Spersona.nomSegundoApellido}}" />
-                  <mat-error>Texto Incorrecto</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formPrimerNombreOcupacional">{{datosSingleton.labelPrimerNombre}}</mat-label>
-                  <input matNativeControl pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.nomPrimerNombre" name="nomPrimerNombre" id="formPrimerNombreOcupacional" type="text"
-                    class="form-control campoGrande" placeholder="{{datosSingleton.labelPrimerNombre}}" />
-                  <mat-error>Texto Incorrecto</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formSegundoNombreOcupacional">{{datosSingleton.labelSegundoNombre}}</mat-label>
-                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.nomSegundoNombre" name="nomSegundoNombre" id="formSegundoNombreOcupacional" type="text"
-                    class="form-control campoGrande" placeholder={{datosSingleton.labelSegundoNombre}} />
-                  <mat-error>Texto Incorrecto</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formedadOcupacional">{{datosSingleton.labeledad}}</mat-label>
-                  <input matInput pattern="[0-9]*" [(ngModel)]="persona.edad" name="edad" id="formedadOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labeledad}} />
-                  <mat-error>Digite la edad de la persona</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formgeneroOcupacional">{{datosSingleton.labelGenero}}</mat-label>
-                  <mat-select [(ngModel)]="persona.genero" name="genero">
-                    <mat-option value="M">Masculino</mat-option>
-                    <mat-option value="F">Femenino</mat-option>
-                  </mat-select>
-                  <mat-error>Seleccione una opción</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formfechaNacimientoOcupacional">{{datosSingleton.labelFechaNacimiento}}</mat-label>
-                  <input matInput [(ngModel)]="persona.fechaNacimiento" type="date" name="fechaNacimiento">
-                  <mat-error>Coloque la fecha mm/dd/yyyy</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formlugarNacimientoOcupacional">{{datosSingleton.labelLugarDeNacimiento}}</mat-label>
-                  <mat-select  [(ngModel)]="persona.lugarNacimiento.seqCuidad" name="ciudad">
-                    <mat-option *ngFor="let doc of ciudad" [value]="doc.seqCuidad">
-                      {{doc.nomCuidad}}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error>Seleccione una opción</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formestadoCivilOcupacional">{{datosSingleton.labelEstadoCivil}}</mat-label>
-                  <mat-select [(ngModel)]="persona.estadoCivil" name="estadoCivil">
-                    <mat-option value="Soltero">SOLTERO</mat-option>
-                    <mat-option value="Casado">CASADO</mat-option>
-                    <mat-option value="UniónLibre">UNIÓN LIBRE</mat-option>
-                    <mat-option value="Viudo">VIUDO</mat-option>
-                    <mat-option value="Separado">SEPARADO</mat-option>
-                  </mat-select>
-                  <mat-error>Seleccione una opción</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formescolaridadOcupacional">{{datosSingleton.labelEscolaridad}}</mat-label>
-                  <mat-select [(ngModel)]="persona.escolaridad" name="escolaridad" >
-                    <mat-option value="NINGUNA">NINGUNA</mat-option>
-                    <mat-option value="PRIMARIA">PRIMARIA</mat-option>
-                    <mat-option value="BACHILLERATO">BACHILLERATO</mat-option>
-                    <mat-option value="TECNICA">TECNICA</mat-option>
-                    <mat-option value="PROFESIONAL">PROFESIONAL</mat-option>
-                    <mat-option value="ESPECIALIZACION">ESPECIALIZACION</mat-option>
-                    <mat-option value="MAESTRIA">MAESTRIA</mat-option>
-                    <mat-option value="DOCTORADO">DOCTORADO</mat-option>
-                    <mat-option value="POST-DOCTORADO">POST-DOCTORADO</mat-option>
-                  </mat-select>
-                  <mat-error>Seleccione una opción</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formnomCargoDepOcupacional">{{datosSingleton.labelCargoDependencia}}</mat-label>
-                  <input matInput pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="persona.nomCargoDep" name="nomCargoDep" id="formnomCargoDepOcupacional" type="text"
-                    class="form-control campoGrande" placeholder={{datosSingleton.labelCargoDependencia}}  />
-                  <mat-error>Texto Incorrecto</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formdireccionOcupacional">{{datosSingleton.labelDireccionCasa}}</mat-label>
-                  <input matInput [(ngModel)]="persona.direccion" name="direccion" id="formdireccionOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelDireccionCasa}}  />
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formtelefonoOcupacional">{{datosSingleton.labelTelefono}}</mat-label>
-                  <mat-icon matSuffix></mat-icon>
-                  <mat-error>No son números</mat-error>
-                  <input matInput pattern="[0-9]*" [(ngModel)]="persona.telefono" name="telefono" id="formtelefonoOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelTelefono}} value=""/>
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formaseguradoraOcupacional">{{datosSingleton.labelAseguradora}}</mat-label>
-                  <mat-select [(ngModel)]="persona.aseguradora.seqAseguradora" name="aseguradora">
-                    <mat-option *ngFor="let eps of aseguradora" [value]="eps.seqAseguradora">
-                      {{eps.nomAseguradora}}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error>Seleccione una opción</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formAFPOcupacional">{{datosSingleton.labelAFP}}</mat-label>
-                  <input matInput [(ngModel)]="persona.afp" name="AFP" id="formAFPOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelAFP}} value="" />
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <mat-form-field>
-                  <mat-label for="formARLOcupacional">{{datosSingleton.labelARL}}</mat-label>
-                  <input matInput [(ngModel)]="persona.arl" name="ARL" id="formARLOcupacional" type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelARL}} value="" />
-                </mat-form-field>
-              </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <button  *ngIf="medico == false" mat-raised-button color="primary" role="button" [disabled]="f.invalid" (click)="create()">CREAR PACIENTE</button>
-              </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formSegundoApelldioOcupacional">{{datosSingleton.labelSegundoApellido}}</mat-label>
+                    <input matInput required
+                      pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                      [ngModel]="Spersona.nomSegundoApellido" (ngModelChange)="persona.nomSegundoApellido = $event"
+                      name="nomSegundoApellido" id="formSegundoApelldioOcupacional" type="text"
+                      class="form-control campoGrande" placeholder="{{datosSingleton.labelSegundoApellido}}"
+                      value="{{Spersona.nomSegundoApellido}}" />
+                    <mat-error>Texto Incorrecto</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formPrimerNombreOcupacional">{{datosSingleton.labelPrimerNombre}}</mat-label>
+                    <input matInput required
+                      pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                      [ngModel]="Spersona.nomPrimerNombre" (ngModelChange)="persona.nomPrimerNombre = $event"
+                      name="nomPrimerNombre" id="formPrimerNombreOcupacional" type="text"
+                      class="form-control campoGrande" placeholder="{{datosSingleton.labelPrimerNombre}}" />
+                    <mat-error>Texto Incorrecto</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formSegundoNombreOcupacional">{{datosSingleton.labelSegundoNombre}}</mat-label>
+                    <input matInput required
+                      pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                      [ngModel]="Spersona.nomSegundoNombre" (ngModelChange)="persona.nomSegundoNombre = $event"
+                      name="nomSegundoNombre" id="formSegundoNombreOcupacional" type="text"
+                      class="form-control campoGrande" placeholder={{datosSingleton.labelSegundoNombre}} />
+                    <mat-error>Texto Incorrecto</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formedadOcupacional">{{datosSingleton.labeledad}}</mat-label>
+                    <input matInput required pattern="[0-9]*" [ngModel]="Spersona.edad"
+                      (ngModelChange)="persona.edad = $event" name="edad" id="formedadOcupacional" type="text"
+                      class="form-control campoGrande" placeholder={{datosSingleton.labeledad}} />
+                    <mat-error>Digite la edad de la persona</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formgeneroOcupacional">{{datosSingleton.labelGenero}}</mat-label>
+                    <mat-select [ngModel]="Spersona.genero" (ngModelChange)="persona.genero = $event" required
+                      name="genero">
+                      <mat-option value="M">Masculino</mat-option>
+                      <mat-option value="F">Femenino</mat-option>
+                    </mat-select>
+                    <mat-error>Seleccione una opción</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formfechaNacimientoOcupacional">{{datosSingleton.labelFechaNacimiento}}</mat-label>
+                    <input matInput required [matDatepicker]="picker2" [ngModel]="Spersona.fechaNacimiento"
+                      name="fechaNacimiento" (ngModelChange)="persona.fechaNacimiento = $event">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formlugarNacimientoOcupacional">{{datosSingleton.labelLugarDeNacimiento}}
+                    </mat-label>
+                    <mat-select required [ngModel]="Spersona.lugarNacimiento.seqCuidad"
+                      (ngModelChange)="persona.lugarNacimiento.seqCuidad = $event" name="ciudad">
+                      <mat-option *ngFor="let doc of ciudad" [value]="doc.seqCuidad">
+                        {{doc.nomCuidad}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error>Seleccione una opción</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formestadoCivilOcupacional">{{datosSingleton.labelEstadoCivil}}</mat-label>
+                    <mat-select required [ngModel]="Spersona.estadoCivil" (ngModelChange)="persona.estadoCivil = $event"
+                      name="estadoCivil">
+                      <mat-option value="Soltero">SOLTERO</mat-option>
+                      <mat-option value="Casado">CASADO</mat-option>
+                      <mat-option value="UniónLibre">UNIÓN LIBRE</mat-option>
+                      <mat-option value="Viudo">VIUDO</mat-option>
+                      <mat-option value="Separado">SEPARADO</mat-option>
+                    </mat-select>
+                    <mat-error>Seleccione una opción</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formescolaridadOcupacional">{{datosSingleton.labelEscolaridad}}</mat-label>
+                    <mat-select required [ngModel]="Spersona.escolaridad" (ngModelChange)="persona.escolaridad = $event"
+                      name="escolaridad">
+                      <mat-option value="NINGUNA">NINGUNA</mat-option>
+                      <mat-option value="PRIMARIA">PRIMARIA</mat-option>
+                      <mat-option value="BACHILLERATO">BACHILLERATO</mat-option>
+                      <mat-option value="TECNICA">TECNICA</mat-option>
+                      <mat-option value="PROFESIONAL">PROFESIONAL</mat-option>
+                      <mat-option value="ESPECIALIZACION">ESPECIALIZACION</mat-option>
+                      <mat-option value="MAESTRIA">MAESTRIA</mat-option>
+                      <mat-option value="DOCTORADO">DOCTORADO</mat-option>
+                      <mat-option value="POST-DOCTORADO">POST-DOCTORADO</mat-option>
+                    </mat-select>
+                    <mat-error>Seleccione una opción</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formnomCargoDepOcupacional">{{datosSingleton.labelCargoDependencia}}</mat-label>
+                    <input matInput required
+                      pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                      [ngModel]="Spersona.nomCargoDep" (ngModelChange)="persona.nomCargoDep = $event" name="nomCargoDep"
+                      id="formnomCargoDepOcupacional" type="text" class="form-control campoGrande"
+                      placeholder={{datosSingleton.labelCargoDependencia}} />
+                    <mat-error>Texto Incorrecto</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formdireccionOcupacional">{{datosSingleton.labelDireccionCasa}}</mat-label>
+                    <input matInput required [ngModel]="Spersona.direccion" (ngModelChange)="persona.direccion = $event"
+                      name="direccion" id="formdireccionOcupacional" type="text" class="form-control campoGrande"
+                      placeholder={{datosSingleton.labelDireccionCasa}} />
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formtelefonoOcupacional">{{datosSingleton.labelTelefono}}</mat-label>
+                    <mat-error>No son números</mat-error>
+                    <input matInput required pattern="[0-9]*" [ngModel]="Spersona.telefono" name="telefono"
+                      id="formtelefonoOcupacional" type="text" (ngModelChange)="persona.telefono = $event"
+                      class="form-control campoGrande" placeholder={{datosSingleton.labelTelefono}} value="" />
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formaseguradoraOcupacional">{{datosSingleton.labelAseguradora}}</mat-label>
+                    <mat-select required [ngModel]="Spersona.aseguradora.seqAseguradora"
+                      (ngModelChange)="persona.aseguradora.seqAseguradora = $event" name="aseguradora">
+                      <mat-option *ngFor="let eps of aseguradora" [value]="eps.seqAseguradora">
+                        {{eps.nomAseguradora}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error>Seleccione una opción</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formAFPOcupacional">{{datosSingleton.labelAFP}}</mat-label>
+                    <input matInput [ngModel]="Spersona.afp" (ngModelChange)="persona.afp = $event" name="AFP"
+                      id="formAFPOcupacional" type="text" class="form-control campoGrande"
+                      placeholder={{datosSingleton.labelAFP}} value="" />
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
+                    <mat-label for="formARLOcupacional">{{datosSingleton.labelARL}}</mat-label>
+                    <input matInput [ngModel]="Spersona.arl" (ngModelChange)="persona.arl = $event" name="ARL"
+                      id="formARLOcupacional" type="text" class="form-control campoGrande"
+                      placeholder={{datosSingleton.labelARL}} value="" />
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <button mat-raised-button color="primary" role="button" *ngIf="buscoPerson == true"
+                    [disabled]="datos.invalid" (click)="updatePersona('1')">ACTUALIZAR</button>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <button mat-raised-button color="primary" role="button" *ngIf="buscoPerson == false"
+                    [disabled]="datos.invalid" (click)="updatePersona('2')">CREAR</button>
+                </div>
+              </form>
             </blockquote>
           </div>
         </div>

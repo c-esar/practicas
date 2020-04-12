@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.konrad.edu.entity.HistoriaOcupacionalEntity;
 
-public interface IHistoriaDao extends CrudRepository<HistoriaOcupacionalEntity, Long> {
+public interface IHistoriaOcupacionalDao extends CrudRepository<HistoriaOcupacionalEntity, Long> {
 
 }

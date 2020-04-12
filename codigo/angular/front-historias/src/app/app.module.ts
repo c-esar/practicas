@@ -41,6 +41,7 @@ import { EnfermedadesLaboralesComponent } from './form-enfermedades-laborales/en
 import { AccidentesTrabajoComponent } from './form-accidentes-trabajo/accidentes-trabajo.component';
 import { TrabajosPreviosComponent } from './form-trabajos-previos/trabajos-previos.component';
 import { FormParaclinicosComponent } from './form-paraclinicos/form-paraclinicos.component';
+import { FormGymAuxiliarComponent } from './form-gym-auxiliar/form-gym-auxiliar.component';
 //rutas
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, //ruta principal de la aplicacion
@@ -53,7 +54,8 @@ const routes: Routes = [
   { path: 'menuPrincipal/cambioPass', component: FormCambioPassComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/form-gym', component: FormGymComponent, canActivate: [LoginService], data: { animation: 'HomePage' } },
   { path: 'menuPrincipal/list-usuariosApp', component: ListUsuariosAppComponent, canActivate: [LoginService] },
-  { path: 'menuPrincipal/form-ocupacional/auxiliar', component: FormAuxiliarComponent, canActivate: [LoginService] }
+  { path: 'menuPrincipal/form-ocupacional/auxiliar', component: FormAuxiliarComponent, canActivate: [LoginService] },
+  { path: 'menuPrincipal/form-gym/auxiliar', component: FormGymAuxiliarComponent, canActivate: [LoginService] }
 ];
 
 @NgModule({
@@ -75,7 +77,8 @@ const routes: Routes = [
     EnfermedadesLaboralesComponent,
     AccidentesTrabajoComponent,
     TrabajosPreviosComponent,
-    FormParaclinicosComponent
+    FormParaclinicosComponent,
+    FormGymAuxiliarComponent
   ],
   imports: [
     BrowserModule,

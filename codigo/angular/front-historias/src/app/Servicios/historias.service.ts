@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DatosSingleton } from '../DatosBean/datosSingleton';
-import { of, Observable } from 'rxjs';
+import { of, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -21,6 +21,9 @@ import { TipoUsuario } from '../DatosBean/tipoUsuario';
 import { TipoCuestionario } from '../DatosBean/tipoCuestionario';
 import { CondicionGym } from '../DatosBean/condiciongym';
 import { familiarGym } from '../DatosBean/familiargym';
+import Swal from 'sweetalert2';
+import { catchError } from 'rxjs/operators';
+import { HistoriaGym } from '../DatosBean/historiaGym';
 @Injectable({
   providedIn: 'root'
 })
@@ -96,5 +99,25 @@ export class HistoriasService {
 
   getFamiliarGym(): Observable<familiarGym[]> {
     return this.http.get<familiarGym[]>(this.url + "historiaPaciente/listFamiliarGym");
+  }
+
+  createOcupacional(historia: Historias): Observable<Historias> {
+    return this.http.post<Historias>(this.url + "historiaPaciente/crearHistoriaOcupacional", historia, { headers: this.httpHeaders }).pipe(
+      catchError(e => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error al crear la persona', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  createGym(historia: HistoriaGym): Observable<HistoriaGym> {
+    return this.http.post<HistoriaGym>(this.url + "historiaPaciente/crearHistoriaGym", historia, { headers: this.httpHeaders }).pipe(
+      catchError(e => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error al crear la persona', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
   }
 }

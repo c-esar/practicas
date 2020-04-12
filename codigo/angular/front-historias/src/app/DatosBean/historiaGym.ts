@@ -6,6 +6,7 @@ import { DiagnosticoOcupacional } from './diagnosticoOcupacional';
 import { CuestionarioGym } from './cuestionariogym';
 import { CondicionGym } from './condiciongym';
 import { familiarGym } from './familiargym';
+import { Persona } from './persona';
 export class HistoriaGym {
     seqHistoriaGym: number;
     seqTipoHistoria: TipoHistoria;
@@ -22,6 +23,7 @@ export class HistoriaGym {
     cuestionarioGymEntity: CuestionarioGym[];
     condicionGymEntity: CondicionGym[];
     familiarGymEntity: familiarGym[];
+    persona: Persona;
 
 
     constructor() {
@@ -40,5 +42,6 @@ export class HistoriaGym {
         this.familiarGymEntity = new Array<familiarGym>();
         this.tipoCancer = null;
         this.otraFamiliar = null;
+        this.persona = new Persona();
     }
 }

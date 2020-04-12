@@ -49,6 +49,18 @@ export class PersonaService {
     );
   }
 
+
+
+  update(persona: Persona): Observable<Persona> {
+    return this.http.put<Persona>(this.url + "persona/actualizarPersonaDatos", persona, { headers: this.httpHeaders }).pipe(
+      catchError(e => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error al crear la persona', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
   onBuscarDocumento(persona: Persona): Observable<Persona> {
     return this.http.get<Persona>(`${this.url + "persona/buscarDocumento"}/${persona.numeroDocumento}`, { headers: this.httpHeaders }).pipe(
       catchError(e => {

@@ -22,9 +22,9 @@ import { TipoCuestionario } from '../DatosBean/tipoCuestionario';
 import { CuestionarioGym } from '../DatosBean/cuestionariogym';
 import { CondicionGym } from '../DatosBean/condiciongym';
 import { familiarGym } from '../DatosBean/familiargym';
+import { of, Observable, throwError } from 'rxjs';
 declare var jQuery: any;
 declare var $: any;
-
 
 @Component({
   selector: 'app-form-gym',
@@ -63,6 +63,8 @@ export class FormGymComponent implements OnInit {
   estadoFamiliar: boolean;
   estadoTipoCancer: boolean;
   guardado: boolean;
+  historiaUpdate = new HistoriaGym();
+  seqPersona: any;
   //constantes
   private PERSONA_PACIENTE: string = "Paciente";
 
@@ -108,6 +110,7 @@ export class FormGymComponent implements OnInit {
     this.estadoFamiliar = false;
     this.estadoTipoCancer = false;
     this.guardado = true;
+    this.persona.historiaGym[0].ciudadHistoria.seqCuidad = 0;
   }
 
   onCargarFunciones(): void {
@@ -130,25 +133,29 @@ export class FormGymComponent implements OnInit {
 
 
   public onValidatePersona(): void {
-    let tmpDoc = this.persona.numeroDocumento;
-    debugger
-    this.Spersona = new Persona();
-    this.personaService.onBuscarDocumento(this.persona).subscribe(
-      (respuesta) => {
-        if (respuesta == null) {
-          this.Spersona = new Persona();
-          this.persona = new Persona();
-          this.persona.numeroDocumento = tmpDoc;
-          this.buscoPerson = false;
-          this.persona.aseguradora = new Aseguradora();
-          this.persona.tipoDocumento = new TipoDocumento();
-          this.persona.lugarNacimiento = new Ciudad();
-          this.cargarListas();
-          Swal.fire('Error', 'Persona No Registrada', 'error');
-        } else {
+    setTimeout(() => {
+      Swal.fire({
+        title: 'Buscando',
+        timer: 10000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
+    }, 500);
+
+    setTimeout(() => {
+      let tmpDoc = this.persona.numeroDocumento;
+      debugger
+      this.Spersona = new Persona();
+      this.persona.aseguradora = new Aseguradora();
+      this.persona.tipoDocumento = new TipoDocumento();
+      this.persona.lugarNacimiento = new Ciudad();
+      this.buscoPerson = false;
+      this.personaService.onBuscarDocumento(this.persona).subscribe(
+        (respuesta) => {
           debugger
           console.log(respuesta);
           this.Spersona = respuesta;
+          this.seqPersona = respuesta.seqPersona;
           if (this.Spersona.aseguradora === null) {
             this.Spersona.aseguradora = new Aseguradora();
           }
@@ -162,8 +169,8 @@ export class FormGymComponent implements OnInit {
           this.buscoPerson = true;
           Swal.fire('Exitoso', 'Persona Registrada', 'success');
         }
-      }
-    );
+      );
+    }, 1000);
   }
 
   public onValidarSelect(value: string, id: string): void {
@@ -414,34 +421,78 @@ export class FormGymComponent implements OnInit {
         showConfirmButton: false
       })
     }, 500);
-
     setTimeout(() => {
-      this.actualizarPerson(this.Spersona);
-      this.persona.localidad.seqLocalidad = 0;
-      this.persona.lugarDeResidencia.seqCuidad = 0;
+      debugger
       this.onCargarPreguntas();
       if (this.onValidarPreguntas() && this.guardado) {
         if (this.permiso.crearUsuario === 1) {
-          console.log(this.persona)
-          this.personaService.create(this.persona).subscribe(
-            response => {
-              console.log(response);
-              if (response == null) {
-                this.guardado = false;
-                Swal.fire('Error', 'Persona No Registrada', 'error');
-              } else {
+          this.persona.historiaGym[0].examenFisico = this.examenFisico;
+          if (this.buscoPerson) {
+            debugger
+            this.historiaUpdate = this.persona.historiaGym[0];
+            this.historiaUpdate.persona.seqPersona = this.seqPersona;
+            this.createHistoria();
+          } else {
+            this.persona.localidad.seqLocalidad = 0;
+            this.persona.lugarDeResidencia.seqCuidad = 0;
+            this.actualizarPerson(this.Spersona);
+            this.persona.lugarNacimiento = null;
+            console.log(this.persona)
+            this.personaService.create(this.persona).subscribe(
+              response => {
+                console.log(response);
                 this.guardado = false;
                 Swal.fire('Exitoso', 'Persona Registrada', 'success');
                 this.router.navigate(['/menuPrincipal'])
               }
-            }
-          );
+            );
+          }
         }
       } else {
         this.persona.historiaGym[0].historiaPreguntasGyms = new Array<HistoriaPreguntaGym>();
         Swal.fire('Error', 'Falta completar información necesaria en la sección HISTORIA PERSONAL verificar campos', 'error');
       }
     }, 1000);
+  }
+
+  updatePersona(): void {
+    setTimeout(() => {
+      Swal.fire({
+        title: 'Guardando',
+        timer: 10000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
+    }, 500);
+
+    setTimeout(() => {
+      this.persona.localidad.seqLocalidad = 0;
+      this.persona.lugarDeResidencia.seqCuidad = 0;
+      this.actualizarPerson(this.Spersona);
+      this.persona.lugarNacimiento = null;
+      let personaup = new Persona();
+      personaup = this.persona;
+      personaup.historiaGym = new Array<HistoriaGym>();
+      this.personaService.update(personaup).subscribe(
+        response => {
+          console.log(response);
+          Swal.fire('Exitoso', 'Persona Actualizada', 'success');
+        }
+      );
+    }, 1000);
+  }
+
+  createHistoria(): void {
+    debugger
+    this.historiaService.createGym(this.historiaUpdate).subscribe(
+      response => {
+        debugger
+        console.log(response);
+        Swal.fire('Exitoso', 'Persona Registrada', 'success');
+        this.guardado = false;
+        this.router.navigate(['/menuPrincipal']);
+      }
+    );
   }
 
   private onValidarPreguntas(): boolean {
@@ -524,34 +575,35 @@ export class FormGymComponent implements OnInit {
   }
 
   private actualizarPerson(per: Persona): void {
-    this.persona.historiaGym[0].examenFisico = this.examenFisico;
+    debugger
     this.persona.seqPersona = per.seqPersona;
     this.persona.nomPrimerNombre = this.persona.nomPrimerNombre == null ? per.nomPrimerNombre : this.persona.nomPrimerNombre;
     this.persona.nomPrimerApellido = this.persona.nomPrimerApellido == null ? per.nomPrimerApellido : this.persona.nomPrimerApellido;
     this.persona.nomSegundoNombre = this.persona.nomSegundoNombre == null ? per.nomSegundoNombre : this.persona.nomSegundoNombre;
     this.persona.nomSegundoApellido = this.persona.nomSegundoApellido == null ? per.nomSegundoApellido : this.persona.nomSegundoApellido;
-    this.persona.tipoDocumento = this.persona.tipoDocumento == null ? per.tipoDocumento : this.persona.tipoDocumento;
+    this.persona.tipoDocumento = (this.persona.tipoDocumento == null || this.persona.tipoDocumento.seqTipoDocumento == null) ? per.tipoDocumento : this.persona.tipoDocumento;
     this.persona.numeroDocumento = this.persona.numeroDocumento == null ? per.numeroDocumento : this.persona.numeroDocumento;
     this.persona.edad = this.persona.edad == null ? per.edad : this.persona.edad;
     this.persona.direccion = this.persona.direccion == null ? per.direccion : this.persona.direccion;
     this.persona.telefono = this.persona.telefono == null ? per.telefono : this.persona.telefono;
     this.persona.celular = this.persona.celular == null ? per.celular : this.persona.celular;
     this.persona.genero = this.persona.genero == null ? per.genero : this.persona.genero;
-    //this.persona.estadoCivil = this.persona.estadoCivil == null ? per.estadoCivil : this.persona.estadoCivil;
-    //this.persona.fechaNacimiento = this.persona.fechaNacimiento == null ? per.fechaNacimiento : this.persona.fechaNacimiento;
-    //this.persona.lugarNacimiento = this.persona.lugarNacimiento == null ? per.lugarNacimiento : this.persona.lugarNacimiento;
-    this.persona.lugarDeResidencia = this.persona.lugarDeResidencia == null ? per.lugarDeResidencia : this.persona.lugarDeResidencia;
-    //this.persona.escolaridad = this.persona.escolaridad == null ? per.escolaridad : this.persona.escolaridad;
+    this.persona.estadoCivil = this.persona.estadoCivil == null ? per.estadoCivil : this.persona.estadoCivil;
+    this.persona.fechaNacimiento = this.persona.fechaNacimiento == null ? per.fechaNacimiento : this.persona.fechaNacimiento;
+    this.persona.lugarNacimiento = this.persona.lugarNacimiento == null ? per.lugarNacimiento : this.persona.lugarNacimiento;
+    this.persona.lugarDeResidencia = (this.persona.lugarDeResidencia == null || this.persona.lugarDeResidencia.seqCuidad == null) ? per.lugarDeResidencia : this.persona.lugarDeResidencia;
+    this.persona.escolaridad = this.persona.escolaridad == null ? per.escolaridad : this.persona.escolaridad;
     this.persona.nomCargoDep = this.persona.nomCargoDep == null ? per.nomCargoDep : this.persona.nomCargoDep;
-    //this.persona.afp = this.persona.afp == null ? per.afp : this.persona.afp;
-    //this.persona.arl = this.persona.arl == null ? per.arl : this.persona.arl;
-    this.persona.aseguradora = this.persona.aseguradora == null ? per.aseguradora : this.persona.aseguradora;
+    this.persona.afp = this.persona.afp == null ? per.afp : this.persona.afp;
+    this.persona.arl = this.persona.arl == null ? per.arl : this.persona.arl;
+    this.persona.aseguradora = (this.persona.aseguradora == null || this.persona.aseguradora.seqAseguradora == null) ? per.aseguradora : this.persona.aseguradora;
     this.persona.rh = this.persona.rh == null ? per.rh : this.persona.rh;
     this.persona.nomEmergencia = this.persona.nomEmergencia == null ? per.nomEmergencia : this.persona.nomEmergencia;
     this.persona.telEmergencia = this.persona.telEmergencia == null ? per.telEmergencia : this.persona.telEmergencia;
     this.persona.parentescoEmergencia = this.persona.parentescoEmergencia == null ? per.parentescoEmergencia : this.persona.parentescoEmergencia;
     this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
-    this.persona.rolUsuario = this.persona.rolUsuario == null ? per.rolUsuario : this.persona.rolUsuario;
+    this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
+    this.persona.rolUsuario = (this.persona.rolUsuario.seqTipoUsuario == null || this.persona.rolUsuario == null) ? per.rolUsuario : this.persona.rolUsuario;
   }
   private onLabels(): void {
     this.labelService.getLabel().subscribe(

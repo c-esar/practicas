@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ElementRef, ViewChild, Component, OnInit, Input } from '@angular/core';
 import { LabelService } from '../Servicios/label.service';
 import { LoginService } from '../Servicios/login.service';
 import { HistoriasService } from '../Servicios/historias.service';
@@ -8,21 +8,34 @@ import { Persona } from '../DatosBean/persona';
 import { TipoDocumento } from '../DatosBean/tipoDocumento';
 import { Ciudad } from '../DatosBean/ciudad';
 import { Aseguradora } from '../DatosBean/aseguradora';
+import { TipoUsuario } from '../DatosBean/tipoUsuario';
+import { HistoriaPreguntaGym } from '../DatosBean/historiapreguntagym';
+import { TipoPreguntaHistoriaGym } from '../DatosBean/tipopreguntahistoriagym';
 import { Router } from '@angular/router';
 import { Permiso } from '../DatosBean/permiso';
-import { TipoHistoria } from '../DatosBean/tipoHistoria';
-import { TipoUsuario } from '../DatosBean/tipoUsuario';
+import { ExamenFisico } from '../DatosBean/examenFisico';
+import { FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { HistoriaGym } from '../DatosBean/historiaGym';
+import { DiagnosticoOcupacional } from '../DatosBean/diagnosticoOcupacional';
+import { TipoCuestionario } from '../DatosBean/tipoCuestionario';
+import { CuestionarioGym } from '../DatosBean/cuestionariogym';
+import { CondicionGym } from '../DatosBean/condiciongym';
+import { familiarGym } from '../DatosBean/familiargym';
+import { of, Observable, throwError } from 'rxjs';
 declare var jQuery: any;
 declare var $: any;
+
 @Component({
-  selector: 'app-form-auxiliar',
-  templateUrl: './form-auxiliar.component.html',
-  styleUrls: ['./form-auxiliar.component.css']
+  selector: 'app-form-gym-auxiliar',
+  templateUrl: './form-gym-auxiliar.component.html',
+  styleUrls: ['./form-gym-auxiliar.component.css']
 })
-export class FormAuxiliarComponent implements OnInit {
+export class FormGymAuxiliarComponent implements OnInit {
 
   persona: Persona;
+  date = new FormControl(new Date());
+  date2 = new FormControl(new Date());
   Spersona: Persona;
   buscoPerson: boolean;
   permiso: Permiso;
@@ -30,86 +43,54 @@ export class FormAuxiliarComponent implements OnInit {
   tipoDocumento: TipoDocumento[];
   ciudad: Ciudad[];
   aseguradora: Aseguradora[];
-
+  tipoUsuario: TipoUsuario[];
   medico: boolean;
   aux: boolean;
+  guardado: boolean;
   //constantes
   private PERSONA_PACIENTE: string = "Paciente";
-  //lista elementos a bloquear
-  listaElementosBLoquear: string[];
-  sinAgregarLista: boolean;
 
   constructor(private labelService: LabelService,
     private loginService: LoginService,
     private personaService: PersonaService,
     private router: Router,
     private historiaService: HistoriasService) {
-
   }
 
   ngOnInit(): void {
-    this.onCargarAtributos();
-    this.onFunciones();
+    setTimeout(() => {
+      Swal.fire({
+        title: 'Cargando Informacion',
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
+    }, 500);
+    setTimeout(() => {
+      this.onCargarAtributos();
+      this.onCargarFunciones();
+    }, 1000);
   }
 
-  private onCargarAtributos(): void {
+  onCargarAtributos(): void {
     this.persona = new Persona();
     this.permiso = new Permiso();
+    this.tipoUsuario = new Array<TipoUsuario>();
     this.datosSingleton = new DatosSingleton();
     this.Spersona = new Persona();
     this.buscoPerson = false;
-    this.listaElementosBLoquear = new Array<string>();
-    this.sinAgregarLista = true;
   }
-  private onFunciones(): void {
-    this.activarLabels();
-    this.obtenerPermisos();
-    this.obtenerTipoDocumento();
-    this.obtenerCiudad();
-    this.obtenerAseguradora();
+
+  onCargarFunciones(): void {
+    this.getPermisos();
     this.getAuxOMedico();
-  }
-  private activarLabels(): void {
-    this.labelService.getLabel().subscribe(
-      (respuesta) => {
-        this.datosSingleton = respuesta
-        console.log(respuesta)
-      }
-    );
-  }
-  private obtenerTipoDocumento(): void {
-    this.personaService.getTipoDocumento().subscribe(
-      (respuesta) => {
-        this.tipoDocumento = respuesta
-        console.log(respuesta)
-      }
-    )
+    this.onLabels();
+    this.getTipoDocumento();
+    this.getCiudad();
+    this.getAseguradora();
+    this.getTipoUsuario();
   }
 
-  private obtenerCiudad(): void {
-    this.personaService.getCiudad().subscribe(
-      (respuesta) => {
-        this.ciudad = respuesta
-        console.log(respuesta)
-      }
-    )
-  }
-
-  private obtenerAseguradora(): void {
-    this.personaService.getAseguradora().subscribe(
-      (respuesta) => {
-        this.aseguradora = respuesta
-        console.log(respuesta)
-      }
-    )
-  }
-
-  private obtenerPermisos(): void {
-    this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos.crearAux;
-    this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos.crearUsuario;
-    this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos.gestionarUsuario;
-    this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos.descargar;
-  }
 
   public onValidatePersona(): void {
     setTimeout(() => {
@@ -123,28 +104,25 @@ export class FormAuxiliarComponent implements OnInit {
 
     setTimeout(() => {
       let tmpDoc = this.persona.numeroDocumento;
+      debugger
       this.Spersona = new Persona();
       this.persona.aseguradora = new Aseguradora();
       this.persona.tipoDocumento = new TipoDocumento();
       this.persona.lugarNacimiento = new Ciudad();
       this.buscoPerson = false;
-      debugger
       this.personaService.onBuscarDocumento(this.persona).subscribe(
         (respuesta) => {
           debugger
           console.log(respuesta);
           this.Spersona = respuesta;
           if (this.Spersona.aseguradora === null) {
-            this.persona.aseguradora = new Aseguradora();
             this.Spersona.aseguradora = new Aseguradora();
           }
           if (this.Spersona.tipoDocumento === null) {
             this.persona.tipoDocumento = new TipoDocumento();
-            this.Spersona.tipoDocumento = new TipoDocumento();
           }
-          if (this.Spersona.lugarNacimiento === null) {
+          if (this.persona.lugarNacimiento === null) {
             this.persona.lugarNacimiento = new Ciudad();
-            this.Spersona.lugarNacimiento = new Ciudad();
           }
           this.persona.seqPersona = this.Spersona.seqPersona;
           this.buscoPerson = true;
@@ -155,12 +133,11 @@ export class FormAuxiliarComponent implements OnInit {
   }
 
   private getAuxOMedico(): void {
-    if (this.permiso.crearUsuario == 0) {
-      if (this.permiso.crearAux == 1) {
+    if (this.permiso.crearUsuario === 0) {
+      if (this.permiso.crearAux === 1) {
         this.aux = true;
-        this.medico = false;
       }
-    } else if (this.permiso.crearUsuario == 1) {
+    } else if (this.permiso.crearUsuario === 1) {
       this.medico = true;
     }
   }
@@ -176,24 +153,29 @@ export class FormAuxiliarComponent implements OnInit {
     }, 500);
 
     setTimeout(() => {
-    this.persona.localidad.seqLocalidad = 0;
-    this.persona.lugarDeResidencia.seqCuidad = 0;
-    this.actualizarPerson(this.Spersona);
-    this.personaService.update(this.persona).subscribe(
-      response => {
-        console.log(response);
-        if (funcion === '1') {
-          Swal.fire('Exitoso', 'Persona Actualizada', 'success');
-        } else {
-          Swal.fire('Exitoso', 'Persona Creada', 'success');
-          this.router.navigate(['/menuPrincipal']);
+      this.persona.localidad.seqLocalidad = 0;
+      this.persona.lugarDeResidencia.seqCuidad = 0;
+      this.actualizarPerson(this.Spersona);
+      this.persona.lugarNacimiento = null;
+      let personaup = new Persona();
+      personaup = this.persona;
+      personaup.historiaGym = new Array<HistoriaGym>();
+      this.personaService.update(personaup).subscribe(
+        response => {
+          console.log(response);
+          if (funcion === '1') {
+            Swal.fire('Exitoso', 'Persona Actualizada', 'success');
+          } else {
+            Swal.fire('Exitoso', 'Persona Creada', 'success');
+            this.router.navigate(['/menuPrincipal']);
+          }
         }
-      }
-    );
+      );
     }, 1000);
   }
 
   private actualizarPerson(per: Persona): void {
+    debugger
     this.persona.seqPersona = per.seqPersona;
     this.persona.nomPrimerNombre = this.persona.nomPrimerNombre == null ? per.nomPrimerNombre : this.persona.nomPrimerNombre;
     this.persona.nomPrimerApellido = this.persona.nomPrimerApellido == null ? per.nomPrimerApellido : this.persona.nomPrimerApellido;
@@ -208,24 +190,71 @@ export class FormAuxiliarComponent implements OnInit {
     this.persona.genero = this.persona.genero == null ? per.genero : this.persona.genero;
     this.persona.estadoCivil = this.persona.estadoCivil == null ? per.estadoCivil : this.persona.estadoCivil;
     this.persona.fechaNacimiento = this.persona.fechaNacimiento == null ? per.fechaNacimiento : this.persona.fechaNacimiento;
-    debugger
-    this.persona.lugarNacimiento = (this.persona.lugarNacimiento == null || this.persona.lugarNacimiento.seqCuidad == null) ? per.lugarNacimiento : this.persona.lugarNacimiento;
+    this.persona.lugarNacimiento = this.persona.lugarNacimiento == null ? per.lugarNacimiento : this.persona.lugarNacimiento;
     this.persona.lugarDeResidencia = (this.persona.lugarDeResidencia == null || this.persona.lugarDeResidencia.seqCuidad == null) ? per.lugarDeResidencia : this.persona.lugarDeResidencia;
     this.persona.escolaridad = this.persona.escolaridad == null ? per.escolaridad : this.persona.escolaridad;
     this.persona.nomCargoDep = this.persona.nomCargoDep == null ? per.nomCargoDep : this.persona.nomCargoDep;
     this.persona.afp = this.persona.afp == null ? per.afp : this.persona.afp;
     this.persona.arl = this.persona.arl == null ? per.arl : this.persona.arl;
     this.persona.aseguradora = (this.persona.aseguradora == null || this.persona.aseguradora.seqAseguradora == null) ? per.aseguradora : this.persona.aseguradora;
-    debugger
     this.persona.rh = this.persona.rh == null ? per.rh : this.persona.rh;
     this.persona.nomEmergencia = this.persona.nomEmergencia == null ? per.nomEmergencia : this.persona.nomEmergencia;
     this.persona.telEmergencia = this.persona.telEmergencia == null ? per.telEmergencia : this.persona.telEmergencia;
     this.persona.parentescoEmergencia = this.persona.parentescoEmergencia == null ? per.parentescoEmergencia : this.persona.parentescoEmergencia;
     this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
-    let nuevoRol = new TipoUsuario();
-    nuevoRol.seqTipoUsuario = 2;
-    this.persona.rolUsuario = (this.persona.rolUsuario.seqTipoUsuario == null || this.persona.rolUsuario == null) ? (per.rolUsuario == null || per.rolUsuario.seqTipoUsuario == null) ? nuevoRol : per.rolUsuario : this.persona.rolUsuario;
+    this.persona.rolUsuario = (this.persona.rolUsuario.seqTipoUsuario == null || this.persona.rolUsuario == null) ? per.rolUsuario : this.persona.rolUsuario;
+  }
+  private onLabels(): void {
+    this.labelService.getLabel().subscribe(
+      (respuesta) => {
+        this.datosSingleton = respuesta
+        console.log(respuesta)
+      }
+    );
+  }
+  private getTipoDocumento(): void {
+    this.personaService.getTipoDocumento().subscribe(
+      (respuesta) => {
+        this.tipoDocumento = respuesta
+        console.log(respuesta)
+      }
+    )
+  }
+
+  private getCiudad(): void {
+    this.personaService.getCiudad().subscribe(
+      (respuesta) => {
+        this.ciudad = respuesta
+        console.log(respuesta)
+      }
+    )
+  }
+
+  private getAseguradora(): void {
+    this.personaService.getAseguradora().subscribe(
+      (respuesta) => {
+        this.aseguradora = respuesta
+        console.log(respuesta)
+      }
+    )
+  }
+
+  private getTipoUsuario(): void {
+    this.historiaService.getTipoUsuario().subscribe(
+      (respuesta) => {
+        this.tipoUsuario = respuesta
+        console.log(respuesta)
+      }
+    )
+  }
+
+  private getPermisos(): void {
+    this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos.crearAux;
+    this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos.crearUsuario;
+    this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos.gestionarUsuario;
+    this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos.descargar;
+    console.log(this.permiso.crearAux);
   }
 
 }

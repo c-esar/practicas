@@ -65,13 +65,22 @@ public class PersonaController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/listPersonas/{id}")
-	@ResponseStatus(HttpStatus.CREATED)
-	public PersonaEntity update(@RequestBody PersonaEntity persona, @PathVariable Long id) {
-		PersonaEntity perActual = personaService.findById(id);
-		perActual.setNomPrimerNombre(persona.getNomPrimerNombre());
-
-		return personaService.save(perActual);
+	@PutMapping("/actualizarPersonaDatos")
+	public ResponseEntity<?> update(@RequestBody PersonaEntity persona) {
+		PersonaEntity personaUp = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			personaUp = personaService.save(persona);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar al actualizar en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			response.put("persona", personaUp);
+			System.err.print(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("mensaje", "La persona ha sido actualizado con éxito!");
+		response.put("persona", personaUp);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/listPersonas/{id}")
@@ -86,16 +95,18 @@ public class PersonaController {
 		PersonaEntity personaNew = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
-		 personaNew = personaService.findByNumeroDocumento(numeroDocumento);
-		}catch(DataAccessException e) {
-			response.put("mensaje", "La persona con Documento".concat(numeroDocumento).concat("no existe en la base de datos"));
+			personaNew = personaService.findByNumeroDocumento(numeroDocumento);
+		} catch (DataAccessException e) {
+			response.put("mensaje",
+					"La persona con Documento".concat(numeroDocumento).concat("no existe en la base de datos"));
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		
-		if(personaNew == null) {
-			response.put("mensaje", "La persona con Documento".concat(numeroDocumento).concat(" no existe en la base de datos"));
-			return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
+
+		if (personaNew == null) {
+			response.put("mensaje",
+					"La persona con Documento".concat(numeroDocumento).concat(" no existe en la base de datos"));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<PersonaEntity>(personaNew, HttpStatus.OK);
 	}

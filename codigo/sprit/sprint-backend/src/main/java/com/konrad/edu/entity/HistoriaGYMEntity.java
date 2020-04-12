@@ -14,10 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -77,6 +75,10 @@ public class HistoriaGYMEntity implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "seq_historia_gym")
 	private List<CuestionarioGymEntity> cuestionarioGymEntity;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "seq_persona")
+	private PersonaEntity persona;
 
 	@Column(name = "dia_historia_gym")
 	@Temporal(TemporalType.DATE)
@@ -249,6 +251,26 @@ public class HistoriaGYMEntity implements Serializable {
 
 	public void setFamiliarGymEntity(List<FamiliarGymEntity> familiarGymEntity) {
 		this.familiarGymEntity = familiarGymEntity;
+	}
+
+
+	public PersonaEntity getPersona() {
+		return persona;
+	}
+
+
+	public void setPersona(PersonaEntity persona) {
+		this.persona = persona;
+	}
+
+
+	public String getTipoCancer() {
+		return tipoCancer;
+	}
+
+
+	public void setTipoCancer(String tipoCancer) {
+		this.tipoCancer = tipoCancer;
 	}
 
 	

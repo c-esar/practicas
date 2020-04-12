@@ -5,51 +5,51 @@
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12" style="top:10px;">
       <!--(ngSubmit)="create()"-->
-      <form novalidate #f="ngForm" class="form-inline">
-        <div class="card text-center col-md-12 col-sm-12 col-xs-12">
-          <div class="card-header col-md-12 col-sm-12 col-xs-12">
-            <ul class="nav nav-pills card-header-pills">
-              <li class="nav-item">
-                <button id="DatosPricipales" class="nav-link btn btn-primary active"
-                  (click)="onActivarSubMenu('DatosPricipales')">{{datosSingleton.menuOcupacionalDatosPrincipales}}</button>
-              </li>
-              <li class="nav-item">
-                <button id="DatosHistoriaPersonal" class="nav-link btn btn-primary" *ngIf="medico == true"
-                  (click)="onActivarSubMenu('DatosHistoriaPersonal')">{{datosSingleton.menuPersonal}}</button>
-              </li>
-              <li class="nav-item">
-                <button id="DatosHistoriaFamiliar" class="nav-link btn btn-primary " *ngIf="medico == true"
-                  (click)="onActivarSubMenu('DatosHistoriaFamiliar')">{{datosSingleton.labelMenuFamiliar}}</button>
-              </li>
-              <li class="nav-item">
-                <button id="DatosCuestionario" class="nav-link btn btn-primary " *ngIf="medico == true"
-                  (click)="onActivarSubMenu('DatosCuestionario')">{{datosSingleton.menuCuestionario}}</button>
-              </li>
-              <li class="nav-item">
-                <button id="DatosExamenFisico" class="nav-link btn btn-primary " *ngIf="medico == true"
-                  (click)="onActivarSubMenu('DatosExamenFisico')">{{datosSingleton.menuExamenFisico}}</button>
-              </li>
-              <li class="nav-item">
-                <button id="DatosFinalFormulario" class="nav-link btn btn-primary " *ngIf="medico == true"
-                  (click)="onActivarSubMenu('DatosFinalFormulario')">{{datosSingleton.ultimaParte}}</button>
-              </li>
-            </ul>
-          </div>
+      <div class="card text-center col-md-12 col-sm-12 col-xs-12">
+        <div class="card-header col-md-12 col-sm-12 col-xs-12">
+          <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item">
+              <button id="DatosPricipales" class="nav-link btn btn-primary active"
+                (click)="onActivarSubMenu('DatosPricipales')">{{datosSingleton.menuOcupacionalDatosPrincipales}}</button>
+            </li>
+            <li class="nav-item">
+              <button id="DatosHistoriaPersonal" class="nav-link btn btn-primary" *ngIf="medico == true"
+                (click)="onActivarSubMenu('DatosHistoriaPersonal')">{{datosSingleton.menuPersonal}}</button>
+            </li>
+            <li class="nav-item">
+              <button id="DatosHistoriaFamiliar" class="nav-link btn btn-primary " *ngIf="medico == true"
+                (click)="onActivarSubMenu('DatosHistoriaFamiliar')">{{datosSingleton.labelMenuFamiliar}}</button>
+            </li>
+            <li class="nav-item">
+              <button id="DatosCuestionario" class="nav-link btn btn-primary " *ngIf="medico == true"
+                (click)="onActivarSubMenu('DatosCuestionario')">{{datosSingleton.menuCuestionario}}</button>
+            </li>
+            <li class="nav-item">
+              <button id="DatosExamenFisico" class="nav-link btn btn-primary " *ngIf="medico == true"
+                (click)="onActivarSubMenu('DatosExamenFisico')">{{datosSingleton.menuExamenFisico}}</button>
+            </li>
+            <li class="nav-item">
+              <button id="DatosFinalFormulario" class="nav-link btn btn-primary " *ngIf="medico == true"
+                (click)="onActivarSubMenu('DatosFinalFormulario')">{{datosSingleton.ultimaParte}}</button>
+            </li>
+          </ul>
+        </div>
 
-          <div class="card-body " id="DatosPricipalesHtml" style="display:none;">
-            <blockquote class="blockquote mb-0 form-row etiquetas">
+        <div class="card-body " id="DatosPricipalesHtml" style="display:none;">
+          <blockquote class="blockquote mb-0 form-row etiquetas">
+            <form novalidate #datos="ngForm" class="form-inline" style="width: 100%;">
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <h3>{{datosSingleton.separadorPrincipal}}</h3>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formciudadHistoria">{{datosSingleton.labelCiudad}}</mat-label>
-                  <select matNativeControl id="formciudadHistoria"
-                    (ngModelChange)="persona.historiaGym[0].ciudadHistoria = $event" name="ciudadHistoria">
-                    <optgroup label="Seleccionar">
-                      <option *ngFor="let ciu of ciudad" value={{ciu}}>{{ciu.nomCuidad}}</option>
-                    </optgroup>
-                  </select>
+                  <mat-select id="formciudadHistoria" [ngModel]="persona.historiaGym[0].ciudadHistoria.seqCuidad"
+                    (ngModelChange)="persona.historiaGym[0].ciudadHistoria.seqCuidad = $event" name="ciudadHistoria">
+                    <mat-option *ngFor="let ciu of ciudad" [value]="ciu.seqCuidad">
+                      {{ciu.nomCuidad}}
+                    </mat-option>
+                  </mat-select>
                   <mat-error>Seleccione una opción</mat-error>
                 </mat-form-field>
               </div>
@@ -261,10 +261,16 @@
                     value="" />
                 </mat-form-field>
               </div>
-            </blockquote>
-          </div>
+              <div class="form-group col-md-6 col-sm-6 col-xs-3 row">
+                <button mat-raised-button color="primary" role="button" *ngIf="buscoPerson == true"
+                  [disabled]="datos.invalid" (click)="updatePersona()">ACTUALIZAR</button>
+              </div>
+            </form>
+          </blockquote>
+        </div>
 
-          <!-- Segunda parte-->
+        <!-- Segunda parte-->
+        <form novalidate #f="ngForm" class="form-inline">
           <div class="card-body" id="DatosHistoriaPersonalHtml" style="display:none;">
             <blockquote class="blockquote mb-0 form-row etiquetas">
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -458,12 +464,12 @@
                   </mat-form-field>
                 </div>
                 <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                    <mat-form-field id="formcantidadsustanciasGym">
-                      <mat-label for="formcantidadsustanciasGym">{{datosSingleton.labelPreguntaSustanciasCuales}}
-                      </mat-label>
-                      <textarea matInput [(ngModel)]="PSICOACTIVAS.despCuales" name="cantidadsustancias" type="text" rows="3"
-                        cols="80"></textarea>
-                    </mat-form-field>
+                  <mat-form-field id="formcantidadsustanciasGym">
+                    <mat-label for="formcantidadsustanciasGym">{{datosSingleton.labelPreguntaSustanciasCuales}}
+                    </mat-label>
+                    <textarea matInput [(ngModel)]="PSICOACTIVAS.despCuales" name="cantidadsustancias" type="text"
+                      rows="3" cols="80"></textarea>
+                  </mat-form-field>
                 </div>
               </div>
             </blockquote>
@@ -701,14 +707,15 @@
                 <h4>{{datosSingleton.parteFinal}}</h4>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3 row">
-                <button mat-raised-button color="primary" role="button" (click)="create()">CREAR
-                  PACIENTE</button>
+                <button mat-raised-button color="primary" role="button" [disabled]="f.invalid" (click)="create()">CREAR
+                  HISTORIA</button>
               </div>
             </blockquote>
           </div>
 
-        </div>
-      </form>
+        </form>
+      </div>
+
     </div>
   </div>
 </div>

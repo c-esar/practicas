@@ -5,56 +5,53 @@
     </div>
     <div>
       <h2 class="example-h2" *ngIf="barProgres">
-        <mat-progress-spinner mode="indeterminate" >Proceso...</mat-progress-spinner>
+        <mat-progress-spinner mode="indeterminate">Proceso...</mat-progress-spinner>
         {{datosSingleton.mensajeBarProgress}}
       </h2>
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12" style="top:10px;" id="contenidoFormulario">
       <!--(ngSubmit)="create()"-->
-      <form novalidate #f="ngForm" class="form-inline" id="">
-        <div class="card text-center col-md-12 col-sm-12 col-xs-12">
-          <div class="card-header col-md-12 col-sm-12 col-xs-12">
-            <ul class="nav nav-pills card-header-pills">
-              <li class="nav-item">
-                <button id="DatosPricipales" class="nav-link btn btn-primary active"
-                  (click)="onActivarSubMenu('DatosPricipales')">{{datosSingleton.menuOcupacionalDatosPrincipales}}</button>
-              </li>
-              <li class="nav-item">
-                <button id="DatosHistoriaLaboral" class="nav-link btn btn-primary"
-                  (click)="onActivarSubMenu('DatosHistoriaLaboral')">{{datosSingleton.menuOcupacionalHistoriaLaboral}}</button>
-              </li>
-              <li class="nav-item">
-                <button id="DatosTerceraFase" class="nav-link btn btn-primary "
-                  (click)="onActivarSubMenu('DatosTerceraFase')">{{datosSingleton.menuMotivoConsulta}}</button>
-              </li>
-              <li class="nav-item">
-                <button id="DatosExamenFisico" class="nav-link btn btn-primary "
-                  (click)="onActivarSubMenu('DatosExamenFisico')">{{datosSingleton.menuExamenFisico}}</button>
-              </li>
-              <li class="nav-item">
-                <button id="DatosFinalFormulario" class="nav-link btn btn-primary "
-                  (click)="onActivarSubMenu('DatosFinalFormulario')">{{datosSingleton.ultimaParte}}</button>
-              </li>
-            </ul>
-          </div>
-          <div class="card-body " id="datosPersonales" style="display:none;">
-            <blockquote class="blockquote mb-0 form-row etiquetas">
+      <div class="card text-center col-md-12 col-sm-12 col-xs-12">
+        <div class="card-header col-md-12 col-sm-12 col-xs-12">
+          <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item">
+              <button id="DatosPricipales" class="nav-link btn btn-primary active"
+                (click)="onActivarSubMenu('DatosPricipales')">{{datosSingleton.menuOcupacionalDatosPrincipales}}</button>
+            </li>
+            <li class="nav-item">
+              <button id="DatosHistoriaLaboral" class="nav-link btn btn-primary"
+                (click)="onActivarSubMenu('DatosHistoriaLaboral')">{{datosSingleton.menuOcupacionalHistoriaLaboral}}</button>
+            </li>
+            <li class="nav-item">
+              <button id="DatosTerceraFase" class="nav-link btn btn-primary "
+                (click)="onActivarSubMenu('DatosTerceraFase')">{{datosSingleton.menuMotivoConsulta}}</button>
+            </li>
+            <li class="nav-item">
+              <button id="DatosExamenFisico" class="nav-link btn btn-primary "
+                (click)="onActivarSubMenu('DatosExamenFisico')">{{datosSingleton.menuExamenFisico}}</button>
+            </li>
+            <li class="nav-item">
+              <button id="DatosFinalFormulario" class="nav-link btn btn-primary "
+                (click)="onActivarSubMenu('DatosFinalFormulario')">{{datosSingleton.ultimaParte}}</button>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body " id="datosPersonales" style="display:none;">
+          <blockquote class="blockquote mb-0 form-row etiquetas">
+            <form novalidate #datos="ngForm" class="form-inline" style="width: 100%;">
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <h3>{{datosSingleton.separadorPrincipal}}</h3>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formciudadHistoria">{{datosSingleton.labelCiudad}}</mat-label>
-                  <select matNativeControl id="formciudadHistoria"
-                    [(ngModel)]="persona.historias[0].ciudadHistoria.seqCuidad" name="ciudadHistoria">
-                    <optgroup label="Valor Seleccionado">
-                      <option value="persona.historias[0].ciudadHistoria.seqCuidad" selected>
-                        {{persona.historias[0].ciudadHistoria.nomCuidad}}</option>
-                    </optgroup>
-                    <optgroup label="Seleccionar">
-                      <option *ngFor="let ciu of ciudad" value={{ciu.seqCuidad}}>{{ciu.nomCuidad}}</option>
-                    </optgroup>
-                  </select>
+                  <mat-select id="formciudadHistoria"
+                    [ngModel]="persona.historias[0].ciudadHistoria.seqCuidad" name="ciudadHistoria"
+                    (ngModelChange)="persona.historias[0].ciudadHistoria.seqCuidad = $event">
+                      <mat-option *ngFor="let ciu of ciudad" [value]="ciu.seqCuidad">
+                        {{ciu.nomCuidad}}
+                      </mat-option>
+                  </mat-select>
                   <mat-error>Seleccione una opción</mat-error>
                 </mat-form-field>
               </div>
@@ -103,18 +100,18 @@
                   </mat-form-field>
                 </div>
                 <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                  <button id="BuscarPersona" mat-raised-button color="primary" (click)="onValidatePersona()">Buscar</button>
+                  <button id="BuscarPersona" mat-raised-button color="primary"
+                    (click)="onValidatePersona()">Buscar</button>
                 </div>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formTipoDocumentoOcupacional">{{datosSingleton.labelTipoDocumento}}</mat-label>
-                  <mat-select id="formTipoDocumentoOcupacional"
-                    [ngModel]="Spersona.tipoDocumento.seqTipoDocumento" name="tipoDocumento"
-                    (ngModelChange)="persona.tipoDocumento.seqTipoDocumento = $event" >
-                      <mat-option *ngFor="let doc of tipoDocumento" [value]="doc.seqTipoDocumento">
-                        {{doc.siglaDocumento + "-" + doc.nomDocumento}}
-                      </mat-option>
+                  <mat-select id="formTipoDocumentoOcupacional" [ngModel]="Spersona.tipoDocumento.seqTipoDocumento"
+                    name="tipoDocumento" (ngModelChange)="persona.tipoDocumento.seqTipoDocumento = $event">
+                    <mat-option *ngFor="let doc of tipoDocumento" [value]="doc.seqTipoDocumento">
+                      {{doc.siglaDocumento + "-" + doc.nomDocumento}}
+                    </mat-option>
                   </mat-select>
                   <mat-error>Seleccione una opción</mat-error>
                 </mat-form-field>
@@ -169,7 +166,8 @@
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
                 <mat-form-field>
                   <mat-label for="formedadOcupacional">{{datosSingleton.labeledad}}</mat-label>
-                  <input matInput required pattern="[0-9]*" [ngModel]="Spersona.edad" 
+                  <input matInput required pattern="[0-9]*" 
+                    [ngModel]="Spersona.edad"
                     (ngModelChange)="persona.edad = $event" name="edad" id="formedadOcupacional" type="text"
                     class="form-control campoGrande" placeholder={{datosSingleton.labeledad}} />
                   <mat-error>Digite la edad de la persona</mat-error>
@@ -295,15 +293,16 @@
                     placeholder={{datosSingleton.labelARL}} value="" />
                 </mat-form-field>
               </div>
-              <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                <button *ngIf="medico == false" mat-raised-button color="primary" role="button" [disabled]="f.invalid"
-                  (click)="create()">CREAR PACIENTE</button>
+              <div class="form-group col-md-6 col-sm-6 col-xs-3 row">
+                <button mat-raised-button color="primary" role="button" *ngIf="buscoPerson == true"
+                  [disabled]="datos.invalid" (click)="updatePersona()">ACTUALIZAR</button>
               </div>
-            </blockquote>
-          </div>
+            </form>
+          </blockquote>
+        </div>
 
-          <!--Segunda fase [disabled]="f.invalid"-->
-
+        <!--Segunda fase [disabled]="f.invalid"-->
+        <form novalidate #f="ngForm" class="form-inline" id="">
           <div class="card-body" id="datosHistoriaLaboral" style="display:none;">
             <blockquote class="blockquote col-md-12 col-sm-12 col-xs-12 form-row etiquetas">
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -1083,7 +1082,8 @@
               <div class="form-group col-md-12 col-sm-12 col-xs-6" id="conceptoIngreso">
                 <mat-form-field>
                   <mat-label>{{datosSingleton.labelIngreso}}</mat-label>
-                  <mat-select required [(ngModel)]="persona.historias[0].conceptoConcepto[0].seqConcepto" name="labelIngreso">
+                  <mat-select required [(ngModel)]="persona.historias[0].conceptoConcepto[0].seqConcepto"
+                    name="labelIngreso">
                     <mat-option *ngFor="let doc of conceptoIngreso" [value]="doc.seqConcepto">{{doc.nomConcepto}}
                     </mat-option>
                   </mat-select>
@@ -1093,7 +1093,8 @@
               <div class="form-group col-md-12 col-sm-12 col-xs-6" id="conceptoPeriodico">
                 <mat-form-field>
                   <mat-label>{{datosSingleton.labelPeriodico}}</mat-label>
-                  <mat-select required [(ngModel)]="persona.historias[0].conceptoConcepto[0].seqConcepto" name="labelPeriodico">
+                  <mat-select required [(ngModel)]="persona.historias[0].conceptoConcepto[0].seqConcepto"
+                    name="labelPeriodico">
                     <mat-option *ngFor="let doc of conceptoPeriodico" [value]="doc.seqConcepto">{{doc.nomConcepto}}
                     </mat-option>
                   </mat-select>
@@ -1103,7 +1104,8 @@
               <div class="form-group col-md-12 col-sm-12 col-xs-6" id="conceptoEgreso">
                 <mat-form-field>
                   <mat-label>{{datosSingleton.labelEgreso}}</mat-label>
-                  <mat-select required [(ngModel)]="persona.historias[0].conceptoConcepto[0].seqConcepto" name="labelEgreso">
+                  <mat-select required [(ngModel)]="persona.historias[0].conceptoConcepto[0].seqConcepto"
+                    name="labelEgreso">
                     <mat-option *ngFor="let doc of conceptoEgreso" [value]="doc.seqConcepto">{{doc.nomConcepto}}
                     </mat-option>
                   </mat-select>
@@ -1135,14 +1137,13 @@
                 </mat-form-field>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3 row">
-                <button mat-raised-button color="primary" role="button"  (click)="create()">CREAR
-                  PACIENTE</button>
+                <button mat-raised-button color="primary" role="button" [disabled]="f.invalid" (click)="create()">CREAR
+                  HISTORIA</button>
               </div>
-              <!--[disabled]="f.invalid"-->
             </blockquote>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>

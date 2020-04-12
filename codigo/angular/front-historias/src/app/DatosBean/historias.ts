@@ -7,6 +7,7 @@ import { TipoHistoria } from './tipoHistoria';
 import { Paraclinicos } from './paraclinicos';
 import { Concepto } from './concepto';
 import { DiagnosticoOcupacional } from './diagnosticoOcupacional';
+import { Persona } from './persona';
 export class Historias {
   seqHistoria: number;
   historiaLaboral: HistoriaLaboral;
@@ -25,6 +26,7 @@ export class Historias {
   recomHabitos: string;
   seqTipoHistoria: TipoHistoria;
   otroEvaluacion: string;
+  persona: Persona;
   constructor() {
     this.seqHistoria = null;
     this.historiaLaboral = new HistoriaLaboral();
@@ -43,5 +45,6 @@ export class Historias {
     this.recomOcupacionales = null;
     this.recomHabitos = null;
     this.otroEvaluacion = null;
+    this.persona = new Persona();
   }
 }
