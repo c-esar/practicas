@@ -23,7 +23,7 @@ public class AseguradoraEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long seqAseguradora;
 
-	@Column(name = "tipo_aseguradora", nullable = false, unique = true)
+	@Column(name = "tipo_aseguradora", nullable = false)
 	private String tipoAseguradora;
 
 	@Column(name = "nom_aseguradora", nullable = false)

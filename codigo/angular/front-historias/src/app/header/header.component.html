@@ -24,9 +24,8 @@
                 <li><a href="/menuPrincipal">Inicio</a></li>
                 <li *ngIf="permiso.gestionarUsuario == 1"><a>Gestión Usuarios</a>
                   <ul>
-                    <li><a href="menuPrincipal/creacionUsuario">Creación Usuario</a></li>
+                    <li><a href="menuPrincipal/creacion-actualizacion">Creacion/Actualizacion</a></li>
                     <li><a href="menuPrincipal/list-usuariosApp">Listado usuarios</a></li>
-                    <li><a href="menuPrincipal/cambioPass">Cambio Contraseña</a></li>
                   </ul>
                 </li>
                 <li *ngIf="permiso.crearUsuario == 1 || permiso.crearAux == 1"><a>Pacientes</a>
@@ -36,11 +35,9 @@
                     <li><a>Crear Formularios</a>
                       <ul>
                         <li *ngIf="permiso.crearUsuario == 1" ><a href="menuPrincipal/form-ocupacional">Formulario Ocupacional</a></li>
-                        <!-- <li *ngIf="permiso.crearUsuario == 1"><a href="menuPrincipal/form-gym">Formulario GYM</a></li> -->
-                        <li *ngIf="permiso.crearAux == 1"><a href="menuPrincipal/form-ocupacional/auxiliar">Formulario
-                            Ocupacional</a></li>
-                        <li ><a href="menuPrincipal/form-gym/auxiliar">Formulario
-                            GYM2</a></li>
+                        <li *ngIf="permiso.crearUsuario == 1"><a href="menuPrincipal/form-gym">Formulario GYM</a></li>
+                        <li *ngIf="permiso.crearAux == 1"><a href="menuPrincipal/form-ocupacional/auxiliar">Formulario Ocupacional</a></li>
+                        <li *ngIf="permiso.crearAux == 1"><a href="menuPrincipal/form-gym/auxiliar">Formulario GYM</a></li>
                         <li><a href="">otro</a></li>
                       </ul>
                     </li>

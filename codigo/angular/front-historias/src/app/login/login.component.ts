@@ -26,8 +26,19 @@ export class LoginComponent implements OnInit {
   }
 
   public iniciarLogin(): void {
-    console.log("Entre funcion " +this.loginService.isAutorization());
+    setTimeout(() => {
+      Swal.fire({
+        title: 'Buscando',
+        timer: 10000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
+    }, 500);
+
+    // setTimeout(() => {
+    console.log("Entre funcion " + this.loginService.isAutorization());
     console.log("Valor del login" + this.login.nomUsuario);
+    debugger
     if (this.loginService.isAutorization()) {
       this.router.navigate(['menuPrincipal'])
     } else {
@@ -35,6 +46,7 @@ export class LoginComponent implements OnInit {
         (respuesta) => {
           console.log("Estado:" + respuesta['estado']);
           console.log(respuesta.permisos);
+          debugger
           if (respuesta['estado'] == "ACTIVO" || respuesta['estado'] == "activo") {
             this.loginService.isLogin = true;
             this.loginService.correctLogin(respuesta);
@@ -45,6 +57,7 @@ export class LoginComponent implements OnInit {
         }
       );
     }
+    // }, 1000);
   }
 
 

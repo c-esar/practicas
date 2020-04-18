@@ -105,10 +105,10 @@ export class FormAuxiliarComponent implements OnInit {
   }
 
   private obtenerPermisos(): void {
-    this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos.crearAux;
-    this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos.crearUsuario;
-    this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos.gestionarUsuario;
-    this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos.descargar;
+    this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos[0].crearAux;
+    this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos[0].crearUsuario;
+    this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos[0].gestionarUsuario;
+    this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos[0].descargar;
   }
 
   public onValidatePersona(): void {
@@ -225,7 +225,13 @@ export class FormAuxiliarComponent implements OnInit {
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
     let nuevoRol = new TipoUsuario();
     nuevoRol.seqTipoUsuario = 2;
-    this.persona.rolUsuario = (this.persona.rolUsuario.seqTipoUsuario == null || this.persona.rolUsuario == null) ? (per.rolUsuario == null || per.rolUsuario.seqTipoUsuario == null) ? nuevoRol : per.rolUsuario : this.persona.rolUsuario;
+    if (this.persona.rolUsuario != null && this.persona.rolUsuario.length > 0) {
+    } else if (per.rolUsuario != null && per.rolUsuario.length > 0) {
+      this.persona.rolUsuario = per.rolUsuario;
+    } else {
+      this.persona.rolUsuario = new Array<TipoUsuario>();
+      this.persona.rolUsuario.push(nuevoRol);
+    }
   }
 
 }

@@ -11,5 +11,10 @@ public interface IPerfilDao extends CrudRepository<PerfilEntity, Long> {
 	@Query(value = "select * from HC_Historias.dbo.hc_perfiles u where u.nom_usuario = ?1 and u.password = ?2", nativeQuery = true)
 	public PerfilEntity findHcPerfilesByNomusuarioAndPassword(@Param("nom_usuario") String nom_usuario,
 			@Param("password") String password);
+	
+	@Query(value = "select  * from dbo.hc_perfiles f " + 
+			"inner join dbo.hc_personas p on p.seq_perfil = f.seq_perfil " + 
+			"where p.numero_documento = ?1", nativeQuery = true)
+	public PerfilEntity findHcPerfilesByNumeroDocumneto(@Param("numero_documento") String numero_documento);
 
 }

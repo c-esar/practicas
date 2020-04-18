@@ -38,8 +38,9 @@ export class Persona {
   localidad: Localidad;
   historias: Historias[];
   historiaGym: HistoriaGym[];
-  rolUsuario: TipoUsuario;
+  rolUsuario: TipoUsuario[];
   codigo: string;
+  nuevorolUsuario: string;
   constructor() {
     this.seqPersona = null;
     this.nomPrimerNombre = null;
@@ -65,7 +66,7 @@ export class Persona {
     this.telEmergencia = null;
     this.nomEmergencia = null;
     this.parentescoEmergencia = null;
-    this.rolUsuario = new TipoUsuario();
+    this.rolUsuario = new Array<TipoUsuario>();
     this.fechaCreacion = new Date();
     this.aseguradora = new Aseguradora();
     this.localidad = new Localidad();
@@ -75,5 +76,6 @@ export class Persona {
     this.historias = new Array<Historias>();
     this.historiaGym = new Array<HistoriaGym>();
     this.codigo = null;
+    this.nuevorolUsuario = null;
   }
 }

@@ -64,7 +64,7 @@
                 <div class="form-group col-md-6 col-sm-6 col-xs-3">
                   <mat-form-field>
                     <mat-label for="formSegundoApelldioOcupacional">{{datosSingleton.labelSegundoApellido}}</mat-label>
-                    <input matInput required
+                    <input matInput 
                       pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
                       [ngModel]="Spersona.nomSegundoApellido" (ngModelChange)="persona.nomSegundoApellido = $event"
                       name="nomSegundoApellido" id="formSegundoApelldioOcupacional" type="text"
@@ -87,7 +87,7 @@
                 <div class="form-group col-md-6 col-sm-6 col-xs-3">
                   <mat-form-field>
                     <mat-label for="formSegundoNombreOcupacional">{{datosSingleton.labelSegundoNombre}}</mat-label>
-                    <input matInput required
+                    <input matInput 
                       pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
                       [ngModel]="Spersona.nomSegundoNombre" (ngModelChange)="persona.nomSegundoNombre = $event"
                       name="nomSegundoNombre" id="formSegundoNombreOcupacional" type="text"

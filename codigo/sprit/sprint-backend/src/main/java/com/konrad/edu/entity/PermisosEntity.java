@@ -24,15 +24,19 @@ public class PermisosEntity implements Serializable {
 	private Long seqPermiso;
 
 	@Column(name = "crear_usuario")
+	@org.hibernate.annotations.ColumnDefault("0")
 	private Long crearUsuario;
 
 	@Column(name = "gestionar_usuario")
+	@org.hibernate.annotations.ColumnDefault("0")
 	private Long gestionarUsuario;
 
 	@Column
+	@org.hibernate.annotations.ColumnDefault("0")
 	private Long descargar;
 
 	@Column(name = "crear_aux")
+	@org.hibernate.annotations.ColumnDefault("0")
 	private Long crearAux;
 
 	public Long getSeqPermiso() {

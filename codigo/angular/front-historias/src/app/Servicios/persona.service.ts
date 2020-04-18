@@ -64,6 +64,17 @@ export class PersonaService {
   onBuscarDocumento(persona: Persona): Observable<Persona> {
     return this.http.get<Persona>(`${this.url + "persona/buscarDocumento"}/${persona.numeroDocumento}`, { headers: this.httpHeaders }).pipe(
       catchError(e => {
+        debugger
+        console.error(e.error.mensaje);
+        Swal.fire('Error', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  onInformePersonas(id: String): Observable<Persona[]> {
+    return this.http.get<Persona[]>(`${this.url + "persona/listPersonas/informe/"}/${id}`, { headers: this.httpHeaders }).pipe(
+      catchError(e => {
         console.error(e.error.mensaje);
         Swal.fire('Error', e.error.mensaje, 'error');
         return throwError(e);

@@ -35,9 +35,9 @@
           </ul>
         </div>
 
-        <div class="card-body " id="DatosPricipalesHtml" style="display:none;">
-          <blockquote class="blockquote mb-0 form-row etiquetas">
-            <form novalidate #datos="ngForm" class="form-inline" style="width: 100%;">
+        <form novalidate #datos="ngForm" class="form-inline" style="width: 100%;">
+          <div class="card-body " id="DatosPricipalesHtml" style="display:none;">
+            <blockquote class="blockquote mb-0 form-row etiquetas">
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <h3>{{datosSingleton.separadorPrincipal}}</h3>
               </div>
@@ -149,15 +149,109 @@
                 </mat-form-field>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                <section>
+                  <div style="float: left;">
+                    <mat-label>{{datosSingleton.tipoUsuario}}</mat-label>
+                  </div>
+                  <br>
+                  <br>
+                  <div style="float: left;">
+                    <div style="float:left">
+                      <mat-checkbox id="estudiante" name="estudiante" [(ngModel)]="estudiante">
+                      </mat-checkbox>
+                    </div>
+                    <div style="float:right">
+                      <label>ESTUDIANTE</label>
+                    </div>
+                  </div>
+                  <br>
+                  <div style="float: left;">
+                    <div style="float:left">
+                      <mat-checkbox id="administrativo" name="administrativo" [(ngModel)]="administrativo">
+                      </mat-checkbox>
+                    </div>
+                    <div style="float:right">
+                      <label>ADMINISTRATIVO</label>
+                    </div>
+                  </div>
+
+                  <br>
+                  <div style="float: left;">
+                    <div style="float:left">
+                      <mat-checkbox id="docente" name="docente" [(ngModel)]="docente">
+                      </mat-checkbox>
+                    </div>
+                    <div style="float:right">
+                      <label>DOCENTE</label>
+                    </div>
+                  </div>
+
+                  <br>
+                  <div style="float: left;">
+                    <div style="float:left">
+                      <mat-checkbox id="egresado" name="egresado" [(ngModel)]="egresado">
+                      </mat-checkbox>
+                    </div>
+                    <div style="float:right">
+                      <label>EGRESADO</label>
+                    </div>
+                  </div>
+
+                  <br>
+                  <div style="float: left;">
+                    <div style="float:left">
+                      <mat-checkbox id="otro" name="otro" [(ngModel)]="otro">
+                      </mat-checkbox>
+                    </div>
+                    <div style="float:right">
+                      <label>OTRO</label>
+                    </div>
+                  </div>
+
+                  <br>
+                  <div style="float: left;">
+                    <div style="float:left">
+                      <mat-checkbox id="administrador" name="administrador" [(ngModel)]="administrador">
+                      </mat-checkbox>
+                    </div>
+                    <div style="float:right">
+                      <label>ADMINISTRADOR</label>
+                    </div>
+                  </div>
+
+                  <br>
+                  <div style="float: left;">
+                    <div style="float:left">
+                      <mat-checkbox id="medicotipo" name="medicotipo" [(ngModel)]="medicotipo">
+                      </mat-checkbox>
+                    </div>
+                    <div style="float:right">
+                      <label>MEDICO</label>
+                    </div>
+                  </div>
+
+                  <br>
+                  <div style="float: left;">
+                    <div style="float:left">
+                      <mat-checkbox id="auxiliar" name="auxiliar" [(ngModel)]="auxiliar">
+                      </mat-checkbox>
+                    </div>
+                    <div style="float:right">
+                      <label>AUXILIAR</label>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="form-group col-md-6 col-sm-6 col-xs-6" *ngIf="otro == true">
                 <mat-form-field>
-                  <mat-label>{{datosSingleton.tipoUsuario}}</mat-label>
-                  <mat-select required [ngModel]="Spersona.rolUsuario.seqTipoUsuario"
-                    (ngModelChange)="persona.rolUsuario.seqTipoUsuario = $event" name="tipoUsuario">
-                    <mat-option *ngFor="let doc of tipoUsuario" [value]="doc.seqTipoUsuario">
-                      {{doc.nomTipoUsuario}}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error>Seleccione una opción</mat-error>
+                  <mat-label for="formotroUsuarioGym">OTRO TIPO USUARIO
+                  </mat-label>
+                  <input matInput
+                    pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                    [ngModel]="Spersona.nuevorolUsuario" (ngModelChange)="persona.nuevorolUsuario = $event"
+                    name="otroUsuario" id="formotroUsuarioGym" type="text" class="form-control campoGrande"
+                    placeholder=OTRO TIPO USUARIO />
+                  <mat-error>Texto Incorrecto</mat-error>
                 </mat-form-field>
               </div>
               <div class="form-group col-md-6 col-sm-6 col-xs-3">
@@ -265,9 +359,9 @@
                 <button mat-raised-button color="primary" role="button" *ngIf="buscoPerson == true"
                   [disabled]="datos.invalid" (click)="updatePersona()">ACTUALIZAR</button>
               </div>
-            </form>
-          </blockquote>
-        </div>
+            </blockquote>
+          </div>
+        </form>
 
         <!-- Segunda parte-->
         <form novalidate #f="ngForm" class="form-inline">

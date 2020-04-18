@@ -15,5 +15,9 @@ public interface IPersonaService {
 	public void delete(Long id);
 
 	public PersonaEntity findByNumeroDocumento(String numero_documento);
+	
+	public PersonaEntity findByNumeroPerfil(String seq_perfil);
+	
+	public List<PersonaEntity> findAllTipoUsuario(String seq_tipo_usuario);
 
 }

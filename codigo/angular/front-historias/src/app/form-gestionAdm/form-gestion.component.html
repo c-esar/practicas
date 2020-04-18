@@ -51,18 +51,6 @@
                                     <mat-error>Seleccione una opción</mat-error>
                                 </mat-form-field>
                             </div>
-                            <!--https://developer.snapappointments.com/bootstrap-select/examples/-->
-                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                                <mat-form-field>
-                                    <mat-label for="formcodigoGym">{{datosSingleton.labelCodigo}}</mat-label>
-                                    <input matInput
-                                        pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
-                                        [ngModel]="Spersona.codigo" (ngModelChange)="persona.codigo = $event"
-                                        name="codigo" id="formcodigoGym" type="text" class="form-control campoGrande "
-                                        placeholder="{{datosSingleton.labelCodigo}}" value="{{persona.codigo}}">
-                                    <mat-error>Texto Incorrecto</mat-error>
-                                </mat-form-field>
-                            </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                 <mat-form-field>
                                     <mat-label for="formPrimerApellidoGym">{{datosSingleton.labelPrimerApellido}}
@@ -213,6 +201,30 @@
                                     </div>
                                 </section>
                             </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6" *ngIf="otro == true">
+                                <mat-form-field>
+                                    <mat-label for="formotroUsuarioGym">OTRO TIPO USUARIO
+                                    </mat-label>
+                                    <input matInput
+                                        pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                                        [ngModel]="Spersona.nuevorolUsuario"
+                                        (ngModelChange)="persona.nuevorolUsuario = $event" name="otroUsuario"
+                                        id="formotroUsuarioGym" type="text" class="form-control campoGrande"
+                                        placeholder=OTRO TIPO USUARIO />
+                                    <mat-error>Texto Incorrecto</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <mat-form-field>
+                                    <mat-label>Estado</mat-label>
+                                    <mat-select required [ngModel]="perfil.estado"
+                                        (ngModelChange)="perfil.estado = $event" name="estado">
+                                        <mat-option value="A">ACTIVO</mat-option>
+                                        <mat-option value="I">INACTIVO</mat-option>
+                                    </mat-select>
+                                    <mat-error>Seleccione una opción</mat-error>
+                                </mat-form-field>
+                            </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                 <mat-form-field>
                                     <mat-label for="formedadGym">{{datosSingleton.labeledad}}</mat-label>
@@ -224,61 +236,11 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                 <mat-form-field>
-                                    <mat-label for="formtelefonoGym">{{datosSingleton.labelTelefono}}</mat-label>
-                                    <mat-error>No son números</mat-error>
-                                    <input matInput required pattern="[0-9]*" [ngModel]="Spersona.telefono"
-                                        name="telefono" id="formtelefonoGym" type="text"
-                                        (ngModelChange)="persona.telefono = $event" class="form-control campoGrande"
-                                        placeholder={{datosSingleton.labelTelefono}} value="" />
-                                </mat-form-field>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                                <mat-form-field>
                                     <mat-label for="formgeneroGym">{{datosSingleton.labelGenero}}</mat-label>
                                     <mat-select [ngModel]="Spersona.genero" (ngModelChange)="persona.genero = $event"
                                         required name="genero" id="formgeneroGym">
                                         <mat-option value="M">Masculino</mat-option>
                                         <mat-option value="F">Femenino</mat-option>
-                                    </mat-select>
-                                    <mat-error>Seleccione una opción</mat-error>
-                                </mat-form-field>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                                <mat-form-field>
-                                    <mat-label for="formgrupoSanguineoGym">{{datosSingleton.labelGrupoSanguuineo}}
-                                    </mat-label>
-                                    <mat-select [ngModel]="Spersona.grupoSanguineo"
-                                        (ngModelChange)="persona.grupoSanguineo = $event" required
-                                        name="grupoSanguineo">
-                                        <mat-option value="A">A</mat-option>
-                                        <mat-option value="B">B</mat-option>
-                                        <mat-option value="O">O</mat-option>
-                                        <mat-option value="AB">AB</mat-option>
-                                    </mat-select>
-                                    <mat-error>Seleccione una opción</mat-error>
-                                </mat-form-field>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                                <mat-form-field>
-                                    <mat-label for="formRhGym">{{datosSingleton.labelRh}}</mat-label>
-                                    <mat-select [ngModel]="Spersona.rh" (ngModelChange)="persona.rh = $event" required
-                                        name="rh">
-                                        <mat-option value="RH+">RH +</mat-option>
-                                        <mat-option value="RH-">RH -</mat-option>
-                                    </mat-select>
-                                    <mat-error>Seleccione una opción</mat-error>
-                                </mat-form-field>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                                <mat-form-field>
-                                    <mat-label for="formaseguradoraGym">{{datosSingleton.labelAseguradora}}</mat-label>
-                                    <mat-select required [ngModel]="Spersona.aseguradora.seqAseguradora"
-                                        id="formaseguradoraGym"
-                                        (ngModelChange)="persona.aseguradora.seqAseguradora = $event"
-                                        name="aseguradora">
-                                        <mat-option *ngFor="let eps of aseguradora" [value]="eps.seqAseguradora">
-                                            {{eps.nomAseguradora}}
-                                        </mat-option>
                                     </mat-select>
                                     <mat-error>Seleccione una opción</mat-error>
                                 </mat-form-field>
@@ -296,35 +258,65 @@
                                     <mat-error>Texto Incorrecto</mat-error>
                                 </mat-form-field>
                             </div>
-                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                                <mat-form-field>
-                                    <mat-label for="formContactoEmergenciaGym">
-                                        {{datosSingleton.labelContactoEmergencia}}</mat-label>
-                                    <input matInput [ngModel]="Spersona.nomEmergencia"
-                                        (ngModelChange)="persona.nomEmergencia = $event" name="ContactoEmergencia"
-                                        id="formContactoEmergenciaGym" type="text" class="form-control campoGrande"
-                                        placeholder={{datosSingleton.labelContactoEmergencia}} value="" />
-                                </mat-form-field>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <section>
+                                    <div style="float: left;">
+                                        <mat-label>Permisos</mat-label>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div style="float: left;">
+                                        <div style="float:left">
+                                            <mat-checkbox id="crear" name="crear" [(ngModel)]="crear">
+                                            </mat-checkbox>
+                                        </div>
+                                        <div style="float:right">
+                                            <label>CREAR</label>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div style="float: left;">
+                                        <div style="float:left">
+                                            <mat-checkbox id="gestionar" name="gestionar" [(ngModel)]="gestionar">
+                                            </mat-checkbox>
+                                        </div>
+                                        <div style="float:right">
+                                            <label>GESTIONAR</label>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div style="float: left;">
+                                        <div style="float:left">
+                                            <mat-checkbox id="descargar" name="descargar" [(ngModel)]="descargar">
+                                            </mat-checkbox>
+                                        </div>
+                                        <div style="float:right">
+                                            <label>DESCARGAR</label>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div style="float: left;">
+                                        <div style="float:left">
+                                            <mat-checkbox id="auxiliarpermiso" name="auxiliarpermiso"
+                                                [(ngModel)]="auxiliarpermiso">
+                                            </mat-checkbox>
+                                        </div>
+                                        <div style="float:right">
+                                            <label>AUXILIAR</label>
+                                        </div>
+                                    </div>
+                                </section>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                 <mat-form-field>
-                                    <mat-label for="formtelefonocontactoGym">{{datosSingleton.labelTelefono}}
-                                    </mat-label>
-                                    <mat-error>No son números</mat-error>
-                                    <input matInput pattern="[0-9]*" [ngModel]="Spersona.telEmergencia"
-                                        name="telefonoContacto" id="formtelefonocontactoGym" type="text"
-                                        (ngModelChange)="persona.telEmergencia = $event"
-                                        class="form-control campoGrande" placeholder={{datosSingleton.labelTelefono}}
-                                        value="" />
-                                </mat-form-field>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
-                                <mat-form-field>
-                                    <mat-label for="formParentescoGym">{{datosSingleton.labelParentesco}}</mat-label>
-                                    <input matInput [ngModel]="Spersona.parentescoEmergencia"
-                                        (ngModelChange)="persona.parentescoEmergencia = $event" name="parentesco"
-                                        id="formParentescoGym" type="text" class="form-control campoGrande"
-                                        placeholder={{datosSingleton.labelParentesco}} value="" />
+                                    <mat-label>CONTRASE�A</mat-label>
+                                    <input matInput required [type]="hide ? 'password' : 'text'"
+                                        [ngModel]="perfil.password" (ngModelChange)="perfil.password = $event"
+                                        name="password">
+                                    <button mat-icon-button matSuffix (click)="hide = !hide"
+                                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-3 row">

@@ -40,4 +40,14 @@ public class PersonaServiceImp implements IPersonaService {
 		return personaDao.findByNumeroDocumento(numero_documento);
 	}
 
+	@Override
+	public PersonaEntity findByNumeroPerfil(String seq_perfil) {
+		return personaDao.findByNumeroPerfil(seq_perfil);
+	}
+
+	@Override
+	public List<PersonaEntity> findAllTipoUsuario(String seq_tipo_usuario) {
+		return personaDao.findAllTipoUsuario(seq_tipo_usuario);
+	}
+
 }

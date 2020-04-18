@@ -19,6 +19,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatTableModule } from '@angular/material/table';
 //componentes
 import { ListaPersonasComponent } from './lista-personas/lista-personas.component';
 import { CreacionUsuarioAppComponent } from './creacion-usuario-app/creacion-usuario-app.component';
@@ -35,13 +38,14 @@ import { LoginService } from './Servicios/login.service';
 import { PersonaService } from './Servicios/persona.service';
 import { LabelService } from './Servicios/label.service';
 import { TablesComponent } from './tables/tables.component';
-import { FormAuxiliarComponent } from './form-auxiliar/form-auxiliar.component';
+import { FormAuxiliarComponent } from './form-ocupacional-auxiliar/form-auxiliar.component';
 import { FactoresRiesgoComponent } from './form-factores-riesgo/factores-riesgo.component';
 import { EnfermedadesLaboralesComponent } from './form-enfermedades-laborales/enfermedades-laborales.component';
 import { AccidentesTrabajoComponent } from './form-accidentes-trabajo/accidentes-trabajo.component';
 import { TrabajosPreviosComponent } from './form-trabajos-previos/trabajos-previos.component';
 import { FormParaclinicosComponent } from './form-paraclinicos/form-paraclinicos.component';
 import { FormGymAuxiliarComponent } from './form-gym-auxiliar/form-gym-auxiliar.component';
+import { FormGestionComponent } from './form-gestionAdm/form-gestion.component';
 //rutas
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, //ruta principal de la aplicacion
@@ -55,7 +59,10 @@ const routes: Routes = [
   { path: 'menuPrincipal/form-gym', component: FormGymComponent, canActivate: [LoginService], data: { animation: 'HomePage' } },
   { path: 'menuPrincipal/list-usuariosApp', component: ListUsuariosAppComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/form-ocupacional/auxiliar', component: FormAuxiliarComponent, canActivate: [LoginService] },
-  { path: 'menuPrincipal/form-gym/auxiliar', component: FormGymAuxiliarComponent, canActivate: [LoginService] }
+  { path: 'menuPrincipal/form-gym/auxiliar', component: FormGymAuxiliarComponent, canActivate: [LoginService] },
+  { path: 'menuPrincipal/creacion-actualizacion', component: FormGestionComponent, canActivate: [LoginService] },
+  { path: 'menuPrincipal/informes', component: TablesComponent, canActivate: [LoginService] }
+
 ];
 
 @NgModule({
@@ -78,7 +85,8 @@ const routes: Routes = [
     AccidentesTrabajoComponent,
     TrabajosPreviosComponent,
     FormParaclinicosComponent,
-    FormGymAuxiliarComponent
+    FormGymAuxiliarComponent,
+    FormGestionComponent
   ],
   imports: [
     BrowserModule,
@@ -95,6 +103,9 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatTableModule,
     MatRadioModule,
     ModalModule.forRoot(),
     GridModule,

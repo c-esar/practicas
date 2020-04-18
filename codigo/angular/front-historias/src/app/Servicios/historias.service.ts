@@ -58,7 +58,7 @@ export class HistoriasService {
   }
 
   createHistoria(historias: Historias): Observable<Historias> {
-    return this.http.post<Historias>(this.url + "historiaPaciente/createHistoria", historias, { headers: this.httpHeaders });
+    return this.http.post<Historias>(this.url + "historiaPaciente/crearHistoriaOcupacional", historias, { headers: this.httpHeaders });
   }
 
   getTipoAntecedente(): Observable<TipoAntecedente[]> {

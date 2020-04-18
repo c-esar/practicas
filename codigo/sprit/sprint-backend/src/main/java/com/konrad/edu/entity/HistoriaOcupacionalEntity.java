@@ -103,6 +103,10 @@ public class HistoriaOcupacionalEntity implements Serializable {
 	
 	@Column(name="otro_evaluacion")
 	private String otroEvaluacion;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "seq_persona")
+	private PersonaEntity persona;
 
 	@PrePersist
 	public void prePersist() {
@@ -261,6 +265,16 @@ public class HistoriaOcupacionalEntity implements Serializable {
 
 	public void setDiagnosticoOcupacionalEntity(List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity) {
 		this.diagnosticoOcupacionalEntity = diagnosticoOcupacionalEntity;
+	}
+
+
+	public PersonaEntity getPersona() {
+		return persona;
+	}
+
+
+	public void setPersona(PersonaEntity persona) {
+		this.persona = persona;
 	}
 	
 	

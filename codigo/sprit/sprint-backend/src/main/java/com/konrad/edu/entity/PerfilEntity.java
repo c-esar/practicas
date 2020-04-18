@@ -1,6 +1,7 @@
 package com.konrad.edu.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -39,13 +40,10 @@ public class PerfilEntity implements Serializable {
 	@Column(name = "password", length = 50)
 	private String password;
 
+	@Column
 	private String estado;
 
-	@Column(name = "nom_perfil")
-	private String nomPerfil;
-
-	@OneToMany
-	@JoinColumn(name = "seq_perfil", updatable = false)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "perfil")
 	private List<PersonaEntity> persona;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -53,6 +51,11 @@ public class PerfilEntity implements Serializable {
 			@UniqueConstraint(columnNames = { "seq_perfil", "seq_permiso" }) })
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<PermisosEntity> permisos;
+	
+	public PerfilEntity() {
+		this.persona = new ArrayList<>();
+		this.permisos = new ArrayList<>();
+	}
 
 	public Long getSeqPerfil() {
 		return seqPerfil;
@@ -86,21 +89,6 @@ public class PerfilEntity implements Serializable {
 		this.estado = estado;
 	}
 
-	public String getNomPerfil() {
-		return nomPerfil;
-	}
-
-	public void setNomPerfil(String nomPerfil) {
-		this.nomPerfil = nomPerfil;
-	}
-
-	@Override
-	public String toString() {
-		return "PerfilEntity [seqPerfil=" + seqPerfil + ", nomUsuario=" + nomUsuario + ", password=" + password
-				+ ", estado=" + estado + ", nomPerfil=" + nomPerfil + ", persona=" + persona + ", permisos=" + permisos
-				+ "]";
-	}
-
 	public List<PermisosEntity> getPermisos() {
 		return permisos;
 	}
@@ -117,4 +105,10 @@ public class PerfilEntity implements Serializable {
 		this.persona = persona;
 	}
 
+	@Override
+	public String toString() {
+		return "PerfilEntity [seqPerfil=" + seqPerfil + ", nomUsuario=" + nomUsuario + ", password=" + password
+				+ ", estado=" + estado + ", persona=" + persona + ", permisos=" + permisos + "]";
+	}
+	
 }

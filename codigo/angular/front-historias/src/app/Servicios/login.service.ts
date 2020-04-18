@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Login } from '../DatosBean/login';
-import { of, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Permiso } from '../DatosBean/permiso';
-import {ConstantesService} from './constantes.service';
+import { of, Observable, throwError } from 'rxjs';
+import { ConstantesService } from './constantes.service';
+import Swal from 'sweetalert2';
+import { catchError } from 'rxjs/operators';
+import { Persona } from '../DatosBean/persona';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService implements CanActivate {
 
-  private localStorageService:any;
+  private localStorageService: any;
   private currentSession: Login;
   private url: string = this.constante.url;
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -19,7 +22,7 @@ export class LoginService implements CanActivate {
   public login: Login;
 
   constructor(private httpClient: HttpClient, private router: Router,
-  private constante: ConstantesService) {
+    private constante: ConstantesService) {
     this.localStorageService = localStorage;
     this.currentSession = this.loadSessionData();
     this.login = new Login();
@@ -38,18 +41,51 @@ export class LoginService implements CanActivate {
   }
 
   getLoginSesion(login: Login): Observable<Login> {
-    return this.httpClient.get<Login>(`${this.url+"login/sesion"}/${login.nomUsuario}/${login.password}`, { headers: this.httpHeaders });
+    return this.httpClient.get<Login>(`${this.url + "login/sesion"}/${login.nomUsuario}/${login.password}`, { headers: this.httpHeaders }).pipe(
+      map((respuesta: any) => respuesta.persona as Login),
+      catchError(e => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error al obtener la persona', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );;
   }
 
-  obtenerPerfilSesion(): Login{
+
+  getObtenerPersona(id: String): Observable<Login> {
+    debugger
+    return this.httpClient.get(`${this.url + "login/obtenerPersona"}/${id}`, { headers: this.httpHeaders }).pipe(
+      map( (respuesta: any) => respuesta.persona as Login),
+      catchError(e => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error al obtener la persona', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  create(persona: Login): Observable<Login> {
+    return this.httpClient.post<Login>(this.url + "login/creacionUsuario", persona, { headers: this.httpHeaders }).pipe(
+      catchError(e => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error al crear la persona', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  obtenerPerfilSesion(): Login {
+    this.login.permisos = new Array<Permiso>();
+    this.login.permisos.push(new Permiso())
+    this.login.persona = new Array<Persona>();
+    this.login.persona.push(new Persona());
     this.login.nomUsuario = this.currentSession.nomUsuario
     this.login.estado = this.currentSession.estado
-    this.login.nomPerfil = this.currentSession.nomPerfil;
     this.login.persona = this.currentSession.persona;
-    this.login.permisos.crearAux = this.currentSession.permisos[0].crearAux;
-    this.login.permisos.crearUsuario = this.currentSession.permisos[0].crearUsuario;
-    this.login.permisos.gestionarUsuario = this.currentSession.permisos[0].gestionarUsuario;
-    this.login.permisos.descargar = this.currentSession.permisos[0].descargar;
+    this.login.permisos[0].crearAux = this.currentSession.permisos[0].crearAux;
+    this.login.permisos[0].crearUsuario = this.currentSession.permisos[0].crearUsuario;
+    this.login.permisos[0].gestionarUsuario = this.currentSession.permisos[0].gestionarUsuario;
+    this.login.permisos[0].descargar = this.currentSession.permisos[0].descargar;
     return this.login;
   }
 
@@ -72,6 +108,7 @@ export class LoginService implements CanActivate {
   }
 
   setCurrentSession(session: Login): void {
+    debugger
     this.currentSession = session;
     this.localStorageService.setItem('currentUser', JSON.stringify(session));
   }

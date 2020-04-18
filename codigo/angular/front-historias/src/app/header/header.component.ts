@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.perfil = this.loginService.obtenerPerfilSesion().nomPerfil;
+    this.perfil = this.loginService.obtenerPerfilSesion().persona[0].rolUsuario[0].nomTipoUsuario;
     this.nomUsuario = this.loginService.obtenerPerfilSesion().nomUsuario;
     this.obtenerPermisos();
   }
@@ -28,9 +28,12 @@ export class HeaderComponent implements OnInit {
   }
 
   private obtenerPermisos(): void {
-    this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos.crearAux;
-    this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos.crearUsuario;
-    this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos.gestionarUsuario;
-    this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos.descargar;
+    this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos[0].crearAux;
+    this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos[0].crearUsuario;
+    this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos[0].gestionarUsuario;
+    this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos[0].descargar;
+    if (this.permiso.crearAux === 1 && this.permiso.crearUsuario === 1) {
+      this.permiso.crearAux = 0;
+    }
   }
 }

@@ -53,6 +53,11 @@ public class PersonaController {
 			tipoHistoria.setSeqTipoHistoria(1L);
 			persona.getHistorias().get(0).setSeqTipoHistoria(tipoHistoria);
 			personaNew = personaService.save(persona);
+			if(personaNew !=  null) {
+				personaNew.setPerfil(null);
+				personaNew.setHistorias(null);
+				personaNew.setHistoriasGym(null);
+			}
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insertar en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -71,6 +76,11 @@ public class PersonaController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			personaUp = personaService.save(persona);
+			if(personaUp != null) {
+				personaUp.setPerfil(null);
+				personaUp.setHistorias(null);
+				personaUp.setHistoriasGym(null);
+			}
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar al actualizar en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -96,6 +106,13 @@ public class PersonaController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			personaNew = personaService.findByNumeroDocumento(numeroDocumento);
+			if(personaNew != null) {
+				personaNew.setHistorias(null);
+				personaNew.setHistoriasGym(null);
+				if(personaNew.getPerfil() != null) {
+					personaNew.getPerfil().getPersona().clear();
+				}
+			}
 		} catch (DataAccessException e) {
 			response.put("mensaje",
 					"La persona con Documento".concat(numeroDocumento).concat("no existe en la base de datos"));
@@ -109,5 +126,24 @@ public class PersonaController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<PersonaEntity>(personaNew, HttpStatus.OK);
+	}
+	
+	@GetMapping("/listPersonas/informe/{tipoUsuario}")
+	public ResponseEntity<?> informeListPersonas(@PathVariable String tipoUsuario) {
+		List<PersonaEntity> personaNew = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			personaNew = personaService.findAllTipoUsuario(tipoUsuario);
+		} catch (DataAccessException e) {
+			response.put("mensaje","No se encontro ningún resultado");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		if (personaNew == null) {
+			response.put("mensaje","No se encontro ningún resultado");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<PersonaEntity>>(personaNew, HttpStatus.OK);
 	}
 }

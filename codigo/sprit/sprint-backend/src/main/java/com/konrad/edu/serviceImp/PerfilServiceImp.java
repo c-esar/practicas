@@ -24,4 +24,14 @@ public class PerfilServiceImp implements IPerfilService {
 		return new LabelConstantes();
 	}
 
+	@Override
+	public PerfilEntity save(PerfilEntity persona) {
+		return perfildao.save(persona);
+	}
+
+	@Override
+	public PerfilEntity findHcPerfilesByNumeroDocumneto(String numero_documento) {
+		return perfildao.findHcPerfilesByNumeroDocumneto(numero_documento);
+	}
+
 }

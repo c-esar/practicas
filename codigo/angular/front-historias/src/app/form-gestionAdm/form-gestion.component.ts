@@ -9,29 +9,21 @@ import { TipoDocumento } from '../DatosBean/tipoDocumento';
 import { Ciudad } from '../DatosBean/ciudad';
 import { Aseguradora } from '../DatosBean/aseguradora';
 import { TipoUsuario } from '../DatosBean/tipoUsuario';
-import { HistoriaPreguntaGym } from '../DatosBean/historiapreguntagym';
-import { TipoPreguntaHistoriaGym } from '../DatosBean/tipopreguntahistoriagym';
 import { Router } from '@angular/router';
 import { Permiso } from '../DatosBean/permiso';
-import { ExamenFisico } from '../DatosBean/examenFisico';
+import { Login } from '../DatosBean/login';
 import { FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { HistoriaGym } from '../DatosBean/historiaGym';
-import { DiagnosticoOcupacional } from '../DatosBean/diagnosticoOcupacional';
-import { TipoCuestionario } from '../DatosBean/tipoCuestionario';
-import { CuestionarioGym } from '../DatosBean/cuestionariogym';
-import { CondicionGym } from '../DatosBean/condiciongym';
-import { familiarGym } from '../DatosBean/familiargym';
-import { of, Observable, throwError } from 'rxjs';
 declare var jQuery: any;
 declare var $: any;
 
 @Component({
-  selector: 'app-form-gym-auxiliar',
-  templateUrl: './form-gym-auxiliar.component.html',
-  styleUrls: ['./form-gym-auxiliar.component.css']
+  selector: 'app-form-gestion',
+  templateUrl: './form-gestion.component.html',
+  styleUrls: ['./form-gestion.component.css']
 })
-export class FormGymAuxiliarComponent implements OnInit {
+export class FormGestionComponent implements OnInit {
 
   persona: Persona;
   date = new FormControl(new Date());
@@ -39,14 +31,18 @@ export class FormGymAuxiliarComponent implements OnInit {
   Spersona: Persona;
   buscoPerson: boolean;
   permiso: Permiso;
+  permisoForm: any;
   datosSingleton: DatosSingleton;
   tipoDocumento: TipoDocumento[];
   ciudad: Ciudad[];
   aseguradora: Aseguradora[];
   tipoUsuario: TipoUsuario[];
+  tipoUsuarioU: String = "";
+  tipoEncontrado: boolean = false;
   medico: boolean;
   aux: boolean;
   guardado: boolean;
+  perfil: Login;
   hide = true;
   estudiante: boolean;
   administrativo: boolean;
@@ -56,6 +52,11 @@ export class FormGymAuxiliarComponent implements OnInit {
   administrador: boolean;
   medicotipo: boolean;
   auxiliar: boolean;
+  crear: boolean;
+  gestionar: boolean;
+  descargar: boolean;
+  auxiliarpermiso: boolean;
+
   //constantes
   private PERSONA_PACIENTE: string = "Paciente";
 
@@ -84,11 +85,25 @@ export class FormGymAuxiliarComponent implements OnInit {
   onCargarAtributos(): void {
     this.persona = new Persona();
     this.permiso = new Permiso();
+    this.permisoForm = new Array<any>();
     this.tipoUsuario = new Array<TipoUsuario>();
     this.datosSingleton = new DatosSingleton();
     this.Spersona = new Persona();
     this.buscoPerson = false;
-    this.onCargarAtributosNuevos();
+    this.perfil = new Login();
+    this.perfil.estado = 'A';
+    this.estudiante = false;
+    this.administrativo = false;
+    this.docente = false;
+    this.egresado = false;
+    this.otro = false;
+    this.administrador = false;
+    this.medicotipo = false;
+    this.auxiliar = false;
+    this.crear = false;
+    this.gestionar = false;
+    this.descargar = false;
+    this.auxiliarpermiso = false;
   }
 
   onCargarFunciones(): void {
@@ -101,16 +116,7 @@ export class FormGymAuxiliarComponent implements OnInit {
     this.getTipoUsuario();
   }
 
-  private onCargarAtributosNuevos(): void {
-    this.estudiante = false;
-    this.administrativo = false;
-    this.docente = false;
-    this.egresado = false;
-    this.otro = false;
-    this.administrador = false;
-    this.medicotipo = false;
-    this.auxiliar = false;
-  }
+
 
   public onValidatePersona(): void {
     setTimeout(() => {
@@ -123,37 +129,80 @@ export class FormGymAuxiliarComponent implements OnInit {
     }, 500);
 
     setTimeout(() => {
-      let tmpDoc = this.persona.numeroDocumento;
-      debugger
-      this.Spersona = new Persona();
-      this.persona.aseguradora = new Aseguradora();
-      this.persona.tipoDocumento = new TipoDocumento();
-      this.persona.lugarNacimiento = new Ciudad();
-      this.buscoPerson = false;
-      this.onCargarAtributosNuevos();
-      this.personaService.onBuscarDocumento(this.persona).subscribe(
-        (respuesta) => {
-          debugger
-          console.log(respuesta);
-          this.Spersona = respuesta;
+    let tmpDoc = this.persona.numeroDocumento;
+    debugger
+    this.onCargarAtributosNuevos();
+    this.Spersona = new Persona();
+    this.persona.aseguradora = new Aseguradora();
+    this.persona.tipoDocumento = new TipoDocumento();
+    this.persona.lugarNacimiento = new Ciudad();
+    this.buscoPerson = false;
+    this.tipoEncontrado = false;
+    this.tipoUsuarioU = "";
+    this.loginService.getObtenerPersona(this.persona.numeroDocumento).subscribe(
+      (respuesta) => {
+        debugger
+        console.log(respuesta);
+        if (respuesta != null) {
+          this.perfil = respuesta;
+          this.Spersona = respuesta.persona[0];
           if (this.Spersona.aseguradora === null) {
             this.Spersona.aseguradora = new Aseguradora();
           }
           if (this.Spersona.tipoDocumento === null) {
-            this.persona.tipoDocumento = new TipoDocumento();
+            this.Spersona.tipoDocumento = new TipoDocumento();
           }
           if (this.Spersona.lugarNacimiento === null) {
-            this.persona.lugarNacimiento = new Ciudad();
+            this.Spersona.lugarNacimiento = new Ciudad();
           }
           this.persona.seqPersona = this.Spersona.seqPersona;
-          this.onListaNuevatipoUsuario(this.Spersona.rolUsuario);
+          if (this.Spersona.rolUsuario.length >= 1) {
+            this.onListaNuevatipoUsuario(this.Spersona.rolUsuario);
+          }
+          if (this.perfil.permisos.length >= 1) {
+            this.onListaPermisos(this.perfil.permisos[0]);
+          }
+
           this.buscoPerson = true;
           Swal.fire('Exitoso', 'Persona Registrada', 'success');
+        } else {
+          Swal.fire('Error', 'Error no se encuentra registrado', 'error');
         }
-      );
+
+      }
+    );
     }, 1000);
   }
 
+  private onCargarAtributosNuevos(): void {
+    this.estudiante = false;
+    this.administrativo = false;
+    this.docente = false;
+    this.egresado = false;
+    this.otro = false;
+    this.administrador = false;
+    this.medicotipo = false;
+    this.auxiliar = false;
+    this.crear = false;
+    this.gestionar = false;
+    this.descargar = false;
+    this.auxiliarpermiso = false;
+  }
+
+  private onListaPermisos(lista: Permiso): void {
+    if (lista.crearAux === 1) {
+      this.auxiliarpermiso = true;
+    }
+    if (lista.crearUsuario === 1) {
+      this.crear = true;
+    }
+    if (lista.descargar === 1) {
+      this.descargar = true;
+    }
+    if (lista.gestionarUsuario === 1) {
+      this.gestionar = true;
+    }
+  }
   private onListaNuevatipoUsuario(lista: TipoUsuario[]): void {
     debugger
     for (let i = 0; i < lista.length; i++) {
@@ -200,6 +249,8 @@ export class FormGymAuxiliarComponent implements OnInit {
     }
   }
 
+
+
   private getAuxOMedico(): void {
     if (this.permiso.crearUsuario === 0) {
       if (this.permiso.crearAux === 1) {
@@ -221,33 +272,69 @@ export class FormGymAuxiliarComponent implements OnInit {
     }, 500);
 
     setTimeout(() => {
+    debugger
+    this.persona.localidad.seqLocalidad = 0;
+    this.persona.lugarDeResidencia.seqCuidad = 0;
+    this.persona.lugarNacimiento.seqCuidad = 0;
+    this.perfil.permisos = new Array<Permiso>();
+    this.perfil.persona = new Array<Persona>();
+    if (this.onCargarPermisos()) {
       debugger
-      if (this.onCargarTipoUsuario()) {
-        this.persona.localidad.seqLocalidad = 0;
-        this.persona.lugarDeResidencia.seqCuidad = 0;
-        debugger
+      if (this.onCargarTipoUsuario(this.Spersona.rolUsuario)) {
         this.actualizarPerson(this.Spersona);
-        let personaup = new Persona();
-        personaup = this.persona;
-        personaup.historiaGym = new Array<HistoriaGym>();
-        this.personaService.update(personaup).subscribe(
+        debugger
+        this.perfil.nomUsuario = this.persona.nomPrimerNombre.toLocaleLowerCase() + "." + this.persona.nomPrimerApellido.toLocaleLowerCase();
+        this.perfil.persona.push(this.persona);
+        this.loginService.create(this.perfil).subscribe(
           response => {
+            debugger
             console.log(response);
-            if (funcion === '1') {
-              Swal.fire('Exitoso', 'Persona Actualizada', 'success');
-            } else {
-              Swal.fire('Exitoso', 'Persona Creada', 'success');
-              this.router.navigate(['/menuPrincipal']);
-            }
+            Swal.fire('Exitoso', 'Persona Creada', 'success');
+            this.router.navigate(['/menuPrincipal']);
           }
         );
       } else {
         Swal.fire('Error', 'No selecciono Tipo usuario', 'error');
       }
+
+    } else {
+      Swal.fire('Falta', 'No selecciono permisos', 'error');
+    }
+
     }, 1000);
   }
 
-  private onCargarTipoUsuario(): boolean {
+  private onCargarPermisos(): boolean {
+    this.perfil.permisos.push(new Permiso());
+    let contar = 0;
+    if (this.crear === true) {
+      this.perfil.permisos[0].crearUsuario = 1;
+    } else {
+      contar = contar + 1;
+    }
+    if (this.gestionar === true) {
+      this.perfil.permisos[0].gestionarUsuario = 1;
+    } else {
+      contar = contar + 1;
+    }
+    if (this.descargar === true) {
+      this.perfil.permisos[0].descargar = 1;
+    } else {
+      contar = contar + 1;
+    }
+    if (this.auxiliarpermiso === true) {
+      this.perfil.permisos[0].crearAux = 1;
+    } else {
+      contar = contar + 1;
+    }
+    if (contar === 4) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  private onCargarTipoUsuario(rol: TipoUsuario[]): boolean {
     debugger
     let contar = 0;
     for (let j = 0; j < this.tipoUsuario.length; j++) {
@@ -365,7 +452,9 @@ export class FormGymAuxiliarComponent implements OnInit {
     this.persona.nomCargoDep = this.persona.nomCargoDep == null ? per.nomCargoDep : this.persona.nomCargoDep;
     this.persona.afp = this.persona.afp == null ? per.afp : this.persona.afp;
     this.persona.arl = this.persona.arl == null ? per.arl : this.persona.arl;
-    this.persona.aseguradora = (this.persona.aseguradora == null || this.persona.aseguradora.seqAseguradora == null) ? per.aseguradora : this.persona.aseguradora;
+    let aseguradora = new Aseguradora();
+    aseguradora.seqAseguradora = 1;
+    this.persona.aseguradora = (this.persona.aseguradora == null || this.persona.aseguradora.seqAseguradora == null) ? per.aseguradora.seqAseguradora === null ? aseguradora : per.aseguradora : this.persona.aseguradora;
     this.persona.rh = this.persona.rh == null ? per.rh : this.persona.rh;
     this.persona.nomEmergencia = this.persona.nomEmergencia == null ? per.nomEmergencia : this.persona.nomEmergencia;
     this.persona.telEmergencia = this.persona.telEmergencia == null ? per.telEmergencia : this.persona.telEmergencia;

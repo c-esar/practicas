@@ -177,6 +177,9 @@ export class FormOcupacionalComponent implements OnInit {
       this.persona.tipoDocumento = new TipoDocumento();
       this.persona.lugarNacimiento = new Ciudad();
       this.buscoPerson = false;
+      this.persona.historias = new Array<Historias>();
+      this.persona.historias.push(new Historias());
+      this.persona.historias[0].ciudadHistoria.seqCuidad = 0;
       this.cargarListas();
       debugger
       this.personaService.onBuscarDocumento(this.persona).subscribe(
@@ -203,6 +206,7 @@ export class FormOcupacionalComponent implements OnInit {
       );
     }, 1000);
   }
+
 
   public onValidarSelect(value: string, id: string): void {
     console.log("entre validar select");
@@ -454,7 +458,7 @@ export class FormOcupacionalComponent implements OnInit {
       this.actualizarPerson(this.Spersona);
       this.persona.localidad.seqLocalidad = 0;
       this.persona.lugarDeResidencia.seqCuidad = 0;
-      this.persona.rolUsuario = this.tipoUsuario[1];
+      this.persona.rolUsuario[0] = this.tipoUsuario[1];
       this.barProgres = true;
       this.cargarDatosActededentesHistoria();
       if (this.onValidarAntecedentes() && this.guardado) {
@@ -489,23 +493,38 @@ export class FormOcupacionalComponent implements OnInit {
 
   updatePersona(): void {
     debugger
-    this.persona.localidad.seqLocalidad = 0;
-    this.persona.lugarDeResidencia.seqCuidad = 0;
-    this.actualizarPerson(this.Spersona);
-    this.persona.lugarNacimiento = null;
-    let personaup = new Persona();
-    personaup = this.persona;
-    personaup.historias = new Array<Historias>();
-    this.personaService.update(personaup).subscribe(
-      response => {
-        console.log(response);
-        Swal.fire('Exitoso', 'Persona Actualizada', 'success');
-      }
-    );
+    setTimeout(() => {
+      Swal.fire({
+        title: 'Guardando',
+        timer: 10000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
+    }, 500);
+
+    setTimeout(() => {
+      this.persona.localidad.seqLocalidad = 0;
+      this.persona.lugarDeResidencia.seqCuidad = 0;
+      this.actualizarPerson(this.Spersona);
+      let personaup = new Persona();
+      personaup = this.persona;
+      personaup.historias = new Array<Historias>();
+      this.personaService.update(personaup).subscribe(
+        response => {
+          console.log(response);
+          Swal.fire('Exitoso', 'Persona Actualizada', 'success');
+        }
+      );
+      this.persona.historias = new Array<Historias>();
+      this.persona.historias.push(new Historias());
+      this.persona.historias[0].ciudadHistoria.seqCuidad = 0;
+      this.cargarListas();
+    }, 1000);
   }
 
   createHistoria(): void {
     debugger
+    this.historiaUpdate.persona.seqPersona = this.Spersona.seqPersona;
     this.historiaService.createHistoria(this.historiaUpdate).subscribe(
       response => {
         debugger
@@ -539,7 +558,7 @@ export class FormOcupacionalComponent implements OnInit {
   }
 
   private onValidarAntecedentes(): boolean {
-
+    debugger
     for (let i = 0; i < this.persona.historias[0].antecedentesHistoriaEntity.length; i++) {
       if (this.persona.historias[0].antecedentesHistoriaEntity[i].tipoAntecedenteEntity.nomAntecedente === "TABAQUISMO" ||
         this.persona.historias[0].antecedentesHistoriaEntity[i].tipoAntecedenteEntity.nomAntecedente === "MENARQUIA" ||
@@ -742,7 +761,6 @@ export class FormOcupacionalComponent implements OnInit {
     this.persona.genero = this.persona.genero == null ? per.genero : this.persona.genero;
     this.persona.estadoCivil = this.persona.estadoCivil == null ? per.estadoCivil : this.persona.estadoCivil;
     this.persona.fechaNacimiento = this.persona.fechaNacimiento == null ? per.fechaNacimiento : this.persona.fechaNacimiento;
-    debugger
     this.persona.lugarNacimiento = (this.persona.lugarNacimiento == null || this.persona.lugarNacimiento.seqCuidad == null) ? per.lugarNacimiento : this.persona.lugarNacimiento;
     this.persona.lugarDeResidencia = (this.persona.lugarDeResidencia == null || this.persona.lugarDeResidencia.seqCuidad == null) ? per.lugarDeResidencia : this.persona.lugarDeResidencia;
     this.persona.escolaridad = this.persona.escolaridad == null ? per.escolaridad : this.persona.escolaridad;
@@ -750,16 +768,22 @@ export class FormOcupacionalComponent implements OnInit {
     this.persona.afp = this.persona.afp == null ? per.afp : this.persona.afp;
     this.persona.arl = this.persona.arl == null ? per.arl : this.persona.arl;
     this.persona.aseguradora = (this.persona.aseguradora == null || this.persona.aseguradora.seqAseguradora == null) ? per.aseguradora : this.persona.aseguradora;
-    debugger
     this.persona.rh = this.persona.rh == null ? per.rh : this.persona.rh;
     this.persona.nomEmergencia = this.persona.nomEmergencia == null ? per.nomEmergencia : this.persona.nomEmergencia;
     this.persona.telEmergencia = this.persona.telEmergencia == null ? per.telEmergencia : this.persona.telEmergencia;
     this.persona.parentescoEmergencia = this.persona.parentescoEmergencia == null ? per.parentescoEmergencia : this.persona.parentescoEmergencia;
     this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
+    debugger
     let nuevoRol = new TipoUsuario();
     nuevoRol.seqTipoUsuario = 2;
-    this.persona.rolUsuario = (this.persona.rolUsuario.seqTipoUsuario == null || this.persona.rolUsuario == null) ? (per.rolUsuario == null || per.rolUsuario.seqTipoUsuario == null) ? nuevoRol : per.rolUsuario : this.persona.rolUsuario;
+    if (this.persona.rolUsuario != null && this.persona.rolUsuario.length > 0) {
+    } else if (per.rolUsuario != null && per.rolUsuario.length > 0) {
+      this.persona.rolUsuario = per.rolUsuario;
+    } else {
+      this.persona.rolUsuario = new Array<TipoUsuario>();
+      this.persona.rolUsuario.push(nuevoRol);
+    }
   }
 
 
@@ -906,6 +930,7 @@ export class FormOcupacionalComponent implements OnInit {
   onLabels(): void {
     this.labelService.getLabel().subscribe(
       (respuesta) => {
+        debugger
         this.datosSingleton = respuesta
         console.log(respuesta)
       }
@@ -1013,10 +1038,10 @@ export class FormOcupacionalComponent implements OnInit {
   }
 
   getPermisos(): void {
-    this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos.crearAux;
-    this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos.crearUsuario;
-    this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos.gestionarUsuario;
-    this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos.descargar;
+    this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos[0].crearAux;
+    this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos[0].crearUsuario;
+    this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos[0].gestionarUsuario;
+    this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos[0].descargar;
   }
 
   getTipoUsuario(): void {

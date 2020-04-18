@@ -105,23 +105,30 @@ INSERT INTO hc_tipo_documento(cod_documento,sigla_documento,nom_documento)values
 INSERT INTO hc_tipo_documento(cod_documento,sigla_documento,nom_documento)values('P','PS','Pasaporte');
 INSERT INTO hc_tipo_documento(cod_documento,sigla_documento,nom_documento)values('O','OT','Otro');
 
-INSERT INTO hc_perfiles (nom_usuario,password,estado,nom_perfil) values('cesar','12345','A','admin');
-INSERT INTO hc_perfiles (nom_usuario,password,estado,nom_perfil) values('carlos','12345','A','aux');
+INSERT INTO hc_perfiles (nom_usuario,password,estado) values('prueba','12345','A');
+INSERT INTO hc_perfiles (nom_usuario,password,estado) values('carlos','12345','A');
+INSERT INTO hc_perfiles (nom_usuario,password,estado) values('cesar','12345','A');
 
 INSERT INTO hc_permisos (crear_usuario,gestionar_usuario,descargar,crear_aux) values (1,1,1,0);
 INSERT INTO hc_permisos (crear_usuario,gestionar_usuario,descargar,crear_aux) values (0,0,0,1);
+INSERT INTO hc_permisos (crear_usuario,gestionar_usuario,descargar,crear_aux) values (0,1,0,0);
 
 INSERT INTO hc_perfil_permisos (seq_perfil, seq_permiso) VALUES (1,1);
 INSERT INTO hc_perfil_permisos (seq_perfil, seq_permiso) VALUES (2,2);
+INSERT INTO hc_perfil_permisos (seq_perfil, seq_permiso) VALUES (3,3);
 
+
+INSERT INTO hc_aseguradora(nom_aseguradora,tipo_aseguradora)values('Indefinido','Otro');
 INSERT INTO hc_aseguradora(nom_aseguradora,tipo_aseguradora)values('Otro','Otro');
-INSERT INTO hc_ciudad (seq_ciudad, cod_ciudad, cod_dpto, cod_pais, cod_poblacion, nom_ciudad) VALUES (0, '1', '1', '1', '1', 'prueba');
+
+
+INSERT INTO hc_ciudad (seq_ciudad, cod_ciudad, cod_dpto, cod_pais, cod_poblacion, nom_ciudad) VALUES (0, '1', '1', '1', '1', 'No aplica');
 INSERT INTO hc_localidad (seq_localidad,cod_localidad,nom_localidad)values (0,'otro','otro');
 
-INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,seq_tipo_usuario,seq_tipo_documento,seq_perfil) values('Cesar','Diaz','1030691234',6,1,1);
-INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,seq_tipo_usuario,seq_tipo_documento,seq_perfil,seq_lugar_nacimiento) values('Carlos','Chacon','1010',2,3,2,0);
+INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,seq_tipo_documento,seq_perfil) values('Cesar','Diaz','1030691234',1,3);
+INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,seq_tipo_documento,seq_perfil,seq_lugar_nacimiento) values('Carlos','Chacon','1010',3,2,0);
 
-
+INSERT INTO hc_rol_usuario_persona(seq_persona, seq_tipo_usuario) values(1,6);
 
 
 

@@ -5,6 +5,8 @@ import { LabelService } from '../Servicios/label.service';
 import { LoginService } from '../Servicios/login.service';
 import { Permiso } from '../DatosBean/permiso';
 
+
+
 @Component({
   selector: 'app-tables',
   templateUrl: './tables.component.html',
@@ -27,10 +29,10 @@ export class TablesComponent implements OnInit {
   }
 
   private obtenerPermisos(): void {
-    this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos.crearAux;
-    this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos.crearUsuario;
-    this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos.gestionarUsuario;
-    this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos.descargar;
+    this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos[0].crearAux;
+    this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos[0].crearUsuario;
+    this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos[0].gestionarUsuario;
+    this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos[0].descargar;
     console.log(this.permiso.crearAux);
   }
 
