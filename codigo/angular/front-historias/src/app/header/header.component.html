@@ -30,7 +30,7 @@
                 </li>
                 <li *ngIf="permiso.crearUsuario == 1 || permiso.crearAux == 1"><a>Pacientes</a>
                   <ul>
-                    <li *ngIf="permiso.crearUsuario == 1"><a href="menuPrincipal/listPersonas">Listado Pacientes</a>
+                    <li *ngIf="permiso.crearUsuario == 1"><a href="menuPrincipal/list-usuariosApp">Listado Pacientes</a>
                     </li>
                     <li><a>Crear Formularios</a>
                       <ul>
@@ -47,7 +47,7 @@
                   <ul>
                     <li><a href="">Certificados</a></li>
                     <li><a href="">PDF Formularios</a></li>
-                    <li><a href="">Reportes</a></li>
+                    <li><a href="menuPrincipal/list-usuariosApp">Reportes</a></li>
                   </ul>
                 </li>
                 <li><a href="" (click)="salirApp()">Salir</a></li>
@@ -57,7 +57,7 @@
         </div>
         <div class="col-md-2 col-sm-2 col-xs-12 tituloRol">
           <h1>
-            {{perfil + " " + nomUsuario}}
+            {{nomUsuario}}
           </h1>
         </div>
       </div>

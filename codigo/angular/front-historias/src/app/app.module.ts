@@ -23,7 +23,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTableModule } from '@angular/material/table';
 //componentes
-import { ListaPersonasComponent } from './lista-personas/lista-personas.component';
 import { CreacionUsuarioAppComponent } from './creacion-usuario-app/creacion-usuario-app.component';
 import { FormCambioPassComponent } from './form-cambio-pass/form-cambio-pass.component';
 import { FormGymComponent } from './form-gym/form-gym.component';
@@ -51,7 +50,6 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, //ruta principal de la aplicacion
   // rutas secundarias se hace referencia con el component de cada uno
   { path: 'login', component: LoginComponent },
-  { path: 'menuPrincipal/listPersonas', component: ListaPersonasComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/form-ocupacional', component: FormOcupacionalComponent, canActivate: [LoginService], data: { animation: 'HomePage' } },
   { path: 'menuPrincipal', component: BodyAppComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/creacionUsuario', component: CreacionUsuarioAppComponent, canActivate: [LoginService] },
@@ -71,7 +69,6 @@ const routes: Routes = [
     LoginComponent,
     FooterComponent,
     HeaderComponent,
-    ListaPersonasComponent,
     FormOcupacionalComponent,
     BodyAppComponent,
     CreacionUsuarioAppComponent,

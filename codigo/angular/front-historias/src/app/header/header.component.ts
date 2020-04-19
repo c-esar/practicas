@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.perfil = this.loginService.obtenerPerfilSesion().persona[0].rolUsuario[0].nomTipoUsuario;
-    this.nomUsuario = this.loginService.obtenerPerfilSesion().nomUsuario;
+    //this.nomUsuario = this.loginService.obtenerPerfilSesion().nomUsuario;
     this.obtenerPermisos();
   }
 
