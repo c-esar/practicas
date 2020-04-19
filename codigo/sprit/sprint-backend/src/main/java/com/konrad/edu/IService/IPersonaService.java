@@ -1,5 +1,6 @@
 package com.konrad.edu.IService;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.konrad.edu.entity.PersonaEntity;
@@ -18,6 +19,6 @@ public interface IPersonaService {
 	
 	public PersonaEntity findByNumeroPerfil(String seq_perfil);
 	
-	public List<PersonaEntity> findAllTipoUsuario(String seq_tipo_usuario);
+	public List<PersonaEntity> findAllTipoUsuario(List<String> seq_tipo_usuario);
 
 }

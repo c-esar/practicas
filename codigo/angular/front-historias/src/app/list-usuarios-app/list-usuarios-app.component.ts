@@ -1,41 +1,114 @@
 import { Component, OnInit } from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+import { MatTableDataSource } from '@angular/material/table';
+import { LabelService } from '../Servicios/label.service';
+import { LoginService } from '../Servicios/login.service';
+import { HistoriasService } from '../Servicios/historias.service';
+import { PersonaService } from '../Servicios/persona.service';
+import { DatosSingleton } from '../DatosBean/datosSingleton';
+import { TipoUsuario } from '../DatosBean/tipoUsuario';
+import { Persona } from '../DatosBean/persona';
+import Swal from 'sweetalert2';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 @Component({
   selector: 'app-list-usuarios-app',
   templateUrl: './list-usuarios-app.component.html',
   styleUrls: ['./list-usuarios-app.component.css']
 })
 export class ListUsuariosAppComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-  constructor() { }
+  displayedColumns: string[] = ['No.', 'Nombre', 'Apellido', 'Celular'];
+  dataSource = new MatTableDataSource(null);
+  datosSingleton: DatosSingleton;
+  tipoUsuario: TipoUsuario[];
+  tipoUsuarioSelecionado: TipoUsuario[];
+  tmp: String[];
+  Datos: Persona[];
 
-  ngOnInit(): void {
+  constructor(private labelService: LabelService,
+    private loginService: LoginService,
+    private personaService: PersonaService,
+    private historiaService: HistoriasService) {
   }
 
+  ngOnInit(): void {
+    this.onCargarAtributos();
+    this.onCargarFunciones();
+  }
+
+  onCargarAtributos(): void {
+    this.tipoUsuario = new Array<TipoUsuario>();
+    this.datosSingleton = new DatosSingleton();
+    this.tipoUsuarioSelecionado = new Array<TipoUsuario>();
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  onCargarFunciones(): void {
+    this.onLabels();
+    this.getTipoUsuario();
+  }
+
+  onBuscarTipo(): void {
+    this.tmp = new Array<String>();
+    if (this.tipoUsuarioSelecionado.length > 0) {
+      for (let i = 0; i < this.tipoUsuarioSelecionado.length; i++) {
+        this.tmp.push(this.tipoUsuarioSelecionado[i].seqTipoUsuario.toString());
+      }
+      debugger
+      this.getDatosTabla();
+    } else {
+      Swal.fire('Error', 'Debe seleccionar un item de la lista', 'error');
+      document.getElementById("tablaDatos").style.display = "none";
+    }
+  }
+
+  private getDatosTabla(): void {
+    debugger
+    this.personaService.onInformePersonas(this.tmp).subscribe(
+      (respuesta) => {
+        debugger
+        this.Datos = respuesta
+        if (this.Datos.length > 0) {
+          for (let i = 0; i < this.Datos.length; i++) {
+            if (this.Datos[i].nomSegundoNombre === null) {
+              this.Datos[i].nomSegundoNombre = "";
+            }
+            if (this.Datos[i].nomSegundoApellido === null) {
+              this.Datos[i].nomSegundoApellido = "";
+            }
+          }
+          document.getElementById("tablaDatos").style.display = "block";
+          this.dataSource = new MatTableDataSource(this.Datos);
+        } else {
+          document.getElementById("tablaDatos").style.display = "none";
+        }
+        console.log(respuesta)
+      });
+    if (this.Datos != null || this.Datos.length > 0) {
+      document.getElementById("tablaDatos").style.display = "block";
+    } else {
+      document.getElementById("tablaDatos").style.display = "none";
+    }
+  }
+
+  private getTipoUsuario(): void {
+    this.historiaService.getTipoUsuario().subscribe(
+      (respuesta) => {
+        this.tipoUsuario = respuesta
+        console.log(respuesta)
+      }
+    )
+  }
+
+  private onLabels(): void {
+    this.labelService.getLabel().subscribe(
+      (respuesta) => {
+        this.datosSingleton = respuesta
+        console.log(respuesta)
+      }
+    );
   }
 
 }

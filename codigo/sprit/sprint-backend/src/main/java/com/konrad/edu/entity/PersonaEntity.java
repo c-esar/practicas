@@ -99,7 +99,7 @@ public class PersonaEntity implements Serializable {
 	@Column(name = "nom_cargo_dep")
 	private String nomCargoDep;
 
-	@Column(length = 50)
+	@Column(name="afp_persona", length = 50, nullable= true)
 	private String afp;
 
 	@Column(length = 50)

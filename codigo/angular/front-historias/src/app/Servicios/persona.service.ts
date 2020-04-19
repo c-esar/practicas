@@ -72,7 +72,7 @@ export class PersonaService {
     );
   }
 
-  onInformePersonas(id: String): Observable<Persona[]> {
+  onInformePersonas(id: String[]): Observable<Persona[]> {
     return this.http.get<Persona[]>(`${this.url + "persona/listPersonas/informe/"}/${id}`, { headers: this.httpHeaders }).pipe(
       catchError(e => {
         console.error(e.error.mensaje);

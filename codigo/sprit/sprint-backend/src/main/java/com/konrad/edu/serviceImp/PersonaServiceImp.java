@@ -1,5 +1,6 @@
 package com.konrad.edu.serviceImp;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class PersonaServiceImp implements IPersonaService {
 	}
 
 	@Override
-	public List<PersonaEntity> findAllTipoUsuario(String seq_tipo_usuario) {
+	public List<PersonaEntity> findAllTipoUsuario(List<String> seq_tipo_usuario) {
 		return personaDao.findAllTipoUsuario(seq_tipo_usuario);
 	}
 

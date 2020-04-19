@@ -1,5 +1,6 @@
 package com.konrad.edu.controllers;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -129,11 +130,18 @@ public class PersonaController {
 	}
 	
 	@GetMapping("/listPersonas/informe/{tipoUsuario}")
-	public ResponseEntity<?> informeListPersonas(@PathVariable String tipoUsuario) {
+	public ResponseEntity<?> informeListPersonas(@PathVariable List<String> tipoUsuario) {
 		List<PersonaEntity> personaNew = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
-			personaNew = personaService.findAllTipoUsuario(tipoUsuario);
+			personaNew = (List<PersonaEntity>) personaService.findAllTipoUsuario(tipoUsuario);
+			if(personaNew != null) {
+				for(int i=0; i<personaNew.size(); i++) {
+					personaNew.get(i).setHistorias(null);
+					personaNew.get(i).setHistoriasGym(null);
+					personaNew.get(i).setPerfil(null);
+				}
+			}
 		} catch (DataAccessException e) {
 			response.put("mensaje","No se encontro ningún resultado");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
