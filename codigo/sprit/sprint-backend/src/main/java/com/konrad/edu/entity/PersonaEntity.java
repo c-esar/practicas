@@ -153,7 +153,7 @@ public class PersonaEntity implements Serializable {
 	private List<HistoriaOcupacionalEntity> historias;
 	
 	@OneToMany(mappedBy = "persona", cascade = CascadeType.ALL)
-	private List<HistoriaGYMEntity> historiasGym;
+	private List<HistoriaGYMEntity> historiaGym;
 	
 	@ManyToOne
 	@JoinColumn(name = "seq_perfil")
@@ -173,7 +173,7 @@ public class PersonaEntity implements Serializable {
 	
 	public PersonaEntity() {
 		this.historias = new ArrayList<>();
-		this.historiasGym = new ArrayList<>();
+		this.historiaGym = new ArrayList<>();
 		this.rolUsuario = new ArrayList<>();
 	}
 
@@ -426,11 +426,11 @@ public class PersonaEntity implements Serializable {
 	}
 
 	public List<HistoriaGYMEntity> getHistoriasGym() {
-		return historiasGym;
+		return historiaGym;
 	}
 
-	public void setHistoriasGym(List<HistoriaGYMEntity> historiasGym) {
-		this.historiasGym = historiasGym;
+	public void setHistoriasGym(List<HistoriaGYMEntity> historiaGym) {
+		this.historiaGym = historiaGym;
 	}
 
 	public String getCodigo() {

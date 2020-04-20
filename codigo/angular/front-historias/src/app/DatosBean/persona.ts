@@ -38,6 +38,7 @@ export class Persona {
   localidad: Localidad;
   historias: Historias[];
   historiaGym: HistoriaGym[];
+  historiasGym: HistoriaGym[];
   rolUsuario: TipoUsuario[];
   codigo: string;
   nuevorolUsuario: string;
@@ -74,6 +75,7 @@ export class Persona {
     this.lugarDeResidencia = new Ciudad();
     this.tipoDocumento = new TipoDocumento();
     this.historias = new Array<Historias>();
+    this.historiasGym = new Array<HistoriaGym>();
     this.historiaGym = new Array<HistoriaGym>();
     this.codigo = null;
     this.nuevorolUsuario = null;

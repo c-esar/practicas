@@ -54,7 +54,7 @@ public class PersonaController {
 			tipoHistoria.setSeqTipoHistoria(1L);
 			persona.getHistorias().get(0).setSeqTipoHistoria(tipoHistoria);
 			personaNew = personaService.save(persona);
-			if(personaNew !=  null) {
+			if (personaNew != null) {
 				personaNew.setPerfil(null);
 				personaNew.setHistorias(null);
 				personaNew.setHistoriasGym(null);
@@ -77,7 +77,7 @@ public class PersonaController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			personaUp = personaService.save(persona);
-			if(personaUp != null) {
+			if (personaUp != null) {
 				personaUp.setPerfil(null);
 				personaUp.setHistorias(null);
 				personaUp.setHistoriasGym(null);
@@ -107,10 +107,16 @@ public class PersonaController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			personaNew = personaService.findByNumeroDocumento(numeroDocumento);
-			if(personaNew != null) {
-				personaNew.setHistorias(null);
-				personaNew.setHistoriasGym(null);
-				if(personaNew.getPerfil() != null) {
+			if (personaNew != null) {
+				for (int i = 0; i < personaNew.getHistorias().size(); i++) {
+					personaNew.getHistorias().get(i).setPersona(null);
+				}
+				for (int i = 0; i < personaNew.getHistoriasGym().size(); i++) {
+					personaNew.getHistoriasGym().get(i).setPersona(null);
+				}
+				// personaNew.setHistorias(null);
+				// personaNew.setHistoriasGym(null);
+				if (personaNew.getPerfil() != null) {
 					personaNew.getPerfil().getPersona().clear();
 				}
 			}
@@ -128,28 +134,28 @@ public class PersonaController {
 		}
 		return new ResponseEntity<PersonaEntity>(personaNew, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/listPersonas/informe/{tipoUsuario}")
 	public ResponseEntity<?> informeListPersonas(@PathVariable List<String> tipoUsuario) {
 		List<PersonaEntity> personaNew = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
 			personaNew = (List<PersonaEntity>) personaService.findAllTipoUsuario(tipoUsuario);
-			if(personaNew != null) {
-				for(int i=0; i<personaNew.size(); i++) {
+			if (personaNew != null) {
+				for (int i = 0; i < personaNew.size(); i++) {
 					personaNew.get(i).setHistorias(null);
 					personaNew.get(i).setHistoriasGym(null);
 					personaNew.get(i).setPerfil(null);
 				}
 			}
 		} catch (DataAccessException e) {
-			response.put("mensaje","No se encontro ningún resultado");
+			response.put("mensaje", "No se encontro ningún resultado");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
 		if (personaNew == null) {
-			response.put("mensaje","No se encontro ningún resultado");
+			response.put("mensaje", "No se encontro ningún resultado");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<PersonaEntity>>(personaNew, HttpStatus.OK);

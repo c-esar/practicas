@@ -4,27 +4,7 @@
       <app-header></app-header>
     </div>
     <div class="card text-center col-md-12 col-sm-12 col-xs-12" style="top:10px;">
-      <div class="card-body ">
-        <blockquote class="blockquote mb-0 form-row etiquetas">
-          <div class="form-group col-md-6 col-sm-6 col-xs-6">
-            <mat-form-field>
-              <mat-label>{{datosSingleton.menuImpresionDiagnostico}}</mat-label>
-              <mat-select multiple [(ngModel)]="tipoUsuarioSelecionado" name="tipoSeleccionado">
-                <mat-option *ngFor="let doc of tipoUsuario" [value]="doc">
-                  {{doc.nomTipoUsuario}}</mat-option>
-              </mat-select>
-              <mat-error>Seleccione una opción</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="form-group col-md-4 col-sm-4 col-xs-4">
-            <button id="BuscarPersona" mat-raised-button color="primary" (click)="onBuscarTipo()">Buscar
-              Criterio</button>
-          </div>
-        </blockquote>
-      </div>
-      <br>
-      <br>
-      <div class="form-group col-md-12 col-sm-12 col-xs-12" id="tablaDatos" style="display:none;">
+      <div class="form-group col-md-12 col-sm-12 col-xs-12" id="tablaDatos">
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
           <div class="card-body ">
             <blockquote class="blockquote mb-0 form-row etiquetas">
@@ -66,14 +46,19 @@
                     </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="Celular">
-                    <mat-header-cell *matHeaderCellDef> Celular </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.celular}} </mat-cell>
+                  <ng-container matColumnDef="Tipo Historia">
+                    <mat-header-cell *matHeaderCellDef> Tipo Historia </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.tipoHistoria}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="boton">
+                  <ng-container matColumnDef="Fecha Historia">
+                    <mat-header-cell *matHeaderCellDef> Fecha Historia </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.FechaCita}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Detalle">
                     <mat-header-cell *matHeaderCellDef> Historias </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> <button mat-raised-button [routerLink]="['/menuPrincipal/list-usuariosApp',element.documento]" color="primary"> Ver Historias
+                    <mat-cell *matCellDef="let element"> <button mat-raised-button color="primary"> Detalle historia
                       </button>
                     </mat-cell>
                   </ng-container>

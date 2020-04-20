@@ -18,7 +18,7 @@ import { Permiso } from '../DatosBean/permiso';
   styleUrls: ['./list-usuarios-app.component.css']
 })
 export class ListUsuariosAppComponent implements OnInit {
-  displayedColumns: string[] = ['Tipo Documento','No.', 'Nombre', 'Apellido', 'Celular', 'Rh'];
+  displayedColumns: string[] = ['Tipo Documento', 'No.', 'Nombre', 'Apellido', 'Celular', 'boton'];
   dataSource = new MatTableDataSource(null);
   datosSingleton: DatosSingleton;
   tipoUsuario: TipoUsuario[];
