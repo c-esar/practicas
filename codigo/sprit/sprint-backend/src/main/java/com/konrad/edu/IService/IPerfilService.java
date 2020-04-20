@@ -18,4 +18,6 @@ public interface IPerfilService {
 
 	public PerfilEntity findHcPerfilesByNumeroDocumneto(String numero_documento);
 	
+	public String Encriptar(String textoSinEncriptar);
+	
 }

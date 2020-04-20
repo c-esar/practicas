@@ -29,13 +29,13 @@ export class LoginComponent implements OnInit {
     setTimeout(() => {
       Swal.fire({
         title: 'Buscando',
-        timer: 10000,
+        timer: 2000,
         timerProgressBar: true,
         showConfirmButton: false
       })
     }, 500);
 
-    // setTimeout(() => {
+    setTimeout(() => {
     console.log("Entre funcion " + this.loginService.isAutorization());
     console.log("Valor del login" + this.login.nomUsuario);
     debugger
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
         }
       );
     }
-    // }, 1000);
+    }, 500);
   }
 
 

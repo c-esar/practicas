@@ -42,6 +42,7 @@ public class PerfilController {
 		Map<String, Object> response = new HashMap<>();
 		PerfilEntity p = null;
 		try {
+			password = perfilService.Encriptar(password);
 			p = perfilService.getSession(nom_usuario, password);
 			if (p != null) {
 				p.getPersona().get(0).setPerfil(null);
@@ -83,6 +84,9 @@ public class PerfilController {
 		try {
 			personaEntity = persona.getPersona().get(0);
 			persona.getPersona().clear();
+			String password = persona.getPassword();
+			password = perfilService.Encriptar(password);
+			persona.setPassword(password);
 			personaNew = perfilService.save(persona);
 			if (personaNew != null) {
 				personaEntity.setPerfil(new PerfilEntity());
@@ -114,6 +118,7 @@ public class PerfilController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			personaNew = perfilService.findHcPerfilesByNumeroDocumneto(numero_documento);
+			personaNew.setPassword(null);
 			if (personaNew != null) {
 				tmp = personaNew.getPersona().get(0);
 				tmp.setHistorias(null);
