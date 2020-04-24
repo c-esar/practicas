@@ -1,4 +1,4 @@
-import { ElementRef, ViewChild, Component, OnInit, Input } from '@angular/core';
+import { ElementRef, ViewChild, Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { LabelService } from '../Servicios/label.service';
 import { LoginService } from '../Servicios/login.service';
 import { HistoriasService } from '../Servicios/historias.service';
@@ -15,6 +15,7 @@ import { Login } from '../DatosBean/login';
 import { FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { HistoriaGym } from '../DatosBean/historiaGym';
+import { FirmaIndividualComponent } from '../firma-individual/firma-individual.component';
 declare var jQuery: any;
 declare var $: any;
 
@@ -23,8 +24,10 @@ declare var $: any;
   templateUrl: './form-gestion.component.html',
   styleUrls: ['./form-gestion.component.css']
 })
-export class FormGestionComponent implements OnInit {
+export class FormGestionComponent implements OnInit, AfterViewInit {
 
+  @ViewChild(FirmaIndividualComponent) firma;
+  firmaUsuario: any;
   persona: Persona;
   date = new FormControl(new Date());
   date2 = new FormControl(new Date());
@@ -82,6 +85,10 @@ export class FormGestionComponent implements OnInit {
     }, 1000);
   }
 
+  ngAfterViewInit() {
+    this.firmaUsuario = this.firma.imagenMedico;
+  }
+
   onCargarAtributos(): void {
     this.persona = new Persona();
     this.permiso = new Permiso();
@@ -129,48 +136,48 @@ export class FormGestionComponent implements OnInit {
     }, 500);
 
     setTimeout(() => {
-    let tmpDoc = this.persona.numeroDocumento;
-    debugger
-    this.onCargarAtributosNuevos();
-    this.Spersona = new Persona();
-    this.persona.aseguradora = new Aseguradora();
-    this.persona.tipoDocumento = new TipoDocumento();
-    this.persona.lugarNacimiento = new Ciudad();
-    this.buscoPerson = false;
-    this.tipoEncontrado = false;
-    this.tipoUsuarioU = "";
-    this.loginService.getObtenerPersona(this.persona.numeroDocumento).subscribe(
-      (respuesta) => {
-        debugger
-        console.log(respuesta);
-        if (respuesta != null) {
-          this.perfil = respuesta;
-          this.Spersona = respuesta.persona[0];
-          if (this.Spersona.aseguradora === null) {
-            this.Spersona.aseguradora = new Aseguradora();
-          }
-          if (this.Spersona.tipoDocumento === null) {
-            this.Spersona.tipoDocumento = new TipoDocumento();
-          }
-          if (this.Spersona.lugarNacimiento === null) {
-            this.Spersona.lugarNacimiento = new Ciudad();
-          }
-          this.persona.seqPersona = this.Spersona.seqPersona;
-          if (this.Spersona.rolUsuario.length >= 1) {
-            this.onListaNuevatipoUsuario(this.Spersona.rolUsuario);
-          }
-          if (this.perfil.permisos.length >= 1) {
-            this.onListaPermisos(this.perfil.permisos[0]);
+      let tmpDoc = this.persona.numeroDocumento;
+      debugger
+      this.onCargarAtributosNuevos();
+      this.Spersona = new Persona();
+      this.persona.aseguradora = new Aseguradora();
+      this.persona.tipoDocumento = new TipoDocumento();
+      this.persona.lugarNacimiento = new Ciudad();
+      this.buscoPerson = false;
+      this.tipoEncontrado = false;
+      this.tipoUsuarioU = "";
+      this.loginService.getObtenerPersona(this.persona.numeroDocumento).subscribe(
+        (respuesta) => {
+          debugger
+          console.log(respuesta);
+          if (respuesta != null) {
+            this.perfil = respuesta;
+            this.Spersona = respuesta.persona[0];
+            if (this.Spersona.aseguradora === null) {
+              this.Spersona.aseguradora = new Aseguradora();
+            }
+            if (this.Spersona.tipoDocumento === null) {
+              this.Spersona.tipoDocumento = new TipoDocumento();
+            }
+            if (this.Spersona.lugarNacimiento === null) {
+              this.Spersona.lugarNacimiento = new Ciudad();
+            }
+            this.persona.seqPersona = this.Spersona.seqPersona;
+            if (this.Spersona.rolUsuario.length >= 1) {
+              this.onListaNuevatipoUsuario(this.Spersona.rolUsuario);
+            }
+            if (this.perfil.permisos.length >= 1) {
+              this.onListaPermisos(this.perfil.permisos[0]);
+            }
+
+            this.buscoPerson = true;
+            Swal.fire('Exitoso', 'Persona Registrada', 'success');
+          } else {
+            Swal.fire('Error', 'Error no se encuentra registrado', 'error');
           }
 
-          this.buscoPerson = true;
-          Swal.fire('Exitoso', 'Persona Registrada', 'success');
-        } else {
-          Swal.fire('Error', 'Error no se encuentra registrado', 'error');
         }
-
-      }
-    );
+      );
     }, 1000);
   }
 
@@ -271,8 +278,9 @@ export class FormGestionComponent implements OnInit {
       })
     }, 500);
 
-    setTimeout(() => {
+    // setTimeout(() => {
     debugger
+    this.firmaUsuario = this.firma.imagenUsuario;
     this.persona.localidad.seqLocalidad = 0;
     this.persona.lugarDeResidencia.seqCuidad = 0;
     this.persona.lugarNacimiento.seqCuidad = 0;
@@ -301,7 +309,7 @@ export class FormGestionComponent implements OnInit {
       Swal.fire('Falta', 'No selecciono permisos', 'error');
     }
 
-    }, 1000);
+    // }, 1000);
   }
 
   private onCargarPermisos(): boolean {

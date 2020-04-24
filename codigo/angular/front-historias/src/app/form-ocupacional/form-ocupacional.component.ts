@@ -1,4 +1,4 @@
-import { ElementRef, TemplateRef, ViewChild, Component, OnInit, Input, Output } from '@angular/core';
+import { ElementRef, TemplateRef, ViewChild, Component, OnInit, Input, Output, AfterViewInit } from '@angular/core';
 import { LabelService } from '../Servicios/label.service';
 import { LoginService } from '../Servicios/login.service';
 import { HistoriasService } from '../Servicios/historias.service';
@@ -32,6 +32,7 @@ import { DiagnosticoOcupacional } from '../DatosBean/diagnosticoOcupacional';
 import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
 import { TipoEvaluacion } from '../DatosBean/tipoEvaluacion';
+import { FirmaComponent } from '../firma/firma.component';
 declare var jQuery: any;
 declare var $: any;
 @Component({
@@ -39,7 +40,7 @@ declare var $: any;
   templateUrl: './form-ocupacional.component.html',
   styleUrls: ['./form-ocupacional.component.css']
 })
-export class FormOcupacionalComponent implements OnInit {
+export class FormOcupacionalComponent implements OnInit,AfterViewInit {
 
   //guardarDatosGrillas
   @ViewChild('gridTrabajosPrevios') public gridTrabajosPrevios: GridComponent;
@@ -47,6 +48,9 @@ export class FormOcupacionalComponent implements OnInit {
   @ViewChild('gridEnfermedades') public gridEnfermedades: GridComponent;
   @ViewChild('gridFactoresRiesgo') public gridFactoresRiesgo: GridComponent;
   @ViewChild('gridParaclinicos') public gridParaclinicos: GridComponent;
+  @ViewChild(FirmaComponent) firma;
+  firmaMedico: any;
+  firmaPaciente: any;
   public pageSettings: PageSettingsModel;
   date = new FormControl(new Date());
   dateNacimiento = new FormControl(new Date());
@@ -122,6 +126,11 @@ export class FormOcupacionalComponent implements OnInit {
       this.onCargarFunciones();
       this.pageSettings = { pageSize: 6 };
     }, 1000);
+  }
+
+  ngAfterViewInit() {
+    this.firmaMedico = this.firma.imagenMedico;
+    this.firmaPaciente = this.firma.imagenPaciente;
   }
 
   onCargarAtributos(): void {
@@ -461,6 +470,9 @@ export class FormOcupacionalComponent implements OnInit {
       this.persona.rolUsuario[0] = this.tipoUsuario[1];
       this.barProgres = true;
       this.cargarDatosActededentesHistoria();
+	  this.firmaMedico = this.firma.imagenMedico;
+	  this.firmaPaciente = this.firma.imagenPaciente;
+	  
       if (this.onValidarAntecedentes() && this.guardado) {
         if (this.permiso.crearUsuario === 1) {
           this.persona.historias[0].examenFisico = this.examenFisico;

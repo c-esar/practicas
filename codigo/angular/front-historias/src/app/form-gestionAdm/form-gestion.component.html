@@ -319,6 +319,9 @@
                                     </button>
                                 </mat-form-field>
                             </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                                <app-firma-individual></app-firma-individual>
+                            </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-3 row">
                                 <button mat-raised-button color="primary" role="button" *ngIf="buscoPerson == true"
                                     [disabled]="datos.invalid" (click)="updatePersona('1')">ACTUALIZAR</button>

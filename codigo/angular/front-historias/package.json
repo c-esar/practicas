@@ -27,6 +27,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.12.1",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@syncfusion/ej2-angular-grids": "^17.4.55",
+    "angular2-signaturepad": "^2.11.0",
     "bootstrap": "^4.4.1",
     "file-saver": "^2.0.2",
     "jquery": "^3.4.1",

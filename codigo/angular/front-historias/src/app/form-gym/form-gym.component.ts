@@ -1,4 +1,4 @@
-import { ElementRef, ViewChild, Component, OnInit, Input } from '@angular/core';
+import { ElementRef, ViewChild, Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { LabelService } from '../Servicios/label.service';
 import { LoginService } from '../Servicios/login.service';
 import { HistoriasService } from '../Servicios/historias.service';
@@ -23,6 +23,7 @@ import { CuestionarioGym } from '../DatosBean/cuestionariogym';
 import { CondicionGym } from '../DatosBean/condiciongym';
 import { familiarGym } from '../DatosBean/familiargym';
 import { of, Observable, throwError } from 'rxjs';
+import { FirmaComponent } from '../firma/firma.component';
 declare var jQuery: any;
 declare var $: any;
 
@@ -31,8 +32,11 @@ declare var $: any;
   templateUrl: './form-gym.component.html',
   styleUrls: ['./form-gym.component.css']
 })
-export class FormGymComponent implements OnInit {
+export class FormGymComponent implements OnInit, AfterViewInit  {
 
+  @ViewChild(FirmaComponent) firma;
+  firmaMedico: any;
+  firmaPaciente: any;
   persona: Persona;
   date = new FormControl(new Date());
   date2 = new FormControl(new Date());
@@ -96,6 +100,11 @@ export class FormGymComponent implements OnInit {
       this.onCargarAtributos();
       this.onCargarFunciones();
     }, 1000);
+  }
+
+  ngAfterViewInit() {
+    this.firmaMedico = this.firma.imagenMedico;
+    this.firmaPaciente = this.firma.imagenPaciente;
   }
 
   onCargarAtributos(): void {
@@ -495,6 +504,8 @@ export class FormGymComponent implements OnInit {
     setTimeout(() => {
       debugger
       this.onCargarPreguntas();
+	  this.firmaMedico = this.firma.imagenMedico;
+	  this.firmaPaciente = this.firma.imagenPaciente;
       if (this.onValidarPreguntas() && this.guardado) {
         if (this.permiso.crearUsuario === 1) {
           this.persona.historiaGym[0].examenFisico = this.examenFisico;

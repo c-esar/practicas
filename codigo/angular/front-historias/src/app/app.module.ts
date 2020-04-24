@@ -22,6 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTableModule } from '@angular/material/table';
+import { SignaturePadModule } from 'angular2-signaturepad';
 //componentes
 import { CreacionUsuarioAppComponent } from './creacion-usuario-app/creacion-usuario-app.component';
 import { FormCambioPassComponent } from './form-cambio-pass/form-cambio-pass.component';
@@ -46,6 +47,8 @@ import { FormParaclinicosComponent } from './form-paraclinicos/form-paraclinicos
 import { FormGymAuxiliarComponent } from './form-gym-auxiliar/form-gym-auxiliar.component';
 import { FormGestionComponent } from './form-gestionAdm/form-gestion.component';
 import { FormHistoriasComponent } from './form-historias/form-historias.component';
+import { FirmaComponent } from './firma/firma.component';
+import { FirmaIndividualComponent } from './firma-individual/firma-individual.component';
 //rutas
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, //ruta principal de la aplicacion
@@ -86,7 +89,9 @@ const routes: Routes = [
     FormParaclinicosComponent,
     FormGymAuxiliarComponent,
     FormGestionComponent,
-    FormHistoriasComponent
+    FormHistoriasComponent,
+    FirmaComponent,
+    FirmaIndividualComponent
   ],
   imports: [
     BrowserModule,
@@ -109,6 +114,7 @@ const routes: Routes = [
     MatRadioModule,
     ModalModule.forRoot(),
     GridModule,
+    SignaturePadModule,
     MatProgressSpinnerModule
   ],
   exports: [
