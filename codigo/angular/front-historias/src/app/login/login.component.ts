@@ -20,9 +20,20 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.loginService.isAutorization()) {
-      this.router.navigate(['menuPrincipal'])
-    }
+    setTimeout(() => {
+      Swal.fire({
+        title: 'Buscando',
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
+    }, 500);
+
+    setTimeout(() => {
+      if (this.loginService.isAutorization()) {
+        this.router.navigate(['menuPrincipal'])
+      }
+    }, 500);
   }
 
   public iniciarLogin(): void {
@@ -36,27 +47,27 @@ export class LoginComponent implements OnInit {
     }, 500);
 
     setTimeout(() => {
-    console.log("Entre funcion " + this.loginService.isAutorization());
-    console.log("Valor del login" + this.login.nomUsuario);
-    debugger
-    if (this.loginService.isAutorization()) {
-      this.router.navigate(['menuPrincipal'])
-    } else {
-      this.loginService.getLoginSesion(this.login).subscribe(
-        (respuesta) => {
-          console.log("Estado:" + respuesta['estado']);
-          console.log(respuesta.permisos);
-          debugger
-          if (respuesta['estado'] == "ACTIVO" || respuesta['estado'] == "activo") {
-            this.loginService.isLogin = true;
-            this.loginService.correctLogin(respuesta);
-            this.router.navigate(['menuPrincipal'])
-          } else {
-            Swal.fire('Error de Ingreso', 'Usuario o Contraseña Incorrectos', 'error');
+      console.log("Entre funcion " + this.loginService.isAutorization());
+      console.log("Valor del login" + this.login.nomUsuario);
+      debugger
+      if (this.loginService.isAutorization()) {
+        this.router.navigate(['menuPrincipal'])
+      } else {
+        this.loginService.getLoginSesion(this.login).subscribe(
+          (respuesta) => {
+            console.log("Estado:" + respuesta['estado']);
+            console.log(respuesta.permisos);
+            debugger
+            if (respuesta['estado'] == "ACTIVO" || respuesta['estado'] == "activo") {
+              this.loginService.isLogin = true;
+              this.loginService.correctLogin(respuesta);
+              this.router.navigate(['menuPrincipal'])
+            } else {
+              Swal.fire('Error de Ingreso', 'Usuario o Contraseña Incorrectos', 'error');
+            }
           }
-        }
-      );
-    }
+        );
+      }
     }, 500);
   }
 

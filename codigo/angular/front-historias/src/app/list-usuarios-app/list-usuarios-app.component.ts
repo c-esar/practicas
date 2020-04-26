@@ -11,7 +11,6 @@ import { Persona } from '../DatosBean/persona';
 import { ArchivosFile } from '../DatosBean/archivosfile';
 import Swal from 'sweetalert2';
 import { Permiso } from '../DatosBean/permiso';
-
 @Component({
   selector: 'app-list-usuarios-app',
   templateUrl: './list-usuarios-app.component.html',
@@ -109,8 +108,10 @@ export class ListUsuariosAppComponent implements OnInit {
           }
           document.getElementById("tablaDatos").style.display = "block";
           this.dataSource = new MatTableDataSource(this.archivoFile);
+          Swal.fire('Exitoso', 'Datos Encontrados', 'success');
         } else {
           document.getElementById("tablaDatos").style.display = "none";
+          Swal.fire('Error', 'Ningún dato registrado', 'error');
         }
         console.log(respuesta)
       });

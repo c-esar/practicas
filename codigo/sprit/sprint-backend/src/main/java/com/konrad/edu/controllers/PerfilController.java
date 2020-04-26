@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.konrad.edu.IService.IConstantes;
 import com.konrad.edu.IService.IPerfilService;
 import com.konrad.edu.IService.IPersonaService;
+import com.konrad.edu.entity.Desencriptacion;
+import com.konrad.edu.entity.Encriptacion;
 import com.konrad.edu.entity.LabelConstantes;
 import com.konrad.edu.entity.PerfilEntity;
 import com.konrad.edu.entity.PersonaEntity;
@@ -42,7 +44,7 @@ public class PerfilController {
 		Map<String, Object> response = new HashMap<>();
 		PerfilEntity p = null;
 		try {
-			password = perfilService.Encriptar(password);
+			password = Encriptacion.Encriptar(password);
 			p = perfilService.getSession(nom_usuario, password);
 			if (p != null) {
 				p.getPersona().get(0).setPerfil(null);
@@ -85,7 +87,7 @@ public class PerfilController {
 			personaEntity = persona.getPersona().get(0);
 			persona.getPersona().clear();
 			String password = persona.getPassword();
-			password = perfilService.Encriptar(password);
+			password = Encriptacion.Encriptar(password);
 			persona.setPassword(password);
 			personaNew = perfilService.save(persona);
 			if (personaNew != null) {
@@ -118,7 +120,7 @@ public class PerfilController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			personaNew = perfilService.findHcPerfilesByNumeroDocumneto(numero_documento);
-			personaNew.setPassword(null);
+			personaNew.setPassword(Desencriptacion.Desencriptar(personaNew.getPassword()));
 			if (personaNew != null) {
 				tmp = personaNew.getPersona().get(0);
 				tmp.setHistorias(null);
@@ -133,6 +135,9 @@ public class PerfilController {
 			response.put("persona", personaNew);
 			System.err.print(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.err.print(e.getMessage());
 		}
 		try {
 			if (personaNew == null) {

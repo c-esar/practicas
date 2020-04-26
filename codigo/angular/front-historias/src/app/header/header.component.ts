@@ -14,12 +14,12 @@ export class HeaderComponent implements OnInit {
   permiso: Permiso;
   constructor(private loginService: LoginService) {
     this.permiso = new Permiso();
-    this.isLogueado = this.loginService.isAutorization();
   }
 
   ngOnInit(): void {
     this.perfil = this.loginService.obtenerPerfilSesion().persona[0].rolUsuario[0].nomTipoUsuario;
     //this.nomUsuario = this.loginService.obtenerPerfilSesion().nomUsuario;
+    this.isLogueado = this.loginService.isAutorization();
     this.obtenerPermisos();
   }
 

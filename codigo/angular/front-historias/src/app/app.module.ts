@@ -47,7 +47,6 @@ import { FormParaclinicosComponent } from './form-paraclinicos/form-paraclinicos
 import { FormGymAuxiliarComponent } from './form-gym-auxiliar/form-gym-auxiliar.component';
 import { FormGestionComponent } from './form-gestionAdm/form-gestion.component';
 import { FormHistoriasComponent } from './form-historias/form-historias.component';
-import { FirmaComponent } from './firma/firma.component';
 import { FirmaIndividualComponent } from './firma-individual/firma-individual.component';
 //rutas
 const routes: Routes = [
@@ -90,7 +89,6 @@ const routes: Routes = [
     FormGymAuxiliarComponent,
     FormGestionComponent,
     FormHistoriasComponent,
-    FirmaComponent,
     FirmaIndividualComponent
   ],
   imports: [

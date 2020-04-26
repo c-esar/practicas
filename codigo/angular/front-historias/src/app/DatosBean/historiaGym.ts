@@ -24,6 +24,7 @@ export class HistoriaGym {
     condicionGymEntity: CondicionGym[];
     familiarGymEntity: familiarGym[];
     persona: Persona;
+    aceptoCondiciones: string;
     constructor() {
         this.seqHistoriaGym = null;
         this.seqTipoHistoria = new TipoHistoria();
@@ -41,5 +42,6 @@ export class HistoriaGym {
         this.tipoCancer = null;
         this.otraFamiliar = null;
         this.persona = new Persona();
+        this.aceptoCondiciones = null
     }
 }

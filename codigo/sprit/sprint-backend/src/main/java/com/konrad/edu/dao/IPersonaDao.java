@@ -50,7 +50,8 @@ public interface IPersonaDao extends CrudRepository<PersonaEntity, Long> {
 			"p.seq_lugar_residencia, " + 
 			"p.seq_lugar_nacimiento, " + 
 			"p.seq_perfil, " + 
-			"p.seq_tipo_documento " + 
+			"p.seq_tipo_documento, " + 
+			"p.imagen "+
 			"FROM hc_personas AS p " + 
 			"INNER JOIN hc_rol_usuario_persona as rol ON (rol.seq_persona=p.seq_persona) " + 
 			"WHERE rol.seq_tipo_usuario IN (:seq_tipo_usuario);" , nativeQuery = true)

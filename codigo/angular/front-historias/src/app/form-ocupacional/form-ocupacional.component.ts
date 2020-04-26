@@ -1,5 +1,6 @@
 import { ElementRef, TemplateRef, ViewChild, Component, OnInit, Input, Output, AfterViewInit } from '@angular/core';
 import { LabelService } from '../Servicios/label.service';
+import { DomSanitizer } from '@angular/platform-browser';
 import { LoginService } from '../Servicios/login.service';
 import { HistoriasService } from '../Servicios/historias.service';
 import { PersonaService } from '../Servicios/persona.service';
@@ -32,7 +33,7 @@ import { DiagnosticoOcupacional } from '../DatosBean/diagnosticoOcupacional';
 import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
 import { TipoEvaluacion } from '../DatosBean/tipoEvaluacion';
-import { FirmaComponent } from '../firma/firma.component';
+import { FirmaIndividualComponent } from '../firma-individual/firma-individual.component';
 declare var jQuery: any;
 declare var $: any;
 @Component({
@@ -40,7 +41,7 @@ declare var $: any;
   templateUrl: './form-ocupacional.component.html',
   styleUrls: ['./form-ocupacional.component.css']
 })
-export class FormOcupacionalComponent implements OnInit,AfterViewInit {
+export class FormOcupacionalComponent implements OnInit, AfterViewInit {
 
   //guardarDatosGrillas
   @ViewChild('gridTrabajosPrevios') public gridTrabajosPrevios: GridComponent;
@@ -48,9 +49,12 @@ export class FormOcupacionalComponent implements OnInit,AfterViewInit {
   @ViewChild('gridEnfermedades') public gridEnfermedades: GridComponent;
   @ViewChild('gridFactoresRiesgo') public gridFactoresRiesgo: GridComponent;
   @ViewChild('gridParaclinicos') public gridParaclinicos: GridComponent;
-  @ViewChild(FirmaComponent) firma;
+  @ViewChild('medicoind') public firmaMedicohtml;
+  @ViewChild('pacienteind') public firmaPacientehtml;
   firmaMedico: any;
+  firmaMedioBoolean: Boolean;
   firmaPaciente: any;
+  firmaPacienteBoolean: Boolean;
   public pageSettings: PageSettingsModel;
   date = new FormControl(new Date());
   dateNacimiento = new FormControl(new Date());
@@ -61,6 +65,7 @@ export class FormOcupacionalComponent implements OnInit,AfterViewInit {
   buscoPerson: boolean;
   guardado: boolean;
   permiso: Permiso;
+  personaLogin: Persona;
   datosSingleton: DatosSingleton;
   tipoDocumento: TipoDocumento[];
   ciudad: Ciudad[];
@@ -109,7 +114,8 @@ export class FormOcupacionalComponent implements OnInit,AfterViewInit {
     private personaService: PersonaService,
     private router: Router,
     private historiaService: HistoriasService,
-    private modalService: BsModalService) {
+    private modalService: BsModalService,
+    private _sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -129,8 +135,29 @@ export class FormOcupacionalComponent implements OnInit,AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.firmaMedico = this.firma.imagenMedico;
-    this.firmaPaciente = this.firma.imagenPaciente;
+    this.getDatosPersonaLogin();
+  }
+
+  private getDatosPersonaLogin(): void {
+    this.personaLogin = this.loginService.obtenerPerfilSesion().persona[0];
+    this.personaService.onBuscarDocumento(this.personaLogin).subscribe(
+      (response) =>{
+        debugger;
+        this.personaLogin = new Persona();
+        this.personaLogin = response; 
+        this.onCargaImagenMedico();    
+      }
+    );
+  }
+  private onCargaImagenMedico(): void{
+    debugger;
+    if(this.personaLogin.imagen != null){
+      this.firmaMedico = this._sanitizer.bypassSecurityTrustResourceUrl(this.personaLogin.imagen);
+      this.firmaMedioBoolean = true;
+    }else{
+      this.firmaMedico = null;
+      this.firmaMedioBoolean = false;
+    }
   }
 
   onCargarAtributos(): void {
@@ -138,6 +165,7 @@ export class FormOcupacionalComponent implements OnInit,AfterViewInit {
     this.conceptoPeriodico = new Array<Concepto>();
     this.conceptoEgreso = new Array<Concepto>();
     this.persona = new Persona();
+    this.personaLogin = new Persona();
     this.persona.historias.push(new Historias());
     this.permiso = new Permiso();
     this.datosSingleton = new DatosSingleton();
@@ -152,6 +180,10 @@ export class FormOcupacionalComponent implements OnInit,AfterViewInit {
     this.buscoPerson = false;
     this.guardado = true;
     this.persona.historias[0].ciudadHistoria.seqCuidad = 0;
+    this.firmaMedico= null;
+    this.firmaPaciente = null;
+    this.firmaPacienteBoolean = false;
+    this.firmaMedioBoolean = false;
   }
 
   onCargarFunciones(): void {
@@ -167,6 +199,7 @@ export class FormOcupacionalComponent implements OnInit,AfterViewInit {
     this.getTipoEvaluacion();
     this.getAnosHabitosList();
     this.getTipoUsuario();
+    this.getDatosPersonaLogin();
   }
 
   public onValidatePersona(): void {
@@ -207,6 +240,13 @@ export class FormOcupacionalComponent implements OnInit,AfterViewInit {
           if (this.Spersona.lugarNacimiento === null) {
             this.persona.lugarNacimiento = new Ciudad();
             this.Spersona.lugarNacimiento = new Ciudad();
+          }
+          if (this.Spersona.imagen != null) {
+            this.firmaPaciente = this._sanitizer.bypassSecurityTrustResourceUrl(this.Spersona.imagen);
+            this.firmaPacienteBoolean = true;
+          } else {
+            this.firmaPaciente = null;
+            this.firmaPacienteBoolean = false;
           }
           this.persona.seqPersona = this.Spersona.seqPersona;
           this.buscoPerson = true;
@@ -470,36 +510,42 @@ export class FormOcupacionalComponent implements OnInit,AfterViewInit {
       this.persona.rolUsuario[0] = this.tipoUsuario[1];
       this.barProgres = true;
       this.cargarDatosActededentesHistoria();
-	  this.firmaMedico = this.firma.imagenMedico;
-	  this.firmaPaciente = this.firma.imagenPaciente;
-	  
-      if (this.onValidarAntecedentes() && this.guardado) {
-        if (this.permiso.crearUsuario === 1) {
-          this.persona.historias[0].examenFisico = this.examenFisico;
-          if (this.buscoPerson) {
-            debugger
-            this.historiaUpdate = this.persona.historias[0];
-            this.historiaUpdate.persona.seqPersona = this.seqPersona;
-            this.createHistoria();
-          } else {
-            console.log(this.persona)
-            this.personaService.create(this.persona).subscribe(
-              response => {
-                console.log(response);
-                this.guardado = false;
-                this.onBarProgress('salir');
-                Swal.fire('Exitoso', 'Persona Registrada', 'success');
-                this.router.navigate(['/menuPrincipal'])
-              }
-            );
+      debugger
+      this.firmaMedico = this.firmaMedicohtml.imagenUsuario == null || this.firmaMedicohtml.imagenUsuario == undefined ? this.firmaMedico : this.firmaMedicohtml.imagenUsuario;
+      this.firmaPaciente = this.firmaPacientehtml.imagenUsuario == null || this.firmaPacientehtml.imagenUsuario == undefined ? this.firmaPaciente : this.firmaPacientehtml.imagenUsuario;
+      if (this.firmaMedico != null || this.firmaPaciente != null) {
+        this.persona.imagen = this.firmaPaciente;
+        if (this.onValidarAntecedentes() && this.guardado) {
+          if (this.permiso.crearUsuario === 1) {
+            this.persona.historias[0].examenFisico = this.examenFisico;
+            if (this.buscoPerson) {
+              debugger
+              this.historiaUpdate = this.persona.historias[0];
+              this.historiaUpdate.persona.seqPersona = this.seqPersona;
+              this.createHistoria();
+            } else {
+              console.log(this.persona)
+              this.personaService.create(this.persona).subscribe(
+                response => {
+                  console.log(response);
+                  this.guardado = false;
+                  this.onBarProgress('salir');
+                  Swal.fire('Exitoso', 'Persona Registrada', 'success');
+                  this.router.navigate(['/menuPrincipal'])
+                }
+              );
+            }
           }
+        } else {
+          this.persona.historias[0].antecedentesHistoriaEntity = new Array<AntecedentesHistoria>();
+          this.onBarProgress('salir');
+          Swal.fire('Error', 'Falta completar información necesaria en la sección MOTIVO CONSULTA verificar campos', 'error');
         }
-      } else {
-        this.persona.historias[0].antecedentesHistoriaEntity = new Array<AntecedentesHistoria>();
-        this.onBarProgress('salir');
-        Swal.fire('Error', 'Falta completar información necesaria en la sección MOTIVO CONSULTA verificar campos', 'error');
+        this.onBarProgress('salir');     
+      }else{
+        Swal.fire('Error', 'Falta completar firmas', 'error');
       }
-      this.onBarProgress('salir');
+
     }, 1000);
   }
 

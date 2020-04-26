@@ -79,7 +79,7 @@ public class PersonaEntity implements Serializable {
 
 	@Lob
 	@Column(name = "imagen")
-	private byte[] imagen;
+	private String imagen;
 
 	@Column
 	private String genero;
@@ -465,6 +465,21 @@ public class PersonaEntity implements Serializable {
 	public void setPerfil(PerfilEntity perfil) {
 		this.perfil = perfil;
 	}
-	
+
+	public List<HistoriaGYMEntity> getHistoriaGym() {
+		return historiaGym;
+	}
+
+	public void setHistoriaGym(List<HistoriaGYMEntity> historiaGym) {
+		this.historiaGym = historiaGym;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 	
 }

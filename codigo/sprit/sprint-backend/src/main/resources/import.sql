@@ -107,7 +107,7 @@ INSERT INTO hc_tipo_documento(cod_documento,sigla_documento,nom_documento)values
 
 INSERT INTO hc_perfiles (nom_usuario,password,estado) values('prueba','12345','A');
 INSERT INTO hc_perfiles (nom_usuario,password,estado) values('carlos','12345','A');
-INSERT INTO hc_perfiles (nom_usuario,password,estado) values('cesar','827ccb0eea8a706c4c34a16891f84e7b','A');
+INSERT INTO hc_perfiles (nom_usuario,password,estado) values('cesar','CWlaarcP6EE=','A');
 
 INSERT INTO hc_permisos (crear_usuario,gestionar_usuario,descargar,crear_aux) values (1,1,1,0);
 INSERT INTO hc_permisos (crear_usuario,gestionar_usuario,descargar,crear_aux) values (0,0,0,1);

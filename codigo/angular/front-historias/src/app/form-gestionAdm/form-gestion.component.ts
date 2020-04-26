@@ -1,4 +1,5 @@
 import { ElementRef, ViewChild, Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { LabelService } from '../Servicios/label.service';
 import { LoginService } from '../Servicios/login.service';
 import { HistoriasService } from '../Servicios/historias.service';
@@ -27,6 +28,7 @@ declare var $: any;
 export class FormGestionComponent implements OnInit, AfterViewInit {
 
   @ViewChild(FirmaIndividualComponent) firma;
+  @ViewChild('firma') componenteFirma: FirmaIndividualComponent;
   firmaUsuario: any;
   persona: Persona;
   date = new FormControl(new Date());
@@ -67,7 +69,8 @@ export class FormGestionComponent implements OnInit, AfterViewInit {
     private loginService: LoginService,
     private personaService: PersonaService,
     private router: Router,
-    private historiaService: HistoriasService) {
+    private historiaService: HistoriasService,
+    private _sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -86,7 +89,6 @@ export class FormGestionComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.firmaUsuario = this.firma.imagenMedico;
   }
 
   onCargarAtributos(): void {
@@ -153,6 +155,12 @@ export class FormGestionComponent implements OnInit, AfterViewInit {
           if (respuesta != null) {
             this.perfil = respuesta;
             this.Spersona = respuesta.persona[0];
+            if (this.Spersona.imagen != null) {
+              this.firmaUsuario = this._sanitizer.bypassSecurityTrustResourceUrl(this.Spersona.imagen);
+            } else {
+              this.firmaUsuario = null;
+            }
+
             if (this.Spersona.aseguradora === null) {
               this.Spersona.aseguradora = new Aseguradora();
             }
@@ -278,38 +286,45 @@ export class FormGestionComponent implements OnInit, AfterViewInit {
       })
     }, 500);
 
-    // setTimeout(() => {
-    debugger
-    this.firmaUsuario = this.firma.imagenUsuario;
-    this.persona.localidad.seqLocalidad = 0;
-    this.persona.lugarDeResidencia.seqCuidad = 0;
-    this.persona.lugarNacimiento.seqCuidad = 0;
-    this.perfil.permisos = new Array<Permiso>();
-    this.perfil.persona = new Array<Persona>();
-    if (this.onCargarPermisos()) {
+    setTimeout(() => {
       debugger
-      if (this.onCargarTipoUsuario(this.Spersona.rolUsuario)) {
-        this.actualizarPerson(this.Spersona);
+      this.persona.localidad.seqLocalidad = 0;
+      this.persona.lugarDeResidencia.seqCuidad = 0;
+      this.persona.lugarNacimiento.seqCuidad = 0;
+      this.perfil.permisos = new Array<Permiso>();
+      this.perfil.persona = new Array<Persona>();
+      if (this.onCargarPermisos()) {
         debugger
-        this.perfil.nomUsuario = this.persona.nomPrimerNombre.toLocaleLowerCase() + "." + this.persona.nomPrimerApellido.toLocaleLowerCase();
-        this.perfil.persona.push(this.persona);
-        this.loginService.create(this.perfil).subscribe(
-          response => {
-            debugger
-            console.log(response);
-            Swal.fire('Exitoso', 'Persona Creada', 'success');
-            this.router.navigate(['/menuPrincipal']);
+        if (this.onCargarTipoUsuario(this.Spersona.rolUsuario)) {
+          this.actualizarPerson(this.Spersona);
+          debugger
+          this.perfil.nomUsuario = this.persona.nomPrimerNombre.toLocaleLowerCase() + "." + this.persona.nomPrimerApellido.toLocaleLowerCase();
+          if (this.firma.imagenUsuario != null || this.firma.imagenUsuario != undefined) {
+            this.persona.imagen = this.firma.imagenUsuario;
           }
-        );
+          this.perfil.persona.push(this.persona);
+          this.loginService.create(this.perfil).subscribe(
+            response => {
+              debugger
+              console.log(response);
+              if (this.buscoPerson) {
+                Swal.fire('Exitoso', 'Persona Actualizada', 'success');
+              } else {
+                Swal.fire('Exitoso', 'Persona Creada', 'success');
+              }
+
+              this.router.navigate(['/menuPrincipal']);
+            }
+          );
+        } else {
+          Swal.fire('Error', 'No selecciono Tipo usuario', 'error');
+        }
+
       } else {
-        Swal.fire('Error', 'No selecciono Tipo usuario', 'error');
+        Swal.fire('Falta', 'No selecciono permisos', 'error');
       }
 
-    } else {
-      Swal.fire('Falta', 'No selecciono permisos', 'error');
-    }
-
-    // }, 1000);
+    }, 1000);
   }
 
   private onCargarPermisos(): boolean {
@@ -469,6 +484,7 @@ export class FormGestionComponent implements OnInit, AfterViewInit {
     this.persona.parentescoEmergencia = this.persona.parentescoEmergencia == null ? per.parentescoEmergencia : this.persona.parentescoEmergencia;
     this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
+    this.persona.imagen = this.Spersona.imagen;
   }
   private onLabels(): void {
     this.labelService.getLabel().subscribe(

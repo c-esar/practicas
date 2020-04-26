@@ -27,6 +27,7 @@ export class Historias {
   seqTipoHistoria: TipoHistoria;
   otroEvaluacion: string;
   persona: Persona;
+  aceptoCondiciones: string;
   constructor() {
     this.seqHistoria = null;
     this.historiaLaboral = new HistoriaLaboral();
@@ -46,5 +47,6 @@ export class Historias {
     this.recomHabitos = null;
     this.otroEvaluacion = null;
     this.persona = new Persona();
+    this.aceptoCondiciones = null;
   }
 }

@@ -107,6 +107,9 @@ public class HistoriaOcupacionalEntity implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "seq_persona")
 	private PersonaEntity persona;
+	
+	@Column()
+	private String aceptoCondiciones;
 
 	@PrePersist
 	public void prePersist() {
@@ -275,6 +278,16 @@ public class HistoriaOcupacionalEntity implements Serializable {
 
 	public void setPersona(PersonaEntity persona) {
 		this.persona = persona;
+	}
+
+
+	public String getAceptoCondiciones() {
+		return aceptoCondiciones;
+	}
+
+
+	public void setAceptoCondiciones(String aceptoCondiciones) {
+		this.aceptoCondiciones = aceptoCondiciones;
 	}
 	
 	

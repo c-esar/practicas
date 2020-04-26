@@ -99,6 +99,8 @@ public class HistoriaGYMEntity implements Serializable {
 	@Column(name = "conducta", length = 4000)
 	private String conducta;
 
+	@Column()
+	private String aceptoCondiciones;
 
 	@PrePersist
 	public void prePersist() {
@@ -271,6 +273,16 @@ public class HistoriaGYMEntity implements Serializable {
 
 	public void setTipoCancer(String tipoCancer) {
 		this.tipoCancer = tipoCancer;
+	}
+
+
+	public String getAceptoCondiciones() {
+		return aceptoCondiciones;
+	}
+
+
+	public void setAceptoCondiciones(String aceptoCondiciones) {
+		this.aceptoCondiciones = aceptoCondiciones;
 	}
 
 	
