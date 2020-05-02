@@ -58,7 +58,7 @@
 
                   <ng-container matColumnDef="Detalle">
                     <mat-header-cell *matHeaderCellDef> Historias </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> <button mat-raised-button color="primary"> Detalle historia
+                    <mat-cell *matCellDef="let element"> <button mat-raised-button (click)="descargarDetalle(element.documento)" color="primary"> Detalle historia
                       </button>
                     </mat-cell>
                   </ng-container>

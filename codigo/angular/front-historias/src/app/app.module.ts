@@ -36,7 +36,10 @@ import { FormOcupacionalComponent } from './form-ocupacional/form-ocupacional.co
 //servicios
 import { LoginService } from './Servicios/login.service';
 import { PersonaService } from './Servicios/persona.service';
+import { HistoriasService } from './Servicios/historias.service';
+import { ReportesService } from './Servicios/reportes.service';
 import { LabelService } from './Servicios/label.service';
+
 import { TablesComponent } from './tables/tables.component';
 import { FormAuxiliarComponent } from './form-ocupacional-auxiliar/form-auxiliar.component';
 import { FactoresRiesgoComponent } from './form-factores-riesgo/factores-riesgo.component';
@@ -122,7 +125,9 @@ const routes: Routes = [
     MatNativeDateModule,
     LoginService,
     PersonaService,
-    LabelService
+    LabelService,
+    HistoriasService,
+    ReportesService
   ],
   bootstrap: [AppComponent]
 })

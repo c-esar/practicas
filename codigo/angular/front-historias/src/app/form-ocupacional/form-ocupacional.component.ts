@@ -503,7 +503,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     }, 500);
 
     setTimeout(() => {
-      this.onBarProgress('inicio');
       this.actualizarPerson(this.Spersona);
       this.persona.localidad.seqLocalidad = 0;
       this.persona.lugarDeResidencia.seqCuidad = 0;
@@ -538,10 +537,8 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
           }
         } else {
           this.persona.historias[0].antecedentesHistoriaEntity = new Array<AntecedentesHistoria>();
-          this.onBarProgress('salir');
           Swal.fire('Error', 'Falta completar información necesaria en la sección MOTIVO CONSULTA verificar campos', 'error');
-        }
-        this.onBarProgress('salir');     
+        }    
       }else{
         Swal.fire('Error', 'Falta completar firmas', 'error');
       }
