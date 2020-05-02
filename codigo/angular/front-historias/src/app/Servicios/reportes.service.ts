@@ -17,7 +17,11 @@ export class ReportesService {
     private http: HttpClient, private constante: ConstantesService
   ) { }
 
-  onReporteHistoriasGym(id: String): Observable<any> {
-    return this.http.get(this.url + "reportes/historiaGym");
+  onReporteHistoriasGym(id: String): Observable<String> {
+    return this.http.get<String>(`${this.url + "reportes/historiaGym"}/${id}`, { headers: this.httpHeaders });
+  }
+
+  onReporteHistoriasOcupacional(id: String): Observable<String> {
+    return this.http.get<String>(`${this.url + "reportes/historiaOcupacional"}/${id}`, { headers: this.httpHeaders });
   }
 }

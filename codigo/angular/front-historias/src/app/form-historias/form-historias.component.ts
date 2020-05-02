@@ -12,6 +12,7 @@ import { Persona } from '../DatosBean/persona';
 import { ArchivosFileHistoria } from '../DatosBean/archivosfilehistoria';
 import Swal from 'sweetalert2';
 import { Permiso } from '../DatosBean/permiso';
+import { ReportesService } from '../Servicios/reportes.service';
 @Component({
   selector: 'app-form-historias',
   templateUrl: './form-historias.component.html',
@@ -33,7 +34,8 @@ export class FormHistoriasComponent implements OnInit {
     private historiaService: HistoriasService,
     private filesService: FilessService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private reportes :ReportesService) {
   }
 
   ngOnInit(): void {
@@ -167,5 +169,10 @@ export class FormHistoriasComponent implements OnInit {
         }
       );
     }, 1000);
+  }
+
+  public descargarDetalle(documento: string):void{
+    let string = this.reportes.onReporteHistoriasGym(documento);
+    Swal.fire('Exitoso','correcto', 'success');;
   }
 }
