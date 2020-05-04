@@ -4,7 +4,7 @@ import { of, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConstantesService } from './constantes.service';
 import Swal from 'sweetalert2';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +18,24 @@ export class ReportesService {
   ) { }
 
   onReporteHistoriasGym(id: String): Observable<String> {
-    return this.http.get<String>(`${this.url + "reportes/historiaGym"}/${id}`, { headers: this.httpHeaders });
+    return this.http.get<String>(`${this.url + "reportes/historiaGym"}/${id}`, { headers: this.httpHeaders }).pipe(
+      map( (resp: any) => resp.persona  as String),
+      catchError(e => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
   }
 
   onReporteHistoriasOcupacional(id: String): Observable<String> {
-    return this.http.get<String>(`${this.url + "reportes/historiaOcupacional"}/${id}`, { headers: this.httpHeaders });
+    return this.http.get<String>(`${this.url + "reportes/historiaOcupacional"}/${id}`, { headers: this.httpHeaders }).pipe(
+      map( (resp: any) => resp.persona  as String)
+      ,catchError(e => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
   }
 }
