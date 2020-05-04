@@ -35,7 +35,7 @@ export class FormHistoriasComponent implements OnInit {
     private filesService: FilessService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private reportes :ReportesService) {
+    private reportes: ReportesService) {
   }
 
   ngOnInit(): void {
@@ -171,8 +171,20 @@ export class FormHistoriasComponent implements OnInit {
     }, 1000);
   }
 
-  public descargarDetalle(documento: string):void{
-    let string = this.reportes.onReporteHistoriasGym(documento);
-    Swal.fire('Exitoso','correcto', 'success');;
+  public descargarDetalle(documento: string, tipo: string): void {
+    debugger
+    if (tipo === "OCUPACIONAL") {
+      this.reportes.onReporteHistoriasOcupacional(documento).subscribe(
+        (respuesta) => {
+          Swal.fire('Exitoso', ""+respuesta, 'success');
+        }
+      )
+    } else if (tipo === "GYM") {
+      this.reportes.onReporteHistoriasGym(documento).subscribe(
+        (respuesta) => {
+          Swal.fire('Exitoso', ''+respuesta, 'success');
+        }
+      )
+    }
   }
 }

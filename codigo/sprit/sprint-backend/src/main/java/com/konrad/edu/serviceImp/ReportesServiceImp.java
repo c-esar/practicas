@@ -107,7 +107,7 @@ public class ReportesServiceImp implements IReportesService {
 			exporter.setParameter(JRExporterParameter.JASPER_PRINT,jasperPrint);
 			exporter.setParameter(JRExporterParameter.OUTPUT_FILE,new java.io.File("historiasOcupacional.pdf"));
 			exporter.exportReport();
-			return "report generated in path :";
+			return "report generated in path :" + exporter.getReportContext(); 
 		} catch (IOException e) {
 			System.err.print(e.getMessage());
 			e.printStackTrace();
