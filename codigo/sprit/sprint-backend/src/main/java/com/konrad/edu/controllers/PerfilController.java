@@ -59,13 +59,13 @@ public class PerfilController {
 				p.setEstado(IConstantes.ESTADO_SESION_INACTIVO);
 			}
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al realizar el insertar en la base de datos");
+			response.put("mensaje", "Error al ingresar a la aplicación");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			response.put("persona", p);
 			System.err.print(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		response.put("mensaje", "La persona ha sido creada con éxito!");
+		response.put("mensaje", "La persona ha ingresado con éxito!");
 		response.put("persona", p);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 	}

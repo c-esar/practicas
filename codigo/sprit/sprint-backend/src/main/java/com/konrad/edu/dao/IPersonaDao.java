@@ -52,7 +52,7 @@ public interface IPersonaDao extends CrudRepository<PersonaEntity, Long> {
 			"p.seq_perfil, " + 
 			"p.seq_tipo_documento, " + 
 			"p.imagen "+
-			"FROM hc_personas AS p " + 
+			"FROM hc_personas p " + 
 			"INNER JOIN hc_rol_usuario_persona as rol ON (rol.seq_persona=p.seq_persona) " + 
 			"WHERE rol.seq_tipo_usuario IN (:seq_tipo_usuario);" , nativeQuery = true)
 	public List<PersonaEntity> findAllTipoUsuario(@Param("seq_tipo_usuario") List<String> seq_tipo_usuario);
