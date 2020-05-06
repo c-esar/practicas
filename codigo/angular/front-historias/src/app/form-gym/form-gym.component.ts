@@ -173,6 +173,11 @@ export class FormGymComponent implements OnInit, AfterViewInit {
 
   }
 
+  public onLimpiar(): void {
+    this.onCargarAtributos();
+    this.onCargarFunciones();
+  }
+
   public onValidatePersona(): void {
     setTimeout(() => {
       Swal.fire({
@@ -530,47 +535,52 @@ export class FormGymComponent implements OnInit, AfterViewInit {
       })
     }, 500);
     setTimeout(() => {
-      debugger
-      this.onCargarPreguntas();
-      this.firmaMedico = this.firmaMedicohtml.imagenUsuario == null || this.firmaMedicohtml.imagenUsuario == undefined ? this.firmaMedico : this.firmaMedicohtml.imagenUsuario;
-      this.firmaPaciente = this.firmaPacientehtml.imagenUsuario == null || this.firmaPacientehtml.imagenUsuario == undefined ? this.firmaPaciente : this.firmaPacientehtml.imagenUsuario;
-      if (this.firmaMedico != null && this.firmaPaciente != null) {
-        this.persona.imagen = this.firmaPaciente;
-        if (this.onValidarPreguntas() && this.guardado) {
-          if (this.permiso.crearUsuario === 1) {
-            this.persona.historiaGym[0].examenFisico = this.examenFisico;
-            if (this.onCargarTipoUsuario()) {
-              if (this.buscoPerson) {
-                debugger
-                this.historiaUpdate = this.persona.historiaGym[0];
-                this.historiaUpdate.persona.seqPersona = this.seqPersona;
-                this.createHistoria();
+      if (this.persona.historiaGym[0].aceptoCondiciones != null) {
+        this.persona.historias[0].aceptoCondiciones = "true";
+        this.onCargarPreguntas();
+        this.firmaMedico = this.firmaMedicohtml.imagenUsuario == null || this.firmaMedicohtml.imagenUsuario == undefined ? this.firmaMedico : this.firmaMedicohtml.imagenUsuario;
+        this.firmaPaciente = this.firmaPacientehtml.imagenUsuario == null || this.firmaPacientehtml.imagenUsuario == undefined ? this.firmaPaciente : this.firmaPacientehtml.imagenUsuario;
+        if (this.firmaMedico != null && this.firmaPaciente != null) {
+          this.persona.imagen = this.firmaPaciente;
+          if (this.onValidarPreguntas() && this.guardado) {
+            if (this.permiso.crearUsuario === 1) {
+              this.persona.historiaGym[0].examenFisico = this.examenFisico;
+              if (this.onCargarTipoUsuario()) {
+                if (this.buscoPerson) {
+                  debugger
+                  this.historiaUpdate = this.persona.historiaGym[0];
+                  this.historiaUpdate.persona.seqPersona = this.seqPersona;
+                  this.createHistoria();
+                } else {
+                  this.persona.localidad.seqLocalidad = 0;
+                  this.persona.lugarDeResidencia.seqCuidad = 0;
+                  this.actualizarPerson(this.Spersona);
+                  console.log(this.persona)
+                  this.personaService.create(this.persona).subscribe(
+                    response => {
+                      console.log(response);
+                      this.guardado = false;
+                      Swal.fire('Exitoso', 'Persona Registrada', 'success');
+                      this.router.navigate(['/menuPrincipal'])
+                    }
+                  );
+                }
               } else {
-                this.persona.localidad.seqLocalidad = 0;
-                this.persona.lugarDeResidencia.seqCuidad = 0;
-                this.actualizarPerson(this.Spersona);
-                console.log(this.persona)
-                this.personaService.create(this.persona).subscribe(
-                  response => {
-                    console.log(response);
-                    this.guardado = false;
-                    Swal.fire('Exitoso', 'Persona Registrada', 'success');
-                    this.router.navigate(['/menuPrincipal'])
-                  }
-                );
+                Swal.fire('Error', 'No selecciono Tipo usuario', 'error');
               }
-            } else {
-              Swal.fire('Error', 'No selecciono Tipo usuario', 'error');
-            }
 
+            }
+          } else {
+            this.persona.historiaGym[0].historiaPreguntasGyms = new Array<HistoriaPreguntaGym>();
+            Swal.fire('Error', 'Falta completar información necesaria en la sección HISTORIA PERSONAL verificar campos', 'error');
           }
         } else {
-          this.persona.historiaGym[0].historiaPreguntasGyms = new Array<HistoriaPreguntaGym>();
-          Swal.fire('Error', 'Falta completar información necesaria en la sección HISTORIA PERSONAL verificar campos', 'error');
+          Swal.fire('Error', 'Falta completar firmas', 'error');
         }
       } else {
-        Swal.fire('Error', 'Falta completar firmas', 'error');
+        Swal.fire('Error', 'Debe aceptar las condicones', 'error');
       }
+
 
     }, 1000);
   }

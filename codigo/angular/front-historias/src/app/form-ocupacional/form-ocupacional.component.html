@@ -53,6 +53,8 @@
 								<div class="form-group col-md-4 col-sm-4 col-xs-12">
 									<button id="BuscarPersona" mat-raised-button color="primary"
 										(click)="onValidatePersona()">Buscar</button>
+									<button id="limpiar" mat-raised-button color="primary"
+										(click)="onLimpiar()">Limpiar</button>
 								</div>
 							</div>
 							<div class="form-group col-md-6 col-sm-6 col-xs-3">
@@ -835,6 +837,12 @@
 									id="formlablemenarquiasOcupacional">
 									<div class="form-group col-md-4 col-sm-4 col-xs-12">
 										<mat-form-field>
+											<mat-label for=" formmenarquiaS">Menarquia</mat-label>
+											<input matInput [(ngModel)]="menarquia.menarquia" type="text"
+												name="formmenarquiaS">
+											<mat-error>Falta información</mat-error>
+										</mat-form-field>
+										<mat-form-field>
 											<mat-label for=" formfechaFur">{{datosSingleton.labelFur}}</mat-label>
 											<input matInput [(ngModel)]="menarquia.fur" type="date" name="fechaFur">
 											<mat-error>Coloque la
@@ -1342,7 +1350,7 @@
 										</div>
 										<img style="background: black;" [src]="firmaMedico">
 									</div>
-									<div class="form-group col-md-12 col-sm-12 col-xs-12" >
+									<div class="form-group col-md-12 col-sm-12 col-xs-12">
 										<div class="form-group col-md-12 col-sm-12 col-xs-12">
 											<mat-label>CREAR NUEVA FIRMA</mat-label>
 										</div>
@@ -1363,9 +1371,19 @@
 										<div class="form-group col-md-12 col-sm-12 col-xs-12">
 											<mat-label>CREAR NUEVA FIRMA</mat-label>
 										</div>
-										<app-firma-individual #pacienteind id="formfirmaspaciente"></app-firma-individual>
+										<app-firma-individual #pacienteind id="formfirmaspaciente">
+										</app-firma-individual>
 									</div>
 								</div>
+							</div>
+							<div class="form-group col-md-12 col-sm-12 col-xs-12 row">
+								<mat-checkbox name="aceptoCondiciones" [(ngModel)]="persona.historias[0].aceptoCondiciones">
+									Al enviar este formulario autorizo, expresamente y de manera voluntaria,
+									a la Fundación Universitaria Konrad Lorenz para usar y 
+									<br>
+									manejar los datos que he suministrado, con propósitos académicos y según la siguiente <a href="http://www.konradlorenz.edu.co/es/informacion-institucional/nueva-imagen-institucional-2politicas-para-el-tratamiento-de-datos-personales.html"  target="_blank">política de tratamiento
+										de datos personales.</a>
+								</mat-checkbox>
 							</div>
 							<div class="form-group col-md-6 col-sm-6 col-xs-3 row">
 								<button mat-raised-button color="primary" role="button" [disabled]="f.invalid"

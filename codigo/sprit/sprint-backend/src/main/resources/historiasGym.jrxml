@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="historiasGym" language="groovy" columnDirection="RTL" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="58a19427-39b6-40d6-a40b-27c995e2dc0f">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="historiasGym" language="groovy" columnDirection="RTL" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="58a19427-39b6-40d6-a40b-27c995e2dc0f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1584"/>
+	<property name="ireport.y" value="1966"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#F0F0F0"/>
@@ -90,30 +90,26 @@ inner join hc_tipo_cuestionario tc on tc.seq_tipo_cuestionario =  c.seq_tipo_cue
 		<defaultValueExpression><![CDATA["C:\\Users\\David\\Documents\\GitHub\\practicas\\codigo\\sprit\\sprint-backend\\src\\main\\java\\com\\konrad\\edu\\reportes\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="imagenK" class="java.lang.String"/>
-	<parameter name="patologia" class="java.lang.String"/>
-	<parameter name="tiroidea" class="java.lang.String"/>
-	<parameter name="luxaciones" class="java.lang.String"/>
-	<parameter name="columna" class="java.lang.String"/>
-	<parameter name="colesterol" class="java.lang.String"/>
-	<parameter name="epilepsia" class="java.lang.String"/>
-	<parameter name="renal" class="java.lang.String"/>
-	<parameter name="fracturas" class="java.lang.String"/>
-	<parameter name="diabetesMellitus" class="java.lang.String"/>
-	<parameter name="asma" class="java.lang.String"/>
-	<parameter name="hipertensionpersonal" class="java.lang.String"/>
-	<parameter name="otrapersonal" class="java.lang.String"/>
-	<parameter name="problemaPeso" class="java.lang.String"/>
-	<parameter name="cirugias" class="java.lang.String"/>
-	<parameter name="otracualpersonal" class="java.lang.String"/>
+	<parameter name="impresionDiagnostica" class="java.lang.String"/>
+	<parameter name="embarazo" class="java.lang.String"/>
+	<parameter name="fumaSN" class="java.lang.String"/>
+	<parameter name="fumacuantos" class="java.lang.String"/>
+	<parameter name="fumatiempo" class="java.lang.String"/>
+	<parameter name="licorSN" class="java.lang.String"/>
+	<parameter name="licorcuantos" class="java.lang.String"/>
+	<parameter name="ejercicioSN" class="java.lang.String"/>
+	<parameter name="ejerciciocuales" class="java.lang.String"/>
+	<parameter name="ejerciciocuantas" class="java.lang.String"/>
+	<parameter name="energizanteSN" class="java.lang.String"/>
+	<parameter name="energizantecuantas" class="java.lang.String"/>
+	<parameter name="psicoactivasSN" class="java.lang.String"/>
+	<parameter name="psicoactivascuales" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT hgym.seq_historia_gym as seq_historia
       ,hgym.acepto_condiciones
       ,hgym.conducta
       ,hgym.dia_historia_gym
       ,hgym.observaciones_historia
-      ,hgym.otra_condicion
-      ,hgym.otra_familiar
-      ,hgym.tipo_cancer
       ,hgym.seq_ciudad
       ,hgym.seq_exa_fisico
       ,hgym.seq_persona
@@ -171,6 +167,33 @@ inner join hc_tipo_cuestionario tc on tc.seq_tipo_cuestionario =  c.seq_tipo_cue
       ,exa.num_talla
       ,exa.num_tension
       ,s.nom_aseguradora
+      ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 1 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as patologia_cardiaca
+      ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 2 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as colesterol_alto
+      ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 3 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as insuficiencia_renal
+      ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 4 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as hipertencion_arterial
+      ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 5 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as enfermedad_tiroidea
+      ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 6 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as epilepsia
+      ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 7 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as diabetes_mellitus
+      ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 8 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as problemas_peso
+      ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 9 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as esquinces
+      ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 10 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as fracturas
+      ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 11 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as asma
+      ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 12 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as cirugias
+      ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 13 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as enfermedades_columna
+      ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 14 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as otra
+      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.otra_condicion != null and hgym.seq_historia_gym = seq_historia_gym), hgym.otra_condicion, '')) as otro_condicion
+      ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 1 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as enfermedad_coronaria
+      ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 2 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as diabetes
+      ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 3 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as hipertension
+      ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 4 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as muerte_subita
+      ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 5 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as mellitus
+      ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 6 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as accidente_cerebrovascular
+      ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 7 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as cancer
+      ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 8 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as obesidad
+      ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 9 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as hiperteroidismo
+      ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 10 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as otrof
+      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.otra_familiar != null and hgym.seq_historia_gym = seq_historia_gym), hgym.otra_familiar, '')) as otro_familiar
+      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.tipo_cancer != null and hgym.seq_historia_gym = seq_historia_gym), hgym.tipo_cancer, '')) as tipo_cancer
 FROM hc_personas p
 inner join hc_historia_gym hgym on hgym.seq_persona = p.seq_persona
 inner join hc_examen_fisico exa on exa.seq_exa_fisico = hgym.seq_exa_fisico
@@ -182,9 +205,6 @@ where p.seq_persona = $P{numeroPersona}]]>
 	<field name="conducta" class="java.lang.String"/>
 	<field name="dia_historia_gym" class="java.sql.Date"/>
 	<field name="observaciones_historia" class="java.lang.String"/>
-	<field name="otra_condicion" class="java.lang.String"/>
-	<field name="otra_familiar" class="java.lang.String"/>
-	<field name="tipo_cancer" class="java.lang.String"/>
 	<field name="seq_ciudad" class="java.lang.Long"/>
 	<field name="seq_exa_fisico" class="java.lang.Long"/>
 	<field name="seq_persona" class="java.lang.Integer"/>
@@ -240,6 +260,33 @@ where p.seq_persona = $P{numeroPersona}]]>
 	<field name="num_talla" class="java.lang.Double"/>
 	<field name="num_tension" class="java.lang.Double"/>
 	<field name="nom_aseguradora" class="java.lang.String"/>
+	<field name="patologia_cardiaca" class="java.lang.String"/>
+	<field name="colesterol_alto" class="java.lang.String"/>
+	<field name="insuficiencia_renal" class="java.lang.String"/>
+	<field name="hipertencion_arterial" class="java.lang.String"/>
+	<field name="enfermedad_tiroidea" class="java.lang.String"/>
+	<field name="epilepsia" class="java.lang.String"/>
+	<field name="diabetes_mellitus" class="java.lang.String"/>
+	<field name="problemas_peso" class="java.lang.String"/>
+	<field name="esquinces" class="java.lang.String"/>
+	<field name="fracturas" class="java.lang.String"/>
+	<field name="asma" class="java.lang.String"/>
+	<field name="cirugias" class="java.lang.String"/>
+	<field name="enfermedades_columna" class="java.lang.String"/>
+	<field name="otra" class="java.lang.String"/>
+	<field name="otro_condicion" class="java.lang.String"/>
+	<field name="enfermedad_coronaria" class="java.lang.String"/>
+	<field name="diabetes" class="java.lang.String"/>
+	<field name="hipertension" class="java.lang.String"/>
+	<field name="muerte_subita" class="java.lang.String"/>
+	<field name="mellitus" class="java.lang.String"/>
+	<field name="accidente_cerebrovascular" class="java.lang.String"/>
+	<field name="cancer" class="java.lang.String"/>
+	<field name="obesidad" class="java.lang.String"/>
+	<field name="hiperteroidismo" class="java.lang.String"/>
+	<field name="otrof" class="java.lang.String"/>
+	<field name="otro_familiar" class="java.lang.String"/>
+	<field name="tipo_cancer" class="java.lang.String"/>
 	<pageHeader>
 		<band height="50" splitType="Stretch">
 			<rectangle>
@@ -340,7 +387,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{dia_historia_gym}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="246" y="13" width="151" height="20" backcolor="#CCCCCC" uuid="a9ad59f0-ba89-4a47-9c24-6cd48f73c06e"/>
+				<reportElement mode="Opaque" x="245" y="13" width="151" height="20" backcolor="#CCCCCC" uuid="a9ad59f0-ba89-4a47-9c24-6cd48f73c06e"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -354,7 +401,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[Documento Identidad:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="397" y="13" width="158" height="20" uuid="d1ad58ae-c0ec-4aa6-bb04-37e0ea2373e3"/>
+				<reportElement x="396" y="13" width="159" height="20" uuid="d1ad58ae-c0ec-4aa6-bb04-37e0ea2373e3"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -424,7 +471,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{nom_primer_nombre} + " " + $F{nom_segundo_nombre} + " " + $F{nom_primer_apellido} + " " + $F{nom_segundo_apellido}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="73" width="132" height="20" backcolor="#CCCCCC" uuid="379b5be3-b01c-41ac-a405-d902092409c3"/>
+				<reportElement mode="Opaque" x="0" y="73" width="124" height="20" backcolor="#CCCCCC" uuid="379b5be3-b01c-41ac-a405-d902092409c3"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -690,7 +737,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[¿ Ha padecido o padece alguna de las siguientes condiciones? (marque con una x y en observaciones especifique si tiene algún tratamiento actualmente y en cirugía especifique tipo y fecha)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="411" width="100" height="20" uuid="becb9f13-c71e-4f2e-960f-5e6b38b298ad"/>
+				<reportElement x="0" y="411" width="555" height="20" uuid="becb9f13-c71e-4f2e-960f-5e6b38b298ad"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -699,7 +751,9 @@ where p.seq_persona = $P{numeroPersona}]]>
 			<textField>
 				<reportElement x="0" y="431" width="555" height="100" uuid="cb672690-d596-4282-ada8-99f11edec8ff"/>
 				<box>
+					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
 					<font size="12"/>
@@ -735,67 +789,18 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[¿Realiza ejercicio físico?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="691" width="245" height="20" uuid="7a13c7e2-7794-4303-b961-8fcfe71ff33c"/>
+				<reportElement x="0" y="691" width="209" height="20" uuid="7a13c7e2-7794-4303-b961-8fcfe71ff33c"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[¿Consume bebidas energizantes? ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="723" width="245" height="20" uuid="ef1af631-7540-4d29-82ff-d06663731e2a"/>
+				<reportElement x="0" y="723" width="224" height="20" uuid="ef1af631-7540-4d29-82ff-d06663731e2a"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[¿Consume sustancias psicoactivas? ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="222" y="557" width="137" height="20" uuid="514335a7-c190-4212-b990-b74fd6b932ae"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Cuantos cigarrillos día]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="397" y="557" width="112" height="20" uuid="346778ed-0647-4699-9602-9f1dd2b4e327"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Tiempo fumando]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="222" y="589" width="137" height="20" uuid="66d3f5ec-2a30-4bb8-b328-14ac70e0aa94"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Cuantas veces al mes]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="222" y="624" width="58" height="20" uuid="cb988f69-52ce-4a38-a0d8-bb7a19e5db00"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Cual(es)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="658" width="200" height="20" uuid="ee2e75af-5f76-4c75-b96a-d356fc4fb4fc"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Cuantas veces por semana]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="309" y="691" width="166" height="20" uuid="41fcc7a5-3500-4e11-a377-d8c6c9ec6a4c"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Cuantas a la semana]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="309" y="723" width="58" height="20" uuid="ceab51b1-bdf9-4ca0-aa0b-bdca9f60da98"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[¿Cuáles?]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="38" y="113" width="196" height="20" uuid="638b61bf-96ce-43c3-ac64-8a15dd27c494"/>
@@ -1091,85 +1096,204 @@ where p.seq_persona = $P{numeroPersona}]]>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="17" y="276" width="15" height="15" uuid="878da9ac-e105-40cd-a9a8-7c3a5f853af0"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{patologia}]]></textFieldExpression>
+			<textField>
+				<reportElement x="17" y="276" width="15" height="15" uuid="368d3ae4-0434-4f7e-9cf7-9e5cd89c79c3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{patologia_cardiaca}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="17" y="296" width="15" height="15" uuid="a808bcb3-75a4-44df-9d5d-ddc908726e05"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{tiroidea}]]></textFieldExpression>
+			<textField>
+				<reportElement x="17" y="356" width="15" height="15" uuid="018d8e80-6e56-4bb9-b64c-6386360a8be3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{colesterol_alto}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="17" y="316" width="15" height="15" uuid="6b9b8f17-896a-4693-950c-a0d65b74fbd0"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{luxaciones}]]></textFieldExpression>
+			<textField>
+				<reportElement x="187" y="276" width="15" height="15" uuid="c1e5e4b2-4408-4e49-b84b-99d9ef3e3c4b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{insuficiencia_renal}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="17" y="336" width="15" height="15" uuid="a476c81a-ed63-4a62-ad7c-e8d7042ca996"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{columna}]]></textFieldExpression>
+			<textField>
+				<reportElement x="187" y="356" width="15" height="15" uuid="f53d8f34-ad67-4a03-9222-27e8bb401ddd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hipertencion_arterial}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="17" y="356" width="15" height="15" uuid="c3c930b7-2842-4bc3-acdf-a0c6d6501632"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{colesterol}]]></textFieldExpression>
+			<textField>
+				<reportElement x="17" y="296" width="15" height="15" uuid="491b2523-d0a3-4f31-86f9-6bc2d253145f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{enfermedad_tiroidea}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="17" y="376" width="15" height="15" uuid="2e948ada-afe2-4b87-9d39-a373c82dd397"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{epilepsia}]]></textFieldExpression>
+			<textField>
+				<reportElement x="17" y="376" width="15" height="15" uuid="fa949273-68df-4d19-98b3-571575e1d6d3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{epilepsia}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="187" y="276" width="15" height="15" uuid="31c652b9-d210-4c8b-8773-748e9bba4e00"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{renal}]]></textFieldExpression>
+			<textField>
+				<reportElement x="187" y="316" width="15" height="15" uuid="71f71950-06d3-4fee-86de-fdab0ba386dd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{diabetes_mellitus}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="187" y="296" width="15" height="15" uuid="44a093af-8ff0-48e3-bae6-822e2a631e6b"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{fracturas}]]></textFieldExpression>
+			<textField>
+				<reportElement x="378" y="276" width="15" height="15" uuid="a034e3ee-3cb0-4c2b-9864-a7321a917ce1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{problemas_peso}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="187" y="316" width="15" height="15" uuid="4400daf6-6f97-4601-a7a3-bfc13aaf1b7c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{diabetesMellitus}]]></textFieldExpression>
+			<textField>
+				<reportElement x="17" y="316" width="15" height="15" uuid="aa1a2809-c688-4b65-8d66-8b0e203efb1d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{esquinces}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="187" y="336" width="15" height="15" uuid="cb968561-a972-486c-8f7d-a34c1e84a239"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{asma}]]></textFieldExpression>
+			<textField>
+				<reportElement x="187" y="296" width="15" height="15" uuid="04f26b01-4c79-499e-8739-8114e41441ef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fracturas}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="187" y="356" width="15" height="15" uuid="3c61777d-dafc-4af1-bbd9-db275a2313a2"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{hipertensionpersonal}]]></textFieldExpression>
+			<textField>
+				<reportElement x="187" y="336" width="15" height="15" uuid="52c69320-051b-4432-8eb2-cf9c315c27ef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{asma}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="187" y="376" width="15" height="15" uuid="b1fd07c2-234c-4a1f-9a1d-2380679320d7"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{otrapersonal}]]></textFieldExpression>
+			<textField>
+				<reportElement x="378" y="296" width="15" height="15" uuid="93e9e5c2-baea-4622-b35f-fb8acc67a419"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cirugias}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="378" y="276" width="15" height="15" uuid="8647bead-b673-47e9-9e4c-25e63818db37"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{problemaPeso}]]></textFieldExpression>
+			<textField>
+				<reportElement x="17" y="336" width="15" height="15" uuid="f1a1ef88-d977-40ca-96d6-fac19f14ddbc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{enfermedades_columna}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="378" y="296" width="15" height="15" uuid="b93e6246-f624-436c-bff2-b905716553a0"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{cirugias}]]></textFieldExpression>
+			<textField>
+				<reportElement x="187" y="376" width="15" height="15" uuid="2eef5c48-67d1-4faa-9062-c5bfcb2161bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{otra}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="289" y="374" width="266" height="20" uuid="2b323c81-1e82-4411-aea6-f9623f39d603"/>
+			<textField>
+				<reportElement x="280" y="374" width="275" height="20" uuid="aa25c5f6-3b51-46b4-a6b4-2a272f9f9fd0"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{otracualpersonal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{otro_condicion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="531" width="100" height="20" uuid="1ae0226e-40ed-45a0-93fd-14f061c13f82"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{embarazo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="151" y="557" width="73" height="20" uuid="82259608-746d-43f3-a312-fb4fc339841a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fumaSN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="223" y="557" width="174" height="20" uuid="2a288a56-7b36-4640-a0f3-1057d4dac86a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cuantos cigarrillos día:  "+ $P{fumacuantos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="397" y="557" width="158" height="20" uuid="79f9b4cb-036c-47d1-a3c9-3977722e1ff8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tiempo fumando:  " +$P{fumatiempo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="589" width="74" height="20" uuid="e291d331-299c-4e3a-8278-91e0e961c974"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{licorSN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="589" width="333" height="20" uuid="42430311-1ce0-493a-ae90-cee8e9affbc8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cuantas veces al mes:  " +$P{licorcuantos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="151" y="624" width="72" height="20" uuid="e75cdf96-69ed-4668-adf7-eeeb27016296"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ejercicioSN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="624" width="333" height="20" uuid="7593878e-8518-4532-a4e4-dd640acf0098"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cual(es):  " +$P{ejerciciocuales}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="658" width="555" height="20" uuid="a88aae6b-3812-4581-86b0-5b9184d44665"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cuantas veces por semana:  " +$P{ejerciciocuantas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="209" y="691" width="100" height="20" uuid="d6d3be76-ce25-4860-ad8c-4c1a4184b015"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{energizanteSN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="309" y="691" width="246" height="20" uuid="a101c397-983f-48d8-84e7-dec7b7b16a98"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cuantas a la semana:  "+$P{energizantecuantas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="723" width="87" height="20" uuid="f57cefd3-354d-4b6f-8fb6-868d1298c982"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{psicoactivasSN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="309" y="723" width="246" height="20" uuid="0e294d44-8709-4b39-be19-4256c6ff6d31"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["¿Cuáles?:  " +$P{psicoactivascuales}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="752">
@@ -1265,28 +1389,28 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="60" y="89" width="134" height="20" uuid="97233817-dfab-47e2-807f-a99fd0558da0"/>
-				<textElement>
+				<reportElement x="51" y="89" width="206" height="20" uuid="97233817-dfab-47e2-807f-a99fd0558da0"/>
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Muerte súbita (antes de los 50 años)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="289" y="129" width="121" height="20" uuid="782a69ee-577a-46b9-b613-40c08925d605"/>
-				<textElement>
+				<reportElement x="289" y="130" width="78" height="20" uuid="782a69ee-577a-46b9-b613-40c08925d605"/>
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Otra, ¿cuál?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="60" y="69" width="134" height="20" uuid="b015aa29-e560-4204-bb2b-1262f837cde8"/>
-				<textElement>
+				<reportElement x="51" y="69" width="134" height="20" uuid="b015aa29-e560-4204-bb2b-1262f837cde8"/>
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Enfermedad coronaria (antes de los 30 años)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="38" y="91" width="15" height="15" uuid="4d60a8ce-4a5b-4242-864c-2c7c4088d57f"/>
+				<reportElement x="29" y="91" width="15" height="15" uuid="4d60a8ce-4a5b-4242-864c-2c7c4088d57f"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1297,8 +1421,8 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="60" y="169" width="134" height="20" uuid="d9a02091-26de-468b-a6e2-d636af1b0d7b"/>
-				<textElement>
+				<reportElement x="51" y="149" width="134" height="20" uuid="d9a02091-26de-468b-a6e2-d636af1b0d7b"/>
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Obesidad]]></text>
@@ -1315,7 +1439,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="38" y="111" width="15" height="15" uuid="c1428304-6604-4b70-a924-ce4003830032"/>
+				<reportElement x="267" y="153" width="15" height="15" uuid="c1428304-6604-4b70-a924-ce4003830032"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1326,21 +1450,21 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="60" y="109" width="134" height="20" uuid="54909fde-7967-4955-8e26-a9dc7d529f97"/>
-				<textElement>
+				<reportElement x="289" y="152" width="78" height="20" uuid="54909fde-7967-4955-8e26-a9dc7d529f97"/>
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Cáncer (tipo)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="60" y="129" width="134" height="20" uuid="2cd42229-52b5-4263-9890-a816fe8662bb"/>
-				<textElement>
+				<reportElement x="51" y="109" width="134" height="20" uuid="2cd42229-52b5-4263-9890-a816fe8662bb"/>
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Diabetes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="38" y="131" width="15" height="15" uuid="f297b723-cd0d-4eb2-99a2-486abc5d01e7"/>
+				<reportElement x="29" y="111" width="15" height="15" uuid="f297b723-cd0d-4eb2-99a2-486abc5d01e7"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1351,7 +1475,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="38" y="171" width="15" height="15" uuid="ffcccd11-0742-44af-a787-950dfcd67d45"/>
+				<reportElement x="29" y="151" width="15" height="15" uuid="ffcccd11-0742-44af-a787-950dfcd67d45"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1384,21 +1508,21 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="289" y="109" width="121" height="20" uuid="53941701-695b-49a0-beb0-1a8583cafcfd"/>
-				<textElement>
+				<reportElement x="289" y="109" width="166" height="20" uuid="53941701-695b-49a0-beb0-1a8583cafcfd"/>
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Hipertiroidismo, hipotiroidismo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="289" y="69" width="121" height="20" uuid="2ab1fad8-87f7-4d35-9a17-66d47fda7649"/>
-				<textElement>
+				<reportElement x="289" y="69" width="150" height="20" uuid="2ab1fad8-87f7-4d35-9a17-66d47fda7649"/>
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Hipertensión arterial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="38" y="151" width="15" height="15" uuid="6726dcc9-4897-432e-b7d4-ee2645922fc7"/>
+				<reportElement x="29" y="131" width="15" height="15" uuid="6726dcc9-4897-432e-b7d4-ee2645922fc7"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1409,14 +1533,14 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="289" y="89" width="121" height="20" uuid="ef56219b-16e0-4fd0-b280-b8087887fca6"/>
-				<textElement>
+				<reportElement x="289" y="89" width="150" height="20" uuid="ef56219b-16e0-4fd0-b280-b8087887fca6"/>
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Accidente cerebrovascular]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="38" y="71" width="15" height="15" uuid="fe7b9bdb-c58d-4bd2-bbe4-b3db668b1d02"/>
+				<reportElement x="29" y="71" width="15" height="15" uuid="fe7b9bdb-c58d-4bd2-bbe4-b3db668b1d02"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1427,12 +1551,102 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="60" y="149" width="134" height="20" uuid="2d5c1313-4152-48a8-af60-1979af899a05"/>
-				<textElement>
+				<reportElement x="51" y="129" width="134" height="20" uuid="2d5c1313-4152-48a8-af60-1979af899a05"/>
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Mellitus]]></text>
 			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="29" y="71" width="15" height="15" uuid="1a785dd8-a7e0-4997-a5a8-569d43f402a6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{enfermedad_coronaria}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="29" y="111" width="15" height="15" uuid="b45bd37d-5859-4674-921f-1b4dbe3af385"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{diabetes}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="267" y="71" width="15" height="15" uuid="04742296-ab48-4950-8c71-242146b53331"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hipertension}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="29" y="91" width="15" height="15" uuid="6aa7f236-cf30-49da-975d-3224a39cb200"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{muerte_subita}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="29" y="131" width="15" height="15" uuid="6c956188-125b-4241-8f38-35129d28e442"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mellitus}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="267" y="91" width="15" height="15" uuid="5b3f3f5b-71c7-4360-9230-c547bcf11fa6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accidente_cerebrovascular}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="267" y="154" width="15" height="15" uuid="ac59982d-4607-465f-a1d6-c33f8af1d33f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cancer}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="29" y="151" width="15" height="15" uuid="778a703d-2934-4df0-a05f-98b58abf9330"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{obesidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="267" y="111" width="15" height="15" uuid="971df10f-8f5e-4499-aca2-403e85ed8dff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hiperteroidismo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="267" y="131" width="15" height="15" uuid="0887bd82-95ed-4a9c-9e86-3abc0c55038e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{otrof}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="130" width="188" height="20" uuid="23d30b01-1ec4-4a98-ac7b-81caae4fd0da"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{otro_familiar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="152" width="188" height="20" uuid="4d171817-56f9-48d9-9c8f-962a43cef502"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_cancer}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="752">
 			<staticText>
@@ -1758,23 +1972,35 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{desp_cap_cuello}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="290" width="234" height="20" uuid="e1681bc7-4571-4395-9338-bf068f6166b8"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="0" y="290" width="555" height="20" uuid="e1681bc7-4571-4395-9338-bf068f6166b8"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[5.  IMPRESIÓN DIAGNÓSTICA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="427" width="124" height="20" uuid="16d254af-5753-4341-a183-ab2ca7c95c2c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="0" y="358" width="555" height="20" uuid="16d254af-5753-4341-a183-ab2ca7c95c2c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[6. CONDUCTA]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="447" width="555" height="61" uuid="991d36a0-dbcf-40f7-aacb-a9ff6bf2199a"/>
+				<reportElement x="0" y="378" width="555" height="100" uuid="991d36a0-dbcf-40f7-aacb-a9ff6bf2199a"/>
 				<box>
+					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Top">
 					<font size="12"/>
@@ -1782,16 +2008,25 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{conducta}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="554" width="555" height="59" uuid="168a01f8-9af1-44f6-96a1-5a6fc7cc9258"/>
+				<reportElement x="0" y="478" width="555" height="59" uuid="168a01f8-9af1-44f6-96a1-5a6fc7cc9258"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Yo he sido cuestionado sobre mis antecedentes médicos familiares y personales que pueden ocasionar riesgo para mi salud con la práctica del ejercicio. notifico que toda la información ha sido veraz y compleja, por la cual me hago responsable y firma en evaluado.
 ]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="0" y="310" width="555" height="48" uuid="8802de52-cb7d-4bb6-a3b4-e39f1eb4ed9b"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{impresionDiagnostica}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
-	<lastPageFooter>
-		<band height="50"/>
-	</lastPageFooter>
 </jasperReport>

@@ -141,20 +141,20 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   private getDatosPersonaLogin(): void {
     this.personaLogin = this.loginService.obtenerPerfilSesion().persona[0];
     this.personaService.onBuscarDocumento(this.personaLogin).subscribe(
-      (response) =>{
+      (response) => {
         debugger;
         this.personaLogin = new Persona();
-        this.personaLogin = response; 
-        this.onCargaImagenMedico();    
+        this.personaLogin = response;
+        this.onCargaImagenMedico();
       }
     );
   }
-  private onCargaImagenMedico(): void{
+  private onCargaImagenMedico(): void {
     debugger;
-    if(this.personaLogin.imagen != null){
+    if (this.personaLogin.imagen != null) {
       this.firmaMedico = this._sanitizer.bypassSecurityTrustResourceUrl(this.personaLogin.imagen);
       this.firmaMedioBoolean = true;
-    }else{
+    } else {
       this.firmaMedico = null;
       this.firmaMedioBoolean = false;
     }
@@ -180,7 +180,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.buscoPerson = false;
     this.guardado = true;
     this.persona.historias[0].ciudadHistoria.seqCuidad = 0;
-    this.firmaMedico= null;
+    this.firmaMedico = null;
     this.firmaPaciente = null;
     this.firmaPacienteBoolean = false;
     this.firmaMedioBoolean = false;
@@ -213,6 +213,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     }, 500);
 
     setTimeout(() => {
+      debugger
       let tmpDoc = this.persona.numeroDocumento;
       this.Spersona = new Persona();
       this.persona.aseguradora = new Aseguradora();
@@ -256,6 +257,10 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     }, 1000);
   }
 
+  public onLimpiar(): void {
+    this.onCargarAtributos();
+    this.onCargarFunciones();
+  }
 
   public onValidarSelect(value: string, id: string): void {
     console.log("entre validar select");
@@ -503,45 +508,51 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     }, 500);
 
     setTimeout(() => {
-      this.actualizarPerson(this.Spersona);
-      this.persona.localidad.seqLocalidad = 0;
-      this.persona.lugarDeResidencia.seqCuidad = 0;
-      this.persona.rolUsuario[0] = this.tipoUsuario[1];
-      this.barProgres = true;
-      this.cargarDatosActededentesHistoria();
-      debugger
-      this.firmaMedico = this.firmaMedicohtml.imagenUsuario == null || this.firmaMedicohtml.imagenUsuario == undefined ? this.firmaMedico : this.firmaMedicohtml.imagenUsuario;
-      this.firmaPaciente = this.firmaPacientehtml.imagenUsuario == null || this.firmaPacientehtml.imagenUsuario == undefined ? this.firmaPaciente : this.firmaPacientehtml.imagenUsuario;
-      if (this.firmaMedico != null || this.firmaPaciente != null) {
-        this.persona.imagen = this.firmaPaciente;
-        if (this.onValidarAntecedentes() && this.guardado) {
-          if (this.permiso.crearUsuario === 1) {
-            this.persona.historias[0].examenFisico = this.examenFisico;
-            if (this.buscoPerson) {
-              debugger
-              this.historiaUpdate = this.persona.historias[0];
-              this.historiaUpdate.persona.seqPersona = this.seqPersona;
-              this.createHistoria();
-            } else {
-              console.log(this.persona)
-              this.personaService.create(this.persona).subscribe(
-                response => {
-                  console.log(response);
-                  this.guardado = false;
-                  this.onBarProgress('salir');
-                  Swal.fire('Exitoso', 'Persona Registrada', 'success');
-                  this.router.navigate(['/menuPrincipal'])
-                }
-              );
+      if (this.persona.historias[0].aceptoCondiciones != null) {
+        this.persona.historias[0].aceptoCondiciones = "true";
+        this.actualizarPerson(this.Spersona);
+        this.persona.localidad.seqLocalidad = 0;
+        this.persona.lugarDeResidencia.seqCuidad = 0;
+        this.persona.rolUsuario[0] = this.tipoUsuario[1];
+        this.barProgres = true;
+        this.cargarDatosActededentesHistoria();
+        debugger
+        this.firmaMedico = this.firmaMedicohtml.imagenUsuario == null || this.firmaMedicohtml.imagenUsuario == undefined ? this.firmaMedico : this.firmaMedicohtml.imagenUsuario;
+        this.firmaPaciente = this.firmaPacientehtml.imagenUsuario == null || this.firmaPacientehtml.imagenUsuario == undefined ? this.firmaPaciente : this.firmaPacientehtml.imagenUsuario;
+        if (this.firmaMedico != null || this.firmaPaciente != null) {
+          this.persona.imagen = this.firmaPaciente;
+          if (this.onValidarAntecedentes() && this.guardado) {
+            if (this.permiso.crearUsuario === 1) {
+              this.persona.historias[0].examenFisico = this.examenFisico;
+              if (this.buscoPerson) {
+                debugger
+                this.historiaUpdate = this.persona.historias[0];
+                this.historiaUpdate.persona.seqPersona = this.seqPersona;
+                this.createHistoria();
+              } else {
+                console.log(this.persona)
+                this.personaService.create(this.persona).subscribe(
+                  response => {
+                    console.log(response);
+                    this.guardado = false;
+                    this.onBarProgress('salir');
+                    Swal.fire('Exitoso', 'Persona Registrada', 'success');
+                    this.router.navigate(['/menuPrincipal'])
+                  }
+                );
+              }
             }
+          } else {
+            this.persona.historias[0].antecedentesHistoriaEntity = new Array<AntecedentesHistoria>();
+            Swal.fire('Error', 'Falta completar información necesaria en la sección MOTIVO CONSULTA verificar campos', 'error');
           }
         } else {
-          this.persona.historias[0].antecedentesHistoriaEntity = new Array<AntecedentesHistoria>();
-          Swal.fire('Error', 'Falta completar información necesaria en la sección MOTIVO CONSULTA verificar campos', 'error');
-        }    
-      }else{
-        Swal.fire('Error', 'Falta completar firmas', 'error');
+          Swal.fire('Error', 'Falta completar firmas', 'error');
+        }
+      } else {
+        Swal.fire('Error', 'Debe aceptar las condicones', 'error');
       }
+
 
     }, 1000);
   }

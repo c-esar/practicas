@@ -62,6 +62,9 @@ public class AntecedentesHistoriaEntity implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fur;
 	
+	@Column(name="menarquia")
+	private String mernarquia;
+	
 	@Column(name="menarquia_list")
 	private String menarquiaList;
 
@@ -162,5 +165,14 @@ public class AntecedentesHistoriaEntity implements Serializable {
 		this.fur = fur;
 	}
 
+	public String getMernarquia() {
+		return mernarquia;
+	}
+
+	public void setMernarquia(String mernarquia) {
+		this.mernarquia = mernarquia;
+	}
+
+	
 	
 }
