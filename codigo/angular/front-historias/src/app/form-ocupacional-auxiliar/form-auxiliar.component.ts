@@ -13,6 +13,7 @@ import { Permiso } from '../DatosBean/permiso';
 import { TipoHistoria } from '../DatosBean/tipoHistoria';
 import { TipoUsuario } from '../DatosBean/tipoUsuario';
 import Swal from 'sweetalert2';
+import { UserIdleService } from 'angular-user-idle';
 declare var jQuery: any;
 declare var $: any;
 @Component({
@@ -43,13 +44,41 @@ export class FormAuxiliarComponent implements OnInit {
     private loginService: LoginService,
     private personaService: PersonaService,
     private router: Router,
-    private historiaService: HistoriasService) {
+    private historiaService: HistoriasService,
+    private userIdle: UserIdleService) {
 
   }
 
   ngOnInit(): void {
     this.onCargarAtributos();
     this.onFunciones();
+    this.userIdle.startWatching();
+
+    // Start watching when user idle is starting.
+    this.userIdle.onTimerStart().subscribe(count => console.log(count));
+
+    // Start watch when time is up.
+    this.userIdle.onTimeout().subscribe(() => {     
+      this.loginService.logOut();  
+      this.router.navigate(['login']);
+      Swal.fire('Tiempo agotado', 'Inactivo', 'error');
+    });
+  }
+
+  stop() {
+    this.userIdle.stopTimer();
+  }
+
+  stopWatching() {
+    this.userIdle.stopWatching();
+  }
+
+  startWatching() {
+    this.userIdle.startWatching();
+  }
+
+  restart() {
+    this.userIdle.resetTimer();
   }
 
   private onCargarAtributos(): void {

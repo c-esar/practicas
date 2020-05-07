@@ -13,6 +13,7 @@ import { ArchivosFileHistoria } from '../DatosBean/archivosfilehistoria';
 import Swal from 'sweetalert2';
 import { Permiso } from '../DatosBean/permiso';
 import { ReportesService } from '../Servicios/reportes.service';
+import { UserIdleService } from 'angular-user-idle';
 @Component({
   selector: 'app-form-historias',
   templateUrl: './form-historias.component.html',
@@ -35,7 +36,8 @@ export class FormHistoriasComponent implements OnInit {
     private filesService: FilessService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private reportes: ReportesService) {
+    private reportes: ReportesService,
+    private userIdle: UserIdleService) {
   }
 
   ngOnInit(): void {
@@ -43,6 +45,33 @@ export class FormHistoriasComponent implements OnInit {
     this.onCargarFunciones();
     this.obtenerPermisos();
     this.cargarHisotrias();
+    this.userIdle.startWatching();
+
+    // Start watching when user idle is starting.
+    this.userIdle.onTimerStart().subscribe(count => console.log(count));
+
+    // Start watch when time is up.
+    this.userIdle.onTimeout().subscribe(() => {     
+      this.loginService.logOut();  
+      this.router.navigate(['login']);
+      Swal.fire('Tiempo agotado', 'Inactivo', 'error');
+    });
+  }
+
+  stop() {
+    this.userIdle.stopTimer();
+  }
+
+  stopWatching() {
+    this.userIdle.stopWatching();
+  }
+
+  startWatching() {
+    this.userIdle.startWatching();
+  }
+
+  restart() {
+    this.userIdle.resetTimer();
   }
 
   onCargarHistorias(): void {

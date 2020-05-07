@@ -25,6 +25,7 @@ import { CondicionGym } from '../DatosBean/condiciongym';
 import { familiarGym } from '../DatosBean/familiargym';
 import { of, Observable, throwError } from 'rxjs';
 import { FirmaIndividualComponent } from '../firma-individual/firma-individual.component';
+import { UserIdleService } from 'angular-user-idle';
 declare var jQuery: any;
 declare var $: any;
 
@@ -88,7 +89,8 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     private personaService: PersonaService,
     private router: Router,
     private historiaService: HistoriasService,
-    private _sanitizer: DomSanitizer) {
+    private _sanitizer: DomSanitizer,
+    private userIdle: UserIdleService) {
   }
 
   ngOnInit(): void {
@@ -104,8 +106,36 @@ export class FormGymComponent implements OnInit, AfterViewInit {
       this.onCargarAtributos();
       this.onCargarFunciones();
     }, 1000);
+
+    this.userIdle.startWatching();
+
+    // Start watching when user idle is starting.
+    this.userIdle.onTimerStart().subscribe(count => console.log(count));
+
+    // Start watch when time is up.
+    this.userIdle.onTimeout().subscribe(() => {     
+      this.loginService.logOut();  
+      this.router.navigate(['login']);
+      Swal.fire('Tiempo agotado', 'Inactivo', 'error');
+    });
   }
 
+  stop() {
+    this.userIdle.stopTimer();
+  }
+
+  stopWatching() {
+    this.userIdle.stopWatching();
+  }
+
+  startWatching() {
+    this.userIdle.startWatching();
+  }
+
+  restart() {
+    this.userIdle.resetTimer();
+  }
+  
   ngAfterViewInit() {
     this.getDatosPersonaLogin();
   }
