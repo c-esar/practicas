@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="historiasGym" language="groovy" columnDirection="RTL" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="58a19427-39b6-40d6-a40b-27c995e2dc0f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1966"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#F0F0F0"/>
@@ -89,7 +89,6 @@ inner join hc_tipo_cuestionario tc on tc.seq_tipo_cuestionario =  c.seq_tipo_cue
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\David\\Documents\\GitHub\\practicas\\codigo\\sprit\\sprint-backend\\src\\main\\java\\com\\konrad\\edu\\reportes\\"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="imagenK" class="java.lang.String"/>
 	<parameter name="impresionDiagnostica" class="java.lang.String"/>
 	<parameter name="embarazo" class="java.lang.String"/>
 	<parameter name="fumaSN" class="java.lang.String"/>
@@ -328,7 +327,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[Versión 2.0]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="185" y="0" width="282" height="42" forecolor="#000000" uuid="11eb04a3-a328-4f0d-8357-24ef64025f9e"/>
+				<reportElement x="185" y="0" width="262" height="42" forecolor="#000000" uuid="11eb04a3-a328-4f0d-8357-24ef64025f9e"/>
 				<box>
 					<pen lineWidth="1.0" lineColor="#006699"/>
 					<topPen lineWidth="1.0" lineColor="#000000"/>
@@ -337,7 +336,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
+					<font size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Historia Clínica Deportiva]]></text>
 			</staticText>
@@ -351,8 +350,15 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="494" y="0" width="48" height="42" uuid="b7400218-02ae-4482-83b1-6ec8684cab04"/>
-				<anchorNameExpression><![CDATA[$P{imagenK}]]></anchorNameExpression>
+				<reportElement x="447" y="0" width="108" height="42" uuid="fe9253ad-1dc2-4fe1-8c94-f0fd9c7fba84"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<imageExpression><![CDATA["imagenes\\logo.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>

@@ -118,7 +118,7 @@ INSERT INTO hc_aseguradora(nom_aseguradora,tipo_aseguradora)values('Otro','Otro'
 INSERT INTO hc_ciudad (seq_ciudad, cod_ciudad, cod_dpto, cod_pais, cod_poblacion, nom_ciudad) VALUES (0, '1', '1', '1', '1', 'No aplica');
 INSERT INTO hc_localidad (seq_localidad,cod_localidad,nom_localidad)values (0,'otro','otro');
 
-INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,seq_perfil) values('Administrador','konrad',1);
+INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,seq_perfil) values('Administrador','konrad',12345,1);
 INSERT INTO hc_rol_usuario_persona(seq_persona, seq_tipo_usuario) values(1,6);
 
 

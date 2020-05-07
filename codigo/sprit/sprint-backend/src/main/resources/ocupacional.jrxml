@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ocupacional" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d79f072-6031-41ef-a555-d43045149939">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1536"/>
+	<property name="ireport.y" value="3095"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -570,7 +570,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="185" y="0" width="282" height="42" forecolor="#000000" uuid="00eb66bc-c185-4bc9-98b6-72f1f1fc6c4b"/>
+				<reportElement x="185" y="0" width="261" height="42" forecolor="#000000" uuid="00eb66bc-c185-4bc9-98b6-72f1f1fc6c4b"/>
 				<box>
 					<pen lineWidth="1.0" lineColor="#006699"/>
 					<topPen lineWidth="1.0" lineColor="#000000"/>
@@ -579,7 +579,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="16" isBold="true"/>
+					<font size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Historia Clínica Ocupacional]]></text>
 			</staticText>
@@ -592,6 +592,17 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<reportElement x="145" y="24" width="40" height="18" uuid="91e540e9-3f5f-4207-8411-7d27f8db2cdb"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement mode="Opaque" x="446" y="0" width="108" height="42" backcolor="#CCCCCC" uuid="845fc3b6-02b5-499d-acde-8ddda74f39b8"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<imageExpression><![CDATA["imagenes\\logo.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</pageHeader>
 	<detail>

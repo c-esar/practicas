@@ -1,7 +1,7 @@
 package com.konrad.edu.serviceImp;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,10 +9,12 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
+import com.itextpdf.text.pdf.codec.Base64;
 import com.konrad.edu.IService.IReportesService;
 import com.konrad.edu.dao.IHistoriaGymDao;
 import com.konrad.edu.dao.IHistoriaOcupacionalDao;
@@ -23,7 +25,6 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -49,7 +50,6 @@ public class ReportesServiceImp implements IReportesService {
 			HistoriaGYMEntity historia = obtenerlaHistoria(id);
 			Map<String, Object> parameters = new HashMap<>();
 			String impresionDiagnostica = "";
-
 			for (int i = 0; i < historia.getHistoriaPreguntasGyms().size(); i++) {
 				switch (historia.getHistoriaPreguntasGyms().get(i).getTipoPreguntaHistoriaGymEntity()
 						.getNomPregunta()) {
@@ -374,5 +374,4 @@ public class ReportesServiceImp implements IReportesService {
 	private HistoriaOcupacionalEntity obtenerlaHistoriaOcupacional(String id) {
 		return historiaOcupacionalDao.findByPersona(id);
 	}
-
 }
