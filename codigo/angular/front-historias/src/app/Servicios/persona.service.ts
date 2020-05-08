@@ -49,8 +49,6 @@ export class PersonaService {
     );
   }
 
-
-
   update(persona: Persona): Observable<Persona> {
     return this.http.put<Persona>(this.url + "persona/actualizarPersonaDatos", persona, { headers: this.httpHeaders }).pipe(
       catchError(e => {

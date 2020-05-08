@@ -14,6 +14,8 @@ import Swal from 'sweetalert2';
 import { Permiso } from '../DatosBean/permiso';
 import { ReportesService } from '../Servicios/reportes.service';
 import { UserIdleService } from 'angular-user-idle';
+import * as jsPDF from 'jspdf';
+import * as html2canvas from 'html2canvas';
 @Component({
   selector: 'app-form-historias',
   templateUrl: './form-historias.component.html',
@@ -29,6 +31,7 @@ export class FormHistoriasComponent implements OnInit {
   filtro: boolean;
   archivoFile: ArchivosFileHistoria[];
   persona: Persona;
+  ruta:any;
   constructor(private labelService: LabelService,
     private loginService: LoginService,
     private personaService: PersonaService,
@@ -51,8 +54,8 @@ export class FormHistoriasComponent implements OnInit {
     this.userIdle.onTimerStart().subscribe(count => console.log(count));
 
     // Start watch when time is up.
-    this.userIdle.onTimeout().subscribe(() => {     
-      this.loginService.logOut();  
+    this.userIdle.onTimeout().subscribe(() => {
+      this.loginService.logOut();
       this.router.navigate(['login']);
       Swal.fire('Tiempo agotado', 'Inactivo', 'error');
     });
@@ -175,7 +178,8 @@ export class FormHistoriasComponent implements OnInit {
               this.archivoFile.push(new ArchivosFileHistoria(nombre, apellido,
                 documento, tipoDocumento,
                 this.persona.historias[i].seqTipoHistoria.nomTipoHistoria,
-                this.persona.historias[i].diaHistoria));
+                this.persona.historias[i].diaHistoria,
+                this.persona.historias[i].seqHistoria));
             }
           }
 
@@ -184,7 +188,8 @@ export class FormHistoriasComponent implements OnInit {
               this.archivoFile.push(new ArchivosFileHistoria(nombre, apellido,
                 documento, tipoDocumento,
                 this.persona.historiasGym[i].seqTipoHistoria.nomTipoHistoria,
-                this.persona.historiasGym[i].diaHistoriaGym));
+                this.persona.historiasGym[i].diaHistoriaGym,
+                this.persona.historiasGym[i].seqHistoriaGym));
             }
           }
 
@@ -200,18 +205,20 @@ export class FormHistoriasComponent implements OnInit {
     }, 1000);
   }
 
-  public descargarDetalle(documento: string, tipo: string): void {
+  public descargarDetalle(documento: string, numeroHistoria: number, tipo: string): void {
     debugger
     if (tipo === "OCUPACIONAL") {
-      this.reportes.onReporteHistoriasOcupacional(documento).subscribe(
+      this.reportes.onReporteHistoriasOcupacional(documento, numeroHistoria).subscribe(
         (respuesta) => {
-          Swal.fire('Exitoso', ""+respuesta, 'success');
+          debugger
+          this.ruta = respuesta;
+          document.getElementById('enlace').setAttribute('href', this.ruta);
         }
       )
     } else if (tipo === "GYM") {
-      this.reportes.onReporteHistoriasGym(documento).subscribe(
+      this.reportes.onReporteHistoriasGym(documento, numeroHistoria).subscribe(
         (respuesta) => {
-          Swal.fire('Exitoso', ''+respuesta, 'success');
+          Swal.fire('Exitoso', '' + respuesta, 'success');
         }
       )
     }

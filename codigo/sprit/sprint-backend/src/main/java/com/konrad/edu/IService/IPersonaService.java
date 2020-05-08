@@ -20,5 +20,6 @@ public interface IPersonaService {
 	public PersonaEntity findByNumeroPerfil(String seq_perfil);
 	
 	public List<PersonaEntity> findAllTipoUsuario(List<String> seq_tipo_usuario);
+	
 
 }

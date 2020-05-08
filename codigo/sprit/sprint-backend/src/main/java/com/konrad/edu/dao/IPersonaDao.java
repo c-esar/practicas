@@ -7,11 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.konrad.edu.entity.HistoriaOcupacionalEntity;
 import com.konrad.edu.entity.PersonaEntity;
 
 public interface IPersonaDao extends CrudRepository<PersonaEntity, Long> {
 
-	@Query(value = "select * from hc_personas u where u.numero_documento = ?1", nativeQuery = true)
+	@Query(value = "  select * from hc_personas u " + 
+			"  left outer join hc_historia_ocupacional hho on u.seq_persona = hho.seq_persona " + 
+			"  left outer join hc_historia_gym hhg on u.seq_persona = hhg.seq_persona " + 
+			"  where u.numero_documento = ?1", nativeQuery = true)
 	public PersonaEntity findByNumeroDocumento(@Param("numero_documento") String numero_documento);
 	
 	@Query(value = "select * from hc_personas u where u.seq_perfil = ?1", nativeQuery = true)
@@ -57,4 +61,8 @@ public interface IPersonaDao extends CrudRepository<PersonaEntity, Long> {
 			"WHERE rol.seq_tipo_usuario IN (:seq_tipo_usuario);" , nativeQuery = true)
 	public List<PersonaEntity> findAllTipoUsuario(@Param("seq_tipo_usuario") List<String> seq_tipo_usuario);
 	
+	@Query(value = "select * from  hc_personas u " + 
+			"inner join hc_historia_ocupacional p on p.seq_persona = u.seq_persona " + 
+			"where u.numero_documento = ?1 ", nativeQuery = true)
+	public PersonaEntity findByPersonaOcupacional(@Param("documento") String id);
 }

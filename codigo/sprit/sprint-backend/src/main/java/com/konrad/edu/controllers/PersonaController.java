@@ -21,7 +21,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.konrad.edu.IService.IConstantes;
+import com.konrad.edu.IService.IHistoriaGymService;
+import com.konrad.edu.IService.IHistoriaOcupacionalService;
 import com.konrad.edu.IService.IPersonaService;
+import com.konrad.edu.entity.HistoriaGYMEntity;
+import com.konrad.edu.entity.HistoriaOcupacionalEntity;
 import com.konrad.edu.entity.PersonaEntity;
 import com.konrad.edu.entity.TipoHistoriasEntity;
 
@@ -32,6 +36,12 @@ public class PersonaController {
 
 	@Autowired
 	private IPersonaService personaService;
+	
+	@Autowired
+	private IHistoriaOcupacionalService historiaService;
+	
+	@Autowired
+	private IHistoriaGymService historiaGymService;
 
 	@GetMapping("/listPersonas")
 	public List<PersonaEntity> index() {
@@ -48,17 +58,28 @@ public class PersonaController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> create(@RequestBody PersonaEntity persona) {
 		PersonaEntity personaNew = null;
+		HistoriaOcupacionalEntity ocupacional = null;
+		HistoriaGYMEntity gym = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
-			TipoHistoriasEntity tipoHistoria = new TipoHistoriasEntity();
-			tipoHistoria.setSeqTipoHistoria(1L);
-			persona.getHistorias().get(0).setSeqTipoHistoria(tipoHistoria);
-			personaNew = personaService.save(persona);
-			if (personaNew != null) {
-				personaNew.setPerfil(null);
-				personaNew.setHistorias(null);
-				personaNew.setHistoriasGym(null);
-			}
+			TipoHistoriasEntity tipoHistoria = new TipoHistoriasEntity();		
+			if (!persona.getHistorias().isEmpty()) {
+				tipoHistoria.setSeqTipoHistoria(1L);
+				persona.getHistorias().get(0).setSeqTipoHistoria(tipoHistoria);
+				ocupacional = persona.getHistorias().get(0);
+				persona.setHistorias(null);
+				personaNew = personaService.save(persona);	
+				ocupacional.getPersona().setSeqPersona(personaNew.getSeqPersona());
+				ocupacional = historiaService.save(ocupacional);
+			} else if (!persona.getHistoriaGym().isEmpty()) {
+				tipoHistoria.setSeqTipoHistoria(2L);
+				persona.getHistoriaGym().get(0).setSeqTipoHistoria(tipoHistoria);
+				gym = persona.getHistoriaGym().get(0);
+				persona.setHistoriasGym(null);
+				personaNew = personaService.save(persona);	
+				gym.getPersona().setSeqPersona(personaNew.getSeqPersona());
+				gym = historiaGymService.save(gym);
+			}	
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insertar en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -108,14 +129,14 @@ public class PersonaController {
 		try {
 			personaNew = personaService.findByNumeroDocumento(numeroDocumento);
 			if (personaNew != null) {
-				for (int i = 0; i < personaNew.getHistorias().size(); i++) {
-					personaNew.getHistorias().get(i).setPersona(null);
-				}
 				for (int i = 0; i < personaNew.getHistoriasGym().size(); i++) {
 					personaNew.getHistoriasGym().get(i).setPersona(null);
 				}
-				// personaNew.setHistorias(null);
-				// personaNew.setHistoriasGym(null);
+				for (int i = 0; i < personaNew.getHistorias().size(); i++) {
+					personaNew.getHistorias().get(i).setPersona(null);
+				}
+//				 personaNew.setHistorias(null);
+//				 personaNew.setHistoriasGym(null);
 				if (personaNew.getPerfil() != null) {
 					personaNew.getPerfil().getPersona().clear();
 				}

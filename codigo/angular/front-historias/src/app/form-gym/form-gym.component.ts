@@ -161,6 +161,14 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private actualizarFirmaMedico(): void{
+    this.personaService.update(this.personaLogin).subscribe(
+      response => {
+        console.log(response);
+      }
+    );
+  }
+
   onCargarAtributos(): void {
     this.persona = new Persona();
     this.persona.historiaGym.push(new HistoriaGym());
@@ -565,17 +573,22 @@ export class FormGymComponent implements OnInit, AfterViewInit {
       })
     }, 500);
     setTimeout(() => {
+      debugger
       if (this.persona.historiaGym[0].aceptoCondiciones != null) {
-        this.persona.historias[0].aceptoCondiciones = "true";
+        this.persona.historiaGym[0].aceptoCondiciones = "true";
         this.onCargarPreguntas();
         this.firmaMedico = this.firmaMedicohtml.imagenUsuario == null || this.firmaMedicohtml.imagenUsuario == undefined ? this.firmaMedico : this.firmaMedicohtml.imagenUsuario;
         this.firmaPaciente = this.firmaPacientehtml.imagenUsuario == null || this.firmaPacientehtml.imagenUsuario == undefined ? this.firmaPaciente : this.firmaPacientehtml.imagenUsuario;
+        debugger
         if (this.firmaMedico != null && this.firmaPaciente != null) {
+          this.personaLogin.imagen = this.firmaMedico;
+          this.actualizarFirmaMedico();
           this.persona.imagen = this.firmaPaciente;
           if (this.onValidarPreguntas() && this.guardado) {
             if (this.permiso.crearUsuario === 1) {
               this.persona.historiaGym[0].examenFisico = this.examenFisico;
               if (this.onCargarTipoUsuario()) {
+                debugger
                 if (this.buscoPerson) {
                   debugger
                   this.historiaUpdate = this.persona.historiaGym[0];
@@ -585,7 +598,8 @@ export class FormGymComponent implements OnInit, AfterViewInit {
                   this.persona.localidad.seqLocalidad = 0;
                   this.persona.lugarDeResidencia.seqCuidad = 0;
                   this.actualizarPerson(this.Spersona);
-                  console.log(this.persona)
+                  console.log(this.persona);
+                  debugger
                   this.personaService.create(this.persona).subscribe(
                     response => {
                       console.log(response);

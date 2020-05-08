@@ -1,14 +1,13 @@
 package com.konrad.edu.IService;
 
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
-
-import net.sf.jasperreports.engine.JRException;
+import java.io.File;
 
 public interface IReportesService {
 
-    public String exportReport(String id);
+    public String exportReport(String id, int historia);
     
-    public String exportReportOcupacional(String id);
+    public File exportReportOcupacional(String id, int historia);
+    
+    public String exportReportCertificado(String id, int historia);
 
 }

@@ -50,7 +50,7 @@ public class HistoriaOcupacionalEntity implements Serializable {
 	private ExamenFisicoEntity examenFisico;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "seq_historia_laboral", unique = true )
+	@JoinColumn(name = "seq_historia_laboral", unique = true)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private HistoriaLaboralEntity historiaLaboral;
 
@@ -73,10 +73,10 @@ public class HistoriaOcupacionalEntity implements Serializable {
 	private CiudadEntity ciudadHistoria;
 
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "hc_concepto_historia", joinColumns = @JoinColumn(name = "seq_historia",referencedColumnName = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_concepto",referencedColumnName = "seq_concepto"), uniqueConstraints = {
+	@JoinTable(name = "hc_concepto_historia", joinColumns = @JoinColumn(name = "seq_historia", referencedColumnName = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_concepto", referencedColumnName = "seq_concepto"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_historia", "seq_concepto" }) })
 	private List<ConceptoEntity> conceptoConcepto;
-	
+
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "hc_diagnosticoOcupacional_historia", joinColumns = @JoinColumn(name = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_diagnostico"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_historia", "seq_diagnostico" }) })
@@ -100,22 +100,21 @@ public class HistoriaOcupacionalEntity implements Serializable {
 
 	@Column(name = "recom_habitos", length = 4000)
 	private String recomHabitos;
-	
-	@Column(name="otro_evaluacion")
+
+	@Column(name = "otro_evaluacion")
 	private String otroEvaluacion;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "seq_persona")
-	private PersonaEntity persona;
-	
+
 	@Column()
 	private String aceptoCondiciones;
+
+	@ManyToOne
+	@JoinColumn(name = "seq_persona")
+	private PersonaEntity persona;
 
 	@PrePersist
 	public void prePersist() {
 		this.diaHistoria = new Date();
 	}
-	
 
 	public HistoriaOcupacionalEntity() {
 		this.antecedentesHistoriaEntity = new ArrayList<>();
@@ -260,35 +259,29 @@ public class HistoriaOcupacionalEntity implements Serializable {
 		this.otroEvaluacion = otroEvaluacion;
 	}
 
-
 	public List<DiagnosticoOcupacionalEntity> getDiagnosticoOcupacionalEntity() {
 		return diagnosticoOcupacionalEntity;
 	}
-
 
 	public void setDiagnosticoOcupacionalEntity(List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity) {
 		this.diagnosticoOcupacionalEntity = diagnosticoOcupacionalEntity;
 	}
 
+	public String getAceptoCondiciones() {
+		return aceptoCondiciones;
+	}
+
+	public void setAceptoCondiciones(String aceptoCondiciones) {
+		this.aceptoCondiciones = aceptoCondiciones;
+	}
 
 	public PersonaEntity getPersona() {
 		return persona;
 	}
 
-
 	public void setPersona(PersonaEntity persona) {
 		this.persona = persona;
 	}
 
-
-	public String getAceptoCondiciones() {
-		return aceptoCondiciones;
-	}
-
-
-	public void setAceptoCondiciones(String aceptoCondiciones) {
-		this.aceptoCondiciones = aceptoCondiciones;
-	}
-	
 	
 }

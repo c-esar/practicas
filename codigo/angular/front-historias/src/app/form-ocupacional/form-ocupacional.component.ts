@@ -189,6 +189,13 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private actualizarFirmaMedico(): void{
+    this.personaService.update(this.personaLogin).subscribe(
+      response => {
+        console.log(response);
+      }
+    );
+  }
   onCargarAtributos(): void {
     this.conceptoIngreso = new Array<Concepto>();
     this.conceptoPeriodico = new Array<Concepto>();
@@ -548,7 +555,9 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
         debugger
         this.firmaMedico = this.firmaMedicohtml.imagenUsuario == null || this.firmaMedicohtml.imagenUsuario == undefined ? this.firmaMedico : this.firmaMedicohtml.imagenUsuario;
         this.firmaPaciente = this.firmaPacientehtml.imagenUsuario == null || this.firmaPacientehtml.imagenUsuario == undefined ? this.firmaPaciente : this.firmaPacientehtml.imagenUsuario;
-        if (this.firmaMedico != null || this.firmaPaciente != null) {
+        if (this.firmaMedico != null || this.firmaPaciente != null) {         
+          this.personaLogin.imagen = this.firmaMedico;
+          this.actualizarFirmaMedico();
           this.persona.imagen = this.firmaPaciente;
           if (this.onValidarAntecedentes() && this.guardado) {
             if (this.permiso.crearUsuario === 1) {

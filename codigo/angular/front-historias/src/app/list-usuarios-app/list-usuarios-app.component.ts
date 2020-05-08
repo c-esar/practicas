@@ -95,6 +95,8 @@ export class ListUsuariosAppComponent implements OnInit {
 
   onBuscarTipo(): void {
     this.tmp = new Array<String>();
+    this.dataSource = new MatTableDataSource(null);
+    this.archivoFile = new Array<ArchivosFile>();
     if (this.tipoUsuarioSelecionado.length > 0) {
       for (let i = 0; i < this.tipoUsuarioSelecionado.length; i++) {
         this.tmp.push(this.tipoUsuarioSelecionado[i].seqTipoUsuario.toString());

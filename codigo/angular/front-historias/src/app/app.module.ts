@@ -65,7 +65,9 @@ const routes: Routes = [
   { path: 'menuPrincipal/form-ocupacional/auxiliar', component: FormAuxiliarComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/form-gym/auxiliar', component: FormGymAuxiliarComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/creacion-actualizacion', component: FormGestionComponent, canActivate: [LoginService] },
-  { path: 'menuPrincipal/informes', component: TablesComponent, canActivate: [LoginService] }
+  { path: 'menuPrincipal/informes', component: TablesComponent, canActivate: [LoginService]},
+  { path: 'assets/img/pdf/ocupacionalsergr.pdf',  component: FormHistoriasComponent, canActivate: [LoginService]   
+}
 
 ];
 

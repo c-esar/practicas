@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.konrad.edu.IService.IPersonaService;
 import com.konrad.edu.dao.IPersonaDao;
+import com.konrad.edu.entity.HistoriaOcupacionalEntity;
 import com.konrad.edu.entity.PersonaEntity;
 
 @Service

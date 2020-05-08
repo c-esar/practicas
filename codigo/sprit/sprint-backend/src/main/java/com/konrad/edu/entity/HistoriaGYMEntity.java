@@ -76,7 +76,7 @@ public class HistoriaGYMEntity implements Serializable {
 	@JoinColumn(name = "seq_historia_gym")
 	private List<CuestionarioGymEntity> cuestionarioGymEntity;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "seq_persona")
 	private PersonaEntity persona;
 

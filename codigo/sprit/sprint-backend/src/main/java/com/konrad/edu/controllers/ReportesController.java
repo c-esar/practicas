@@ -1,5 +1,6 @@
 package com.konrad.edu.controllers;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.konrad.edu.IService.IConstantes;
 import com.konrad.edu.IService.IReportesService;
-import com.konrad.edu.entity.PersonaEntity;
 
 @CrossOrigin(origins = { IConstantes.RUTA })
 @RestController
@@ -26,13 +26,13 @@ public class ReportesController {
 	@Autowired
 	private IReportesService reportesService;
 
-	@GetMapping("/historiaGym/{id}")
+	@GetMapping("/historiaGym/{id}/{historia}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<?> reportesHistoriasGym(@PathVariable String id) {
+	public ResponseEntity<?> reportesHistoriasGym(@PathVariable String id, int historia) {
 		String enviarRuta = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
-			enviarRuta = reportesService.exportReport(id);
+			enviarRuta = reportesService.exportReport(id, historia);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -45,13 +45,32 @@ public class ReportesController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/historiaOcupacional/{id}")
+	@GetMapping("/historiaOcupacional/{id}/{historia}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<?> reportesHistoriasOcupacional(@PathVariable String id) {
+	public ResponseEntity<?> reportesHistoriasOcupacional(@PathVariable String id, @PathVariable int historia) {
+		File enviarRuta = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			enviarRuta = reportesService.exportReportOcupacional(id, historia);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			response.put("persona", enviarRuta);
+			System.err.print(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("mensaje", "Se ha realizado la consulta!");
+		response.put("persona", enviarRuta);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/certificado/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<?> reportescertificado(@PathVariable String id) {
 		String enviarRuta = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
-			enviarRuta = reportesService.exportReportOcupacional(id);
+			//enviarRuta = reportesService.exportReportOcupacional(id);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
