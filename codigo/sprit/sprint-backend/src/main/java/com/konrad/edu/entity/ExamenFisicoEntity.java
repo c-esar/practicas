@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnTransformer;
+
 @Entity
 @Table(name = "hc_examen_fisico")
 public class ExamenFisicoEntity implements Serializable {
@@ -44,34 +46,44 @@ public class ExamenFisicoEntity implements Serializable {
 	private double numImc;
 
 	@Column(name = "lateralidad")
-	private String lateralidad;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',lateralidad)")
+	private byte[] lateralidad;
 
 	@Column(name = "desp_cap_cuello", length = 4000)
-	private String despCapCuello;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_cap_cuello)")
+	private byte[] despCapCuello;
 
 	@Column(name = "desp_torax", length = 4000)
-	private String despTorax;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_torax)")
+	private byte[] despTorax;
 
 	@Column(name = "desp_adb", length = 4000)
-	private String despAdb;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_adb)")
+	private byte[] despAdb;
 
 	@Column(name = "desp_genitourinario", length = 4000)
-	private String despGenitourinario;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_genitourinario)")
+	private byte[] despGenitourinario;
 
 	@Column(name = "desp_column", length = 4000)
-	private String despColumn;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_column)")
+	private byte[] despColumn;
 
 	@Column(name = "desp_miembros", length = 4000)
-	private String despMiembros;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_miembros)")
+	private byte[] despMiembros;
 
 	@Column(name = "desp_osteomuscular", length = 4000)
-	private String despOsteomuscular;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_osteomuscular)")
+	private byte[] despOsteomuscular;
 
 	@Column(name = "desp_neurologico", length = 4000)
-	private String despNeurologico;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_neurologico)")
+	private byte[] despNeurologico;
 
 	@Column(name = "desp_piel_fan", length = 4000)
-	private String despPielfan;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_piel_fan)")
+	private byte[] despPielfan;
 
 	public Long getSeqExaFisico() {
 		return seqExaFisico;
@@ -137,85 +149,86 @@ public class ExamenFisicoEntity implements Serializable {
 		this.numImc = numImc;
 	}
 
-	public String getDespCapCuello() {
-		return despCapCuello;
-	}
-
-	public void setDespCapCuello(String despCapCuello) {
-		this.despCapCuello = despCapCuello;
-	}
-
-	public String getDespTorax() {
-		return despTorax;
-	}
-
-	public void setDespTorax(String despTorax) {
-		this.despTorax = despTorax;
-	}
-
-	public String getDespAdb() {
-		return despAdb;
-	}
-
-	public void setDespAdb(String despAdb) {
-		this.despAdb = despAdb;
-	}
-
-	public String getDespGenitourinario() {
-		return despGenitourinario;
-	}
-
-	public void setDespGenitourinario(String despGenitourinario) {
-		this.despGenitourinario = despGenitourinario;
-	}
-
-	public String getDespColumn() {
-		return despColumn;
-	}
-
-	public void setDespColumn(String despColumn) {
-		this.despColumn = despColumn;
-	}
-
-	public String getDespMiembros() {
-		return despMiembros;
-	}
-
-	public void setDespMiembros(String despMiembros) {
-		this.despMiembros = despMiembros;
-	}
-
-	public String getDespOsteomuscular() {
-		return despOsteomuscular;
-	}
-
-	public void setDespOsteomuscular(String despOsteomuscular) {
-		this.despOsteomuscular = despOsteomuscular;
-	}
-
-	public String getDespNeurologico() {
-		return despNeurologico;
-	}
-
-	public void setDespNeurologico(String despNeurologico) {
-		this.despNeurologico = despNeurologico;
-	}
-
-	public String getDespPielfan() {
-		return despPielfan;
-	}
-
-	public void setDespPielfan(String despPielfan) {
-		this.despPielfan = despPielfan;
-	}
-
-	public String getLateralidad() {
+	public byte[] getLateralidad() {
 		return lateralidad;
 	}
 
-	public void setLateralidad(String lateralidad) {
+	public void setLateralidad(byte[] lateralidad) {
 		this.lateralidad = lateralidad;
 	}
 
+	public byte[] getDespCapCuello() {
+		return despCapCuello;
+	}
+
+	public void setDespCapCuello(byte[] despCapCuello) {
+		this.despCapCuello = despCapCuello;
+	}
+
+	public byte[] getDespTorax() {
+		return despTorax;
+	}
+
+	public void setDespTorax(byte[] despTorax) {
+		this.despTorax = despTorax;
+	}
+
+	public byte[] getDespAdb() {
+		return despAdb;
+	}
+
+	public void setDespAdb(byte[] despAdb) {
+		this.despAdb = despAdb;
+	}
+
+	public byte[] getDespGenitourinario() {
+		return despGenitourinario;
+	}
+
+	public void setDespGenitourinario(byte[] despGenitourinario) {
+		this.despGenitourinario = despGenitourinario;
+	}
+
+	public byte[] getDespColumn() {
+		return despColumn;
+	}
+
+	public void setDespColumn(byte[] despColumn) {
+		this.despColumn = despColumn;
+	}
+
+	public byte[] getDespMiembros() {
+		return despMiembros;
+	}
+
+	public void setDespMiembros(byte[] despMiembros) {
+		this.despMiembros = despMiembros;
+	}
+
+	public byte[] getDespOsteomuscular() {
+		return despOsteomuscular;
+	}
+
+	public void setDespOsteomuscular(byte[] despOsteomuscular) {
+		this.despOsteomuscular = despOsteomuscular;
+	}
+
+	public byte[] getDespNeurologico() {
+		return despNeurologico;
+	}
+
+	public void setDespNeurologico(byte[] despNeurologico) {
+		this.despNeurologico = despNeurologico;
+	}
+
+	public byte[] getDespPielfan() {
+		return despPielfan;
+	}
+
+	public void setDespPielfan(byte[] despPielfan) {
+		this.despPielfan = despPielfan;
+	}
+
 	
+
 }

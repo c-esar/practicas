@@ -173,23 +173,23 @@ export class FormHistoriasComponent implements OnInit {
           } else {
             apellido = apellido + " " + this.persona.nomSegundoApellido;
           }
-          if (this.persona.historias.length > 0) {
-            for (let i = 0; i < this.persona.historias.length; i++) {
+          if (this.persona.historiasEncriptacion.length > 0) {
+            for (let i = 0; i < this.persona.historiasEncriptacion.length; i++) {
               this.archivoFile.push(new ArchivosFileHistoria(nombre, apellido,
                 documento, tipoDocumento,
-                this.persona.historias[i].seqTipoHistoria.nomTipoHistoria,
-                this.persona.historias[i].diaHistoria,
-                this.persona.historias[i].seqHistoria));
+                this.persona.historiasEncriptacion[i].seqTipoHistoria.nomTipoHistoria,
+                this.persona.historiasEncriptacion[i].diaHistoria,
+                this.persona.historiasEncriptacion[i].seqHistoria));
             }
           }
 
-          if (this.persona.historiasGym.length > 0) {
-            for (let i = 0; i < this.persona.historiasGym.length; i++) {
+          if (this.persona.historiaGymEncriptacion.length > 0) {
+            for (let i = 0; i < this.persona.historiaGymEncriptacion.length; i++) {
               this.archivoFile.push(new ArchivosFileHistoria(nombre, apellido,
                 documento, tipoDocumento,
-                this.persona.historiasGym[i].seqTipoHistoria.nomTipoHistoria,
-                this.persona.historiasGym[i].diaHistoriaGym,
-                this.persona.historiasGym[i].seqHistoriaGym));
+                this.persona.historiaGymEncriptacion[i].seqTipoHistoria.nomTipoHistoria,
+                this.persona.historiaGymEncriptacion[i].diaHistoriaGym,
+                this.persona.historiaGymEncriptacion[i].seqHistoriaGym));
             }
           }
 

@@ -28,7 +28,7 @@ public class ReportesController {
 
 	@GetMapping("/historiaGym/{id}/{historia}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<?> reportesHistoriasGym(@PathVariable String id, int historia) {
+	public ResponseEntity<?> reportesHistoriasGym(@PathVariable String id, @PathVariable int historia) {
 		String enviarRuta = null;
 		Map<String, Object> response = new HashMap<>();
 		try {

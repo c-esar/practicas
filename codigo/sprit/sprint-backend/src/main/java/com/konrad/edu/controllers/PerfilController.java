@@ -49,7 +49,7 @@ public class PerfilController {
 			if (p != null) {
 				p.getPersona().get(0).setPerfil(null);
 				p.getPersona().get(0).setHistorias(null);
-				p.getPersona().get(0).setHistoriasGym(null);
+				p.getPersona().get(0).setHistoriaGym(null);
 			}
 			if (p != null && p.getEstado() != null && p.getEstado().equalsIgnoreCase("a")) {
 				System.out.println("entre activo");
@@ -89,6 +89,7 @@ public class PerfilController {
 			String password = persona.getPassword();
 			password = Encriptacion.Encriptar(password);
 			persona.setPassword(password);
+			//personaEntity.setImagenEncriptada(personaEntity.getImagen().getBytes());
 			personaNew = perfilService.save(persona);
 			if (personaNew != null) {
 				personaEntity.setPerfil(new PerfilEntity());
@@ -97,7 +98,7 @@ public class PerfilController {
 				if (personaEntity != null) {
 					personaEntity.setPerfil(null);
 					personaEntity.setHistorias(null);
-					personaEntity.setHistoriasGym(null);
+					personaEntity.setHistoriaGym(null);
 				}
 			}
 		} catch (DataAccessException e) {
@@ -119,12 +120,12 @@ public class PerfilController {
 		PersonaEntity tmp = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
-			personaNew = perfilService.findHcPerfilesByNumeroDocumneto(numero_documento);
-			personaNew.setPassword(Desencriptacion.Desencriptar(personaNew.getPassword()));
+			personaNew = perfilService.findHcPerfilesByNumeroDocumneto(numero_documento);		
 			if (personaNew != null) {
+				personaNew.setPassword(Desencriptacion.Desencriptar(personaNew.getPassword()));
 				tmp = personaNew.getPersona().get(0);
-				tmp.setHistorias(null);
-				tmp.setHistoriasGym(null);
+				tmp.setHistoriasEncriptacion(null);
+				tmp.setHistoriaGymEncriptacion(null);
 				tmp.setPerfil(null);
 				personaNew.getPersona().clear();
 				personaNew.getPersona().add(tmp);
@@ -146,8 +147,8 @@ public class PerfilController {
 				persona = personaService.findByNumeroDocumento(numero_documento);
 				if (persona != null) {
 					personaNew.getPersona().add(persona);
-					personaNew.getPersona().get(0).setHistorias(null);
-					personaNew.getPersona().get(0).setHistoriasGym(null);
+					personaNew.getPersona().get(0).setHistoriasEncriptacion(null);
+					personaNew.getPersona().get(0).setHistoriaGymEncriptacion(null);
 				}
 			}
 		} catch (DataAccessException e) {

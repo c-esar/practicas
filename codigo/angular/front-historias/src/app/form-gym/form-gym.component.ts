@@ -162,6 +162,8 @@ export class FormGymComponent implements OnInit, AfterViewInit {
   }
 
   private actualizarFirmaMedico(): void{
+    this.personaLogin.historiaGym = null;
+    this.personaLogin.historias = null;
     this.personaService.update(this.personaLogin).subscribe(
       response => {
         console.log(response);
@@ -600,7 +602,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
                   this.actualizarPerson(this.Spersona);
                   console.log(this.persona);
                   debugger
-                  this.personaService.create(this.persona).subscribe(
+                  this.personaService.create(this.persona, "1").subscribe(
                     response => {
                       console.log(response);
                       this.guardado = false;

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ocupacional" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d79f072-6031-41ef-a555-d43045149939">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="480"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -206,6 +206,7 @@
 	<parameter name="numeroPersona" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="imagen" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
        ho.seq_historia
@@ -430,7 +431,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[Versión 1.0]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="185" y="0" width="282" height="42" forecolor="#000000" uuid="00eb66bc-c185-4bc9-98b6-72f1f1fc6c4b"/>
+				<reportElement x="185" y="0" width="262" height="42" forecolor="#000000" uuid="00eb66bc-c185-4bc9-98b6-72f1f1fc6c4b"/>
 				<box>
 					<pen lineWidth="1.0" lineColor="#006699"/>
 					<topPen lineWidth="1.0" lineColor="#000000"/>
@@ -452,10 +453,21 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<reportElement x="145" y="24" width="40" height="18" uuid="91e540e9-3f5f-4207-8411-7d27f8db2cdb"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement mode="Opaque" x="447" y="1" width="108" height="42" uuid="a151f06d-3c73-41f4-a6ac-7224e958e3fb"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<imageExpression><![CDATA["imagenes\\logo.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="752">
+		<band height="602">
 			<staticText>
 				<reportElement x="0" y="0" width="100" height="20" uuid="5592dca6-8dae-465b-8a54-4d82a9e2ba78"/>
 				<textElement verticalAlignment="Middle">
@@ -529,6 +541,31 @@ where p.seq_persona = $P{numeroPersona}]]>
 		</band>
 	</detail>
 	<lastPageFooter>
-		<band height="50"/>
+		<band height="148">
+			<line>
+				<reportElement x="256" y="147" width="186" height="1" forecolor="#666666" uuid="3faf60f8-1c9a-4ee6-b2e6-67cdbc8729e4"/>
+			</line>
+			<line>
+				<reportElement x="100" y="105" width="342" height="1" forecolor="#666666" uuid="cded3b21-d40f-4097-ab9a-c0a0a4f9994f"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="100" y="0" width="347" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="70005f62-5371-44f3-9a71-1ad539a559f3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma Médico:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="100" y="127" width="156" height="21" forecolor="#000000" backcolor="#CCCCCC" uuid="b4d6345e-b925-40e3-afc4-48fd19938ab3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lic. Salud Ocupacional No.]]></text>
+			</staticText>
+			<image scaleImage="FillFrame" onErrorType="Blank">
+				<reportElement x="185" y="19" width="174" height="86" backcolor="#333333" uuid="afc98203-3f5e-47c1-8de9-1d567b054933"/>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($P{imagen}.getBytes()))]]></imageExpression>
+			</image>
+		</band>
 	</lastPageFooter>
 </jasperReport>

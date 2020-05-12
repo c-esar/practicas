@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -21,6 +22,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.ColumnTransformer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -84,20 +87,25 @@ public class HistoriaGYMEntity implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date diaHistoriaGym;
 
-	@Column(name = "observaciones_historia", length = 4000)
-	private String observacionesHistoria;
+	@Column(name = "observaciones_historia")
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',observaciones_historia)")
+	private byte[] observacionesHistoria;
 
-	@Column(name = "otra_condicion", length = 4000)
-	private String otraCondicion;
+	@Column(name = "otra_condicion")
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',otra_condicion)")
+	private byte[] otraCondicion;
 	
-	@Column(name="otra_familiar", length = 4000)
-	private String otraFamiliar;
+	@Column(name="otra_familiar")
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',otra_familiar)")
+	private byte[] otraFamiliar;
 	
-	@Column(name="tipo_cancer", length = 4000)
-	private String tipoCancer;
+	@Column(name="tipo_cancer")
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',tipo_cancer)")
+	private byte[] tipoCancer;
 
-	@Column(name = "conducta", length = 4000)
-	private String conducta;
+	@Column(name = "conducta")
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',conducta)")
+	private byte[] conducta;
 
 	@Column()
 	private String aceptoCondiciones;
@@ -107,7 +115,6 @@ public class HistoriaGYMEntity implements Serializable {
 		this.diaHistoriaGym = new Date();
 	}
 	
-
 	public HistoriaGYMEntity() {
 		this.historiaPreguntasGyms = new ArrayList<>();
 		this.diagnosticoOcupacionalEntity = new ArrayList<>();
@@ -186,35 +193,14 @@ public class HistoriaGYMEntity implements Serializable {
 	}
 
 
-	public String getObservacionesHistoria() {
+	public byte[] getObservacionesHistoria() {
 		return observacionesHistoria;
 	}
 
 
-	public void setObservacionesHistoria(String observacionesHistoria) {
+	public void setObservacionesHistoria(byte[] observacionesHistoria) {
 		this.observacionesHistoria = observacionesHistoria;
-	}
-
-
-	public String getOtraCondicion() {
-		return otraCondicion;
-	}
-
-
-	public void setOtraCondicion(String otraCondicion) {
-		this.otraCondicion = otraCondicion;
-	}
-
-
-	public String getConducta() {
-		return conducta;
-	}
-
-
-	public void setConducta(String conducta) {
-		this.conducta = conducta;
-	}
-
+	}	
 
 	public List<CuestionarioGymEntity> getCuestionarioGymEntity() {
 		return cuestionarioGymEntity;
@@ -233,16 +219,6 @@ public class HistoriaGYMEntity implements Serializable {
 
 	public void setCondicionGymEntity(List<CondicionGymEntity> condicionGymEntity) {
 		this.condicionGymEntity = condicionGymEntity;
-	}
-
-
-	public String getOtraFamiliar() {
-		return otraFamiliar;
-	}
-
-
-	public void setOtraFamiliar(String otraFamiliar) {
-		this.otraFamiliar = otraFamiliar;
 	}
 
 
@@ -266,16 +242,6 @@ public class HistoriaGYMEntity implements Serializable {
 	}
 
 
-	public String getTipoCancer() {
-		return tipoCancer;
-	}
-
-
-	public void setTipoCancer(String tipoCancer) {
-		this.tipoCancer = tipoCancer;
-	}
-
-
 	public String getAceptoCondiciones() {
 		return aceptoCondiciones;
 	}
@@ -283,6 +249,46 @@ public class HistoriaGYMEntity implements Serializable {
 
 	public void setAceptoCondiciones(String aceptoCondiciones) {
 		this.aceptoCondiciones = aceptoCondiciones;
+	}
+
+
+	public byte[] getOtraCondicion() {
+		return otraCondicion;
+	}
+
+
+	public void setOtraCondicion(byte[] otraCondicion) {
+		this.otraCondicion = otraCondicion;
+	}
+
+
+	public byte[] getOtraFamiliar() {
+		return otraFamiliar;
+	}
+
+
+	public void setOtraFamiliar(byte[] otraFamiliar) {
+		this.otraFamiliar = otraFamiliar;
+	}
+
+
+	public byte[] getTipoCancer() {
+		return tipoCancer;
+	}
+
+
+	public void setTipoCancer(byte[] tipoCancer) {
+		this.tipoCancer = tipoCancer;
+	}
+
+
+	public byte[] getConducta() {
+		return conducta;
+	}
+
+
+	public void setConducta(byte[] conducta) {
+		this.conducta = conducta;
 	}
 
 	

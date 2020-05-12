@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ocupacional" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d79f072-6031-41ef-a555-d43045149939">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="3095"/>
+	<property name="ireport.y" value="3463"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -350,13 +350,13 @@ inner join hc_paraclinicos el on el.seq_historia = ho.seq_historia]]>
 		<![CDATA[SELECT
        ho.seq_historia
       ,ho.acepto_condiciones
-      ,ho.desp_motivo_consulta
+      ,Cast(DecryptByPassPhrase('konradU',ho.desp_motivo_consulta) As varchar(max)) as desp_motivo_consulta
       ,ho.dia_historia
-      ,ho.otro_evaluacion
-      ,ho.recom_habitos
-      ,ho.recom_medicas
-      ,ho.recom_ocupacionales
-      ,ho.revision_sistemas
+      ,Cast(DecryptByPassPhrase('konradU',ho.otro_evaluacion) As varchar(max)) as otro_evaluacion
+      ,Cast(DecryptByPassPhrase('konradU',ho.recom_habitos) As varchar(max)) as recom_habitos
+      ,Cast(DecryptByPassPhrase('konradU',ho.recom_medicas) As varchar(max)) as recom_medicas
+      ,Cast(DecryptByPassPhrase('konradU',ho.recom_ocupacionales) As varchar(max)) as recom_ocupacionales
+      ,Cast(DecryptByPassPhrase('konradU',ho.revision_sistemas) As varchar(max)) as revision_sistemas
       ,ho.seq_ciudad
       ,ho.seq_exa_fisico
       ,ho.seq_historia_laboral
@@ -378,7 +378,6 @@ inner join hc_paraclinicos el on el.seq_historia = ho.seq_historia]]>
       ,p.fecha_nacimiento
       ,p.genero
       ,p.grupo_sanguineo
-      ,p.imagen
       ,p.nom_cargo_dep
       ,p.nom_emergencia
       ,p.nom_primer_apellido
@@ -398,16 +397,16 @@ inner join hc_paraclinicos el on el.seq_historia = ho.seq_historia]]>
       ,p.seq_perfil
       ,p.seq_tipo_documento
       ,exa.seq_exa_fisico
-      ,exa.desp_adb
-      ,exa.desp_cap_cuello
-      ,exa.desp_column
-      ,exa.desp_genitourinario
-      ,exa.desp_miembros
-      ,exa.desp_neurologico
-      ,exa.desp_osteomuscular
-      ,exa.desp_piel_fan
-      ,exa.desp_torax
-      ,exa.lateralidad
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_adb) As varchar(max)) as desp_adb
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_cap_cuello) As varchar(max)) as desp_cap_cuello
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_column) As varchar(max)) as desp_column
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_genitourinario) As varchar(max)) as desp_genitourinario
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_miembros) As varchar(max)) as desp_miembros
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_neurologico) As varchar(max)) as desp_neurologico
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_osteomuscular) As varchar(max)) as desp_osteomuscular
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_piel_fan) As varchar(max)) as desp_piel_fan
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_torax) As varchar(max)) as desp_torax
+      ,Cast(DecryptByPassPhrase('konradU',exa.lateralidad) As varchar(max)) as lateralidad
       ,exa.num_frec_car
       ,exa.num_frec_resp
       ,exa.num_imc
@@ -474,7 +473,6 @@ where p.seq_persona = $P{numeroPersona}]]>
 	<field name="fecha_nacimiento" class="java.sql.Date"/>
 	<field name="genero" class="java.lang.String"/>
 	<field name="grupo_sanguineo" class="java.lang.String"/>
-	<field name="imagen" class="java.lang.String"/>
 	<field name="nom_cargo_dep" class="java.lang.String"/>
 	<field name="nom_emergencia" class="java.lang.String"/>
 	<field name="nom_primer_apellido" class="java.lang.String"/>
@@ -593,7 +591,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement mode="Opaque" x="446" y="0" width="108" height="42" backcolor="#CCCCCC" uuid="845fc3b6-02b5-499d-acde-8ddda74f39b8"/>
+				<reportElement mode="Transparent" x="446" y="0" width="108" height="42" backcolor="#CCCCCC" uuid="845fc3b6-02b5-499d-acde-8ddda74f39b8"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -3079,7 +3077,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$P{impresionDiagnostica}]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="752">
+		<band height="602">
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="18" uuid="521bb0d9-9907-4440-a353-924d530e6ab8"/>
 				<box>
@@ -3134,4 +3132,62 @@ where p.seq_persona = $P{numeroPersona}]]>
 			</textField>
 		</band>
 	</detail>
+	<lastPageFooter>
+		<band height="150">
+			<staticText>
+				<reportElement mode="Opaque" x="22" y="103" width="173" height="21" forecolor="#006699" backcolor="#FFFFFF" uuid="5de0186e-ec4d-46a5-b469-7bce454df392"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Evaluado]]></text>
+			</staticText>
+			<line>
+				<reportElement x="22" y="144" width="168" height="1" forecolor="#666666" uuid="9b2eae46-8779-4d60-a259-fbc8878c7c46"/>
+			</line>
+			<line>
+				<reportElement x="22" y="102" width="168" height="1" forecolor="#666666" uuid="abe4b130-d50f-4aee-a6dc-a6443aaf852d"/>
+			</line>
+			<staticText>
+				<reportElement mode="Transparent" x="22" y="124" width="71" height="21" forecolor="#006699" backcolor="#CCCCCC" uuid="2393d996-4779-4e08-abff-a46bab9f5329"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Documento]]></text>
+			</staticText>
+			<line>
+				<reportElement x="332" y="143" width="168" height="1" forecolor="#666666" uuid="231b716e-93f3-456f-9dab-83ab409ee072"/>
+			</line>
+			<line>
+				<reportElement x="332" y="101" width="168" height="1" forecolor="#666666" uuid="194fc82e-1a2e-415d-bcf5-292a67d57d39"/>
+			</line>
+			<staticText>
+				<reportElement mode="Transparent" x="332" y="123" width="71" height="21" forecolor="#006699" backcolor="#CCCCCC" uuid="2432ed28-6a57-4b71-8e5d-2cd2309ed565"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="332" y="102" width="173" height="21" forecolor="#006699" backcolor="#FFFFFF" uuid="d8c02782-0f32-4e5d-9f79-c17bf4495f47"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Médico]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="93" y="124" width="97" height="19" uuid="862b2373-33da-41ce-93f6-de37442e0e65"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_documento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
 </jasperReport>

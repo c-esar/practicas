@@ -39,7 +39,7 @@ export class PersonaService {
     return this.http.get<Ciudad[]>(this.url + "ciudad/listCiudad");
   }
 
-  create(persona: Persona): Observable<Persona> {
+  create(persona: Persona, id: String): Observable<Persona> {
     return this.http.post<Persona>(this.url + "persona/crearPersona", persona, { headers: this.httpHeaders }).pipe(
       catchError(e => {
         console.error(e.error.mensaje);

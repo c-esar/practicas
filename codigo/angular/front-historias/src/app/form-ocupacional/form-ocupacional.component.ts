@@ -569,7 +569,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
                 this.createHistoria();
               } else {
                 console.log(this.persona)
-                this.personaService.create(this.persona).subscribe(
+                this.personaService.create(this.persona, "2").subscribe(
                   response => {
                     console.log(response);
                     this.guardado = false;
