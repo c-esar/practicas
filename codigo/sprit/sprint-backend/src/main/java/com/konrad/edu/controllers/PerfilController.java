@@ -89,7 +89,7 @@ public class PerfilController {
 			String password = persona.getPassword();
 			password = Encriptacion.Encriptar(password);
 			persona.setPassword(password);
-			//personaEntity.setImagenEncriptada(personaEntity.getImagen().getBytes());
+			personaEntity.setImagenEncriptada(personaEntity.getImagen().getBytes());
 			personaNew = perfilService.save(persona);
 			if (personaNew != null) {
 				personaEntity.setPerfil(new PerfilEntity());
@@ -97,8 +97,8 @@ public class PerfilController {
 				personaEntity = personaService.save(personaEntity);
 				if (personaEntity != null) {
 					personaEntity.setPerfil(null);
-					personaEntity.setHistorias(null);
-					personaEntity.setHistoriaGym(null);
+					personaEntity.setHistoriasEncriptacion(null);
+					personaEntity.setHistoriaGymEncriptacion(null);
 				}
 			}
 		} catch (DataAccessException e) {
@@ -129,6 +129,10 @@ public class PerfilController {
 				tmp.setPerfil(null);
 				personaNew.getPersona().clear();
 				personaNew.getPersona().add(tmp);
+				if(personaNew.getPersona().get(0).getImagenEncriptada() != null) {
+					personaNew.getPersona().get(0).setImagen(new String(personaNew.getPersona().get(0).getImagenEncriptada()));
+				}
+				
 			}
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error no se encuentra registrado en la base de datos");

@@ -85,6 +85,7 @@ public class PersonaController {
 				ocupacional = EncriptacionHistoriaOcupacional(persona.getHistorias().get(0));
 				persona.setHistorias(null);
 				try {
+					persona.setImagenEncriptada(persona.getImagen() == null ? null : persona.getImagen().getBytes());
 					personaNew = personaService.save(persona);
 				}catch (Exception e) {
 					System.err.print("No se puede guardar la informacion, la persona ya estaba o sucedio problemas en la base de datos");
@@ -97,7 +98,12 @@ public class PersonaController {
 				persona.getHistoriaGym().get(0).setSeqTipoHistoria(tipoHistoria);
 				gym = EncriptacionHistoriaGym(persona.getHistoriaGym().get(0));
 				persona.setHistoriaGym(null);
-				personaNew = personaService.save(persona);
+				try {
+					persona.setImagenEncriptada(persona.getImagen() == null ? null : persona.getImagen().getBytes());
+					personaNew = personaService.save(persona);
+				}catch (Exception e) {
+					System.err.print("No se puede guardar la informacion, la persona ya estaba o sucedio problemas en la base de datos");
+				}
 				gym.getPersona().setSeqPersona(personaNew.getSeqPersona());
 				gym = historiaGymService.save(gym);
 			}
@@ -123,7 +129,7 @@ public class PersonaController {
 			persona.setHistoriaGym(null);
 			persona.setHistorias(null);
 			persona.setHistoriasEncriptacion(null);
-			persona.setImagenEncriptada(persona.getImagen().getBytes());
+		    persona.setImagenEncriptada(persona.getImagen() == null ? null : persona.getImagen().getBytes());
 			personaUp = personaService.save(persona);
 			if (personaUp != null) {
 				personaUp.setPerfil(null);
@@ -155,6 +161,9 @@ public class PersonaController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			personaNew = personaService.findByNumeroDocumento(numeroDocumento);
+			if(personaNew.getImagenEncriptada() != null) {
+				personaNew.setImagen(new String(personaNew.getImagenEncriptada()));
+			}
 			if (personaNew != null) {
 				for (int i = 0; i < personaNew.getHistoriaGymEncriptacion().size(); i++) {
 					personaNew.getHistoriaGymEncriptacion().get(i).setPersona(null);
