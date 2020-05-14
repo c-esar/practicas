@@ -42,7 +42,7 @@ export class Persona {
   rolUsuario: TipoUsuario[];
   codigo: string;
   nuevorolUsuario: string;
-  imagen: any;
+  imagen: string;
   historiaGymEncriptacion: HistoriaGym[];
   historiasEncriptacion: Historias[];
   constructor() {

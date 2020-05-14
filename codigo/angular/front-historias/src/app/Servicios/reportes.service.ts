@@ -28,9 +28,9 @@ export class ReportesService {
     );
   }
 
-  onReporteHistoriasOcupacional(id: String,historia: number): Observable<File> {
-    return this.http.get<File>(`${this.url + "reportes/historiaOcupacional"}/${id}/${historia}`, { headers: this.httpHeaders }).pipe(
-      map( (resp: any) => resp.persona  as File)
+  onReporteHistoriasOcupacional(id: String,historia: number): Observable<String> {
+    return this.http.get<String>(`${this.url + "reportes/historiaOcupacional"}/${id}/${historia}`, { headers: this.httpHeaders }).pipe(
+      map( (resp: any) => resp.persona  as String)
       ,catchError(e => {
         console.error(e.error.mensaje);
         Swal.fire('Error', e.error.mensaje, 'error');

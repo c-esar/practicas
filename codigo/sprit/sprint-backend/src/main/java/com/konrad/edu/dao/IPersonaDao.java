@@ -61,8 +61,9 @@ public interface IPersonaDao extends CrudRepository<PersonaEntity, Long> {
 			"WHERE rol.seq_tipo_usuario IN (:seq_tipo_usuario);" , nativeQuery = true)
 	public List<PersonaEntity> findAllTipoUsuario(@Param("seq_tipo_usuario") List<String> seq_tipo_usuario);
 	
-	@Query(value = "select * from  hc_personas u " + 
-			"inner join hc_historia_ocupacional p on p.seq_persona = u.seq_persona " + 
-			"where u.numero_documento = ?1 ", nativeQuery = true)
+	@Query(value = "select * from  hc_personas u" + 
+			" left outer join hc_historia_ocupacional p on p.seq_persona = u.seq_persona" + 
+			" left outer join hc_historia_gym hg on hg.seq_persona = u.seq_persona" + 
+			" where u.numero_documento = ?1", nativeQuery = true)
 	public PersonaEntity findByPersonaOcupacional(@Param("documento") String id);
 }

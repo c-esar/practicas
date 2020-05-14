@@ -48,7 +48,7 @@ public class ReportesController {
 	@GetMapping("/historiaOcupacional/{id}/{historia}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<?> reportesHistoriasOcupacional(@PathVariable String id, @PathVariable int historia) {
-		File enviarRuta = null;
+		String enviarRuta = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
 			enviarRuta = reportesService.exportReportOcupacional(id, historia);

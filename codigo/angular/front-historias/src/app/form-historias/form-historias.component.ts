@@ -31,7 +31,8 @@ export class FormHistoriasComponent implements OnInit {
   filtro: boolean;
   archivoFile: ArchivosFileHistoria[];
   persona: Persona;
-  ruta:any;
+  ruta: String;
+  nombreArchivo: string;
   constructor(private labelService: LabelService,
     private loginService: LoginService,
     private personaService: PersonaService,
@@ -212,13 +213,26 @@ export class FormHistoriasComponent implements OnInit {
         (respuesta) => {
           debugger
           this.ruta = respuesta;
-          document.getElementById('enlace').setAttribute('href', this.ruta);
+          this.nombreArchivo = "historiaOcupacional" + documento + ".pdf";
+          const linkSource = 'data:application/pdf;base64,' + this.ruta;
+          const downloadLink = document.createElement("a");
+          const fileName = this.nombreArchivo;
+          downloadLink.href = linkSource;
+          downloadLink.download = fileName;
+          downloadLink.click();
         }
       )
     } else if (tipo === "GYM") {
       this.reportes.onReporteHistoriasGym(documento, numeroHistoria).subscribe(
         (respuesta) => {
-          Swal.fire('Exitoso', '' + respuesta, 'success');
+          this.ruta = respuesta;
+          this.nombreArchivo = "historiaGym" + documento + ".pdf";
+          const linkSource = 'data:application/pdf;base64,' + this.ruta;
+          const downloadLink = document.createElement("a");
+          const fileName = this.nombreArchivo;
+          downloadLink.href = linkSource;
+          downloadLink.download = fileName;
+          downloadLink.click();
         }
       )
     }

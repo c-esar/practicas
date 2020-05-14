@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="historiasGym" language="groovy" columnDirection="RTL" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="58a19427-39b6-40d6-a40b-27c995e2dc0f">
 	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1426"/>
+	<property name="ireport.y" value="0"/>
 	<import value="org.apache.commons.codec.binary.*"/>
 	<style name="table">
 		<box>
@@ -438,7 +438,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[Código:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="33" width="100" height="20" uuid="1829c762-c5bd-4170-a603-9ae5b71cf0ab"/>
+				<reportElement x="100" y="33" width="145" height="20" uuid="1829c762-c5bd-4170-a603-9ae5b71cf0ab"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>

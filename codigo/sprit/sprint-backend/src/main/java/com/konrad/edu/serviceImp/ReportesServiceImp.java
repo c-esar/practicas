@@ -1,17 +1,17 @@
 package com.konrad.edu.serviceImp;
 
-import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,13 +25,11 @@ import com.konrad.edu.entity.HistoriaGYMEntity;
 import com.konrad.edu.entity.PersonaEntity;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 @Service
 public class ReportesServiceImp implements IReportesService {
@@ -49,7 +47,7 @@ public class ReportesServiceImp implements IReportesService {
 	@Override
 	public String exportReport(String id, int historias) {
 		try {
-			Connection conexion = DriverManager.getConnection("jdbc:sqlserver://192.168.0.42;databaseName=HC_Historias",
+			Connection conexion = DriverManager.getConnection("jdbc:sqlserver://192.168.0.42;databaseName=HC_Historiass",
 					"sa", "12345");
 			File file = ResourceUtils.getFile("classpath:historiasGym.jrxml");
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -140,19 +138,23 @@ public class ReportesServiceImp implements IReportesService {
 			}
 			parameters.put("impresionDiagnostica", impresionDiagnostica);
 			parameters.put("numeroPersona", persona.getSeqPersona());
-			InputStream stream = new ByteArrayInputStream(persona.getImagen().getBytes());
-			Image image = ImageIO.read(stream);
-			parameters.put("imagen", image);
+			//InputStream stream = new ByteArrayInputStream(persona.getImagen().getBytes());
+			//Image image = ImageIO.read(stream);
+			//parameters.put("imagen", image);
 
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conexion);
-			JRExporter exporter = new JRPdfExporter();
-//			File pdf;
-//			pdf = File.createTempFile("historiasGYM.", ".pdf");
-			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-			exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("historiasGYM.pdf"));
-			exporter.exportReport();
-//			JasperExportManager.exportReportToPdfStream(jasperPrint, new FileOutputStream(pdf));
-			return "report generated in path :";
+			
+			File pdf = File.createTempFile("output.", ".pdf");
+			System.out.println("Lo exportamos a " + pdf.getAbsolutePath());
+			FileOutputStream pdffinal = new FileOutputStream(pdf);
+			JasperExportManager.exportReportToPdfStream(jasperPrint, pdffinal);
+			pdffinal.close();
+			byte[] inFileBytes = Files.readAllBytes(Paths.get(pdf.getAbsolutePath()));
+			byte[] encoded = java.util.Base64.getEncoder().encode(inFileBytes);
+			String base64EncryptedString = "";
+			base64EncryptedString = new String(encoded);
+			System.out.print(base64EncryptedString);
+			return base64EncryptedString;
 		} catch (IOException e) {
 			System.err.print(e.getMessage());
 			e.printStackTrace();
@@ -172,9 +174,9 @@ public class ReportesServiceImp implements IReportesService {
 	}
 
 	@Override
-	public File exportReportOcupacional(String id, int historias) {
+	public String exportReportOcupacional(String id, int historias) {
 		try {
-			Connection conexion = DriverManager.getConnection("jdbc:sqlserver://192.168.0.42;databaseName=HC_Historias",
+			Connection conexion = DriverManager.getConnection("jdbc:sqlserver://192.168.0.42;databaseName=HC_Historiass",
 					"sa", "12345");
 			File file = ResourceUtils.getFile("classpath:ocupacional.jrxml");
 			Map<String, Object> parameters = new HashMap<>();
@@ -376,15 +378,20 @@ public class ReportesServiceImp implements IReportesService {
 			}
 			parameters.put("impresionDiagnostica", impresionDiagnostica);
 			parameters.put("numeroPersona", persona.getSeqPersona());
+			persona.setImagen(new String(persona.getImagenEncriptada()));
+			parameters.put("imagenPaciente",crearImagenPaciente(persona.getImagen(), "paciente"));			
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conexion);
-			JRExporter exporter = new JRPdfExporter();        
-	        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-	        exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("ocupacional"+persona.getNomPrimerNombre()+".pdf"));
-	        exporter.exportReport();
-	        String ruta = System.getProperty("user.dir");
-	        System.out.print(ruta);
-	        File archivo = new File(ruta+"\\ocupacional"+persona.getNomPrimerNombre()+".pdf");
-			return archivo;
+			File pdf = File.createTempFile("ocupacional", ".pdf");
+			System.out.println("Lo exportamos a " + pdf.getAbsolutePath());
+			FileOutputStream pdffinal = new FileOutputStream(pdf);
+			JasperExportManager.exportReportToPdfStream(jasperPrint, pdffinal);
+			pdffinal.close();
+			byte[] inFileBytes = Files.readAllBytes(Paths.get(pdf.getAbsolutePath()));
+			byte[] encoded = java.util.Base64.getEncoder().encode(inFileBytes);
+			String base64EncryptedString = "";
+			base64EncryptedString = new String(encoded);
+			System.out.print(base64EncryptedString);
+			return base64EncryptedString;
 		} catch (IOException e) {
 			System.err.print(e.getMessage());
 			e.printStackTrace();
@@ -396,6 +403,23 @@ public class ReportesServiceImp implements IReportesService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	private String crearImagenPaciente(String imagen, String id) {
+		String[] palabras = imagen.split(",");
+		String imgentmp = palabras[1];
+		File img = null;
+		try {
+			img = File.createTempFile("imagen"+id, ".jpg");
+			FileOutputStream imageOutFile = new FileOutputStream(img.getAbsolutePath());
+	        imageOutFile.write(java.util.Base64.getDecoder().decode(imgentmp.getBytes()));
+	        imageOutFile.close();
+		} catch (IOException e) {
+			System.err.print("Error al crear imagen "+id);
+			e.printStackTrace();
+		}
+
+		return img.getAbsolutePath();
 	}
 
 	private PersonaEntity obtenerlaHistoriaOcupacional(String id) {
