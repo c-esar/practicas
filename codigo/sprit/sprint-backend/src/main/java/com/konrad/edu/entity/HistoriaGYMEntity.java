@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
@@ -66,13 +67,19 @@ public class HistoriaGYMEntity implements Serializable {
 	private List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity;
 	
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "hc_condiciones_historiaGym", joinColumns = @JoinColumn(name = "seq_historia_gym"), inverseJoinColumns = @JoinColumn(name = "seq_condicion_gym"), uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "seq_historia_gym", "seq_condicion_gym" }) })
+	@JoinTable(name = "hc_condiciones_historiaGym", joinColumns = @JoinColumn(name = "seq_historia_gym", unique = false), 
+			inverseJoinColumns = @JoinColumn(name = "seq_condicion_gym", unique = false), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "seq_historia_gym", "seq_condicion_gym" }) },
+			indexes = {@Index(name = "seq_historia_gym",  columnList="seq_historia_gym", unique = false),
+            @Index(name = "seq_condicion_gym", columnList="seq_condicion_gym",     unique = true)})
 	private List<CondicionGymEntity> condicionGymEntity;
 	
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "hc_familiar_historiaGym", joinColumns = @JoinColumn(name = "seq_historia_gym"), inverseJoinColumns = @JoinColumn(name = "seq_familiar_gym"), uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "seq_historia_gym", "seq_familiar_gym" }) })
+	@JoinTable(name = "hc_familiar_historiaGym", joinColumns = @JoinColumn(name = "seq_historia_gym", unique = false), 
+			inverseJoinColumns = @JoinColumn(name = "seq_familiar_gym", unique = false), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "seq_historia_gym", "seq_familiar_gym" })}, 
+			indexes = {@Index(name = "seq_historia_gym",  columnList="seq_historia_gym", unique = false),
+              @Index(name = "seq_familiar_gym", columnList="seq_familiar_gym",     unique = true)})
 	private List<FamiliarGymEntity> familiarGymEntity;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

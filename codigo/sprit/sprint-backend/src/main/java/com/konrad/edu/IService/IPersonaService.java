@@ -21,5 +21,6 @@ public interface IPersonaService {
 	
 	public List<PersonaEntity> findAllTipoUsuario(List<String> seq_tipo_usuario);
 	
+	public void eliminarConstRolUsuario();
 
 }
