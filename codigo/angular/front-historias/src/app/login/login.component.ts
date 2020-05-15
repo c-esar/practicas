@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../Servicios/login.service';
 import { Login } from '../DatosBean/login';
-
+import { UserIdleService } from 'angular-user-idle';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   login: Login
   constructor(private loginService: LoginService,
-    private router: Router) {
+    private router: Router,
+    private userIdle: UserIdleService) {
     this.login = new Login();
   }
 
@@ -34,6 +35,18 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['menuPrincipal'])
       }
     }, 500);
+    //Start watching for user inactivity.
+    this.userIdle.startWatching();
+
+    // Start watching when user idle is starting.
+    this.userIdle.onTimerStart().subscribe(count => console.log(count));
+
+    // Start watch when time is up.
+    this.userIdle.onTimeout().subscribe(() => {
+      Swal.fire('Tiempo agotado', 'Inactivo', 'error');
+      this.loginService.logOut();  
+      this.router.navigate(['login']);
+    });
   }
 
   public iniciarLogin(): void {
@@ -71,5 +84,20 @@ export class LoginComponent implements OnInit {
     }, 500);
   }
 
+  stop() {
+    this.userIdle.stopTimer();
+  }
+
+  stopWatching() {
+    this.userIdle.stopWatching();
+  }
+
+  startWatching() {
+    this.userIdle.startWatching();
+  }
+
+  restart() {
+    this.userIdle.resetTimer();
+  }
 
 }

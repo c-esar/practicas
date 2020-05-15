@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="historiasGym" language="groovy" columnDirection="RTL" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="58a19427-39b6-40d6-a40b-27c995e2dc0f">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<import value="org.apache.commons.codec.binary.*"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#F0F0F0"/>
@@ -103,12 +104,13 @@ inner join hc_tipo_cuestionario tc on tc.seq_tipo_cuestionario =  c.seq_tipo_cue
 	<parameter name="energizantecuantas" class="java.lang.String"/>
 	<parameter name="psicoactivasSN" class="java.lang.String"/>
 	<parameter name="psicoactivascuales" class="java.lang.String"/>
+	<parameter name="imagen" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT hgym.seq_historia_gym as seq_historia
       ,hgym.acepto_condiciones
-      ,hgym.conducta
+      ,Cast(DecryptByPassPhrase('konradU',hgym.conducta) As varchar(max))  As conducta
       ,hgym.dia_historia_gym
-      ,hgym.observaciones_historia
+      ,Cast(DecryptByPassPhrase('konradU',hgym.observaciones_historia) As varchar(max))  As observaciones_historia
       ,hgym.seq_ciudad
       ,hgym.seq_exa_fisico
       ,hgym.seq_persona
@@ -128,7 +130,6 @@ inner join hc_tipo_cuestionario tc on tc.seq_tipo_cuestionario =  c.seq_tipo_cue
       ,p.fecha_nacimiento
       ,p.genero
       ,p.grupo_sanguineo
-      ,p.imagen
       ,p.nom_cargo_dep
       ,p.nom_emergencia
       ,p.nom_primer_apellido
@@ -148,16 +149,16 @@ inner join hc_tipo_cuestionario tc on tc.seq_tipo_cuestionario =  c.seq_tipo_cue
       ,p.seq_perfil
       ,p.seq_tipo_documento
       ,exa.seq_exa_fisico
-      ,exa.desp_adb
-      ,exa.desp_cap_cuello
-      ,exa.desp_column
-      ,exa.desp_genitourinario
-      ,exa.desp_miembros
-      ,exa.desp_neurologico
-      ,exa.desp_osteomuscular
-      ,exa.desp_piel_fan
-      ,exa.desp_torax
-      ,exa.lateralidad
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_adb) As varchar(max)) as desp_adb
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_cap_cuello) As varchar(max)) as desp_cap_cuello
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_column) As varchar(max)) as desp_column
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_genitourinario) As varchar(max)) as desp_genitourinario
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_miembros) As varchar(max)) as desp_miembros
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_neurologico) As varchar(max)) as desp_neurologico
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_osteomuscular) As varchar(max)) as desp_osteomuscular
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_piel_fan) As varchar(max)) as desp_piel_fan
+      ,Cast(DecryptByPassPhrase('konradU',exa.desp_torax) As varchar(max)) as desp_torax
+      ,Cast(DecryptByPassPhrase('konradU',exa.lateralidad) As varchar(max)) as lateralidad
       ,exa.num_frec_car
       ,exa.num_frec_resp
       ,exa.num_imc
@@ -180,7 +181,8 @@ inner join hc_tipo_cuestionario tc on tc.seq_tipo_cuestionario =  c.seq_tipo_cue
       ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 12 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as cirugias
       ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 13 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as enfermedades_columna
       ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 14 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as otra
-      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.otra_condicion != null and hgym.seq_historia_gym = seq_historia_gym), hgym.otra_condicion, '')) as otro_condicion
+      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.otra_condicion != null and hgym.seq_historia_gym = seq_historia_gym),
+Cast(DecryptByPassPhrase('konradU',hgym.otra_condicion) As varchar(max)), '')) as otro_condicion
       ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 1 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as enfermedad_coronaria
       ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 2 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as diabetes
       ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 3 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as hipertension
@@ -191,8 +193,10 @@ inner join hc_tipo_cuestionario tc on tc.seq_tipo_cuestionario =  c.seq_tipo_cue
       ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 8 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as obesidad
       ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 9 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as hiperteroidismo
       ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 10 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as otrof
-      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.otra_familiar != null and hgym.seq_historia_gym = seq_historia_gym), hgym.otra_familiar, '')) as otro_familiar
-      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.tipo_cancer != null and hgym.seq_historia_gym = seq_historia_gym), hgym.tipo_cancer, '')) as tipo_cancer
+      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.otra_familiar != null and hgym.seq_historia_gym = seq_historia_gym),
+Cast(DecryptByPassPhrase('konradU',hgym.otra_familiar) As varchar(max)) , '')) as otro_familiar
+      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.tipo_cancer != null and hgym.seq_historia_gym = seq_historia_gym),
+Cast(DecryptByPassPhrase('konradU',hgym.tipo_cancer) As varchar(max)), '')) as tipo_cancer
 FROM hc_personas p
 inner join hc_historia_gym hgym on hgym.seq_persona = p.seq_persona
 inner join hc_examen_fisico exa on exa.seq_exa_fisico = hgym.seq_exa_fisico
@@ -222,7 +226,6 @@ where p.seq_persona = $P{numeroPersona}]]>
 	<field name="fecha_nacimiento" class="java.sql.Date"/>
 	<field name="genero" class="java.lang.String"/>
 	<field name="grupo_sanguineo" class="java.lang.String"/>
-	<field name="imagen" class="java.lang.String"/>
 	<field name="nom_cargo_dep" class="java.lang.String"/>
 	<field name="nom_emergencia" class="java.lang.String"/>
 	<field name="nom_primer_apellido" class="java.lang.String"/>
@@ -435,7 +438,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[Código:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="33" width="100" height="20" uuid="1829c762-c5bd-4170-a603-9ae5b71cf0ab"/>
+				<reportElement x="100" y="33" width="145" height="20" uuid="1829c762-c5bd-4170-a603-9ae5b71cf0ab"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1654,7 +1657,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{tipo_cancer}]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="752">
+		<band height="602">
 			<staticText>
 				<reportElement x="0" y="0" width="410" height="20" uuid="924aea52-5cb2-4c1c-9c7e-b7ebc6f54bb1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -2035,4 +2038,62 @@ where p.seq_persona = $P{numeroPersona}]]>
 			</textField>
 		</band>
 	</detail>
+	<lastPageFooter>
+		<band height="150">
+			<staticText>
+				<reportElement mode="Opaque" x="32" y="103" width="173" height="21" forecolor="#006699" backcolor="#FFFFFF" uuid="de33b717-e9f0-4eb1-b09f-995b97eea97e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Evaluado]]></text>
+			</staticText>
+			<line>
+				<reportElement x="32" y="144" width="168" height="1" forecolor="#666666" uuid="1f2a3341-61ac-4025-9009-e8d91bf24201"/>
+			</line>
+			<line>
+				<reportElement x="32" y="102" width="168" height="1" forecolor="#666666" uuid="64b56126-9d2e-450a-b4ac-e1af2e61b920"/>
+			</line>
+			<staticText>
+				<reportElement mode="Transparent" x="32" y="124" width="71" height="21" forecolor="#006699" backcolor="#CCCCCC" uuid="ddeb326e-c244-4e38-bca8-487e7f4b813a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Documento]]></text>
+			</staticText>
+			<line>
+				<reportElement x="342" y="143" width="168" height="1" forecolor="#666666" uuid="f6a938b8-01fd-407d-b164-728599f89fb0"/>
+			</line>
+			<staticText>
+				<reportElement mode="Transparent" x="342" y="123" width="71" height="21" forecolor="#006699" backcolor="#CCCCCC" uuid="9b0869e0-8c67-424e-82fe-fc05ddeef45c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Documento]]></text>
+			</staticText>
+			<line>
+				<reportElement x="342" y="101" width="168" height="1" forecolor="#666666" uuid="d8eae1c2-cf5a-41e8-9c79-140bd4d6926a"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="342" y="102" width="173" height="21" forecolor="#006699" backcolor="#FFFFFF" uuid="c6016b98-cd6f-4df6-b4ee-46f7f649d7d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Médico]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="103" y="124" width="97" height="19" uuid="13168f1d-2cc0-4489-8f0d-448af4483b83"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_documento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
 </jasperReport>

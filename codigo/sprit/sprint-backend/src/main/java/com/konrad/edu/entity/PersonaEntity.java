@@ -13,13 +13,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -40,10 +40,10 @@ public class PersonaEntity implements Serializable {
 	@Column(name = "seq_persona")
 	private Integer seqPersona;
 
-	@Column(name = "nom_primer_nombre", length = 50, nullable=false)
+	@Column(name = "nom_primer_nombre", length = 50)
 	private String nomPrimerNombre;
 
-	@Column(name = "nom_primer_apellido", length = 50,nullable=false)
+	@Column(name = "nom_primer_apellido", length = 50)
 	private String nomPrimerApellido;
 
 	@Column(name = "nom_segundo_nombre", length = 50)
@@ -77,9 +77,11 @@ public class PersonaEntity implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaCreacion;
 
-	@Lob
-	@Column(name = "imagen")
+	@Transient
 	private String imagen;
+	
+	@Column
+	private byte[] imagenEncriptada;
 
 	@Column
 	private String genero;
@@ -150,11 +152,18 @@ public class PersonaEntity implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoDocumentoEntity tipoDocumento;
 
-	@OneToMany(mappedBy = "persona", cascade = CascadeType.ALL)
-	private List<HistoriaOcupacionalEntity> historias;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="persona")
+	private List<HistoriaOcupacionalEntity> historiasEncriptacion;
 	
-	@OneToMany(mappedBy = "persona", cascade = CascadeType.ALL)
-	private List<HistoriaGYMEntity> historiaGym;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="persona")
+	private List<HistoriaGYMEntity> historiaGymEncriptacion;
+	
+	@Transient
+	private List<HistoriaOcupacionalEncriptacion> historias;
+	
+	@Transient
+	private List<HistoriaGymEncriptacion> historiaGym;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "seq_perfil")
@@ -176,6 +185,8 @@ public class PersonaEntity implements Serializable {
 		this.historias = new ArrayList<>();
 		this.historiaGym = new ArrayList<>();
 		this.rolUsuario = new ArrayList<>();
+		this.historiasEncriptacion = new ArrayList<HistoriaOcupacionalEntity>();
+		this.historiaGymEncriptacion = new ArrayList<HistoriaGYMEntity>();
 	}
 
 	public Integer getSeqPersona() {
@@ -362,11 +373,13 @@ public class PersonaEntity implements Serializable {
 		this.localidad = localidad;
 	}
 
-	public List<HistoriaOcupacionalEntity> getHistorias() {
+
+
+	public List<HistoriaOcupacionalEncriptacion> getHistorias() {
 		return historias;
 	}
 
-	public void setHistorias(List<HistoriaOcupacionalEntity> historias) {
+	public void setHistorias(List<HistoriaOcupacionalEncriptacion> historias) {
 		this.historias = historias;
 	}
 
@@ -426,14 +439,6 @@ public class PersonaEntity implements Serializable {
 		this.rh = rh;
 	}
 
-	public List<HistoriaGYMEntity> getHistoriasGym() {
-		return historiaGym;
-	}
-
-	public void setHistoriasGym(List<HistoriaGYMEntity> historiaGym) {
-		this.historiaGym = historiaGym;
-	}
-
 	public String getCodigo() {
 		return codigo;
 	}
@@ -466,14 +471,6 @@ public class PersonaEntity implements Serializable {
 		this.perfil = perfil;
 	}
 
-	public List<HistoriaGYMEntity> getHistoriaGym() {
-		return historiaGym;
-	}
-
-	public void setHistoriaGym(List<HistoriaGYMEntity> historiaGym) {
-		this.historiaGym = historiaGym;
-	}
-
 	public String getImagen() {
 		return imagen;
 	}
@@ -481,5 +478,39 @@ public class PersonaEntity implements Serializable {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
+
+	public byte[] getImagenEncriptada() {
+		return imagenEncriptada;
+	}
+
+	public void setImagenEncriptada(byte[] imagenEncriptada) {
+		this.imagenEncriptada = imagenEncriptada;
+	}
+
+	public List<HistoriaOcupacionalEntity> getHistoriasEncriptacion() {
+		return historiasEncriptacion;
+	}
+
+	public void setHistoriasEncriptacion(List<HistoriaOcupacionalEntity> historiasEncriptacion) {
+		this.historiasEncriptacion = historiasEncriptacion;
+	}
+
+	public List<HistoriaGYMEntity> getHistoriaGymEncriptacion() {
+		return historiaGymEncriptacion;
+	}
+
+	public void setHistoriaGymEncriptacion(List<HistoriaGYMEntity> historiaGymEncriptacion) {
+		this.historiaGymEncriptacion = historiaGymEncriptacion;
+	}
+
+	public List<HistoriaGymEncriptacion> getHistoriaGym() {
+		return historiaGym;
+	}
+
+	public void setHistoriaGym(List<HistoriaGymEncriptacion> historiaGym) {
+		this.historiaGym = historiaGym;
+	}
+
+	
 	
 }

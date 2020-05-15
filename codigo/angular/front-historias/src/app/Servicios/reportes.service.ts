@@ -17,8 +17,8 @@ export class ReportesService {
     private http: HttpClient, private constante: ConstantesService
   ) { }
 
-  onReporteHistoriasGym(id: String): Observable<String> {
-    return this.http.get<String>(`${this.url + "reportes/historiaGym"}/${id}`, { headers: this.httpHeaders }).pipe(
+  onReporteHistoriasGym(id: String, historia: number): Observable<String> {
+    return this.http.get<String>(`${this.url + "reportes/historiaGym"}/${id}/${historia}`, { headers: this.httpHeaders }).pipe(
       map( (resp: any) => resp.persona  as String),
       catchError(e => {
         console.error(e.error.mensaje);
@@ -28,8 +28,8 @@ export class ReportesService {
     );
   }
 
-  onReporteHistoriasOcupacional(id: String): Observable<String> {
-    return this.http.get<String>(`${this.url + "reportes/historiaOcupacional"}/${id}`, { headers: this.httpHeaders }).pipe(
+  onReporteHistoriasOcupacional(id: String,historia: number): Observable<String> {
+    return this.http.get<String>(`${this.url + "reportes/historiaOcupacional"}/${id}/${historia}`, { headers: this.httpHeaders }).pipe(
       map( (resp: any) => resp.persona  as String)
       ,catchError(e => {
         console.error(e.error.mensaje);

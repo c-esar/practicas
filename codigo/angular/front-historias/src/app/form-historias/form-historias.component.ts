@@ -13,6 +13,9 @@ import { ArchivosFileHistoria } from '../DatosBean/archivosfilehistoria';
 import Swal from 'sweetalert2';
 import { Permiso } from '../DatosBean/permiso';
 import { ReportesService } from '../Servicios/reportes.service';
+import { UserIdleService } from 'angular-user-idle';
+import * as jsPDF from 'jspdf';
+import * as html2canvas from 'html2canvas';
 @Component({
   selector: 'app-form-historias',
   templateUrl: './form-historias.component.html',
@@ -28,6 +31,8 @@ export class FormHistoriasComponent implements OnInit {
   filtro: boolean;
   archivoFile: ArchivosFileHistoria[];
   persona: Persona;
+  ruta: String;
+  nombreArchivo: string;
   constructor(private labelService: LabelService,
     private loginService: LoginService,
     private personaService: PersonaService,
@@ -35,7 +40,8 @@ export class FormHistoriasComponent implements OnInit {
     private filesService: FilessService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private reportes: ReportesService) {
+    private reportes: ReportesService,
+    private userIdle: UserIdleService) {
   }
 
   ngOnInit(): void {
@@ -43,6 +49,33 @@ export class FormHistoriasComponent implements OnInit {
     this.onCargarFunciones();
     this.obtenerPermisos();
     this.cargarHisotrias();
+    this.userIdle.startWatching();
+
+    // Start watching when user idle is starting.
+    this.userIdle.onTimerStart().subscribe(count => console.log(count));
+
+    // Start watch when time is up.
+    this.userIdle.onTimeout().subscribe(() => {
+      this.loginService.logOut();
+      this.router.navigate(['login']);
+      Swal.fire('Tiempo agotado', 'Inactivo', 'error');
+    });
+  }
+
+  stop() {
+    this.userIdle.stopTimer();
+  }
+
+  stopWatching() {
+    this.userIdle.stopWatching();
+  }
+
+  startWatching() {
+    this.userIdle.startWatching();
+  }
+
+  restart() {
+    this.userIdle.resetTimer();
   }
 
   onCargarHistorias(): void {
@@ -141,21 +174,23 @@ export class FormHistoriasComponent implements OnInit {
           } else {
             apellido = apellido + " " + this.persona.nomSegundoApellido;
           }
-          if (this.persona.historias.length > 0) {
-            for (let i = 0; i < this.persona.historias.length; i++) {
+          if (this.persona.historiasEncriptacion.length > 0) {
+            for (let i = 0; i < this.persona.historiasEncriptacion.length; i++) {
               this.archivoFile.push(new ArchivosFileHistoria(nombre, apellido,
                 documento, tipoDocumento,
-                this.persona.historias[i].seqTipoHistoria.nomTipoHistoria,
-                this.persona.historias[i].diaHistoria));
+                this.persona.historiasEncriptacion[i].seqTipoHistoria.nomTipoHistoria,
+                this.persona.historiasEncriptacion[i].diaHistoria,
+                this.persona.historiasEncriptacion[i].seqHistoria));
             }
           }
 
-          if (this.persona.historiasGym.length > 0) {
-            for (let i = 0; i < this.persona.historiasGym.length; i++) {
+          if (this.persona.historiaGymEncriptacion.length > 0) {
+            for (let i = 0; i < this.persona.historiaGymEncriptacion.length; i++) {
               this.archivoFile.push(new ArchivosFileHistoria(nombre, apellido,
                 documento, tipoDocumento,
-                this.persona.historiasGym[i].seqTipoHistoria.nomTipoHistoria,
-                this.persona.historiasGym[i].diaHistoriaGym));
+                this.persona.historiaGymEncriptacion[i].seqTipoHistoria.nomTipoHistoria,
+                this.persona.historiaGymEncriptacion[i].diaHistoriaGym,
+                this.persona.historiaGymEncriptacion[i].seqHistoriaGym));
             }
           }
 
@@ -171,18 +206,33 @@ export class FormHistoriasComponent implements OnInit {
     }, 1000);
   }
 
-  public descargarDetalle(documento: string, tipo: string): void {
+  public descargarDetalle(documento: string, numeroHistoria: number, tipo: string): void {
     debugger
     if (tipo === "OCUPACIONAL") {
-      this.reportes.onReporteHistoriasOcupacional(documento).subscribe(
+      this.reportes.onReporteHistoriasOcupacional(documento, numeroHistoria).subscribe(
         (respuesta) => {
-          Swal.fire('Exitoso', ""+respuesta, 'success');
+          debugger
+          this.ruta = respuesta;
+          this.nombreArchivo = "historiaOcupacional" + documento + ".pdf";
+          const linkSource = 'data:application/pdf;base64,' + this.ruta;
+          const downloadLink = document.createElement("a");
+          const fileName = this.nombreArchivo;
+          downloadLink.href = linkSource;
+          downloadLink.download = fileName;
+          downloadLink.click();
         }
       )
     } else if (tipo === "GYM") {
-      this.reportes.onReporteHistoriasGym(documento).subscribe(
+      this.reportes.onReporteHistoriasGym(documento, numeroHistoria).subscribe(
         (respuesta) => {
-          Swal.fire('Exitoso', ''+respuesta, 'success');
+          this.ruta = respuesta;
+          this.nombreArchivo = "historiaGym" + documento + ".pdf";
+          const linkSource = 'data:application/pdf;base64,' + this.ruta;
+          const downloadLink = document.createElement("a");
+          const fileName = this.nombreArchivo;
+          downloadLink.href = linkSource;
+          downloadLink.download = fileName;
+          downloadLink.click();
         }
       )
     }

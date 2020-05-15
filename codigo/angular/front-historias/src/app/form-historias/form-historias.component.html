@@ -58,13 +58,15 @@
 
                   <ng-container matColumnDef="Detalle">
                     <mat-header-cell *matHeaderCellDef> Historias </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> <button mat-raised-button (click)="descargarDetalle(element.documento, element.tipoHistoria)" color="primary"> Detalle historia
-                      </button>
+                    <mat-cell *matCellDef="let element"> <a  id="enlace" target="_blank">
+                    <button mat-raised-button (click)="descargarDetalle(element.documento, element.numeroHistoria, element.tipoHistoria)" color="primary"> Detalle historia</button>
+                  </a>
                     </mat-cell>
                   </ng-container>
 
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
                 </mat-table>
               </div>
             </blockquote>

@@ -13,7 +13,7 @@ public interface IPerfilDao extends CrudRepository<PerfilEntity, Long> {
 			@Param("password") String password);
 	
 	@Query(value = "select  * from hc_perfiles f " + 
-			"inner join dbo.hc_personas p on p.seq_perfil = f.seq_perfil " + 
+			"right outer join dbo.hc_personas p on p.seq_perfil = f.seq_perfil " + 
 			"where p.numero_documento = ?1", nativeQuery = true)
 	public PerfilEntity findHcPerfilesByNumeroDocumneto(@Param("numero_documento") String numero_documento);
 

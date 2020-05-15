@@ -34,6 +34,7 @@ import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
 import { TipoEvaluacion } from '../DatosBean/tipoEvaluacion';
 import { FirmaIndividualComponent } from '../firma-individual/firma-individual.component';
+import { UserIdleService } from 'angular-user-idle';
 declare var jQuery: any;
 declare var $: any;
 @Component({
@@ -115,7 +116,8 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     private router: Router,
     private historiaService: HistoriasService,
     private modalService: BsModalService,
-    private _sanitizer: DomSanitizer) {
+    private _sanitizer: DomSanitizer,
+    private userIdle: UserIdleService) {
   }
 
   ngOnInit(): void {
@@ -132,8 +134,35 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
       this.onCargarFunciones();
       this.pageSettings = { pageSize: 6 };
     }, 1000);
+    this.userIdle.startWatching();
+
+    // Start watching when user idle is starting.
+    this.userIdle.onTimerStart().subscribe(count => console.log(count));
+
+    // Start watch when time is up.
+    this.userIdle.onTimeout().subscribe(() => {     
+      this.loginService.logOut();  
+      this.router.navigate(['login']);
+      Swal.fire('Tiempo agotado', 'Inactivo', 'error');
+    });
   }
 
+  stop() {
+    this.userIdle.stopTimer();
+  }
+
+  stopWatching() {
+    this.userIdle.stopWatching();
+  }
+
+  startWatching() {
+    this.userIdle.startWatching();
+  }
+
+  restart() {
+    this.userIdle.resetTimer();
+  }
+  
   ngAfterViewInit() {
     this.getDatosPersonaLogin();
   }
@@ -160,6 +189,13 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private actualizarFirmaMedico(): void{
+    this.personaService.update(this.personaLogin).subscribe(
+      response => {
+        console.log(response);
+      }
+    );
+  }
   onCargarAtributos(): void {
     this.conceptoIngreso = new Array<Concepto>();
     this.conceptoPeriodico = new Array<Concepto>();
@@ -519,7 +555,9 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
         debugger
         this.firmaMedico = this.firmaMedicohtml.imagenUsuario == null || this.firmaMedicohtml.imagenUsuario == undefined ? this.firmaMedico : this.firmaMedicohtml.imagenUsuario;
         this.firmaPaciente = this.firmaPacientehtml.imagenUsuario == null || this.firmaPacientehtml.imagenUsuario == undefined ? this.firmaPaciente : this.firmaPacientehtml.imagenUsuario;
-        if (this.firmaMedico != null || this.firmaPaciente != null) {
+        if (this.firmaMedico != null || this.firmaPaciente != null) {         
+          this.personaLogin.imagen = this.firmaMedico;
+          this.actualizarFirmaMedico();
           this.persona.imagen = this.firmaPaciente;
           if (this.onValidarAntecedentes() && this.guardado) {
             if (this.permiso.crearUsuario === 1) {
@@ -531,7 +569,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
                 this.createHistoria();
               } else {
                 console.log(this.persona)
-                this.personaService.create(this.persona).subscribe(
+                this.personaService.create(this.persona, "2").subscribe(
                   response => {
                     console.log(response);
                     this.guardado = false;

@@ -1,34 +1,35 @@
 package com.konrad.edu.serviceImp;
 
-import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
-import com.itextpdf.text.pdf.codec.Base64;
 import com.konrad.edu.IService.IReportesService;
 import com.konrad.edu.dao.IHistoriaGymDao;
 import com.konrad.edu.dao.IHistoriaOcupacionalDao;
+import com.konrad.edu.dao.IPersonaDao;
 import com.konrad.edu.entity.HistoriaGYMEntity;
-import com.konrad.edu.entity.HistoriaOcupacionalEntity;
+import com.konrad.edu.entity.PersonaEntity;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 @Service
 public class ReportesServiceImp implements IReportesService {
@@ -38,16 +39,26 @@ public class ReportesServiceImp implements IReportesService {
 
 	@Autowired
 	private IHistoriaOcupacionalDao historiaOcupacionalDao;
+	
+	@Autowired
+	private IPersonaDao personaDao;
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public String exportReport(String id) {
+	public String exportReport(String id, int historias) {
 		try {
-			Connection conexion = DriverManager.getConnection("jdbc:sqlserver://192.168.0.42;databaseName=HC_Historias",
+			Connection conexion = DriverManager.getConnection("jdbc:sqlserver://192.168.0.42;databaseName=HC_Historiass",
 					"sa", "12345");
 			File file = ResourceUtils.getFile("classpath:historiasGym.jrxml");
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-			HistoriaGYMEntity historia = obtenerlaHistoria(id);
+			PersonaEntity persona = obtenerlaHistoriaOcupacional(id);
+			HistoriaGYMEntity historia = new HistoriaGYMEntity();
+			for(int i=0; i<persona.getHistoriaGymEncriptacion().size(); i++) {
+				if(persona.getHistoriaGymEncriptacion().get(i).getSeqHistoriaGym().intValue() == historias) {
+					historia = persona.getHistoriaGymEncriptacion().get(i);
+					break;
+				}
+			}
 			Map<String, Object> parameters = new HashMap<>();
 			String impresionDiagnostica = "";
 			for (int i = 0; i < historia.getHistoriaPreguntasGyms().size(); i++) {
@@ -126,18 +137,24 @@ public class ReportesServiceImp implements IReportesService {
 				}
 			}
 			parameters.put("impresionDiagnostica", impresionDiagnostica);
-			parameters.put("numeroPersona", historia.getPersona().getSeqPersona());
-			parameters.put("imagenK", "");
+			parameters.put("numeroPersona", persona.getSeqPersona());
+			//InputStream stream = new ByteArrayInputStream(persona.getImagen().getBytes());
+			//Image image = ImageIO.read(stream);
+			//parameters.put("imagen", image);
 
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conexion);
-			JRExporter exporter = new JRPdfExporter();
-//			File pdf;
-//			pdf = File.createTempFile("historiasGYM.", ".pdf");
-			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-			exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("historiasGYM.pdf"));
-			exporter.exportReport();
-//			JasperExportManager.exportReportToPdfStream(jasperPrint, new FileOutputStream(pdf));
-			return "report generated in path :";
+			
+			File pdf = File.createTempFile("output.", ".pdf");
+			System.out.println("Lo exportamos a " + pdf.getAbsolutePath());
+			FileOutputStream pdffinal = new FileOutputStream(pdf);
+			JasperExportManager.exportReportToPdfStream(jasperPrint, pdffinal);
+			pdffinal.close();
+			byte[] inFileBytes = Files.readAllBytes(Paths.get(pdf.getAbsolutePath()));
+			byte[] encoded = java.util.Base64.getEncoder().encode(inFileBytes);
+			String base64EncryptedString = "";
+			base64EncryptedString = new String(encoded);
+			System.out.print(base64EncryptedString);
+			return base64EncryptedString;
 		} catch (IOException e) {
 			System.err.print(e.getMessage());
 			e.printStackTrace();
@@ -157,185 +174,194 @@ public class ReportesServiceImp implements IReportesService {
 	}
 
 	@Override
-	public String exportReportOcupacional(String id) {
+	public String exportReportOcupacional(String id, int historias) {
 		try {
-			Connection conexion = DriverManager.getConnection("jdbc:sqlserver://192.168.0.42;databaseName=HC_Historias",
+			Connection conexion = DriverManager.getConnection("jdbc:sqlserver://192.168.0.42;databaseName=HC_Historiass",
 					"sa", "12345");
 			File file = ResourceUtils.getFile("classpath:ocupacional.jrxml");
 			Map<String, Object> parameters = new HashMap<>();
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-			HistoriaOcupacionalEntity historia = obtenerlaHistoriaOcupacional(id);
-			for (int i = 0; i < historia.getAntecedentesHistoriaEntity().size(); i++) {
-				switch (historia.getAntecedentesHistoriaEntity().get(i).getTipoAntecedenteEntity()
+			PersonaEntity persona = obtenerlaHistoriaOcupacional(id);
+			PersonaEntity historia = new PersonaEntity();
+			for(int i=0; i<persona.getHistoriasEncriptacion().size(); i++) {
+				if(persona.getHistoriasEncriptacion().get(i).getSeqHistoria().intValue() == historias) {
+					historia.getHistoriasEncriptacion().add(persona.getHistoriasEncriptacion().get(i));
+					break;
+				}
+			}
+			for (int i = 0; i < historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().size(); i++) {
+				switch (historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getTipoAntecedenteEntity()
 						.getNomAntecedente()) {
 				case "PATOLOGICOS": {
 					parameters.put("patologicosSN",
-							historia.getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
 									? "SI"
 									: "NO");
 					parameters.put("patologicoscual",
-							historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
 					break;
 				}
 				case "QUIRURGICOS": {
 					parameters.put("quirurgicosSN",
-							historia.getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
 									? "SI"
 									: "NO");
 					parameters.put("quirurgicoscual",
-							historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
 					break;
 				}
 				case "ALERGICOS": {
 					parameters.put("alergicosSN",
-							historia.getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
 									? "SI"
 									: "NO");
 					parameters.put("alergicoscual",
-							historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
 					break;
 				}
 				case "FARMACOLOGICOS": {
 					parameters.put("farmacologicosSN",
-							historia.getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
 									? "SI"
 									: "NO");
 					parameters.put("farmacologicoscual",
-							historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
 					break;
 				}
 				case "TRAUMATICOS": {
 					parameters.put("traumaticosSN",
-							historia.getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
 									? "SI"
 									: "NO");
 					parameters.put("traumaticoscual",
-							historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
 					break;
 				}
 				case "TOXICOS": {
 					parameters.put("toxicosSN",
-							historia.getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
 									? "SI"
 									: "NO");
 					parameters.put("toxicoscual",
-							historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
 					break;
 				}
 				case "INMUNOLOGICOS": {
 					parameters.put("inmunologicosSN",
-							historia.getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
 									? "SI"
 									: "NO");
 					parameters.put("inmunologicoscual",
-							historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
 					break;
 				}
 				case "MENARQUIA": {
 					parameters.put("menarquiaplanificacion",
-							historia.getAntecedentesHistoriaEntity().get(i).getPlanificacion());
-					parameters.put("menarquiaccv", historia.getAntecedentesHistoriaEntity().get(i).getCcv() == null ? ""
-							: historia.getAntecedentesHistoriaEntity().get(i).getCcv());
-					parameters.put("menarquiafur", historia.getAntecedentesHistoriaEntity().get(i).getFur() == null ? ""
-							: historia.getAntecedentesHistoriaEntity().get(i).getFur());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getPlanificacion());
+					parameters.put("menarquiaccv", historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getCcv() == null ? ""
+							: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getCcv());
+					parameters.put("menarquiafur", historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getFur() == null ? ""
+							: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getFur());
 					parameters.put("menarquiafur",
-							historia.getAntecedentesHistoriaEntity().get(i).getMernarquia() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getMernarquia());
-					switch (historia.getAntecedentesHistoriaEntity().get(i).getMenarquiaList()) {
-					case "GESTACIONES": {
-						parameters.put("G", "X");
-						break;
-					}
-					case "PARTOS": {
-						parameters.put("P", "X");
-						break;
-					}
-					case "CESAREAS": {
-						parameters.put("C", "X");
-						break;
-					}
-					case "ABORTOS": {
-						parameters.put("A", "X");
-						break;
-					}
-					case "VIVOS": {
-						parameters.put("V", "X");
-						break;
-					}
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getMernarquia() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getMernarquia());
+					if(historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getMenarquiaList() != null) {
+						switch (historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getMenarquiaList()) {
+						case "GESTACIONES": {
+							parameters.put("G", "X");
+							break;
+						}
+						case "PARTOS": {
+							parameters.put("P", "X");
+							break;
+						}
+						case "CESAREAS": {
+							parameters.put("C", "X");
+							break;
+						}
+						case "ABORTOS": {
+							parameters.put("A", "X");
+							break;
+						}
+						case "VIVOS": {
+							parameters.put("V", "X");
+							break;
+						}
 
-					default:
-						break;
+						default:
+							break;
+						}
 					}
 					break;
 				}
 				case "HOSPITALARIOS": {
 					parameters.put("hospitalariosSN",
-							historia.getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
 									? "SI"
 									: "NO");
 					parameters.put("hospitalarioscual",
-							historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
 					break;
 				}
 				case "FAMILIARES": {
 					parameters.put("familiaresSN",
-							historia.getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
 									? "SI"
 									: "NO");
 					parameters.put("familiarescual",
-							historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
 					break;
 				}
 				case "TABAQUISMO": {
 					parameters.put("tabaquimosSN",
-							historia.getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
 									? "SI"
 									: "NO");
 					parameters.put("tabaquimosfrecuencia",
-							historia.getAntecedentesHistoriaEntity().get(i).getFrecuencia() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getFrecuencia());
-					parameters.put("tabaquimosanos", historia.getAntecedentesHistoriaEntity().get(i).getAnosHabito());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getFrecuencia() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getFrecuencia());
+					parameters.put("tabaquimosanos", historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getAnosHabito());
 					parameters.put("tabaquimosfumador",
-							historia.getAntecedentesHistoriaEntity().get(i).getExFumador().equalsIgnoreCase("S") ? "SI"
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getExFumador().equalsIgnoreCase("S") ? "SI"
 									: "NO");
 					break;
 				}
 				case "CONSUMO ALCOHOL": {
 					parameters.put("consumoSN",
-							historia.getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
 									? "SI"
 									: "NO");
 					parameters.put("consumofrecuencia",
-							historia.getAntecedentesHistoriaEntity().get(i).getFrecuencia() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getFrecuencia());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getFrecuencia() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getFrecuencia());
 					break;
 				}
 				case "ACTIVIDAD FÍSICA": {
 					parameters.put("actividadSN",
-							historia.getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getEstadoAntecedente().equalsIgnoreCase("S")
 									? "SI"
 									: "NO");
 					parameters.put("actividadfrecuencia",
-							historia.getAntecedentesHistoriaEntity().get(i).getFrecuencia() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getFrecuencia());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getFrecuencia() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getFrecuencia());
 					parameters.put("actividadtipo",
-							historia.getAntecedentesHistoriaEntity().get(i).getTipo() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getTipo());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getTipo() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getTipo());
 					break;
 				}
 				case "ACTIVIDAD EXTRA LABORAL": {
 					parameters.put("actividadlaboralcual",
-							historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
-									: historia.getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente() == null ? ""
+									: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i).getDespAntecedente());
 					break;
 				}
 				default:
@@ -343,21 +369,29 @@ public class ReportesServiceImp implements IReportesService {
 				}
 			}
 			String impresionDiagnostica = "";
-			for (int i = 0; i < historia.getDiagnosticoOcupacionalEntity().size(); i++) {
-				impresionDiagnostica += historia.getDiagnosticoOcupacionalEntity().get(i).getCodDiagnostico() + "-"
-						+ historia.getDiagnosticoOcupacionalEntity().get(i).getAfectacionPrincipal();
-				if (i < historia.getDiagnosticoOcupacionalEntity().size() - 1) {
+			for (int i = 0; i < historia.getHistoriasEncriptacion().get(0).getDiagnosticoOcupacionalEntity().size(); i++) {
+				impresionDiagnostica += historia.getHistoriasEncriptacion().get(0).getDiagnosticoOcupacionalEntity().get(i).getCodDiagnostico() + "-"
+						+ historia.getHistoriasEncriptacion().get(0).getDiagnosticoOcupacionalEntity().get(i).getAfectacionPrincipal();
+				if (i < historia.getHistoriasEncriptacion().get(0).getDiagnosticoOcupacionalEntity().size() - 1) {
 					impresionDiagnostica += "\n";
 				}
 			}
 			parameters.put("impresionDiagnostica", impresionDiagnostica);
-			parameters.put("numeroPersona", historia.getPersona().getSeqPersona());
+			parameters.put("numeroPersona", persona.getSeqPersona());
+			persona.setImagen(new String(persona.getImagenEncriptada()));
+			parameters.put("imagenPaciente",crearImagenPaciente(persona.getImagen(), "paciente"));			
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conexion);
-			JRExporter exporter = new JRPdfExporter();
-			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-			exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("historiasOcupacional.pdf"));
-			exporter.exportReport();
-			return "report generated in path :" + exporter.getReportContext();
+			File pdf = File.createTempFile("ocupacional", ".pdf");
+			System.out.println("Lo exportamos a " + pdf.getAbsolutePath());
+			FileOutputStream pdffinal = new FileOutputStream(pdf);
+			JasperExportManager.exportReportToPdfStream(jasperPrint, pdffinal);
+			pdffinal.close();
+			byte[] inFileBytes = Files.readAllBytes(Paths.get(pdf.getAbsolutePath()));
+			byte[] encoded = java.util.Base64.getEncoder().encode(inFileBytes);
+			String base64EncryptedString = "";
+			base64EncryptedString = new String(encoded);
+			System.out.print(base64EncryptedString);
+			return base64EncryptedString;
 		} catch (IOException e) {
 			System.err.print(e.getMessage());
 			e.printStackTrace();
@@ -371,7 +405,29 @@ public class ReportesServiceImp implements IReportesService {
 		return null;
 	}
 
-	private HistoriaOcupacionalEntity obtenerlaHistoriaOcupacional(String id) {
-		return historiaOcupacionalDao.findByPersona(id);
+	private String crearImagenPaciente(String imagen, String id) {
+		String[] palabras = imagen.split(",");
+		String imgentmp = palabras[1];
+		File img = null;
+		try {
+			img = File.createTempFile("imagen"+id, ".jpg");
+			FileOutputStream imageOutFile = new FileOutputStream(img.getAbsolutePath());
+	        imageOutFile.write(java.util.Base64.getDecoder().decode(imgentmp.getBytes()));
+	        imageOutFile.close();
+		} catch (IOException e) {
+			System.err.print("Error al crear imagen "+id);
+			e.printStackTrace();
+		}
+
+		return img.getAbsolutePath();
+	}
+
+	private PersonaEntity obtenerlaHistoriaOcupacional(String id) {
+		return personaDao.findByPersonaOcupacional(id);
+	}
+
+	@Override
+	public String exportReportCertificado(String id, int historia) {
+		return null;
 	}
 }

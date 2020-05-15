@@ -11,6 +11,8 @@ import { Persona } from '../DatosBean/persona';
 import { ArchivosFile } from '../DatosBean/archivosfile';
 import Swal from 'sweetalert2';
 import { Permiso } from '../DatosBean/permiso';
+import { UserIdleService } from 'angular-user-idle';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-list-usuarios-app',
   templateUrl: './list-usuarios-app.component.html',
@@ -32,13 +34,42 @@ export class ListUsuariosAppComponent implements OnInit {
     private loginService: LoginService,
     private personaService: PersonaService,
     private historiaService: HistoriasService,
-    private filesService: FilessService) {
+    private filesService: FilessService,
+    private userIdle: UserIdleService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
     this.onCargarAtributos();
     this.onCargarFunciones();
     this.obtenerPermisos();
+    this.userIdle.startWatching();
+
+    // Start watching when user idle is starting.
+    this.userIdle.onTimerStart().subscribe(count => console.log(count));
+
+    // Start watch when time is up.
+    this.userIdle.onTimeout().subscribe(() => {     
+      this.loginService.logOut();  
+      this.router.navigate(['login']);
+      Swal.fire('Tiempo agotado', 'Inactivo', 'error');
+    });
+  }
+
+  stop() {
+    this.userIdle.stopTimer();
+  }
+
+  stopWatching() {
+    this.userIdle.stopWatching();
+  }
+
+  startWatching() {
+    this.userIdle.startWatching();
+  }
+
+  restart() {
+    this.userIdle.resetTimer();
   }
 
   onCargarAtributos(): void {
@@ -64,6 +95,8 @@ export class ListUsuariosAppComponent implements OnInit {
 
   onBuscarTipo(): void {
     this.tmp = new Array<String>();
+    this.dataSource = new MatTableDataSource(null);
+    this.archivoFile = new Array<ArchivosFile>();
     if (this.tipoUsuarioSelecionado.length > 0) {
       for (let i = 0; i < this.tipoUsuarioSelecionado.length; i++) {
         this.tmp.push(this.tipoUsuarioSelecionado[i].seqTipoUsuario.toString());

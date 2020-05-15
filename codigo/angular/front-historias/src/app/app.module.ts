@@ -23,9 +23,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTableModule } from '@angular/material/table';
 import { SignaturePadModule } from 'angular2-signaturepad';
+import { UserIdleModule } from 'angular-user-idle';
 //componentes
 import { CreacionUsuarioAppComponent } from './creacion-usuario-app/creacion-usuario-app.component';
-import { FormCambioPassComponent } from './form-cambio-pass/form-cambio-pass.component';
 import { FormGymComponent } from './form-gym/form-gym.component';
 import { ListUsuariosAppComponent } from './list-usuarios-app/list-usuarios-app.component';
 import { AppComponent } from './app.component';
@@ -59,14 +59,15 @@ const routes: Routes = [
   { path: 'menuPrincipal/form-ocupacional', component: FormOcupacionalComponent, canActivate: [LoginService], data: { animation: 'HomePage' } },
   { path: 'menuPrincipal', component: BodyAppComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/creacionUsuario', component: CreacionUsuarioAppComponent, canActivate: [LoginService] },
-  { path: 'menuPrincipal/cambioPass', component: FormCambioPassComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/form-gym', component: FormGymComponent, canActivate: [LoginService], data: { animation: 'HomePage' } },
   { path: 'menuPrincipal/list-usuariosApp', component: ListUsuariosAppComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/list-usuariosApp/:id', component: FormHistoriasComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/form-ocupacional/auxiliar', component: FormAuxiliarComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/form-gym/auxiliar', component: FormGymAuxiliarComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/creacion-actualizacion', component: FormGestionComponent, canActivate: [LoginService] },
-  { path: 'menuPrincipal/informes', component: TablesComponent, canActivate: [LoginService] }
+  { path: 'menuPrincipal/informes', component: TablesComponent, canActivate: [LoginService]},
+  { path: 'assets/img/pdf/ocupacionalsergr.pdf',  component: FormHistoriasComponent, canActivate: [LoginService]   
+}
 
 ];
 
@@ -79,7 +80,6 @@ const routes: Routes = [
     FormOcupacionalComponent,
     BodyAppComponent,
     CreacionUsuarioAppComponent,
-    FormCambioPassComponent,
     FormGymComponent,
     ListUsuariosAppComponent,
     TablesComponent,
@@ -116,7 +116,8 @@ const routes: Routes = [
     ModalModule.forRoot(),
     GridModule,
     SignaturePadModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    UserIdleModule.forRoot({idle: 72000, timeout: 1, ping: 120})
   ],
   exports: [
   ],

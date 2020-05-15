@@ -25,6 +25,7 @@ import { CondicionGym } from '../DatosBean/condiciongym';
 import { familiarGym } from '../DatosBean/familiargym';
 import { of, Observable, throwError } from 'rxjs';
 import { FirmaIndividualComponent } from '../firma-individual/firma-individual.component';
+import { UserIdleService } from 'angular-user-idle';
 declare var jQuery: any;
 declare var $: any;
 
@@ -88,7 +89,8 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     private personaService: PersonaService,
     private router: Router,
     private historiaService: HistoriasService,
-    private _sanitizer: DomSanitizer) {
+    private _sanitizer: DomSanitizer,
+    private userIdle: UserIdleService) {
   }
 
   ngOnInit(): void {
@@ -104,8 +106,36 @@ export class FormGymComponent implements OnInit, AfterViewInit {
       this.onCargarAtributos();
       this.onCargarFunciones();
     }, 1000);
+
+    this.userIdle.startWatching();
+
+    // Start watching when user idle is starting.
+    this.userIdle.onTimerStart().subscribe(count => console.log(count));
+
+    // Start watch when time is up.
+    this.userIdle.onTimeout().subscribe(() => {     
+      this.loginService.logOut();  
+      this.router.navigate(['login']);
+      Swal.fire('Tiempo agotado', 'Inactivo', 'error');
+    });
   }
 
+  stop() {
+    this.userIdle.stopTimer();
+  }
+
+  stopWatching() {
+    this.userIdle.stopWatching();
+  }
+
+  startWatching() {
+    this.userIdle.startWatching();
+  }
+
+  restart() {
+    this.userIdle.resetTimer();
+  }
+  
   ngAfterViewInit() {
     this.getDatosPersonaLogin();
   }
@@ -129,6 +159,16 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     } else {
       this.firmaMedico = null;
     }
+  }
+
+  private actualizarFirmaMedico(): void{
+    this.personaLogin.historiaGym = null;
+    this.personaLogin.historias = null;
+    this.personaService.update(this.personaLogin).subscribe(
+      response => {
+        console.log(response);
+      }
+    );
   }
 
   onCargarAtributos(): void {
@@ -535,17 +575,22 @@ export class FormGymComponent implements OnInit, AfterViewInit {
       })
     }, 500);
     setTimeout(() => {
+      debugger
       if (this.persona.historiaGym[0].aceptoCondiciones != null) {
-        this.persona.historias[0].aceptoCondiciones = "true";
+        this.persona.historiaGym[0].aceptoCondiciones = "true";
         this.onCargarPreguntas();
         this.firmaMedico = this.firmaMedicohtml.imagenUsuario == null || this.firmaMedicohtml.imagenUsuario == undefined ? this.firmaMedico : this.firmaMedicohtml.imagenUsuario;
         this.firmaPaciente = this.firmaPacientehtml.imagenUsuario == null || this.firmaPacientehtml.imagenUsuario == undefined ? this.firmaPaciente : this.firmaPacientehtml.imagenUsuario;
+        debugger
         if (this.firmaMedico != null && this.firmaPaciente != null) {
+          this.personaLogin.imagen = this.firmaMedico;
+          this.actualizarFirmaMedico();
           this.persona.imagen = this.firmaPaciente;
           if (this.onValidarPreguntas() && this.guardado) {
             if (this.permiso.crearUsuario === 1) {
               this.persona.historiaGym[0].examenFisico = this.examenFisico;
               if (this.onCargarTipoUsuario()) {
+                debugger
                 if (this.buscoPerson) {
                   debugger
                   this.historiaUpdate = this.persona.historiaGym[0];
@@ -555,8 +600,9 @@ export class FormGymComponent implements OnInit, AfterViewInit {
                   this.persona.localidad.seqLocalidad = 0;
                   this.persona.lugarDeResidencia.seqCuidad = 0;
                   this.actualizarPerson(this.Spersona);
-                  console.log(this.persona)
-                  this.personaService.create(this.persona).subscribe(
+                  console.log(this.persona);
+                  debugger
+                  this.personaService.create(this.persona, "1").subscribe(
                     response => {
                       console.log(response);
                       this.guardado = false;

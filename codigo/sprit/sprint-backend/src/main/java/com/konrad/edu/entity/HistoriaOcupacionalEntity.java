@@ -24,6 +24,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.ColumnTransformer;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -50,7 +52,7 @@ public class HistoriaOcupacionalEntity implements Serializable {
 	private ExamenFisicoEntity examenFisico;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "seq_historia_laboral", unique = true )
+	@JoinColumn(name = "seq_historia_laboral", unique = true)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private HistoriaLaboralEntity historiaLaboral;
 
@@ -73,10 +75,10 @@ public class HistoriaOcupacionalEntity implements Serializable {
 	private CiudadEntity ciudadHistoria;
 
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "hc_concepto_historia", joinColumns = @JoinColumn(name = "seq_historia",referencedColumnName = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_concepto",referencedColumnName = "seq_concepto"), uniqueConstraints = {
+	@JoinTable(name = "hc_concepto_historia", joinColumns = @JoinColumn(name = "seq_historia", referencedColumnName = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_concepto", referencedColumnName = "seq_concepto"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_historia", "seq_concepto" }) })
 	private List<ConceptoEntity> conceptoConcepto;
-	
+
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "hc_diagnosticoOcupacional_historia", joinColumns = @JoinColumn(name = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_diagnostico"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "seq_historia", "seq_diagnostico" }) })
@@ -86,36 +88,41 @@ public class HistoriaOcupacionalEntity implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date diaHistoria;
 
-	@Column(name = "desp_motivo_consulta", length = 4000)
-	private String despMotivoConsulta;
+	@Column(name = "desp_motivo_consulta")
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_motivo_consulta)")
+	private byte[] despMotivoConsulta;
 
-	@Column(name = "revision_sistemas", length = 4000)
-	private String revisionSistemas;
+	@Column(name = "revision_sistemas")
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',revision_sistemas)")
+	private byte[] revisionSistemas;
 
-	@Column(name = "recom_medicas", length = 4000)
-	private String recomMedicas;
+	@Column(name = "recom_medicas")
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',recom_medicas)")
+	private byte[] recomMedicas;
 
-	@Column(name = "recom_ocupacionales", length = 4000)
-	private String recomOcupacionales;
+	@Column(name = "recom_ocupacionales")
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',recom_ocupacionales)")
+	private byte[] recomOcupacionales;
 
-	@Column(name = "recom_habitos", length = 4000)
-	private String recomHabitos;
-	
-	@Column(name="otro_evaluacion")
-	private String otroEvaluacion;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "seq_persona")
-	private PersonaEntity persona;
-	
+	@Column(name = "recom_habitos")
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',recom_habitos)")
+	private byte[] recomHabitos;
+
+	@Column(name = "otro_evaluacion")
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',otro_evaluacion)")
+	private byte[] otroEvaluacion;
+
 	@Column()
 	private String aceptoCondiciones;
+
+	@ManyToOne
+	@JoinColumn(name = "seq_persona")
+	private PersonaEntity persona;
 
 	@PrePersist
 	public void prePersist() {
 		this.diaHistoria = new Date();
 	}
-	
 
 	public HistoriaOcupacionalEntity() {
 		this.antecedentesHistoriaEntity = new ArrayList<>();
@@ -180,45 +187,6 @@ public class HistoriaOcupacionalEntity implements Serializable {
 		this.diaHistoria = diaHistoria;
 	}
 
-	public String getDespMotivoConsulta() {
-		return despMotivoConsulta;
-	}
-
-	public void setDespMotivoConsulta(String despMotivoConsulta) {
-		this.despMotivoConsulta = despMotivoConsulta;
-	}
-
-	public String getRevisionSistemas() {
-		return revisionSistemas;
-	}
-
-	public void setRevisionSistemas(String revisionSistemas) {
-		this.revisionSistemas = revisionSistemas;
-	}
-
-	public String getRecomMedicas() {
-		return recomMedicas;
-	}
-
-	public void setRecomMedicas(String recomMedicas) {
-		this.recomMedicas = recomMedicas;
-	}
-
-	public String getRecomOcupacionales() {
-		return recomOcupacionales;
-	}
-
-	public void setRecomOcupacionales(String recomOcupacionales) {
-		this.recomOcupacionales = recomOcupacionales;
-	}
-
-	public String getRecomHabitos() {
-		return recomHabitos;
-	}
-
-	public void setRecomHabitos(String recomHabitos) {
-		this.recomHabitos = recomHabitos;
-	}
 
 	public ExamenFisicoEntity getExamenFisico() {
 		return examenFisico;
@@ -252,43 +220,78 @@ public class HistoriaOcupacionalEntity implements Serializable {
 		this.conceptoConcepto = conceptoConcepto;
 	}
 
-	public String getOtroEvaluacion() {
-		return otroEvaluacion;
-	}
-
-	public void setOtroEvaluacion(String otroEvaluacion) {
-		this.otroEvaluacion = otroEvaluacion;
-	}
-
 
 	public List<DiagnosticoOcupacionalEntity> getDiagnosticoOcupacionalEntity() {
 		return diagnosticoOcupacionalEntity;
 	}
 
-
 	public void setDiagnosticoOcupacionalEntity(List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity) {
 		this.diagnosticoOcupacionalEntity = diagnosticoOcupacionalEntity;
 	}
-
 
 	public PersonaEntity getPersona() {
 		return persona;
 	}
 
-
 	public void setPersona(PersonaEntity persona) {
 		this.persona = persona;
 	}
 
+	public byte[] getDespMotivoConsulta() {
+		return despMotivoConsulta;
+	}
+
+	public void setDespMotivoConsulta(byte[] despMotivoConsulta) {
+		this.despMotivoConsulta = despMotivoConsulta;
+	}
+
+	public byte[] getRevisionSistemas() {
+		return revisionSistemas;
+	}
+
+	public void setRevisionSistemas(byte[] revisionSistemas) {
+		this.revisionSistemas = revisionSistemas;
+	}
+
+	public byte[] getRecomMedicas() {
+		return recomMedicas;
+	}
+
+	public void setRecomMedicas(byte[] recomMedicas) {
+		this.recomMedicas = recomMedicas;
+	}
+
+	public byte[] getRecomOcupacionales() {
+		return recomOcupacionales;
+	}
+
+	public void setRecomOcupacionales(byte[] recomOcupacionales) {
+		this.recomOcupacionales = recomOcupacionales;
+	}
+
+	public byte[] getRecomHabitos() {
+		return recomHabitos;
+	}
+
+	public void setRecomHabitos(byte[] recomHabitos) {
+		this.recomHabitos = recomHabitos;
+	}
+
+	public byte[] getOtroEvaluacion() {
+		return otroEvaluacion;
+	}
+
+	public void setOtroEvaluacion(byte[] otroEvaluacion) {
+		this.otroEvaluacion = otroEvaluacion;
+	}
 
 	public String getAceptoCondiciones() {
 		return aceptoCondiciones;
 	}
 
-
 	public void setAceptoCondiciones(String aceptoCondiciones) {
 		this.aceptoCondiciones = aceptoCondiciones;
 	}
-	
+
 	
 }
