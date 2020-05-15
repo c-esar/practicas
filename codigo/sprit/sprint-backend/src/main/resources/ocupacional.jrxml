@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ocupacional" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d79f072-6031-41ef-a555-d43045149939">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="3463"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -346,6 +346,9 @@ inner join hc_paraclinicos el on el.seq_historia = ho.seq_historia]]>
 	<parameter name="A" class="java.lang.String"/>
 	<parameter name="V" class="java.lang.String"/>
 	<parameter name="menarquia" class="java.lang.String"/>
+	<parameter name="imagenPaciente" class="java.lang.String"/>
+	<parameter name="imagenMedico" class="java.lang.String"/>
+	<parameter name="documentoMedico" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
        ho.seq_historia
@@ -533,7 +536,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<reportElement key="rectangle-51" x="0" y="0" width="555" height="42" uuid="2cc854c6-7fd5-47a9-8b25-6ae9ae055ed2"/>
 			</rectangle>
 			<staticText>
-				<reportElement key="staticText-200" mode="Opaque" x="0" y="0" width="185" height="24" forecolor="#FFFFFF" backcolor="#666666" uuid="e0f07e5c-b720-4b9d-a9e8-859ddd248c7d"/>
+				<reportElement key="staticText-200" mode="Opaque" x="0" y="0" width="152" height="24" forecolor="#FFFFFF" backcolor="#666666" uuid="e0f07e5c-b720-4b9d-a9e8-859ddd248c7d"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -546,7 +549,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="staticText-202" x="81" y="24" width="104" height="18" uuid="e46edd08-5741-4bd4-addf-ddf8bef4cf5f"/>
+				<reportElement key="staticText-202" x="71" y="24" width="81" height="18" uuid="e46edd08-5741-4bd4-addf-ddf8bef4cf5f"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -557,7 +560,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="staticText-201" x="0" y="24" width="81" height="18" uuid="b8f6f971-8c0d-43a8-8967-0155f05c9d41"/>
+				<reportElement key="staticText-201" x="0" y="24" width="71" height="18" uuid="b8f6f971-8c0d-43a8-8967-0155f05c9d41"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -568,7 +571,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="185" y="0" width="261" height="42" forecolor="#000000" uuid="00eb66bc-c185-4bc9-98b6-72f1f1fc6c4b"/>
+				<reportElement x="152" y="0" width="294" height="42" forecolor="#000000" uuid="00eb66bc-c185-4bc9-98b6-72f1f1fc6c4b"/>
 				<box>
 					<pen lineWidth="1.0" lineColor="#006699"/>
 					<topPen lineWidth="1.0" lineColor="#000000"/>
@@ -582,12 +585,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[Historia Clínica Ocupacional]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="81" y="24" width="64" height="18" uuid="d495439f-6337-45b8-af5a-9e1db87a833e"/>
+				<reportElement x="71" y="24" width="57" height="18" uuid="d495439f-6337-45b8-af5a-9e1db87a833e"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página"+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="145" y="24" width="40" height="18" uuid="91e540e9-3f5f-4207-8411-7d27f8db2cdb"/>
+				<reportElement x="128" y="24" width="24" height="18" uuid="91e540e9-3f5f-4207-8411-7d27f8db2cdb"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<image>
@@ -3135,7 +3138,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 	<lastPageFooter>
 		<band height="150">
 			<staticText>
-				<reportElement mode="Opaque" x="22" y="103" width="173" height="21" forecolor="#006699" backcolor="#FFFFFF" uuid="5de0186e-ec4d-46a5-b469-7bce454df392"/>
+				<reportElement mode="Opaque" x="22" y="103" width="168" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="5de0186e-ec4d-46a5-b469-7bce454df392"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -3148,34 +3151,34 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<reportElement x="22" y="102" width="168" height="1" forecolor="#666666" uuid="abe4b130-d50f-4aee-a6dc-a6443aaf852d"/>
 			</line>
 			<staticText>
-				<reportElement mode="Transparent" x="22" y="124" width="71" height="21" forecolor="#006699" backcolor="#CCCCCC" uuid="2393d996-4779-4e08-abff-a46bab9f5329"/>
+				<reportElement mode="Transparent" x="22" y="124" width="71" height="21" forecolor="#000000" backcolor="#CCCCCC" uuid="2393d996-4779-4e08-abff-a46bab9f5329"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Documento]]></text>
+				<text><![CDATA[Documento:]]></text>
 			</staticText>
 			<line>
 				<reportElement x="332" y="143" width="168" height="1" forecolor="#666666" uuid="231b716e-93f3-456f-9dab-83ab409ee072"/>
 			</line>
 			<line>
-				<reportElement x="332" y="101" width="168" height="1" forecolor="#666666" uuid="194fc82e-1a2e-415d-bcf5-292a67d57d39"/>
+				<reportElement x="332" y="102" width="168" height="1" forecolor="#666666" uuid="194fc82e-1a2e-415d-bcf5-292a67d57d39"/>
 			</line>
 			<staticText>
-				<reportElement mode="Transparent" x="332" y="123" width="71" height="21" forecolor="#006699" backcolor="#CCCCCC" uuid="2432ed28-6a57-4b71-8e5d-2cd2309ed565"/>
+				<reportElement mode="Transparent" x="332" y="123" width="71" height="21" forecolor="#000000" backcolor="#CCCCCC" uuid="2432ed28-6a57-4b71-8e5d-2cd2309ed565"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Documento]]></text>
+				<text><![CDATA[Documento:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="332" y="102" width="173" height="21" forecolor="#006699" backcolor="#FFFFFF" uuid="d8c02782-0f32-4e5d-9f79-c17bf4495f47"/>
+				<reportElement mode="Opaque" x="332" y="103" width="168" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="d8c02782-0f32-4e5d-9f79-c17bf4495f47"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Médico]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="93" y="124" width="97" height="19" uuid="862b2373-33da-41ce-93f6-de37442e0e65"/>
+				<reportElement x="93" y="124" width="97" height="21" uuid="862b2373-33da-41ce-93f6-de37442e0e65"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -3187,6 +3190,21 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{numero_documento}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement mode="Opaque" x="23" y="11" width="168" height="88" backcolor="#000000" uuid="8531ff58-626b-47f6-834f-2d005d4e9781"/>
+				<imageExpression><![CDATA[$P{imagenPaciente}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement mode="Opaque" x="332" y="11" width="168" height="88" backcolor="#000000" uuid="a14cc210-e4a3-4779-aab2-ebebec2e17a0"/>
+				<imageExpression><![CDATA[$P{imagenMedico}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="403" y="123" width="97" height="20" uuid="17ac9b21-1c8f-4e52-a90c-a185258abdfb"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{documentoMedico}]]></textFieldExpression>
 			</textField>
 		</band>
 	</lastPageFooter>

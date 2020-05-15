@@ -52,4 +52,9 @@ public class PersonaServiceImp implements IPersonaService {
 		return personaDao.findAllTipoUsuario(seq_tipo_usuario);
 	}
 
+	@Override
+	public void eliminarConstRolUsuario() {
+		personaDao.eliminarConstRolUsuario();
+	}
+
 }

@@ -26,13 +26,13 @@ public class ReportesController {
 	@Autowired
 	private IReportesService reportesService;
 
-	@GetMapping("/historiaGym/{id}/{historia}")
+	@GetMapping("/historiaGym/{id}/{historia}/{documentoMedico}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<?> reportesHistoriasGym(@PathVariable String id, @PathVariable int historia) {
+	public ResponseEntity<?> reportesHistoriasGym(@PathVariable String id, @PathVariable int historia, @PathVariable String documentoMedico) {
 		String enviarRuta = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
-			enviarRuta = reportesService.exportReport(id, historia);
+			enviarRuta = reportesService.exportReport(id, historia, documentoMedico);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -45,13 +45,13 @@ public class ReportesController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/historiaOcupacional/{id}/{historia}")
+	@GetMapping("/historiaOcupacional/{id}/{historia}/{documentoMedico}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<?> reportesHistoriasOcupacional(@PathVariable String id, @PathVariable int historia) {
+	public ResponseEntity<?> reportesHistoriasOcupacional(@PathVariable String id, @PathVariable int historia, @PathVariable String documentoMedico) {
 		String enviarRuta = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
-			enviarRuta = reportesService.exportReportOcupacional(id, historia);
+			enviarRuta = reportesService.exportReportOcupacional(id, historia, documentoMedico);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));

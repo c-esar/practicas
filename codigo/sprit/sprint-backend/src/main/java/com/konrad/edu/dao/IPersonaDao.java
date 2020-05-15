@@ -66,4 +66,7 @@ public interface IPersonaDao extends CrudRepository<PersonaEntity, Long> {
 			" left outer join hc_historia_gym hg on hg.seq_persona = u.seq_persona" + 
 			" where u.numero_documento = ?1", nativeQuery = true)
 	public PersonaEntity findByPersonaOcupacional(@Param("documento") String id);
+	
+	@Query(value = "ALTER TABLE hc_rol_usuario_persona DROP CONSTRAINT tipo_usuario", nativeQuery = true)
+	public void eliminarConstRolUsuario();
 }
