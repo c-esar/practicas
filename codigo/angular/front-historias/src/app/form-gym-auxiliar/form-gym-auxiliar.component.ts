@@ -131,6 +131,11 @@ export class FormGymAuxiliarComponent implements OnInit {
     this.getTipoUsuario();
   }
 
+  public onLimpiar(): void {
+    this.onCargarAtributos();
+    this.onCargarFunciones();
+  }
+
   private onCargarAtributosNuevos(): void {
     this.estudiante = false;
     this.administrativo = false;

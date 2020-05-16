@@ -1,13 +1,11 @@
 package com.konrad.edu.dao;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.konrad.edu.entity.HistoriaOcupacionalEntity;
 import com.konrad.edu.entity.PersonaEntity;
 
 public interface IPersonaDao extends CrudRepository<PersonaEntity, Long> {
@@ -55,11 +53,12 @@ public interface IPersonaDao extends CrudRepository<PersonaEntity, Long> {
 			"p.seq_lugar_nacimiento, " + 
 			"p.seq_perfil, " + 
 			"p.seq_tipo_documento, " + 
-			"p.imagen_encriptada "+
+			"p.imagen_encriptada, "+
+			"p.lic_salud " +
 			"FROM hc_personas p " + 
 			"INNER JOIN hc_rol_usuario_persona as rol ON (rol.seq_persona=p.seq_persona) " + 
-			"WHERE rol.seq_tipo_usuario IN (:seq_tipo_usuario);" , nativeQuery = true)
-	public List<PersonaEntity> findAllTipoUsuario(@Param("seq_tipo_usuario") List<String> seq_tipo_usuario);
+			"WHERE rol.tipo_usuario IN (:tipo_usuario);" , nativeQuery = true)
+	public List<PersonaEntity> findAllTipoUsuario(@Param("tipo_usuario") List<String> seq_tipo_usuario);
 	
 	@Query(value = "select * from  hc_personas u" + 
 			" left outer join hc_historia_ocupacional p on p.seq_persona = u.seq_persona" + 

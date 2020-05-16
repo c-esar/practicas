@@ -35,6 +35,8 @@
                                 <div class="form-group col-md-4 col-sm-4 col-xs-12">
                                     <button id="BuscarPersona" mat-raised-button color="primary"
                                         (click)="onValidatePersona()">Buscar</button>
+                                    <button id="limpiar" mat-raised-button color="primary"
+                                        (click)="onLimpiar()">Limpiar</button>
                                 </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-3">
@@ -205,12 +207,24 @@
                                 <mat-form-field>
                                     <mat-label for="formotroUsuarioGym">OTRO TIPO USUARIO
                                     </mat-label>
-                                    <input matInput
+                                    <input matInput required
                                         pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
                                         [ngModel]="Spersona.nuevorolUsuario"
                                         (ngModelChange)="persona.nuevorolUsuario = $event" name="otroUsuario"
                                         id="formotroUsuarioGym" type="text" class="form-control campoGrande"
-                                        placeholder=OTRO TIPO USUARIO />
+                                        placeholder="OTRO TIPO USUARIO" />
+                                    <mat-error>Texto Incorrecto</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6" *ngIf="medicotipo == true">
+                                <mat-form-field>
+                                    <mat-label for="formotroUsuarioGym">LIC. SALUD
+                                    </mat-label>
+                                    <input matInput
+                                        [ngModel]="Spersona.licenciaSalud"
+                                        (ngModelChange)="persona.licenciaSalud = $event" name="licmedico"
+                                        id="formlicmedicoGym" type="text" class="form-control campoGrande"
+                                        placeholder="LIC. SALUD" />
                                     <mat-error>Texto Incorrecto</mat-error>
                                 </mat-form-field>
                             </div>
@@ -309,7 +323,7 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                 <mat-form-field>
-                                    <mat-label>CONTRASEÑAA</mat-label>
+                                    <mat-label>CONTRASEÑA</mat-label>
                                     <input matInput required [type]="hide ? 'password' : 'text'"
                                         [ngModel]="perfil.password" (ngModelChange)="perfil.password = $event"
                                         name="password">
@@ -323,7 +337,7 @@
                                 <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                     <mat-label>FIRMA ACTUAL</mat-label>
                                 </div>
-                                <img style="background: black;" [src]="firmaUsuario">
+                                <img style="border: solid;" [src]="firmaUsuario">
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-3">
@@ -337,7 +351,7 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                 <button mat-raised-button color="primary" role="button" *ngIf="buscoPerson == false"
-                                [disabled]="datos.invalid" (click)="updatePersona('2')">CREAR</button>
+                                    [disabled]="datos.invalid" (click)="updatePersona('2')">CREAR</button>
                             </div>
                         </form>
                     </blockquote>

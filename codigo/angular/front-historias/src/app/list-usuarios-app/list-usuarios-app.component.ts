@@ -29,6 +29,7 @@ export class ListUsuariosAppComponent implements OnInit {
   permiso: Permiso;
   filtro: boolean;
   archivoFile: ArchivosFile[];
+  u: boolean = false;
 
   constructor(private labelService: LabelService,
     private loginService: LoginService,
@@ -181,7 +182,8 @@ export class ListUsuariosAppComponent implements OnInit {
   private getTipoUsuario(): void {
     this.historiaService.getTipoUsuario().subscribe(
       (respuesta) => {
-        this.tipoUsuario = respuesta
+        this.tipoUsuario = respuesta;
+        this.tipoUsuario.splice(5, 1); 
         console.log(respuesta)
       }
     )

@@ -57,6 +57,9 @@ public class PersonaEntity implements Serializable {
 	@Column(name = "numero_documento", unique = true)
 	private String numeroDocumento;
 
+	@Column(name = "lic_salud")
+	private String licenciaSalud;
+
 	@Column
 	private Integer edad;
 
@@ -71,7 +74,7 @@ public class PersonaEntity implements Serializable {
 
 	@Column
 	private String celular;
-	
+
 	@Column
 	private String codigo;
 
@@ -81,7 +84,7 @@ public class PersonaEntity implements Serializable {
 
 	@Transient
 	private String imagen;
-	
+
 	@Column(length = 10000)
 	private byte[] imagenEncriptada;
 
@@ -104,7 +107,7 @@ public class PersonaEntity implements Serializable {
 	@Column(name = "nom_cargo_dep")
 	private String nomCargoDep;
 
-	@Column(name="afp_persona", length = 50, nullable= true)
+	@Column(name = "afp_persona", length = 50, nullable = true)
 	private String afp;
 
 	@Column(length = 50)
@@ -131,33 +134,32 @@ public class PersonaEntity implements Serializable {
 	private CiudadEntity lugarNacimiento;
 
 	@ManyToOne
-	@JoinColumn(name = "seq_aseguradora", nullable= true)
+	@JoinColumn(name = "seq_aseguradora", nullable = true)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private AseguradoraEntity aseguradora;
 
 	@ManyToOne
-	@JoinColumn(name = "seq_localidad", nullable= true)
+	@JoinColumn(name = "seq_localidad", nullable = true)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private LocalidadEntity localidad;
 
 	@ManyToOne
-	@JoinColumn(name = "seq_tipo_documento", nullable= true)
+	@JoinColumn(name = "seq_tipo_documento", nullable = true)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoDocumentoEntity tipoDocumento;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="persona")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
 	private List<HistoriaOcupacionalEntity> historiasEncriptacion;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="persona")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
 	private List<HistoriaGYMEntity> historiaGymEncriptacion;
-	
+
 	@Transient
 	private List<HistoriaOcupacionalEncriptacion> historias;
-	
+
 	@Transient
 	private List<HistoriaGymEncriptacion> historiaGym;
-	
-	
+
 	@ManyToOne
 	@JoinColumn(name = "seq_perfil")
 	private PerfilEntity perfil;
@@ -166,24 +168,23 @@ public class PersonaEntity implements Serializable {
 	@JoinColumn(name = "seq_lugar_residencia", nullable = true)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private CiudadEntity lugarDeResidencia;
-	
+
 	@OneToMany
-	@JoinTable(name = "hc_rol_usuario_persona", joinColumns = 
-			@JoinColumn(name = "seq_persona", unique = false, referencedColumnName = "seq_persona"),
-			inverseJoinColumns = {@JoinColumn(name = "tipo_usuario", unique = false, referencedColumnName = "seq_tipo_usuario")},
-			uniqueConstraints = {@UniqueConstraint(columnNames = { "seq_persona", "tipo_usuario" })},
-			indexes = {@Index(name = "my_index_name",  columnList="seq_persona", unique = false),
-	                  @Index(name = "tipo_usuario", columnList="tipo_usuario",     unique = true)})
+	@JoinTable(name = "hc_rol_usuario_persona", joinColumns = @JoinColumn(name = "seq_persona", unique = false, referencedColumnName = "seq_persona"), inverseJoinColumns = {
+			@JoinColumn(name = "tipo_usuario", unique = false, referencedColumnName = "seq_tipo_usuario") },
+			indexes = {
+							@Index(name = "my_index_name", columnList = "seq_persona", unique = false),
+							@Index(name = "tipo_usuario", columnList = "tipo_usuario", unique = true) })
 	private List<TipoUsuarioEntity> rolUsuario;
-	
+
 	@Column
 	private String nuevorolUsuario;
-	
+
 	@PrePersist
 	public void prePersist() {
 		this.fechaCreacion = new Date();
 	}
-	
+
 	public PersonaEntity() {
 		this.historias = new ArrayList<>();
 		this.historiaGym = new ArrayList<>();
@@ -376,8 +377,6 @@ public class PersonaEntity implements Serializable {
 		this.localidad = localidad;
 	}
 
-
-
 	public List<HistoriaOcupacionalEncriptacion> getHistorias() {
 		return historias;
 	}
@@ -514,6 +513,13 @@ public class PersonaEntity implements Serializable {
 		this.historiaGym = historiaGym;
 	}
 
-	
+	public String getLicenciaSalud() {
+		return licenciaSalud;
+	}
+
+	public void setLicenciaSalud(String licenciaSalud) {
+		this.licenciaSalud = licenciaSalud;
+	}
+
 	
 }

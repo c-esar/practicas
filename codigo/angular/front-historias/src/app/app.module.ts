@@ -25,7 +25,6 @@ import { MatTableModule } from '@angular/material/table';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { UserIdleModule } from 'angular-user-idle';
 //componentes
-import { CreacionUsuarioAppComponent } from './creacion-usuario-app/creacion-usuario-app.component';
 import { FormGymComponent } from './form-gym/form-gym.component';
 import { ListUsuariosAppComponent } from './list-usuarios-app/list-usuarios-app.component';
 import { AppComponent } from './app.component';
@@ -51,6 +50,7 @@ import { FormGymAuxiliarComponent } from './form-gym-auxiliar/form-gym-auxiliar.
 import { FormGestionComponent } from './form-gestionAdm/form-gestion.component';
 import { FormHistoriasComponent } from './form-historias/form-historias.component';
 import { FirmaIndividualComponent } from './firma-individual/firma-individual.component';
+import { FormCertificadoComponent } from './form-certificado/form-certificado.component';
 //rutas
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, //ruta principal de la aplicacion
@@ -58,7 +58,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'menuPrincipal/form-ocupacional', component: FormOcupacionalComponent, canActivate: [LoginService], data: { animation: 'HomePage' } },
   { path: 'menuPrincipal', component: BodyAppComponent, canActivate: [LoginService] },
-  { path: 'menuPrincipal/creacionUsuario', component: CreacionUsuarioAppComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/form-gym', component: FormGymComponent, canActivate: [LoginService], data: { animation: 'HomePage' } },
   { path: 'menuPrincipal/list-usuariosApp', component: ListUsuariosAppComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/list-usuariosApp/:id', component: FormHistoriasComponent, canActivate: [LoginService] },
@@ -66,7 +65,7 @@ const routes: Routes = [
   { path: 'menuPrincipal/form-gym/auxiliar', component: FormGymAuxiliarComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/creacion-actualizacion', component: FormGestionComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/informes', component: TablesComponent, canActivate: [LoginService]},
-  { path: 'assets/img/pdf/ocupacionalsergr.pdf',  component: FormHistoriasComponent, canActivate: [LoginService]   
+  { path: 'menuPrincipal/crear/certificado',  component: FormCertificadoComponent, canActivate: [LoginService]   
 }
 
 ];
@@ -79,7 +78,6 @@ const routes: Routes = [
     HeaderComponent,
     FormOcupacionalComponent,
     BodyAppComponent,
-    CreacionUsuarioAppComponent,
     FormGymComponent,
     ListUsuariosAppComponent,
     TablesComponent,
@@ -92,7 +90,8 @@ const routes: Routes = [
     FormGymAuxiliarComponent,
     FormGestionComponent,
     FormHistoriasComponent,
-    FirmaIndividualComponent
+    FirmaIndividualComponent,
+    FormCertificadoComponent
   ],
   imports: [
     BrowserModule,

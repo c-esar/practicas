@@ -58,9 +58,15 @@
 
                   <ng-container matColumnDef="Detalle">
                     <mat-header-cell *matHeaderCellDef> Historias </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> <a  id="enlace" target="_blank">
+                    <mat-cell *matCellDef="let element">
                     <button mat-raised-button (click)="descargarDetalle(element.documento, element.numeroHistoria, element.tipoHistoria)" color="primary"> Detalle historia</button>
-                  </a>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Certificado">
+                    <mat-header-cell *matHeaderCellDef> Certificado </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                    <button mat-raised-button (click)="descargarCertificado(element.numeroHistoria,element.tipoHistoria)" color="primary"> Descargar Certificado</button>
                     </mat-cell>
                   </ng-container>
 

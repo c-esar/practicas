@@ -22,7 +22,7 @@ import * as html2canvas from 'html2canvas';
   styleUrls: ['./form-historias.component.css']
 })
 export class FormHistoriasComponent implements OnInit {
-  displayedColumns: string[] = ['Tipo Documento', 'No.', 'Nombre', 'Apellido', 'Tipo Historia', 'Fecha Historia', 'Detalle'];
+  displayedColumns: string[] = ['Tipo Documento', 'No.', 'Nombre', 'Apellido', 'Tipo Historia', 'Fecha Historia', 'Detalle', 'Certificado'];
   dataSource = new MatTableDataSource(null);
   datosSingleton: DatosSingleton;
   tmp: String[];
@@ -236,5 +236,21 @@ export class FormHistoriasComponent implements OnInit {
         }
       )
     }
+  }
+
+  public descargarCertificado(numeroHistoria: number, tipo: string): void {
+    this.reportes.onReporteHistoriasCertificado(numeroHistoria, tipo).subscribe(
+      (respuesta) => {
+        debugger
+        this.ruta = respuesta;
+        this.nombreArchivo = "certificado" + numeroHistoria + ".pdf";
+        const linkSource = 'data:application/pdf;base64,' + this.ruta;
+        const downloadLink = document.createElement("a");
+        const fileName = this.nombreArchivo;
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+      }
+    )
   }
 }

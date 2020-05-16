@@ -45,6 +45,7 @@ export class Persona {
   imagen: string;
   historiaGymEncriptacion: HistoriaGym[];
   historiasEncriptacion: Historias[];
+  licenciaSalud: string;
   constructor() {
     this.seqPersona = null;
     this.nomPrimerNombre = null;
@@ -85,5 +86,6 @@ export class Persona {
     this.imagen = null;
     this.historiaGymEncriptacion = new Array<HistoriaGym>();
     this.historiasEncriptacion = new Array<Historias>();
+    this.licenciaSalud = null;
   }
 }

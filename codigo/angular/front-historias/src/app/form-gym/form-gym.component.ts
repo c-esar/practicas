@@ -36,8 +36,8 @@ declare var $: any;
 })
 export class FormGymComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('medicoind') firmaMedicohtml;
-  @ViewChild('pacienteind') firmaPacientehtml;
+  @ViewChild('medicoind') firmaMedicohtml: FirmaIndividualComponent;
+  @ViewChild('pacienteind') firmaPacientehtml: FirmaIndividualComponent;
   firmaMedico: any;
   firmaPaciente: any;
   persona: Persona;
@@ -214,8 +214,11 @@ export class FormGymComponent implements OnInit, AfterViewInit {
   }
 
   public onLimpiar(): void {
+    debugger
     this.onCargarAtributos();
     this.onCargarFunciones();
+    this.firmaPacientehtml.ngAfterViewInit();
+    this.firmaPaciente = null;
   }
 
   public onValidatePersona(): void {
@@ -885,6 +888,8 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.persona.parentescoEmergencia = this.persona.parentescoEmergencia == null ? per.parentescoEmergencia : this.persona.parentescoEmergencia;
     this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
+    debugger
+    this.persona.imagen = this.persona.imagen == null ? per.imagen : this.persona.imagen;
   }
   private onLabels(): void {
     this.labelService.getLabel().subscribe(

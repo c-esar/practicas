@@ -38,4 +38,15 @@ export class ReportesService {
       })
     );
   }
+
+  onReporteHistoriasCertificado(id: number, tipo: String): Observable<String> {
+    return this.http.get<String>(`${this.url + "reportes/certificado"}/${id}`, { headers: this.httpHeaders }).pipe(
+      map( (resp: any) => resp.persona  as String)
+      ,catchError(e => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
+  }
 }

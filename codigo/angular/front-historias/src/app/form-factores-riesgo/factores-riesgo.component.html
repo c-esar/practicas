@@ -21,7 +21,7 @@
         <div class="form-group col-md-12 col-sm-12 col-xs-6">
           <mat-form-field >
             <mat-label for=" formtablaFactoresTiempo">{{datosSingleton.tablaFactoresTiempo}}</mat-label>
-            <input matInput required pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="factoresRiesgo.tiempo" name="tablaFactoresTiempo" id="formtablaFactoresTiempo" type="text"
+            <input matInput required [(ngModel)]="factoresRiesgo.tiempo" name="tablaFactoresTiempo" id="formtablaFactoresTiempo" type="text"
               class="form-control campoGrande " placeholder="{{datosSingleton.tablaFactoresTiempo}}">
             <mat-error>Texto Incorrecto</mat-error>
           </mat-form-field>

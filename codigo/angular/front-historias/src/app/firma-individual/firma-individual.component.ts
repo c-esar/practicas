@@ -16,7 +16,8 @@ export class FirmaIndividualComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const color = 'rgb(255,255,255)';
+    debugger
+    const color = 'rgb(0,0,0)';
     this.signaturePad = new SignaturePad(this.signaturePadElement1.nativeElement);
     this.signaturePad.penColor = color;
   }
@@ -26,7 +27,7 @@ export class FirmaIndividualComponent implements OnInit, AfterViewInit {
     const g = Math.round(Math.random() * 255);
     const b = Math.round(Math.random() * 255);
     //const color = 'rgb(' + r + ',' + g + ',' + b + ')';
-    const color = 'rgb(255,255,255)';
+    const color = 'rgb(0,0,0)';
     this.signaturePad.penColor = color;
   }
 

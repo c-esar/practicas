@@ -58,8 +58,8 @@ export class FormAuxiliarComponent implements OnInit {
     this.userIdle.onTimerStart().subscribe(count => console.log(count));
 
     // Start watch when time is up.
-    this.userIdle.onTimeout().subscribe(() => {     
-      this.loginService.logOut();  
+    this.userIdle.onTimeout().subscribe(() => {
+      this.loginService.logOut();
       this.router.navigate(['login']);
       Swal.fire('Tiempo agotado', 'Inactivo', 'error');
     });
@@ -106,6 +106,12 @@ export class FormAuxiliarComponent implements OnInit {
       }
     );
   }
+
+  public onLimpiar(): void {
+    this.onCargarAtributos();
+    this.onFunciones();
+  }
+
   private obtenerTipoDocumento(): void {
     this.personaService.getTipoDocumento().subscribe(
       (respuesta) => {
@@ -205,20 +211,20 @@ export class FormAuxiliarComponent implements OnInit {
     }, 500);
 
     setTimeout(() => {
-    this.persona.localidad.seqLocalidad = 0;
-    this.persona.lugarDeResidencia.seqCuidad = 0;
-    this.actualizarPerson(this.Spersona);
-    this.personaService.update(this.persona).subscribe(
-      response => {
-        console.log(response);
-        if (funcion === '1') {
-          Swal.fire('Exitoso', 'Persona Actualizada', 'success');
-        } else {
-          Swal.fire('Exitoso', 'Persona Creada', 'success');
-          this.router.navigate(['/menuPrincipal']);
+      this.persona.localidad.seqLocalidad = 0;
+      this.persona.lugarDeResidencia.seqCuidad = 0;
+      this.actualizarPerson(this.Spersona);
+      this.personaService.update(this.persona).subscribe(
+        response => {
+          console.log(response);
+          if (funcion === '1') {
+            Swal.fire('Exitoso', 'Persona Actualizada', 'success');
+          } else {
+            Swal.fire('Exitoso', 'Persona Creada', 'success');
+            this.router.navigate(['/menuPrincipal']);
+          }
         }
-      }
-    );
+      );
     }, 1000);
   }
 

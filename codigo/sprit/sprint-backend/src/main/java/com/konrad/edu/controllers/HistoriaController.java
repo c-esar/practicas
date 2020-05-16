@@ -1,6 +1,5 @@
 package com.konrad.edu.controllers;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.konrad.edu.IService.ICertificadoService;
 import com.konrad.edu.IService.IConceptoService;
 import com.konrad.edu.IService.ICondicionGymService;
 import com.konrad.edu.IService.IConstantes;
@@ -29,10 +29,9 @@ import com.konrad.edu.IService.ITipoEvaluacionService;
 import com.konrad.edu.IService.ITipoHistoriaService;
 import com.konrad.edu.IService.ITipoPreguntaHistoriaService;
 import com.konrad.edu.IService.ITipoUsuarioService;
-import com.konrad.edu.entity.CiudadEntity;
+import com.konrad.edu.entity.CertificadoEntity;
 import com.konrad.edu.entity.ConceptoEntity;
 import com.konrad.edu.entity.CondicionGymEntity;
-import com.konrad.edu.entity.CuestionarioGymEntity;
 import com.konrad.edu.entity.DiagnosticoOcupacionalEntity;
 import com.konrad.edu.entity.ExamenFisicoEncriptacion;
 import com.konrad.edu.entity.ExamenFisicoEntity;
@@ -41,8 +40,6 @@ import com.konrad.edu.entity.HistoriaGYMEntity;
 import com.konrad.edu.entity.HistoriaGymEncriptacion;
 import com.konrad.edu.entity.HistoriaOcupacionalEncriptacion;
 import com.konrad.edu.entity.HistoriaOcupacionalEntity;
-import com.konrad.edu.entity.HistoriaPreguntasGym;
-import com.konrad.edu.entity.PersonaEntity;
 import com.konrad.edu.entity.TipoCuestionarioEntity;
 import com.konrad.edu.entity.TipoEvaluacionEntity;
 import com.konrad.edu.entity.TipoHistoriasEntity;
@@ -86,6 +83,9 @@ public class HistoriaController {
 
 	@Autowired
 	private ICondicionGymService condicionService;
+	
+	@Autowired
+	private ICertificadoService certificadoService;
 
 	@PostMapping("/crearHistoriaOcupacional")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -211,6 +211,25 @@ public class HistoriaController {
 
 	}
 
+	@PostMapping("/crearCertificado")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<?> createCertificado(@RequestBody CertificadoEntity certificadoEntity) {
+		CertificadoEntity certificadoentity = new CertificadoEntity();
+		Map<String, Object> response = new HashMap<>();
+		try {
+			certificadoentity = certificadoService.save(certificadoEntity);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar el insertar en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			response.put("certificado", certificadoentity);
+			System.err.print(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("mensaje", "el certificado ha sido creado con éxito!");
+		response.put("certificado", certificadoentity);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
 	@GetMapping("/listConcepto")
 	public List<ConceptoEntity> getListConcepto() {
 		return conceptoService.findAll();

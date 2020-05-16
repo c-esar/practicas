@@ -89,7 +89,7 @@ public class PerfilController {
 			String password = persona.getPassword();
 			password = Encriptacion.Encriptar(password);
 			persona.setPassword(password);
-			personaEntity.setImagenEncriptada(personaEntity.getImagen().getBytes());
+			personaEntity.setImagenEncriptada(personaEntity.getImagen() == null ? null :personaEntity.getImagen().getBytes());
 			personaNew = perfilService.save(persona);
 			if (personaNew != null) {
 				personaEntity.setPerfil(new PerfilEntity());
@@ -153,6 +153,9 @@ public class PerfilController {
 					personaNew.getPersona().add(persona);
 					personaNew.getPersona().get(0).setHistoriasEncriptacion(null);
 					personaNew.getPersona().get(0).setHistoriaGymEncriptacion(null);
+					if(personaNew.getPersona().get(0).getImagenEncriptada() != null) {
+						personaNew.getPersona().get(0).setImagen(new String(personaNew.getPersona().get(0).getImagenEncriptada()));
+					}
 				}
 			}
 		} catch (DataAccessException e) {

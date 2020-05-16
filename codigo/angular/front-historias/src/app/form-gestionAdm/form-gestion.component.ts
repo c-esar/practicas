@@ -154,7 +154,12 @@ export class FormGestionComponent implements OnInit, AfterViewInit {
     this.getTipoUsuario();
   }
 
-
+  public onLimpiar(): void {
+    this.onCargarAtributos();
+    this.onCargarFunciones();
+    this.componenteFirma.ngAfterViewInit();
+    this.firmaUsuario = null;
+  }
 
   public onValidatePersona(): void {
     setTimeout(() => {

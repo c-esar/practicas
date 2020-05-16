@@ -124,6 +124,7 @@ INSERT INTO hc_rol_usuario_persona(seq_persona, tipo_usuario) values(1,6);
 ALTER TABLE hc_rol_usuario_persona DROP CONSTRAINT tipo_usuario;
 ALTER TABLE hc_familiar_historia_gym DROP CONSTRAINT seq_familiar_gym;
 ALTER TABLE hc_condiciones_historia_gym DROP CONSTRAINT seq_condicion_gym;
+ALTER TABLE hc_concepto_historia DROP CONSTRAINT seq_concepto;
 
 
 

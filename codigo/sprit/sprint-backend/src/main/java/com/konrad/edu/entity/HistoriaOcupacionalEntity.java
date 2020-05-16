@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -75,8 +76,9 @@ public class HistoriaOcupacionalEntity implements Serializable {
 	private CiudadEntity ciudadHistoria;
 
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "hc_concepto_historia", joinColumns = @JoinColumn(name = "seq_historia", referencedColumnName = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_concepto", referencedColumnName = "seq_concepto"), uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "seq_historia", "seq_concepto" }) })
+	@JoinTable(name = "hc_concepto_historia", joinColumns = @JoinColumn(name = "seq_historia", referencedColumnName = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_concepto", referencedColumnName = "seq_concepto"), indexes = {
+			@Index(name = "seq_historia", columnList = "seq_historia", unique = false),
+			@Index(name = "seq_concepto", columnList = "seq_concepto", unique = true) })
 	private List<ConceptoEntity> conceptoConcepto;
 
 	@OneToMany(fetch = FetchType.LAZY)
@@ -187,7 +189,6 @@ public class HistoriaOcupacionalEntity implements Serializable {
 		this.diaHistoria = diaHistoria;
 	}
 
-
 	public ExamenFisicoEntity getExamenFisico() {
 		return examenFisico;
 	}
@@ -219,7 +220,6 @@ public class HistoriaOcupacionalEntity implements Serializable {
 	public void setConceptoConcepto(List<ConceptoEntity> conceptoConcepto) {
 		this.conceptoConcepto = conceptoConcepto;
 	}
-
 
 	public List<DiagnosticoOcupacionalEntity> getDiagnosticoOcupacionalEntity() {
 		return diagnosticoOcupacionalEntity;
@@ -293,5 +293,4 @@ public class HistoriaOcupacionalEntity implements Serializable {
 		this.aceptoCondiciones = aceptoCondiciones;
 	}
 
-	
 }

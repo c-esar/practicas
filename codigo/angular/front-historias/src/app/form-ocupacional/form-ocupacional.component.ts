@@ -50,8 +50,8 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   @ViewChild('gridEnfermedades') public gridEnfermedades: GridComponent;
   @ViewChild('gridFactoresRiesgo') public gridFactoresRiesgo: GridComponent;
   @ViewChild('gridParaclinicos') public gridParaclinicos: GridComponent;
-  @ViewChild('medicoind') public firmaMedicohtml;
-  @ViewChild('pacienteind') public firmaPacientehtml;
+  @ViewChild('medicoind') firmaMedicohtml;
+  @ViewChild('pacienteind') firmaPacientehtml: FirmaIndividualComponent;
   firmaMedico: any;
   firmaMedioBoolean: Boolean;
   firmaPaciente: any;
@@ -296,6 +296,9 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   public onLimpiar(): void {
     this.onCargarAtributos();
     this.onCargarFunciones();
+    this.firmaPacientehtml.ngAfterViewInit();
+    this.firmaPaciente = null;
+    this.firmaPacienteBoolean = false;
   }
 
   public onValidarSelect(value: string, id: string): void {
@@ -878,6 +881,8 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.persona.parentescoEmergencia = this.persona.parentescoEmergencia == null ? per.parentescoEmergencia : this.persona.parentescoEmergencia;
     this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
+    debugger
+    this.persona.imagen = this.persona.imagen == null ? per.imagen : this.persona.imagen;
     debugger
     let nuevoRol = new TipoUsuario();
     nuevoRol.seqTipoUsuario = 2;

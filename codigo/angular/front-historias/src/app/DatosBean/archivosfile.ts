@@ -4,7 +4,6 @@ export class ArchivosFile {
     celular: string;
     tipoDocumento: string;
     documento: string;
-
     constructor() {
         this.nombre = null;
         this.apellido = null;

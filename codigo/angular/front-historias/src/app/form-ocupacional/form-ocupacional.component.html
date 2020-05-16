@@ -426,12 +426,9 @@
 									[dataSource]='persona.historias[0].historiaLaboral.empresaLaboral'
 									[pageSettings]='pageSettings'>
 									<e-columns>
-										<e-column field='nomEmpresa'
-											headerText='{{datosSingleton.tablaTrabajoPreLabelEmpresa}}'></e-column>
-										<e-column field='cargo'
-											headerText='{{datosSingleton.tablaTrabajoPreLabelCargOficina}}'></e-column>
-										<e-column field='tiempo'
-											headerText='{{datosSingleton.tablaTrabajoPreLabelTimepo}}'></e-column>
+										<e-column field='nomEmpresa' headerText='Empresa'></e-column>
+										<e-column field='cargo' headerText='Cargo u Oficio'></e-column>
+										<e-column field='tiempo' headerText='Tiempo'></e-column>
 									</e-columns>
 								</ejs-grid>
 							</div>
@@ -453,30 +450,25 @@
 										una opción</mat-error>
 								</mat-form-field>
 							</div>
-							<div class="form-group col-md-12 col-sm-12 col-xs-12">
+							<div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="persona.historias[0].historiaLaboral.accionesTrabajoSN == 'S'">
 								<button mat-raised-button color="primary" role="button"
 									(click)="abrirModal(accidentesTrabajo)">{{datosSingleton.labelNuevo}}</button>
 								<button mat-raised-button color="primary" role="button"
 									(click)="delete('accidentesTrabajo')">{{datosSingleton.label_eliminar}}</button>
 							</div>
-							<div class="form-group col-md-12 col-sm-12 col-xs-12 ">
+							<div class="form-group col-md-12 col-sm-12 col-xs-12 " *ngIf="persona.historias[0].historiaLaboral.accionesTrabajoSN == 'S'">
 								<ejs-grid #gridAntecedentesTrabajo
 									[dataSource]='persona.historias[0].historiaLaboral.antecedentesTrabajo'
 									[pageSettings]='pageSettings'>
 									<e-columns>
-										<e-column field='fechaAnt'
-											headerText='{{datosSingleton.tablaEnfermedadesFecha}}'></e-column>
-										<e-column field='nomEmpresa'
-											headerText='{{datosSingleton.tablaEnfermedadesEmpresa}}'></e-column>
-										<e-column field='despCaus'
-											headerText='{{datosSingleton.tablaEnfermedadesCausa}}'></e-column>
-										<e-column field='tipoLesion'
-											headerText='{{datosSingleton.tablaEnfermedadesTipoLesion}}'></e-column>
-										<e-column field='despIncapacidad'
-											headerText='{{datosSingleton.tablaEnfermedadesIncapacidad}}'>
+										<e-column field='fechaAnt' headerText='Fecha'></e-column>
+										<e-column field='nomEmpresa' headerText='Empresa'></e-column>
+										<e-column field='despCaus' headerText='Causa'></e-column>
+										<e-column field='tipoLesion' headerText='Tipo de lesión-parte afectada'>
 										</e-column>
-										<e-column field='despSecuelas'
-											headerText='{{datosSingleton.tablaEnfermedadesSecuelas}}'></e-column>
+										<e-column field='despIncapacidad' headerText='Incapacidad'>
+										</e-column>
+										<e-column field='despSecuelas' headerText='Secuelas'></e-column>
 									</e-columns>
 								</ejs-grid>
 							</div>
@@ -495,28 +487,25 @@
 										una opción</mat-error>
 								</mat-form-field>
 							</div>
-							<div class="form-group col-md-12 col-sm-12 col-xs-12 ">
+							<div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="persona.historias[0].historiaLaboral.enfermedadLaboralSN == 'S'">
 								<button mat-raised-button color="primary" role="button"
 									(click)="abrirModal(enfermedadesLaborales)">{{datosSingleton.labelNuevo}}</button>
 								<button mat-raised-button color="primary" role="button"
 									(click)="delete('enfermedadesLaborales')">{{datosSingleton.label_eliminar}}</button>
 							</div>
-							<div class="form-group col-md-12 col-sm-12 col-xs-12 ">
+							<div class="form-group col-md-12 col-sm-12 col-xs-12 " *ngIf="persona.historias[0].historiaLaboral.enfermedadLaboralSN == 'S'">
 								<ejs-grid #gridEnfermedades
 									[dataSource]='persona.historias[0].historiaLaboral.enfermedadesLaboral'
 									[pageSettings]='pageSettings'>
 									<e-columns>
-										<e-column field='fechaAnt'
-											headerText='{{datosSingleton.tablaEnfermedadesFecha}}'></e-column>
-										<e-column field='nomEmpresa'
-											headerText='{{datosSingleton.tablaEnfermedadesEmpresa}}'></e-column>
-										<e-column field='despDiagnostico'
-											headerText='{{datosSingleton.tablaEnfermedadesDiagnostico}}'>
+										<e-column field='fechaAnt' headerText='Fecha'>
 										</e-column>
-										<e-column field='despRecomendaciones'
-											headerText='{{datosSingleton.tablaEnfermedadesRecomendaciones}}'></e-column>
-										<e-column field='despIndemnizar'
-											headerText='{{datosSingleton.tablaEnfermedadesIndemnizacion}}'>
+										<e-column field='nomEmpresa' headerText='Empresa'></e-column>
+										<e-column field='despDiagnostico' headerText='Diagnóstico'>
+										</e-column>
+										<e-column field='despRecomendaciones' headerText='Recomendaciones-Reubicación'>
+										</e-column>
+										<e-column field='despIndemnizar' headerText='Indemnización'>
 										</e-column>
 									</e-columns>
 								</ejs-grid>
@@ -535,15 +524,12 @@
 									[dataSource]='persona.historias[0].historiaLaboral.factoresRiesgo'
 									[pageSettings]='pageSettings'>
 									<e-columns>
-										<e-column field='nomEmpresa'
-											headerText='{{datosSingleton.tablaEnfermedadesEmpresa}}'></e-column>
-										<e-column field='despFactores'
-											headerText='{{datosSingleton.tablaFactoresFactoresRiesgo}}'>
+										<e-column field='nomEmpresa' headerText='Empresa'></e-column>
+										<e-column field='despFactores' headerText='Factores de riesgo'>
 										</e-column>
-										<e-column field='tiempo' headerText='{{datosSingleton.tablaFactoresTiempo}}'>
+										<e-column field='tiempo' headerText='Tiempo'>
 										</e-column>
-										<e-column field='despMedidasControl'
-											headerText='{{datosSingleton.tablaFactoresMedidasControl}}'>
+										<e-column field='despMedidasControl' headerText='Medidas de control'>
 										</e-column>
 									</e-columns>
 								</ejs-grid>
@@ -1348,7 +1334,7 @@
 										<div class="form-group col-md-12 col-sm-12 col-xs-12">
 											<mat-label>FIRMA ACTUAL</mat-label>
 										</div>
-										<img style="background: black;" [src]="firmaMedico">
+										<img style="border: solid;" [src]="firmaMedico">
 									</div>
 									<div class="form-group col-md-12 col-sm-12 col-xs-12">
 										<div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -1365,7 +1351,7 @@
 										<div class="form-group col-md-12 col-sm-12 col-xs-12">
 											<mat-label>FIRMA ACTUAL</mat-label>
 										</div>
-										<img style="background: black;" [src]="firmaPaciente">
+										<img style="border: solid;" [src]="firmaPaciente">
 									</div>
 									<div class="form-group col-md-12 col-sm-12 col-xs-12">
 										<div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -1377,11 +1363,15 @@
 								</div>
 							</div>
 							<div class="form-group col-md-12 col-sm-12 col-xs-12 row">
-								<mat-checkbox name="aceptoCondiciones" [(ngModel)]="persona.historias[0].aceptoCondiciones">
+								<mat-checkbox name="aceptoCondiciones"
+									[(ngModel)]="persona.historias[0].aceptoCondiciones">
 									Al enviar este formulario autorizo, expresamente y de manera voluntaria,
-									a la Fundación Universitaria Konrad Lorenz para usar y 
+									a la Fundación Universitaria Konrad Lorenz para usar y
 									<br>
-									manejar los datos que he suministrado, con propósitos académicos y según la siguiente <a href="http://www.konradlorenz.edu.co/es/informacion-institucional/nueva-imagen-institucional-2politicas-para-el-tratamiento-de-datos-personales.html"  target="_blank">política de tratamiento
+									manejar los datos que he suministrado, con propósitos académicos y según la
+									siguiente <a
+										href="http://www.konradlorenz.edu.co/es/informacion-institucional/nueva-imagen-institucional-2politicas-para-el-tratamiento-de-datos-personales.html"
+										target="_blank">política de tratamiento
 										de datos personales.</a>
 								</mat-checkbox>
 							</div>
