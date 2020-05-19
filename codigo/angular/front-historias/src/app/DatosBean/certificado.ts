@@ -1,5 +1,6 @@
 import { Historias } from './historias';
-export class Aseguradora {
+import { TipoEvaluacion } from './tipoEvaluacion';
+export class Certificado {
     seqCertificado: number;
     datFechaCertificado: Date;
     nombre: string;
@@ -9,6 +10,8 @@ export class Aseguradora {
     tipoRestriccionLimitacion: string;
     Recomendaciones: string;
     controlEpidemiologica: string;
+    tipoEvaluacionEntity: TipoEvaluacion;
+    otroEvaluacion: string;
     historiaOcupacionalEntity: Historias[];
 
     constructor() {
@@ -22,6 +25,8 @@ export class Aseguradora {
         this.Recomendaciones = null;
         this.controlEpidemiologica = null;
         this.historiaOcupacionalEntity = new Array<Historias>();
+        this.tipoEvaluacionEntity = new TipoEvaluacion();
+        this.otroEvaluacion = null;
     }
 
 }
