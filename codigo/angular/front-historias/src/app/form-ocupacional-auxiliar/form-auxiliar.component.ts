@@ -163,10 +163,8 @@ export class FormAuxiliarComponent implements OnInit {
       this.persona.tipoDocumento = new TipoDocumento();
       this.persona.lugarNacimiento = new Ciudad();
       this.buscoPerson = false;
-      debugger
       this.personaService.onBuscarDocumento(this.persona).subscribe(
-        (respuesta) => {
-          debugger
+        (respuesta) => { 
           console.log(respuesta);
           this.Spersona = respuesta;
           if (this.Spersona.aseguradora === null) {
@@ -243,7 +241,6 @@ export class FormAuxiliarComponent implements OnInit {
     this.persona.genero = this.persona.genero == null ? per.genero : this.persona.genero;
     this.persona.estadoCivil = this.persona.estadoCivil == null ? per.estadoCivil : this.persona.estadoCivil;
     this.persona.fechaNacimiento = this.persona.fechaNacimiento == null ? per.fechaNacimiento : this.persona.fechaNacimiento;
-    debugger
     this.persona.lugarNacimiento = (this.persona.lugarNacimiento == null || this.persona.lugarNacimiento.seqCuidad == null) ? per.lugarNacimiento : this.persona.lugarNacimiento;
     this.persona.lugarDeResidencia = (this.persona.lugarDeResidencia == null || this.persona.lugarDeResidencia.seqCuidad == null) ? per.lugarDeResidencia : this.persona.lugarDeResidencia;
     this.persona.escolaridad = this.persona.escolaridad == null ? per.escolaridad : this.persona.escolaridad;
@@ -251,7 +248,6 @@ export class FormAuxiliarComponent implements OnInit {
     this.persona.afp = this.persona.afp == null ? per.afp : this.persona.afp;
     this.persona.arl = this.persona.arl == null ? per.arl : this.persona.arl;
     this.persona.aseguradora = (this.persona.aseguradora == null || this.persona.aseguradora.seqAseguradora == null) ? per.aseguradora : this.persona.aseguradora;
-    debugger
     this.persona.rh = this.persona.rh == null ? per.rh : this.persona.rh;
     this.persona.nomEmergencia = this.persona.nomEmergencia == null ? per.nomEmergencia : this.persona.nomEmergencia;
     this.persona.telEmergencia = this.persona.telEmergencia == null ? per.telEmergencia : this.persona.telEmergencia;

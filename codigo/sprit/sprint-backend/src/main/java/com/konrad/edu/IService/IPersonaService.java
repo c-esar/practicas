@@ -22,5 +22,7 @@ public interface IPersonaService {
 	public List<PersonaEntity> findAllTipoUsuario(List<String> seq_tipo_usuario);
 	
 	public void eliminarConstRolUsuario();
+	
+	public PersonaEntity findByPersonaMedico(String numero_documento);
 
 }

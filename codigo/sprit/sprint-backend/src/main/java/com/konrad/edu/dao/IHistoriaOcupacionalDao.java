@@ -6,7 +6,10 @@ import org.springframework.data.repository.query.Param;
 
 import com.konrad.edu.entity.HistoriaGYMEntity;
 import com.konrad.edu.entity.HistoriaOcupacionalEntity;
+import com.konrad.edu.entity.PersonaEntity;
 
 public interface IHistoriaOcupacionalDao extends CrudRepository<HistoriaOcupacionalEntity, Long> {
 
+	@Query(value = "ALTER TABLE hc_concepto_historia DROP CONSTRAINT seq_concepto", nativeQuery = true)
+	public boolean alterConcepto();
 }

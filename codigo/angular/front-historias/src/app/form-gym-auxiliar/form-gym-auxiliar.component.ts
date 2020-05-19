@@ -159,7 +159,6 @@ export class FormGymAuxiliarComponent implements OnInit {
 
     setTimeout(() => {
       let tmpDoc = this.persona.numeroDocumento;
-      debugger
       this.Spersona = new Persona();
       this.persona.aseguradora = new Aseguradora();
       this.persona.tipoDocumento = new TipoDocumento();
@@ -168,7 +167,6 @@ export class FormGymAuxiliarComponent implements OnInit {
       this.onCargarAtributosNuevos();
       this.personaService.onBuscarDocumento(this.persona).subscribe(
         (respuesta) => {
-          debugger
           console.log(respuesta);
           this.Spersona = respuesta;
           if (this.Spersona.aseguradora === null) {
@@ -190,7 +188,6 @@ export class FormGymAuxiliarComponent implements OnInit {
   }
 
   private onListaNuevatipoUsuario(lista: TipoUsuario[]): void {
-    debugger
     for (let i = 0; i < lista.length; i++) {
       for (let j = 0; j < this.tipoUsuario.length; j++) {
         if (lista[i].seqTipoUsuario === this.tipoUsuario[j].seqTipoUsuario) {
@@ -256,11 +253,9 @@ export class FormGymAuxiliarComponent implements OnInit {
     }, 500);
 
     setTimeout(() => {
-      debugger
       if (this.onCargarTipoUsuario()) {
         this.persona.localidad.seqLocalidad = 0;
         this.persona.lugarDeResidencia.seqCuidad = 0;
-        debugger
         this.actualizarPerson(this.Spersona);
         let personaup = new Persona();
         personaup = this.persona;
@@ -283,7 +278,6 @@ export class FormGymAuxiliarComponent implements OnInit {
   }
 
   private onCargarTipoUsuario(): boolean {
-    debugger
     let contar = 0;
     for (let j = 0; j < this.tipoUsuario.length; j++) {
       switch (this.tipoUsuario[j].nomTipoUsuario) {
@@ -377,7 +371,6 @@ export class FormGymAuxiliarComponent implements OnInit {
   }
 
   private actualizarPerson(per: Persona): void {
-    debugger
     this.persona.seqPersona = per.seqPersona;
     this.persona.nomPrimerNombre = this.persona.nomPrimerNombre == null ? per.nomPrimerNombre : this.persona.nomPrimerNombre;
     this.persona.nomPrimerApellido = this.persona.nomPrimerApellido == null ? per.nomPrimerApellido : this.persona.nomPrimerApellido;

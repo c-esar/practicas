@@ -23,7 +23,6 @@ export class AccidentesTrabajoComponent implements OnInit {
   }
 
   guardarDatosGrillas():void{
-    debugger
     this.messageEvent.emit(this.antecedentesTrabajo);
   }
 

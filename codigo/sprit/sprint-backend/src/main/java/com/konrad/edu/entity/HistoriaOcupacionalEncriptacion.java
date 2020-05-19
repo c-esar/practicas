@@ -31,6 +31,7 @@ public class HistoriaOcupacionalEncriptacion implements Serializable {
 	private String otroEvaluacion;
 	private String aceptoCondiciones;
 	private PersonaEntity persona;
+	private Long personaMedico;
 
 	public HistoriaOcupacionalEncriptacion() {
 		this.antecedentesHistoriaEntity = new ArrayList<>();
@@ -192,4 +193,15 @@ public class HistoriaOcupacionalEncriptacion implements Serializable {
 		this.persona = persona;
 	}
 
+	public Long getPersonaMedico() {
+		return personaMedico;
+	}
+
+	public void setPersonaMedico(Long personaMedico) {
+		this.personaMedico = personaMedico;
+	}
+
+	
+
+	
 }

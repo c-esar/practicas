@@ -168,26 +168,39 @@ caption{
   display:none;
 }
 ejs-grid{
-  height: 150px;
+  height: 100%;
   overflow-y: auto;
   width: 100% !important;
 }
 table{
   width:100%;
+  border-collapse: collapse;
+}
+thead{
+  background-color:black;
+  color: white;
 }
 th{
-  width: 350px;
+  min-width: 200px !important;
   border-right: 1px solid #ccc;
   border-left: 1px solid #ccc;
+  word-wrap: break-word;
+  text-align: left;
 }
 td{
-  width:350px;
+  min-width:200px !important;
   border-right: 1px solid #ccc;
   border-left: 1px solid #ccc;
+  word-wrap: break-word;
+  text-align: left;
 }
 tr{
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
   border-left: 1px solid #ccc;
   border-top: 1px solid #ccc;
+}
+tr:hover td{
+  background-color: #0062cc;
+  color: white;
 }

@@ -17,4 +17,19 @@ public class HistoriaGymServiceImp implements IHistoriaGymService{
 	public HistoriaGYMEntity save(HistoriaGYMEntity historia) {
 		return historiaDao.save(historia);
 	}
+
+	@Override
+	public boolean alterCondiciones() {
+		return historiaDao.alterCondiciones();
+	}
+
+	@Override
+	public boolean alterFamiliares() {
+		return historiaDao.alterFamiliares();
+	}
+
+	@Override
+	public boolean alterUsuarios() {
+		return historiaDao.alterUsuarios();
+	}
 }

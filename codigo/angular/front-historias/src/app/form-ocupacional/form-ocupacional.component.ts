@@ -35,6 +35,7 @@ import { FormControl } from '@angular/forms';
 import { TipoEvaluacion } from '../DatosBean/tipoEvaluacion';
 import { FirmaIndividualComponent } from '../firma-individual/firma-individual.component';
 import { UserIdleService } from 'angular-user-idle';
+import { EditSettingsModel} from '@syncfusion/ej2-angular-grids';
 declare var jQuery: any;
 declare var $: any;
 @Component({
@@ -75,6 +76,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   medico: boolean;
   aux: boolean;
   examenFisico: ExamenFisico;
+  public editSettings: EditSettingsModel;
   //constantes
   private PERSONA_PACIENTE: string = "Paciente";
 
@@ -132,6 +134,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.onCargarAtributos();
       this.onCargarFunciones();
+      this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true };
       this.pageSettings = { pageSize: 6 };
     }, 1000);
     this.userIdle.startWatching();
@@ -171,7 +174,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.personaLogin = this.loginService.obtenerPerfilSesion().persona[0];
     this.personaService.onBuscarDocumento(this.personaLogin).subscribe(
       (response) => {
-        debugger;
         this.personaLogin = new Persona();
         this.personaLogin = response;
         this.onCargaImagenMedico();
@@ -179,9 +181,8 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     );
   }
   private onCargaImagenMedico(): void {
-    debugger;
     if (this.personaLogin.imagen != null) {
-      this.firmaMedico = this._sanitizer.bypassSecurityTrustResourceUrl(this.personaLogin.imagen);
+      this.firmaMedico = this.personaLogin.imagen;//this._sanitizer.bypassSecurityTrustResourceUrl();
       this.firmaMedioBoolean = true;
     } else {
       this.firmaMedico = null;
@@ -249,7 +250,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     }, 500);
 
     setTimeout(() => {
-      debugger
       let tmpDoc = this.persona.numeroDocumento;
       this.Spersona = new Persona();
       this.persona.aseguradora = new Aseguradora();
@@ -260,10 +260,8 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
       this.persona.historias.push(new Historias());
       this.persona.historias[0].ciudadHistoria.seqCuidad = 0;
       this.cargarListas();
-      debugger
       this.personaService.onBuscarDocumento(this.persona).subscribe(
         (respuesta) => {
-          debugger
           console.log(respuesta);
           this.Spersona = respuesta;
           if (this.Spersona.aseguradora === null) {
@@ -279,7 +277,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
             this.Spersona.lugarNacimiento = new Ciudad();
           }
           if (this.Spersona.imagen != null) {
-            this.firmaPaciente = this._sanitizer.bypassSecurityTrustResourceUrl(this.Spersona.imagen);
+            this.firmaPaciente = this.Spersona.imagen;//this._sanitizer.bypassSecurityTrustResourceUrl(this.Spersona.imagen);
             this.firmaPacienteBoolean = true;
           } else {
             this.firmaPaciente = null;
@@ -536,7 +534,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   }
 
   public create(): void {
-    debugger
     setTimeout(() => {
       Swal.fire({
         title: this.datosSingleton.mensajeBarProgress,
@@ -555,7 +552,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
         this.persona.rolUsuario[0] = this.tipoUsuario[1];
         this.barProgres = true;
         this.cargarDatosActededentesHistoria();
-        debugger
         this.firmaMedico = this.firmaMedicohtml.imagenUsuario == null || this.firmaMedicohtml.imagenUsuario == undefined ? this.firmaMedico : this.firmaMedicohtml.imagenUsuario;
         this.firmaPaciente = this.firmaPacientehtml.imagenUsuario == null || this.firmaPacientehtml.imagenUsuario == undefined ? this.firmaPaciente : this.firmaPacientehtml.imagenUsuario;
         if (this.firmaMedico != null || this.firmaPaciente != null) {         
@@ -565,8 +561,8 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
           if (this.onValidarAntecedentes() && this.guardado) {
             if (this.permiso.crearUsuario === 1) {
               this.persona.historias[0].examenFisico = this.examenFisico;
+              this.persona.historias[0].personaMedico = this.personaLogin.seqPersona;
               if (this.buscoPerson) {
-                debugger
                 this.historiaUpdate = this.persona.historias[0];
                 this.historiaUpdate.persona.seqPersona = this.seqPersona;
                 this.createHistoria();
@@ -599,7 +595,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   }
 
   updatePersona(): void {
-    debugger
     setTimeout(() => {
       Swal.fire({
         title: 'Guardando',
@@ -630,11 +625,9 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   }
 
   createHistoria(): void {
-    debugger
     this.historiaUpdate.persona.seqPersona = this.Spersona.seqPersona;
     this.historiaService.createHistoria(this.historiaUpdate).subscribe(
       response => {
-        debugger
         console.log(response);
         Swal.fire('Exitoso', 'Persona Registrada', 'success');
         this.guardado = false;
@@ -644,7 +637,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   }
 
   private onBarProgress(tmp: string): void {
-    debugger
     switch (tmp) {
       case "inicio": {
         document.getElementById("container-fluid").style.opacity = "0.2";
@@ -665,7 +657,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   }
 
   private onValidarAntecedentes(): boolean {
-    debugger
     for (let i = 0; i < this.persona.historias[0].antecedentesHistoriaEntity.length; i++) {
       if (this.persona.historias[0].antecedentesHistoriaEntity[i].tipoAntecedenteEntity.nomAntecedente === "TABAQUISMO" ||
         this.persona.historias[0].antecedentesHistoriaEntity[i].tipoAntecedenteEntity.nomAntecedente === "MENARQUIA" ||
@@ -881,9 +872,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.persona.parentescoEmergencia = this.persona.parentescoEmergencia == null ? per.parentescoEmergencia : this.persona.parentescoEmergencia;
     this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
-    debugger
-    this.persona.imagen = this.persona.imagen == null ? per.imagen : this.persona.imagen;
-    debugger
     let nuevoRol = new TipoUsuario();
     nuevoRol.seqTipoUsuario = 2;
     if (this.persona.rolUsuario != null && this.persona.rolUsuario.length > 0) {
@@ -893,6 +881,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
       this.persona.rolUsuario = new Array<TipoUsuario>();
       this.persona.rolUsuario.push(nuevoRol);
     }
+    this.persona.imagen = this.persona.imagen == null ? per.imagen : this.persona.imagen;
   }
 
 
@@ -1039,7 +1028,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   onLabels(): void {
     this.labelService.getLabel().subscribe(
       (respuesta) => {
-        debugger
         this.datosSingleton = respuesta
         console.log(respuesta)
       }

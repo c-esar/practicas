@@ -121,10 +121,7 @@ INSERT INTO hc_localidad (seq_localidad,cod_localidad,nom_localidad)values (0,'o
 INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,seq_perfil) values('Administrador','konrad',12345,1);
 INSERT INTO hc_rol_usuario_persona(seq_persona, tipo_usuario) values(1,6);
 
-ALTER TABLE hc_rol_usuario_persona DROP CONSTRAINT tipo_usuario;
-ALTER TABLE hc_familiar_historia_gym DROP CONSTRAINT seq_familiar_gym;
-ALTER TABLE hc_condiciones_historia_gym DROP CONSTRAINT seq_condicion_gym;
-ALTER TABLE hc_concepto_historia DROP CONSTRAINT seq_concepto;
+
 
 
 

@@ -13,4 +13,13 @@ public interface IHistoriaGymDao extends CrudRepository<HistoriaGYMEntity, Long>
 			"inner join hc_personas p on p.seq_persona = u.seq_persona " + 
 			"where p.numero_documento = ?1 ", nativeQuery = true)
 	public HistoriaGYMEntity findByPersona(@Param("documento") String id);
+	
+	@Query(value = "ALTER TABLE hc_condiciones_historia_gym DROP CONSTRAINT seq_condicion_gym", nativeQuery = true)
+	public boolean alterCondiciones();
+	
+	@Query(value = "ALTER TABLE hc_familiar_historia_gym DROP CONSTRAINT seq_familiar_gym", nativeQuery = true)
+	public boolean alterFamiliares();
+	
+	@Query(value = "ALTER TABLE hc_rol_usuario_persona DROP CONSTRAINT tipo_usuario", nativeQuery = true)
+	public boolean alterUsuarios();
 }

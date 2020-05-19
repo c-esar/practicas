@@ -517,20 +517,17 @@
 								<button mat-raised-button color="primary" role="button"
 									(click)="abrirModal(factoresRiesgo)">{{datosSingleton.labelNuevo}}</button>
 								<button mat-raised-button color="primary" role="button"
-									(click)="delete('enfermedadesLaborales')">{{datosSingleton.label_eliminar}}</button>
+									(click)="delete('factoresRiesgo')">{{datosSingleton.label_eliminar}}</button>
 							</div>
-							<div class="form-group col-md-12 col-sm-12 col-xs-12 ">
+							<div class="col-md-12 col-sm-12 col-xs-12 ">
 								<ejs-grid #gridFactoresRiesgo
 									[dataSource]='persona.historias[0].historiaLaboral.factoresRiesgo'
-									[pageSettings]='pageSettings'>
+									[pageSettings]='pageSettings' showColumnMenu='true' [editSettings]='editSettings'>
 									<e-columns>
-										<e-column field='nomEmpresa' headerText='Empresa'></e-column>
-										<e-column field='despFactores' headerText='Factores de riesgo'>
-										</e-column>
-										<e-column field='tiempo' headerText='Tiempo'>
-										</e-column>
-										<e-column field='despMedidasControl' headerText='Medidas de control'>
-										</e-column>
+										<e-column field='nomEmpresa' headerText='Empresa' ></e-column>
+										<e-column field='despFactores' headerText='Factores de riesgo' ></e-column>
+										<e-column field='tiempo' headerText='Tiempo' ></e-column>
+										<e-column field='despMedidasControl' headerText='Medidas de control'></e-column>
 									</e-columns>
 								</ejs-grid>
 							</div>

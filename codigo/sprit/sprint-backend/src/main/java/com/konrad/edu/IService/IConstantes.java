@@ -40,7 +40,7 @@ public interface IConstantes {
 
 	public static final String LABEL_CIUDAD = "CIUDAD";
 	public static final String LABEL_DEPARTAMENTO = "DEPARTAMENTO";
-	public static final String LABEL_FECHA_HISTORIACLINICA = "FECHA HISTORIA CLINICA";
+	public static final String LABEL_FECHA_HISTORIACLINICA = "FECHA HISTORIA CLÍNICA";
 	public static final String LABEL_INGRESO = "INGRESO";
 	public static final String LABEL_PERIODICO = "PERIÓDICO";
 	public static final String LABEL_EGRESO = "EGRESO";
@@ -52,7 +52,7 @@ public interface IConstantes {
 	public static final String MENU_OCUPACIONAL_HISTORIA_LABORAL = "HISTORIA LABORAL";
 	public static final String MENU_SUBMENU_OCUPACIONAL_HISTORIA_LABORAL_TRABAJOAC = "3.1 CONDICIONES DE TRABAJO ACTUAL";
 	public static final String LABEL_NOMBRE_EMPRESA = "NOMBRE DE LA EMPRESA";
-	public static final String LABEL_ACTIVIDAD_ECONOMICA = "ACTIVIDAD ECONOMICA";
+	public static final String LABEL_ACTIVIDAD_ECONOMICA = "ACTIVIDAD ECONÓMICA";
 	public static final String LABEL_FECHA_INGRESO = "FECHA DE INGRESO";
 	public static final String LABEL_ANTIGUO = "ANTIGÜEDAD";
 	public static final String LABEL_CARGO = "CARGO";
@@ -95,7 +95,7 @@ public interface IConstantes {
 	public static final String LABEL_MENARQUIA = "I. G/O: MENARQUIA";
 	public static final String LABEL_FUR = "FECHA ÚLTIMA MENSTRUACIÓN";
 	public static final String LABEL_PLANIFICACION = "PLANIFICACIÓN";
-	public static final String LABEL_CCV ="FECHA ÚLTIMA CITOLOGIA Y RESULTADO";
+	public static final String LABEL_CCV ="FECHA ÚLTIMA CITOLOGÍA Y RESULTADO";
 	public static final String LABEL_FAMILIARES = "5.2 FAMILIARES";
 	public static final String LABEL_ESTILOS_VIDA = "5.3 ESTILOS DE VIDA";
 	public static final String LABEL_TABAQUISMO = "A. TABAQUISMO";
@@ -151,7 +151,7 @@ public interface IConstantes {
 	public static final String MENSAJE_BAR_PROGRESS = "GUARDANDO INFORMACIÓN ESPERE UN MOMENTO";
 	
 	//GYM
-	public static final String LABEL_CODIGO ="CODIGO";
+	public static final String LABEL_CODIGO ="CÓDIGO";
 	public static final String LABEL_GRUPO_SANGUUINEO = "GRUPO SANGUÍNEO";
 	public static final String LABEL_CONTACTO_EMERGENCIA = "CONTACTO EN CASO DE EMERGENCIA";
 	public static final String LABEL_PARENTESCO = "PARENTESCO";
@@ -166,7 +166,7 @@ public interface IConstantes {
 	public static final String LABEL_PREGUNTA_LICOR ="¿CONSUME LICOR?";
 	public static final String LABEL_PREGUNTA_LICOR_CUANTAS ="CUANTAS VECES AL MES";
 	public static final String LABEL_PREGUNTA_EJERCICIO ="¿REALIZA EJERCICIO FÍSICO?";
-	public static final String LABEL_PREGUNTA_EJERCICIO_CUAL = "CUAL(ES)";
+	public static final String LABEL_PREGUNTA_EJERCICIO_CUAL = "CÚAL(ES)";
 	public static final String LABEL_PREGUNTA_EJERCICIO_CUANTAS ="CUANTAS VECES POR SEMANA";
 	public static final String LABEL_PREGUNTA_ENERGIZANTES ="¿CONSUME BEBIDAS ENERGIZANTES?";
 	public static final String LABEL_PREGUNTA_ENERGIZANTE_CUANTAS = "¿CUANTAS A LA SEMANA?";

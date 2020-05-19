@@ -33,6 +33,7 @@ export class FormHistoriasComponent implements OnInit {
   persona: Persona;
   ruta: String;
   nombreArchivo: string;
+  personaLogin: Persona;
   constructor(private labelService: LabelService,
     private loginService: LoginService,
     private personaService: PersonaService,
@@ -114,7 +115,6 @@ export class FormHistoriasComponent implements OnInit {
   }
 
   private obtenerPermisos(): void {
-    debugger
     this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos[0].crearAux;
     this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos[0].crearUsuario;
     this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos[0].gestionarUsuario;
@@ -156,7 +156,6 @@ export class FormHistoriasComponent implements OnInit {
       this.persona.numeroDocumento = id;
       this.personaService.onBuscarDocumento(this.persona).subscribe(
         (respuesta) => {
-          debugger
           console.log(respuesta);
           this.persona = respuesta;
           let nombre = this.persona.nomPrimerNombre;
@@ -207,11 +206,10 @@ export class FormHistoriasComponent implements OnInit {
   }
 
   public descargarDetalle(documento: string, numeroHistoria: number, tipo: string): void {
-    debugger
+ 
     if (tipo === "OCUPACIONAL") {
-      this.reportes.onReporteHistoriasOcupacional(documento, numeroHistoria).subscribe(
+      this.reportes.onReporteHistoriasOcupacional(documento, numeroHistoria,).subscribe(
         (respuesta) => {
-          debugger
           this.ruta = respuesta;
           this.nombreArchivo = "historiaOcupacional" + documento + ".pdf";
           const linkSource = 'data:application/pdf;base64,' + this.ruta;
@@ -241,7 +239,6 @@ export class FormHistoriasComponent implements OnInit {
   public descargarCertificado(numeroHistoria: number, tipo: string): void {
     this.reportes.onReporteHistoriasCertificado(numeroHistoria, tipo).subscribe(
       (respuesta) => {
-        debugger
         this.ruta = respuesta;
         this.nombreArchivo = "certificado" + numeroHistoria + ".pdf";
         const linkSource = 'data:application/pdf;base64,' + this.ruta;

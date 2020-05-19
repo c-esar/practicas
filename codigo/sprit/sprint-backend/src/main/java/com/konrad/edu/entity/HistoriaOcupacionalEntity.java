@@ -120,6 +120,8 @@ public class HistoriaOcupacionalEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "seq_persona")
 	private PersonaEntity persona;
+	
+	private Long personaMedico;
 
 	@PrePersist
 	public void prePersist() {
@@ -293,4 +295,15 @@ public class HistoriaOcupacionalEntity implements Serializable {
 		this.aceptoCondiciones = aceptoCondiciones;
 	}
 
+	public Long getPersonaMedico() {
+		return personaMedico;
+	}
+
+	public void setPersonaMedico(Long personaMedico) {
+		this.personaMedico = personaMedico;
+	}
+
+
+
+	
 }

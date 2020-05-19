@@ -89,6 +89,8 @@ public class HistoriaGYMEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "seq_persona")
 	private PersonaEntity persona;
+	
+	private Long personaMedico;
 
 	@Column(name = "dia_historia_gym")
 	@Temporal(TemporalType.DATE)
@@ -298,7 +300,15 @@ public class HistoriaGYMEntity implements Serializable {
 		this.conducta = conducta;
 	}
 
-	
+	public Long getPersonaMedico() {
+		return personaMedico;
+	}
+
+	public void setPersonaMedico(Long personaMedico) {
+		this.personaMedico = personaMedico;
+	}
+
+
 	
 	
 }

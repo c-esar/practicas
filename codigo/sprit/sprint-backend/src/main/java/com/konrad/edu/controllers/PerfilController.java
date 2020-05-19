@@ -156,6 +156,10 @@ public class PerfilController {
 					if(personaNew.getPersona().get(0).getImagenEncriptada() != null) {
 						personaNew.getPersona().get(0).setImagen(new String(personaNew.getPersona().get(0).getImagenEncriptada()));
 					}
+				}else {
+					response.put("mensaje", "La persona no ha sido encontrada con éxito!");
+					response.put("persona", null);
+					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 				}
 			}
 		} catch (DataAccessException e) {

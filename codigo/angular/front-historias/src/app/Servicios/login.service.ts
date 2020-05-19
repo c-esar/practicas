@@ -53,7 +53,6 @@ export class LoginService implements CanActivate {
 
 
   getObtenerPersona(id: String): Observable<Login> {
-    debugger
     return this.httpClient.get(`${this.url + "login/obtenerPersona"}/${id}`, { headers: this.httpHeaders }).pipe(
       map( (respuesta: any) => respuesta.persona as Login),
       catchError(e => {
@@ -108,7 +107,6 @@ export class LoginService implements CanActivate {
   }
 
   setCurrentSession(session: Login): void {
-    debugger
     this.currentSession = session;
     this.localStorageService.setItem('currentUser', JSON.stringify(session));
   }
@@ -132,7 +130,6 @@ export class LoginService implements CanActivate {
     console.log("remover entre")
     this.localStorageService.removeItem('currentUser');
     this.currentSession = null;
-    debugger
   }
 
 }

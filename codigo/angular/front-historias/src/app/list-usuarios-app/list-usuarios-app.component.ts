@@ -102,7 +102,6 @@ export class ListUsuariosAppComponent implements OnInit {
       for (let i = 0; i < this.tipoUsuarioSelecionado.length; i++) {
         this.tmp.push(this.tipoUsuarioSelecionado[i].seqTipoUsuario.toString());
       }
-      debugger
       this.getDatosTabla();
     } else {
       Swal.fire('Error', 'Debe seleccionar un item de la lista', 'error');
@@ -111,10 +110,8 @@ export class ListUsuariosAppComponent implements OnInit {
   }
 
   private getDatosTabla(): void {
-    debugger
     this.personaService.onInformePersonas(this.tmp).subscribe(
       (respuesta) => {
-        debugger
         this.Datos = respuesta
         if (this.Datos.length > 0) {
           for (let i = 0; i < this.Datos.length; i++) {
@@ -145,11 +142,10 @@ export class ListUsuariosAppComponent implements OnInit {
           Swal.fire('Exitoso', 'Datos Encontrados', 'success');
         } else {
           document.getElementById("tablaDatos").style.display = "none";
-          Swal.fire('Error', 'Ningún dato registrado', 'error');
+          Swal.fire('Error', 'Ningún Dato Registrado', 'error');
         }
         console.log(respuesta)
       });
-    debugger
     // if (this.Datos != null || this.Datos.length > 0) {
     //   document.getElementById("tablaDatos").style.display = "block";
     // } else {
@@ -169,7 +165,6 @@ export class ListUsuariosAppComponent implements OnInit {
   }
 
   private obtenerPermisos(): void {
-    debugger
     this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos[0].crearAux;
     this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos[0].crearUsuario;
     this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos[0].gestionarUsuario;

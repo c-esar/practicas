@@ -24,11 +24,11 @@
                 <li><a href="/menuPrincipal">Inicio</a></li>
                 <li *ngIf="permiso.gestionarUsuario == 1"><a>Gestión Usuarios</a>
                   <ul>
-                    <li><a href="menuPrincipal/creacion-actualizacion">Creacion/Actualizacion</a></li>
-                    <li><a href="menuPrincipal/list-usuariosApp">Listado usuarios</a></li>
+                    <li><a href="menuPrincipal/creacion-actualizacion">Creación/Actualización</a></li>
+                    <li><a href="menuPrincipal/list-usuariosApp">Listado Usuarios</a></li>
                   </ul>
                 </li>
-                <li *ngIf="permiso.crearUsuario == 1 || permiso.crearAux == 1"><a>Pacientes</a>
+                <li *ngIf="permiso.crearUsuario == 1 || permiso.crearAux == 1"><a>Creación Formularios</a>
                   <ul>
                     <li *ngIf="permiso.crearUsuario == 1"><a href="menuPrincipal/list-usuariosApp">Listado Pacientes</a>
                     </li>

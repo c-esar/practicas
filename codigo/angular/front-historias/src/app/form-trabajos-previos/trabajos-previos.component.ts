@@ -23,7 +23,6 @@ export class TrabajosPreviosComponent implements OnInit {
   }
 
   guardarDatosGrillas():void{
-    debugger
     this.messageEvent.emit(this.empresaLabora);
   }
 

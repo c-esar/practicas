@@ -44,6 +44,8 @@ public class HistoriaGymEncriptacion implements Serializable {
 	private String conducta;
 
 	private String aceptoCondiciones;
+	
+	private Long personaMedico;
 
 	public HistoriaGymEncriptacion() {
 		this.historiaPreguntasGyms = new ArrayList<>();
@@ -189,4 +191,15 @@ public class HistoriaGymEncriptacion implements Serializable {
 		this.aceptoCondiciones = aceptoCondiciones;
 	}
 
+	public Long getPersonaMedico() {
+		return personaMedico;
+	}
+
+	public void setPersonaMedico(Long personaMedico) {
+		this.personaMedico = personaMedico;
+	}
+
+
+
+	
 }

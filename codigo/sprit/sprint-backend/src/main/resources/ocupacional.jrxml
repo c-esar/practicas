@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ocupacional" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d79f072-6031-41ef-a555-d43045149939">
-	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="677"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -2427,7 +2427,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Cuál (es) ?:" + $P{patologicoscual}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Cuál (es) ?: " + $P{patologicoscual}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="111" y="60" width="39" height="20" uuid="30225de4-8b14-4b13-8248-62cdc061a4aa"/>
@@ -2441,7 +2441,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Cuál (es) ?:" + $P{quirurgicoscual}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Cuál (es) ?: " + $P{quirurgicoscual}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="111" y="80" width="39" height="20" uuid="1b53b02c-416c-44df-b6a1-3dee7828ad90"/>
@@ -2455,7 +2455,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Cuál (es) ?:" +$P{farmacologicoscual}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Cuál (es) ?: " +$P{farmacologicoscual}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="111" y="100" width="39" height="20" uuid="a8483282-1ead-4784-953f-09046c6bedb9"/>
@@ -2469,7 +2469,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Cuál (es) ?:" +$P{alergicoscual}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Cuál (es) ?: " +$P{alergicoscual}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="111" y="120" width="39" height="20" uuid="024cbec5-e1c4-420b-a16e-f2833610eb62"/>
@@ -2483,7 +2483,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Cuál (es) ?:" +$P{traumaticoscual}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Cuál (es) ?: " +$P{traumaticoscual}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="111" y="140" width="39" height="20" uuid="6bbe0ffb-47ed-4adb-a02f-fadd5134d724"/>
@@ -2497,7 +2497,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Cuál (es) ?:" +$P{toxicoscual}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Cuál (es) ?: " +$P{toxicoscual}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="111" y="160" width="40" height="20" uuid="acca6e5c-333b-40d3-8eed-dbd41fba6df1"/>
@@ -2511,7 +2511,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Cuál (es) ?:" +$P{hospitalarioscual}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Cuál (es) ?: " +$P{hospitalarioscual}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="112" y="180" width="39" height="20" uuid="6255583a-2c38-45d3-8721-44146c01b538"/>
@@ -2525,7 +2525,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Cuál (es) ?:" +$P{inmunologicoscual}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Cuál (es) ?: " +$P{inmunologicoscual}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="112" y="240" width="40" height="20" uuid="55c06698-2bfe-4897-a031-9cd8d60eb647"/>
@@ -2667,8 +2667,8 @@ where p.seq_persona = $P{numeroPersona}]]>
 				</textElement>
 				<text><![CDATA[V]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="374" y="200" width="20" height="20" uuid="fa6d61af-7923-427c-802b-f4cbae787894"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="374" y="200" width="20" height="20" isRemoveLineWhenBlank="true" uuid="fa6d61af-7923-427c-802b-f4cbae787894"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -2677,7 +2677,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{G}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="414" y="200" width="20" height="20" uuid="0627973a-a0f2-4073-b215-b7a5b271ceaa"/>
 				<box>
 					<pen lineWidth="1.0"/>
@@ -2691,7 +2691,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{P}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="454" y="200" width="20" height="20" uuid="80d019c4-28ce-46cf-a20d-b83f3173b2b4"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
@@ -2701,7 +2701,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{C}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="494" y="200" width="20" height="20" uuid="56e567ef-0e1e-4823-bb9c-0f4cc18c33f0"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
@@ -2711,7 +2711,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{A}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="534" y="200" width="20" height="20" uuid="b4a31f78-3acb-4943-abb6-c2c7af4156df"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
@@ -2726,7 +2726,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Menarquia:" +$P{menarquia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Menarquia: " +$P{menarquia}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="752">
@@ -3192,11 +3192,11 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{numero_documento}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement mode="Opaque" x="23" y="11" width="168" height="88" backcolor="#000000" uuid="8531ff58-626b-47f6-834f-2d005d4e9781"/>
+				<reportElement mode="Transparent" x="23" y="11" width="168" height="88" backcolor="#FFFFFF" uuid="8531ff58-626b-47f6-834f-2d005d4e9781"/>
 				<imageExpression><![CDATA[$P{imagenPaciente}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement mode="Opaque" x="332" y="11" width="168" height="88" backcolor="#000000" uuid="a14cc210-e4a3-4779-aab2-ebebec2e17a0"/>
+				<reportElement mode="Transparent" x="332" y="11" width="168" height="88" backcolor="#FFFFFF" uuid="a14cc210-e4a3-4779-aab2-ebebec2e17a0"/>
 				<imageExpression><![CDATA[$P{imagenMedico}]]></imageExpression>
 			</image>
 			<textField>

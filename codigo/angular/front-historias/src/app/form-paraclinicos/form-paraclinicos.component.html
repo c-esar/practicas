@@ -6,11 +6,11 @@
 				<div class="form-group col-md-12 col-sm-12 col-xs-12">
 					<mat-form-field>
 						<mat-label for="formtablaEnfermedadesEmpresa">{{datosSingleton.labelExamen}}</mat-label>
-						<input matInput required
+						<textarea rows="2" cols="80" matInput required
 							pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
 							[(ngModel)]="paraclinicos.despExamen" name="tablaEnfermedadesEmpresa"
 							id="formtablaEnfermedadesEmpresa" type="text" class="form-control campoGrande "
-							placeholder="{{datosSingleton.tablaEnfermedadesEmpresa}}">
+							placeholder="{{datosSingleton.tablaEnfermedadesEmpresa}}"></textarea>
 						<mat-error>Texto Incorrecto</mat-error>
 					</mat-form-field>
 				</div>
@@ -24,11 +24,11 @@
 				<div class="form-group col-md-12 col-sm-12 col-xs-6">
 					<mat-form-field>
 						<mat-label for=" formtablaFactoresTiempo">{{datosSingleton.labelResultado}}</mat-label>
-						<input matInput required
+						<textarea rows="2" cols="80" matInput required
 							pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
 							[(ngModel)]="paraclinicos.despResultado" name="tablaFactoresTiempo" id="formtablaFactoresTiempo"
 							type="text" class="form-control campoGrande "
-							placeholder="{{datosSingleton.tablaFactoresTiempo}}">
+							placeholder="{{datosSingleton.tablaFactoresTiempo}}"></textarea>
 						<mat-error>Texto Incorrecto</mat-error>
 					</mat-form-field>
 				</div>

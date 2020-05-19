@@ -28,6 +28,7 @@ export class Historias {
   otroEvaluacion: string;
   persona: Persona;
   aceptoCondiciones: string;
+  personaMedico: number;
   constructor() {
     this.seqHistoria = null;
     this.historiaLaboral = new HistoriaLaboral();
@@ -47,6 +48,7 @@ export class Historias {
     this.recomHabitos = null;
     this.otroEvaluacion = null;
     this.persona = new Persona();
+    this.personaMedico = null;
     this.aceptoCondiciones = null;
   }
 }

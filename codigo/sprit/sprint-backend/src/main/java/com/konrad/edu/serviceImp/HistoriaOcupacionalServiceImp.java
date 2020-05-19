@@ -17,4 +17,10 @@ public class HistoriaOcupacionalServiceImp implements IHistoriaOcupacionalServic
 	public HistoriaOcupacionalEntity save(HistoriaOcupacionalEntity historia) {
 		return historiaDao.save(historia);
 	}
+
+	@Override
+	public boolean alterConcepto() {
+		return historiaDao.alterConcepto();
+		
+	}
 }

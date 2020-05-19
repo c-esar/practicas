@@ -57,4 +57,9 @@ public class PersonaServiceImp implements IPersonaService {
 		personaDao.eliminarConstRolUsuario();
 	}
 
+	@Override
+	public PersonaEntity findByPersonaMedico(String numero_documento) {
+		return personaDao.findByPersonaMedico(numero_documento);
+	}
+
 }

@@ -51,7 +51,6 @@ public class ReportesServiceImp implements IReportesService {
 			File file = ResourceUtils.getFile("classpath:historiasGym.jrxml");
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 			PersonaEntity persona = this.obtenerInformacion(id);
-			PersonaEntity medico = obtenerInformacion(documentoMedico);
 			HistoriaGYMEntity historia = new HistoriaGYMEntity();
 			for (int i = 0; i < persona.getHistoriaGymEncriptacion().size(); i++) {
 				if (persona.getHistoriaGymEncriptacion().get(i).getSeqHistoriaGym().intValue() == historias) {
@@ -61,6 +60,7 @@ public class ReportesServiceImp implements IReportesService {
 			}
 			Map<String, Object> parameters = new HashMap<>();
 			String impresionDiagnostica = "";
+			PersonaEntity medico = personaDao.findByPersonaMedico(historia.getPersonaMedico().toString());
 			for (int i = 0; i < historia.getHistoriaPreguntasGyms().size(); i++) {
 				switch (historia.getHistoriaPreguntasGyms().get(i).getTipoPreguntaHistoriaGymEntity()
 						.getNomPregunta()) {
@@ -131,9 +131,9 @@ public class ReportesServiceImp implements IReportesService {
 				}
 			}
 			parameters.put("impresionDiagnostica", impresionDiagnostica);
-			parameters.put("numeroPersona", persona.getSeqPersona());
-			persona.setImagen(new String(persona.getImagenEncriptada()));
+			parameters.put("numeroPersona", persona.getSeqPersona());		
 			if(persona.getImagenEncriptada() != null) {
+				persona.setImagen(new String(persona.getImagenEncriptada()));
 				persona.setImagen(new String(persona.getImagenEncriptada()));
 				parameters.put("imagenPaciente", crearImagenPaciente(persona.getImagen(), "paciente"));
 			}
@@ -177,7 +177,6 @@ public class ReportesServiceImp implements IReportesService {
 			Map<String, Object> parameters = new HashMap<>();
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 			PersonaEntity persona = this.obtenerInformacion(id);
-			PersonaEntity medico = this.obtenerInformacion(documentoMedico);
 			PersonaEntity historia = new PersonaEntity();
 			for (int i = 0; i < persona.getHistoriasEncriptacion().size(); i++) {
 				if (persona.getHistoriasEncriptacion().get(i).getSeqHistoria().intValue() == historias) {
@@ -185,6 +184,7 @@ public class ReportesServiceImp implements IReportesService {
 					break;
 				}
 			}
+			PersonaEntity medico = this.personaDao.findByPersonaMedico(historia.getHistoriasEncriptacion().get(0).getPersonaMedico().toString());
 			for (int i = 0; i < historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
 					.size(); i++) {
 				switch (historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)

@@ -144,7 +144,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.personaLogin = this.loginService.obtenerPerfilSesion().persona[0];
     this.personaService.onBuscarDocumento(this.personaLogin).subscribe(
       (response) => {
-        debugger;
         this.personaLogin = new Persona();
         this.personaLogin = response;
         this.onCargaImagenMedico();
@@ -153,9 +152,8 @@ export class FormGymComponent implements OnInit, AfterViewInit {
   }
 
   private onCargaImagenMedico(): void {
-    debugger;
     if (this.personaLogin.imagen != null) {
-      this.firmaMedico = this._sanitizer.bypassSecurityTrustResourceUrl(this.personaLogin.imagen);
+      this.firmaMedico = this.personaLogin.imagen;//this._sanitizer.bypassSecurityTrustResourceUrl();
     } else {
       this.firmaMedico = null;
     }
@@ -214,7 +212,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
   }
 
   public onLimpiar(): void {
-    debugger
     this.onCargarAtributos();
     this.onCargarFunciones();
     this.firmaPacientehtml.ngAfterViewInit();
@@ -233,7 +230,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
 
     setTimeout(() => {
       let tmpDoc = this.persona.numeroDocumento;
-      debugger
       this.Spersona = new Persona();
       this.onCargarAtributosNuevos();
       this.persona.aseguradora = new Aseguradora();
@@ -245,7 +241,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
       this.persona.historiaGym[0].ciudadHistoria.seqCuidad = 0;
       this.personaService.onBuscarDocumento(this.persona).subscribe(
         (respuesta) => {
-          debugger
           console.log(respuesta);
           this.Spersona = respuesta;
           this.seqPersona = respuesta.seqPersona;
@@ -259,7 +254,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
             this.persona.lugarNacimiento = new Ciudad();
           }
           if (this.Spersona.imagen != null) {
-            this.firmaPaciente = this._sanitizer.bypassSecurityTrustResourceUrl(this.Spersona.imagen);
+            this.firmaPaciente = this.Spersona.imagen;//this._sanitizer.bypassSecurityTrustResourceUrl(this.Spersona.imagen);
           } else {
             this.firmaPaciente = null;
           }
@@ -284,7 +279,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
   }
 
   private onListaNuevatipoUsuario(lista: TipoUsuario[]): void {
-    debugger
     for (let i = 0; i < lista.length; i++) {
       for (let j = 0; j < this.tipoUsuario.length; j++) {
         if (lista[i].seqTipoUsuario === this.tipoUsuario[j].seqTipoUsuario) {
@@ -381,7 +375,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
   }
 
   public onGuardarCuestionario(estado: string, id: string): void {
-    debugger;
     let entre = true;
     let pos = this.persona.historiaGym[0].cuestionarioGymEntity.length;
     for (let i = 0; i < this.persona.historiaGym[0].cuestionarioGymEntity.length; i++) {
@@ -456,7 +449,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
   }
 
   public onFuncionesHistoriaFamiliar(nom: string, id: number): void {
-    debugger
     if (nom === "OTROS" && id === 10 && this.estadoFamiliar) {
       document.getElementById("formotrafamiliargym").style.display = "none";
       this.persona.historiaGym[0].otraFamiliar = null;
@@ -568,7 +560,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
 
 
   public create(): void {
-    debugger
     setTimeout(() => {
       Swal.fire({
         title: this.datosSingleton.mensajeBarProgress,
@@ -578,13 +569,11 @@ export class FormGymComponent implements OnInit, AfterViewInit {
       })
     }, 500);
     setTimeout(() => {
-      debugger
       if (this.persona.historiaGym[0].aceptoCondiciones != null) {
         this.persona.historiaGym[0].aceptoCondiciones = "true";
         this.onCargarPreguntas();
         this.firmaMedico = this.firmaMedicohtml.imagenUsuario == null || this.firmaMedicohtml.imagenUsuario == undefined ? this.firmaMedico : this.firmaMedicohtml.imagenUsuario;
         this.firmaPaciente = this.firmaPacientehtml.imagenUsuario == null || this.firmaPacientehtml.imagenUsuario == undefined ? this.firmaPaciente : this.firmaPacientehtml.imagenUsuario;
-        debugger
         if (this.firmaMedico != null && this.firmaPaciente != null) {
           this.personaLogin.imagen = this.firmaMedico;
           this.actualizarFirmaMedico();
@@ -592,10 +581,9 @@ export class FormGymComponent implements OnInit, AfterViewInit {
           if (this.onValidarPreguntas() && this.guardado) {
             if (this.permiso.crearUsuario === 1) {
               this.persona.historiaGym[0].examenFisico = this.examenFisico;
+              this.persona.historiaGym[0].personaMedico = this.personaLogin.seqPersona;
               if (this.onCargarTipoUsuario()) {
-                debugger
                 if (this.buscoPerson) {
-                  debugger
                   this.historiaUpdate = this.persona.historiaGym[0];
                   this.historiaUpdate.persona.seqPersona = this.seqPersona;
                   this.createHistoria();
@@ -604,7 +592,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
                   this.persona.lugarDeResidencia.seqCuidad = 0;
                   this.actualizarPerson(this.Spersona);
                   console.log(this.persona);
-                  debugger
                   this.personaService.create(this.persona, "1").subscribe(
                     response => {
                       console.log(response);
@@ -671,7 +658,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
 
 
   private onCargarTipoUsuario(): boolean {
-    debugger
     let contar = 0;
     for (let j = 0; j < this.tipoUsuario.length; j++) {
       switch (this.tipoUsuario[j].nomTipoUsuario) {
@@ -765,11 +751,9 @@ export class FormGymComponent implements OnInit, AfterViewInit {
   }
 
   createHistoria(): void {
-    debugger
     this.historiaUpdate.persona.seqPersona = this.Spersona.seqPersona;
     this.historiaService.createGym(this.historiaUpdate).subscribe(
       response => {
-        debugger
         console.log(response);
         Swal.fire('Exitoso', 'Persona Registrada', 'success');
         this.guardado = false;
@@ -779,7 +763,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
   }
 
   private onValidarPreguntas(): boolean {
-    debugger
     for (var i = 0; i < this.persona.historiaGym[0].historiaPreguntasGyms.length; i++) {
       switch (this.persona.historiaGym[0].historiaPreguntasGyms[i].tipoPreguntaHistoriaGymEntity.nomPregunta) {
         case "EMBARAZO": {
@@ -858,7 +841,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
   }
 
   private actualizarPerson(per: Persona): void {
-    debugger
     this.persona.seqPersona = per.seqPersona;
     this.persona.nomPrimerNombre = this.persona.nomPrimerNombre == null ? per.nomPrimerNombre : this.persona.nomPrimerNombre;
     this.persona.nomPrimerApellido = this.persona.nomPrimerApellido == null ? per.nomPrimerApellido : this.persona.nomPrimerApellido;
@@ -888,7 +870,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.persona.parentescoEmergencia = this.persona.parentescoEmergencia == null ? per.parentescoEmergencia : this.persona.parentescoEmergencia;
     this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
-    debugger
     this.persona.imagen = this.persona.imagen == null ? per.imagen : this.persona.imagen;
   }
   private onLabels(): void {

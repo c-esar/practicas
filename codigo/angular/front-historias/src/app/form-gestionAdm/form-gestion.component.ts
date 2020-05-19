@@ -173,7 +173,6 @@ export class FormGestionComponent implements OnInit, AfterViewInit {
 
     setTimeout(() => {
       let tmpDoc = this.persona.numeroDocumento;
-      debugger
       this.onCargarAtributosNuevos();
       this.Spersona = new Persona();
       this.persona.aseguradora = new Aseguradora();
@@ -184,7 +183,6 @@ export class FormGestionComponent implements OnInit, AfterViewInit {
       this.tipoUsuarioU = "";
       this.loginService.getObtenerPersona(this.persona.numeroDocumento).subscribe(
         (respuesta) => {
-          debugger
           console.log(respuesta);
           if (respuesta != null) {
             this.perfil = respuesta;
@@ -253,7 +251,6 @@ export class FormGestionComponent implements OnInit, AfterViewInit {
     }
   }
   private onListaNuevatipoUsuario(lista: TipoUsuario[]): void {
-    debugger
     for (let i = 0; i < lista.length; i++) {
       for (let j = 0; j < this.tipoUsuario.length; j++) {
         if (lista[i].seqTipoUsuario === this.tipoUsuario[j].seqTipoUsuario) {
@@ -321,17 +318,14 @@ export class FormGestionComponent implements OnInit, AfterViewInit {
     }, 500);
 
     setTimeout(() => {
-      debugger
       this.persona.localidad.seqLocalidad = 0;
       this.persona.lugarDeResidencia.seqCuidad = 0;
       this.persona.lugarNacimiento.seqCuidad = 0;
       this.perfil.permisos = new Array<Permiso>();
       this.perfil.persona = new Array<Persona>();
       if (this.onCargarPermisos()) {
-        debugger
         if (this.onCargarTipoUsuario(this.Spersona.rolUsuario)) {
           this.actualizarPerson(this.Spersona);
-          debugger
           this.perfil.nomUsuario = this.persona.nomPrimerNombre.toLocaleLowerCase() + "." + this.persona.nomPrimerApellido.toLocaleLowerCase();
           if (this.firma.imagenUsuario != null || this.firma.imagenUsuario != undefined) {
             this.persona.imagen = this.firma.imagenUsuario;
@@ -339,7 +333,6 @@ export class FormGestionComponent implements OnInit, AfterViewInit {
           this.perfil.persona.push(this.persona);
           this.loginService.create(this.perfil).subscribe(
             response => {
-              debugger
               console.log(response);
               if (this.buscoPerson) {
                 Swal.fire('Exitoso', 'Persona Actualizada', 'success');
@@ -392,7 +385,6 @@ export class FormGestionComponent implements OnInit, AfterViewInit {
   }
 
   private onCargarTipoUsuario(rol: TipoUsuario[]): boolean {
-    debugger
     let contar = 0;
     for (let j = 0; j < this.tipoUsuario.length; j++) {
       switch (this.tipoUsuario[j].nomTipoUsuario) {
@@ -486,7 +478,6 @@ export class FormGestionComponent implements OnInit, AfterViewInit {
   }
 
   private actualizarPerson(per: Persona): void {
-    debugger
     this.persona.seqPersona = per.seqPersona;
     this.persona.nomPrimerNombre = this.persona.nomPrimerNombre == null ? per.nomPrimerNombre : this.persona.nomPrimerNombre;
     this.persona.nomPrimerApellido = this.persona.nomPrimerApellido == null ? per.nomPrimerApellido : this.persona.nomPrimerApellido;

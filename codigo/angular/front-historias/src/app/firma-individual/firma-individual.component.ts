@@ -16,7 +16,6 @@ export class FirmaIndividualComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    debugger
     const color = 'rgb(0,0,0)';
     this.signaturePad = new SignaturePad(this.signaturePadElement1.nativeElement);
     this.signaturePad.penColor = color;
