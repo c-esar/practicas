@@ -5,7 +5,7 @@
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
           <mat-form-field>
             <mat-label for="formtablaTrabajoPreLabelEmpresa">{{datosSingleton.tablaTrabajoPreLabelEmpresa}}</mat-label>
-            <textarea rows="2" cols="80" matInput required pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="empresaLabora.nomEmpresa" name="tablaTrabajoPreLabelEmpresa" id="formtablaTrabajoPreLabelEmpresa" type="text"
+            <textarea rows="2" cols="80" matInput required  [(ngModel)]="empresaLabora.nomEmpresa" name="tablaTrabajoPreLabelEmpresa" id="formtablaTrabajoPreLabelEmpresa" type="text"
               class="form-control campoGrande " placeholder="{{datosSingleton.tablaTrabajoPreLabelEmpresa}}"></textarea>
             <mat-error>Texto Incorrecto</mat-error>
           </mat-form-field>
@@ -13,7 +13,7 @@
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
           <mat-form-field>
             <mat-label for="formtablaTrabajoPreLabelCargOficina">{{datosSingleton.tablaTrabajoPreLabelCargOficina}}</mat-label>
-            <textarea rows="2" cols="80" matInput required pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$" [(ngModel)]="empresaLabora.cargo" name="tablaTrabajoPreLabelCargOficina" id="formtablaTrabajoPreLabelCargOficina"
+            <textarea rows="2" cols="80" matInput required  [(ngModel)]="empresaLabora.cargo" name="tablaTrabajoPreLabelCargOficina" id="formtablaTrabajoPreLabelCargOficina"
               type="text" class="form-control campoGrande " placeholder="{{datosSingleton.tablaTrabajoPreLabelCargOficina}}"></textarea>
             <mat-error>Texto Incorrecto</mat-error>
           </mat-form-field>

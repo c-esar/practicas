@@ -24,6 +24,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTableModule } from '@angular/material/table';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { UserIdleModule } from 'angular-user-idle';
+import {MatMenuModule} from '@angular/material/menu';
 //componentes
 import { FormGymComponent } from './form-gym/form-gym.component';
 import { ListUsuariosAppComponent } from './list-usuarios-app/list-usuarios-app.component';
@@ -112,6 +113,7 @@ const routes: Routes = [
     MatCheckboxModule,
     MatTableModule,
     MatRadioModule,
+    MatMenuModule,
     ModalModule.forRoot(),
     GridModule,
     SignaturePadModule,

@@ -168,12 +168,15 @@ caption{
   display:none;
 }
 ejs-grid{
-  height: 100%;
+  min-height: 100%;
   overflow-y: auto;
   width: 100% !important;
 }
+e-content{
+  overflow-y: inherit !important;
+}
 table{
-  width:100%;
+  min-width:100%;
   border-collapse: collapse;
 }
 thead{
@@ -182,16 +185,16 @@ thead{
 }
 th{
   min-width: 200px !important;
+  max-width: 200px !important;
   border-right: 1px solid #ccc;
   border-left: 1px solid #ccc;
-  word-wrap: break-word;
   text-align: left;
 }
 td{
   min-width:200px !important;
+  max-width: 200px !important;
   border-right: 1px solid #ccc;
   border-left: 1px solid #ccc;
-  word-wrap: break-word;
   text-align: left;
 }
 tr{

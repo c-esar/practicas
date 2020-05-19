@@ -12,11 +12,13 @@ export class HeaderComponent implements OnInit {
   perfil: string;
   nomUsuario: string;
   permiso: Permiso;
+  anchoPantalla : any;
   constructor(private loginService: LoginService) {
     this.permiso = new Permiso();
   }
 
   ngOnInit(): void {
+    this.funtionResize();
     this.perfil = this.loginService.obtenerPerfilSesion().persona[0].rolUsuario[0].nomTipoUsuario;
     //this.nomUsuario = this.loginService.obtenerPerfilSesion().nomUsuario;
     this.isLogueado = this.loginService.isAutorization();
@@ -25,6 +27,13 @@ export class HeaderComponent implements OnInit {
 
   public salirApp(): void {
     this.loginService.logOut();
+  }
+
+  public funtionResize(): void {
+    var widthBrowser = window.outerWidth;
+    this.anchoPantalla = window.outerWidth;
+    var heightBrowser = window.outerHeight;
+    console.log("Tamaño de la pantalla del navegador: width=" + widthBrowser + ", height=" + heightBrowser);
   }
 
   private obtenerPermisos(): void {
