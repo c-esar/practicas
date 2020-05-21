@@ -18,4 +18,9 @@ public class CertificadoServiceImp implements ICertificadoService {
 		return certificadoDao.save(persona);
 	}
 
+	@Override
+	public CertificadoEntity findByNumeroHistoria(Long seqHistoria) {
+		return certificadoDao.findByNumeroHistoria(seqHistoria);
+	}
+
 }

@@ -572,6 +572,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
       if (this.persona.historiaGym[0].aceptoCondiciones != null) {
         this.persona.historiaGym[0].aceptoCondiciones = "true";
         this.onCargarPreguntas();
+        debugger;
         this.firmaMedico = this.firmaMedicohtml.imagenUsuario == null || this.firmaMedicohtml.imagenUsuario == undefined ? this.firmaMedico : this.firmaMedicohtml.imagenUsuario;
         this.firmaPaciente = this.firmaPacientehtml.imagenUsuario == null || this.firmaPacientehtml.imagenUsuario == undefined ? this.firmaPaciente : this.firmaPacientehtml.imagenUsuario;
         if (this.firmaMedico != null && this.firmaPaciente != null) {
@@ -586,6 +587,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
                 if (this.buscoPerson) {
                   this.historiaUpdate = this.persona.historiaGym[0];
                   this.historiaUpdate.persona.seqPersona = this.seqPersona;
+                  this.updatePersona();
                   this.createHistoria();
                 } else {
                   this.persona.localidad.seqLocalidad = 0;
@@ -870,7 +872,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.persona.parentescoEmergencia = this.persona.parentescoEmergencia == null ? per.parentescoEmergencia : this.persona.parentescoEmergencia;
     this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
-    this.persona.imagen = this.persona.imagen == null ? per.imagen : this.persona.imagen;
   }
   private onLabels(): void {
     this.labelService.getLabel().subscribe(

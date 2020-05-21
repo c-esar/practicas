@@ -565,6 +565,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
               if (this.buscoPerson) {
                 this.historiaUpdate = this.persona.historias[0];
                 this.historiaUpdate.persona.seqPersona = this.seqPersona;
+                this.updatePersona();
                 this.createHistoria();
               } else {
                 console.log(this.persona)
@@ -574,7 +575,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
                     this.guardado = false;
                     this.onBarProgress('salir');
                     Swal.fire('Exitoso', 'Persona Registrada', 'success');
-                    this.router.navigate(['/menuPrincipal'])
+                    this.router.navigate(['/menuPrincipal']);
                   }
                 );
               }

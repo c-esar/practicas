@@ -1,17 +1,18 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LabelService } from '../Servicios/label.service';
 import { LoginService } from '../Servicios/login.service';
 import { HistoriasService } from '../Servicios/historias.service';
 import { PersonaService } from '../Servicios/persona.service';
 import { Persona } from '../DatosBean/persona';
 import { Certificado } from '../DatosBean/certificado';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Permiso } from '../DatosBean/permiso';
 import { FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { TipoEvaluacion } from '../DatosBean/tipoEvaluacion';
 import { of, Observable, throwError } from 'rxjs';
 import { UserIdleService } from 'angular-user-idle';
+import { ReportesService } from '../Servicios/reportes.service';
 declare var jQuery: any;
 declare var $: any;
 
@@ -30,6 +31,8 @@ export class FormCertificadoComponent implements OnInit {
   permiso: Permiso;
   tipoEvaluacion: TipoEvaluacion[];
   certificado: Certificado;
+  ruta: String;
+  nombreArchivo: string;
   //constantes
   private PERSONA_PACIENTE: string = "Paciente";
 
@@ -38,8 +41,10 @@ export class FormCertificadoComponent implements OnInit {
     private personaService: PersonaService,
     private router: Router,
     private historiaService: HistoriasService,
-    private userIdle: UserIdleService
-    ) {
+    private userIdle: UserIdleService,
+    private activatedRoute: ActivatedRoute,
+    private reportes: ReportesService
+  ) {
   }
 
   ngOnInit(): void {
@@ -54,6 +59,7 @@ export class FormCertificadoComponent implements OnInit {
     setTimeout(() => {
       this.onCargarAtributos();
       this.onCargarFunciones();
+      this.verificarCertificado();
     }, 1000);
 
     this.userIdle.startWatching();
@@ -62,8 +68,8 @@ export class FormCertificadoComponent implements OnInit {
     this.userIdle.onTimerStart().subscribe(count => console.log(count));
 
     // Start watch when time is up.
-    this.userIdle.onTimeout().subscribe(() => {     
-      this.loginService.logOut();  
+    this.userIdle.onTimeout().subscribe(() => {
+      this.loginService.logOut();
       this.router.navigate(['login']);
       Swal.fire('Tiempo agotado', 'Inactivo', 'error');
     });
@@ -84,12 +90,61 @@ export class FormCertificadoComponent implements OnInit {
   restart() {
     this.userIdle.resetTimer();
   }
+
+  verificarCertificado(): void {
+    this.activatedRoute.params.subscribe(params => {
+      let id = params['id']
+      if (id) {
+        debugger;
+        this.onVerificarCertificado(id);
+        this.certificado.historiaOcupacionalEntity.seqHistoria = id;
+      }
+    });
+  }
+
+  onVerificarCertificado(id): void {
+    setTimeout(() => {
+      Swal.fire({
+        title: 'Cargando Informacion',
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
+    }, 500);
+    setTimeout(() => {
+      this.historiaService.buscarCertificado(id).subscribe(
+        (respuesta) => {
+          if (respuesta != null) {
+            this.onReporteCertificado(respuesta);
+          } else {
+            Swal.fire('Error', 'No se encuentra certificado guardado', 'error');
+          }
+        });
+    }, 1000);
+  }
+
+  onReporteCertificado(seqCertificado: number): void {
+    this.reportes.onReporteHistoriasCertificado(seqCertificado).subscribe(
+      (respuesta) => {
+        debugger
+        this.ruta = respuesta;
+        this.nombreArchivo = "certificado.pdf";
+        const linkSource = 'data:application/pdf;base64,' + respuesta;
+        const downloadLink = document.createElement("a");
+        const fileName = this.nombreArchivo;
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+      }
+    )
+    this.router.navigate(['menuPrincipal']);
+  }
   onCargarAtributos(): void {
     debugger
     this.certificado = new Certificado();
     this.persona = new Persona();
     this.permiso = new Permiso();
-    this.Spersona = new Persona(); 
+    this.Spersona = new Persona();
     this.buscoPerson = false;
     $('#formOtroEvaluacion').hide();
   }
@@ -110,80 +165,26 @@ export class FormCertificadoComponent implements OnInit {
   onOpcionEvaluacion($event): void {
     this.certificado.otroEvaluacion = null;
     $('#formOtroEvaluacion').hide();
+    debugger;
     switch ($event.value.nomEval) {
       case "INGRESO": {
-        this.certificado.tipoEvaluacionEntity = $event.value;
+        this.certificado.tipoEvaluacionEntity = $event.value.seqEval;
         break;
       }
       case "PERIÓDICO": {
-        this.persona.historias[0].tipoEvaluacionEntity = $event.value;
+        this.certificado.tipoEvaluacionEntity = $event.value.seqEval;
         break;
       }
       case "EGRESO": {
-        this.certificado.tipoEvaluacionEntity = $event.value;
+        this.certificado.tipoEvaluacionEntity = $event.value.seqEval;
         break;
       }
       case "OTRO": {
-        this.certificado.tipoEvaluacionEntity = $event.value;
+        this.certificado.tipoEvaluacionEntity = $event.value.seqEval;
         $('#formOtroEvaluacion').show();
         break;
       }
     }
-  }
-
-  public onValidatePersona(): void {
-    setTimeout(() => {
-      Swal.fire({
-        title: 'Buscando',
-        timer: 10000,
-        timerProgressBar: true,
-        showConfirmButton: false
-      })
-    }, 500);
-
-    setTimeout(() => {
-      let tmpDoc = this.persona.numeroDocumento;
-      this.Spersona = new Persona();
-      this.buscoPerson = false;
-      this.personaService.onBuscarDocumento(this.persona).subscribe(
-        (respuesta) => {
-          console.log(respuesta);
-          this.Spersona = respuesta;
-          this.persona.seqPersona = this.Spersona.seqPersona;
-          this.buscoPerson = true;
-          Swal.fire('Exitoso', 'Persona Registrada', 'success');
-        }
-      );
-    }, 1000);
-  }
-
-  private actualizarPerson(per: Persona): void {
-    this.persona.seqPersona = per.seqPersona;
-    this.persona.nomPrimerNombre = this.persona.nomPrimerNombre == null ? per.nomPrimerNombre : this.persona.nomPrimerNombre;
-    this.persona.nomPrimerApellido = this.persona.nomPrimerApellido == null ? per.nomPrimerApellido : this.persona.nomPrimerApellido;
-    this.persona.nomSegundoNombre = this.persona.nomSegundoNombre == null ? per.nomSegundoNombre : this.persona.nomSegundoNombre;
-    this.persona.nomSegundoApellido = this.persona.nomSegundoApellido == null ? per.nomSegundoApellido : this.persona.nomSegundoApellido;
-    this.persona.tipoDocumento = (this.persona.tipoDocumento == null || this.persona.tipoDocumento.seqTipoDocumento == null) ? per.tipoDocumento : this.persona.tipoDocumento;
-    this.persona.numeroDocumento = this.persona.numeroDocumento == null ? per.numeroDocumento : this.persona.numeroDocumento;
-    this.persona.edad = this.persona.edad == null ? per.edad : this.persona.edad;
-    this.persona.direccion = this.persona.direccion == null ? per.direccion : this.persona.direccion;
-    this.persona.telefono = this.persona.telefono == null ? per.telefono : this.persona.telefono;
-    this.persona.celular = this.persona.celular == null ? per.celular : this.persona.celular;
-    this.persona.genero = this.persona.genero == null ? per.genero : this.persona.genero;
-    this.persona.estadoCivil = this.persona.estadoCivil == null ? per.estadoCivil : this.persona.estadoCivil;
-    this.persona.fechaNacimiento = this.persona.fechaNacimiento == null ? per.fechaNacimiento : this.persona.fechaNacimiento;
-    this.persona.lugarDeResidencia = (this.persona.lugarDeResidencia == null || this.persona.lugarDeResidencia.seqCuidad == null) ? per.lugarDeResidencia : this.persona.lugarDeResidencia;
-    this.persona.escolaridad = this.persona.escolaridad == null ? per.escolaridad : this.persona.escolaridad;
-    this.persona.nomCargoDep = this.persona.nomCargoDep == null ? per.nomCargoDep : this.persona.nomCargoDep;
-    this.persona.afp = this.persona.afp == null ? per.afp : this.persona.afp;
-    this.persona.arl = this.persona.arl == null ? per.arl : this.persona.arl;
-    this.persona.aseguradora = (this.persona.aseguradora == null || this.persona.aseguradora.seqAseguradora == null) ? per.aseguradora : this.persona.aseguradora;
-    this.persona.rh = this.persona.rh == null ? per.rh : this.persona.rh;
-    this.persona.nomEmergencia = this.persona.nomEmergencia == null ? per.nomEmergencia : this.persona.nomEmergencia;
-    this.persona.telEmergencia = this.persona.telEmergencia == null ? per.telEmergencia : this.persona.telEmergencia;
-    this.persona.parentescoEmergencia = this.persona.parentescoEmergencia == null ? per.parentescoEmergencia : this.persona.parentescoEmergencia;
-    this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
-    this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
   }
 
   private getPermisos(): void {
@@ -194,7 +195,16 @@ export class FormCertificadoComponent implements OnInit {
     console.log(this.permiso.crearAux);
   }
 
-  guardar(): void{
-
+  guardar(): void {
+    debugger
+    this.historiaService.createCertificado(this.certificado).subscribe(
+      (respuesta) => {
+        if (respuesta == null) {
+          Swal.fire('Error', 'Problemas al guardar', 'error');
+        } else {
+          Swal.fire('Exitoso', 'Certificado Creado Se puede Descargar', 'success');
+          this.onVerificarCertificado(respuesta.historiaOcupacionalEntity.seqHistoria);
+        }
+      })
   }
 }

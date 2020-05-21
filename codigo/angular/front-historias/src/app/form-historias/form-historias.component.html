@@ -56,17 +56,10 @@
                     <mat-cell *matCellDef="let element"> {{element.FechaCita}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="Detalle">
+                  <ng-container matColumnDef="Detalle" *ngIf="permiso.crearUsuario === 1">
                     <mat-header-cell *matHeaderCellDef> Historias </mat-header-cell>
                     <mat-cell *matCellDef="let element">
                     <button mat-raised-button (click)="descargarDetalle(element.documento, element.numeroHistoria, element.tipoHistoria)" color="primary"> Detalle historia</button>
-                    </mat-cell>
-                  </ng-container>
-
-                  <ng-container matColumnDef="Certificado">
-                    <mat-header-cell *matHeaderCellDef> Certificado </mat-header-cell>
-                    <mat-cell *matCellDef="let element">
-                    <button mat-raised-button (click)="descargarCertificado(element.numeroHistoria,element.tipoHistoria)" color="primary"> Descargar Certificado</button>
                     </mat-cell>
                   </ng-container>
 

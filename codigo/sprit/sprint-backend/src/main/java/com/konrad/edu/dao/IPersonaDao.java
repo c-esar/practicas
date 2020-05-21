@@ -68,7 +68,7 @@ public interface IPersonaDao extends CrudRepository<PersonaEntity, Long> {
 	
 	@Query(value = "select * from  hc_personas u " +
 			" where u.seq_persona = ?1", nativeQuery = true)
-	public PersonaEntity findByPersonaMedico(@Param("documento") String id);
+	public PersonaEntity findByPersonaMedico(@Param("seq_persona") String id);
 	
 	@Query(value = "ALTER TABLE hc_rol_usuario_persona DROP CONSTRAINT tipo_usuario", nativeQuery = true)
 	public void eliminarConstRolUsuario();

@@ -1,8 +1,8 @@
 <div class="container-fluid">
     <div class="row">
-		<div class="col-md-12 col-sm-12 col-xs-12" id="container-fluid">
-			<app-header></app-header>
-		</div>
+        <div class="col-md-12 col-sm-12 col-xs-12" id="container-fluid">
+            <app-header></app-header>
+        </div>
         <div class="col-md-12 col-sm-12 col-xs-12" style="top:10px;">
             <div class="card text-center col-md-12 col-sm-12 col-xs-12">
                 <div class="card-header col-md-12 col-sm-12 col-xs-12">
@@ -20,7 +20,7 @@
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <h3>CERTIFICADO DE APTITUD LABORAL</h3>
                             </div>
-                           <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                 <mat-form-field>
                                     <mat-label for="formlabelfecha">
                                         FECHA
@@ -30,42 +30,38 @@
                                     <mat-datepicker #picker1></mat-datepicker>
                                 </mat-form-field>
                             </div>
-                            
+
                             <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                 <mat-form-field>
                                     <mat-label for="formNombre">NOMBRE:</mat-label>
                                     <input matInput required
                                         pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
-                                        (ngModelChange)="certificado.nombre = $event"
-                                        name="nombre" id="formNombre" type="text" class="form-control campoGrande "
-                                        placeholder="NOMBRE">
+                                        [(ngModel)]="certificado.nombre" name="nombre" id="formNombre" type="text"
+                                        class="form-control campoGrande " placeholder="NOMBRE">
                                     <mat-error>Texto Incorrecto</mat-error>
                                 </mat-form-field>
                             </div>
-                            
+
                             <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                 <mat-form-field>
                                     <mat-label for="formdi">D.I NO.
                                     </mat-label>
-                                    <input matInput required
-                                        (ngModelChange)="certificado.numero = $event" name="di" id="formdi" type="text"
-                                        class="form-control campoGrande " placeholder="D.I NO."
-                                        >
+                                    <input matInput required [(ngModel)]="certificado.numero" name="di" id="formdi"
+                                        type="text" class="form-control campoGrande " placeholder="D.I NO.">
                                     <mat-error>Texto Incorrecto</mat-error>
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <h3>CONCEPTO</h3>
                             </div>
-                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <mat-form-field>
                                     <mat-label for="formexamenesRealizados">EXÁMENES REALIZADOS:
                                     </mat-label>
                                     <textarea rows="2" cols="80" required matInput
-                                        (ngModelChange)="certificado.exaRealizados = $event" name="examenesRealizados"
+                                        [(ngModel)]="certificado.exaRealizados" name="examenesRealizados"
                                         id="formexamenesRealizados" type="text" class="form-control campoGrande"
-                                        placeholder="EXÁMENES REALIZADOS:"
-                                        ></textarea>
+                                        placeholder="EXÁMENES REALIZADOS:"></textarea>
                                     <mat-error>Texto Incorrecto</mat-error>
                                 </mat-form-field>
                             </div>
@@ -91,51 +87,49 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <mat-form-field>
                                     <mat-label for="formcertifica">EL MÉDICO CERTIFICA QUE EL TRABAJOR ES:
                                     </mat-label>
-                                    <textarea rows="2" cols="80" matInput required               
-                                        (ngModelChange)="certificado.medicoCertifica = $event" name="certifica"
-                                        id="formcertifica" type="text" class="form-control campoGrande"
-                                        placeholder="EL MÉDICO CERTIFICA QUE EL TRABAJOR ES:"
-                                        ></textarea>
+                                    <textarea rows="2" cols="80" matInput required
+                                        [(ngModel)]="certificado.medicoCertifica" name="certifica" id="formcertifica"
+                                        type="text" class="form-control campoGrande"
+                                        placeholder="EL MÉDICO CERTIFICA QUE EL TRABAJOR ES:"></textarea>
                                     <mat-error>Texto Incorrecto</mat-error>
                                 </mat-form-field>
                             </div>
-                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <mat-form-field>
                                     <mat-label for="formtipo">TIPO DE RESTRICCIONES O LIMITACIONES:</mat-label>
                                     <textarea rows="2" cols="80" matInput required
-                                        (ngModelChange)="certificado.tipoRestriccionLimitacion = $event" name="tipo"
-                                        id="formtipo" type="text" class="form-control campoGrande"
+                                        [(ngModel)]="certificado.tipoRestriccionLimitacion" name="tipo" id="formtipo"
+                                        type="text" class="form-control campoGrande"
                                         placeholder="TIPO DE RESTRICCIONES O LIMITACIONES:">
                                     </textarea>
                                     <mat-error>Texto Incorrecto</mat-error>
                                 </mat-form-field>
                             </div>
-                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <mat-form-field>
                                     <mat-label for="formrecomendaciones">RECOMENDACIONES:</mat-label>
                                     <textarea rows="2" cols="80" matInput required name="recomendaciones"
-                                        id="formrecomendaciones" type="text"
-                                        (ngModelChange)="certificado.Recomendaciones = $event"
+                                        id="formrecomendaciones" type="text" [(ngModel)]="certificado.recomendaciones"
                                         class="form-control campoGrande" placeholder="RECOMENDACIONES"></textarea>
                                 </mat-form-field>
                             </div>
-                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <mat-form-field>
                                     <mat-label for="formcontrol">SE SUGIERE CONTROL EN PROGRAMAS VIGILANCIA
                                         EPIDEMIOLÓGICA:</mat-label>
                                     <textarea rows="2" cols="80" matInput required name="control" id="formcontrol"
-                                        type="text" (ngModelChange)="certificado.controlEpidemiologica = $event"
+                                        type="text" [(ngModel)]="certificado.controlEpidemiologica"
                                         class="form-control campoGrande" placeholder="SE SUGIERE CONTROL EN PROGRAMAS VIGILANCIA
-                                        EPIDEMIOLÓGICA:" ></textarea>
+                                        EPIDEMIOLÓGICA:"></textarea>
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                 <button mat-raised-button color="primary" role="button" [disabled]="datos.invalid"
-                                    (click)="guardar()">CREAR</button>
+                                    (click)="guardar()">CREAR CERTIFICADO</button>
                             </div>
                         </form>
                     </blockquote>

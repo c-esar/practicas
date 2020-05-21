@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ConstantesService } from './constantes.service';
 import { HistoriaLaboral } from '../DatosBean/historiaLaboral';
 import { Historias } from '../DatosBean/historias';
+import { Certificado } from '../DatosBean/certificado';
 import { EmpresaLaboral } from '../DatosBean/empresaLaboral';
 import { AntecedentesTrabajo } from '../DatosBean/antecedentesTrabajo';
 import { EnfermedadesLaboral } from '../DatosBean/enfermedadesLaboral';
@@ -106,6 +107,27 @@ export class HistoriasService {
       catchError(e => {
         console.error(e.error.mensaje);
         Swal.fire('Error al crear la persona', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  createCertificado(certificado: Certificado): Observable<Certificado> {
+    return this.http.post<Certificado>(this.url + "historiaPaciente/crearCertificado", certificado, { headers: this.httpHeaders }).pipe(
+      map( (resp: any) => resp.certificado  as Certificado)
+      ,catchError(e => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error al crear Certificado', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  buscarCertificado(id: number): Observable<number> {
+    return this.http.get<number>(`${this.url + "historiaPaciente/buscarCertificado"}/${id}`, { headers: this.httpHeaders }).pipe(
+      catchError(e => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error', 'no tiene certificado la historia', 'error');
         return throwError(e);
       })
     );

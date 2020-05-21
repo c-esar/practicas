@@ -6,4 +6,5 @@ public interface ICertificadoService {
 
 	public CertificadoEntity save(CertificadoEntity certificado);
 
+	public CertificadoEntity findByNumeroHistoria(Long seqHistoria);
 }

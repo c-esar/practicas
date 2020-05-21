@@ -131,10 +131,14 @@ div id="header">
 
               <button mat-menu-item [matMenuTriggerFor]="descargas" *ngIf="permiso.descargar == 1"
                 style="background: black;"><span style="color: white; font-size: 18px;">Descargas</span></button>
-              <mat-menu #descargas="matMenu">
-                <button style="background: black;" mat-menu-item><a href="menuPrincipal/crear/certificado"><span
-                      style="color: white;">Crear Certificado</span></a></button>
-              </mat-menu>
+
+              <a href="menuPrincipal/crear/certificado">
+                <mat-menu #descargas="matMenu">
+                  <button style="background: black;" mat-menu-item><span style="color: white;">Crear Certificado</span>
+                  </button>
+                </mat-menu>
+              </a>
+
 
               <button mat-menu-item style="background: black;" (click)="salirApp()"><a href="/"><span
                     style="color: white; font-size: 18px;">Salir</span></a></button>

@@ -8,11 +8,11 @@ export class Certificado {
     exaRealizados: string;
     medicoCertifica: string;
     tipoRestriccionLimitacion: string;
-    Recomendaciones: string;
+    recomendaciones: string;
     controlEpidemiologica: string;
-    tipoEvaluacionEntity: TipoEvaluacion;
+    tipoEvaluacionEntity: string;
     otroEvaluacion: string;
-    historiaOcupacionalEntity: Historias[];
+    historiaOcupacionalEntity: Historias;
 
     constructor() {
         this.seqCertificado = null;
@@ -22,10 +22,10 @@ export class Certificado {
         this.exaRealizados = null;
         this.medicoCertifica = null;
         this.tipoRestriccionLimitacion = null;
-        this.Recomendaciones = null;
+        this.recomendaciones = null;
         this.controlEpidemiologica = null;
-        this.historiaOcupacionalEntity = new Array<Historias>();
-        this.tipoEvaluacionEntity = new TipoEvaluacion();
+        this.historiaOcupacionalEntity = new Historias();
+        this.tipoEvaluacionEntity = null;
         this.otroEvaluacion = null;
     }
 

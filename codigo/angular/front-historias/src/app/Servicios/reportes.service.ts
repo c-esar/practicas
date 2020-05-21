@@ -39,7 +39,7 @@ export class ReportesService {
     );
   }
 
-  onReporteHistoriasCertificado(id: number, tipo: String): Observable<String> {
+  onReporteHistoriasCertificado(id: number): Observable<String> {
     return this.http.get<String>(`${this.url + "reportes/certificado"}/${id}`, { headers: this.httpHeaders }).pipe(
       map( (resp: any) => resp.persona  as String)
       ,catchError(e => {

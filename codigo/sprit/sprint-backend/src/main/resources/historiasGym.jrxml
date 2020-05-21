@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="historiasGym" language="groovy" columnDirection="RTL" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="58a19427-39b6-40d6-a40b-27c995e2dc0f">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="50"/>
-	<property name="ireport.y" value="2402"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<import value="org.apache.commons.codec.binary.*"/>
 	<style name="table">
 		<box>
@@ -108,6 +108,10 @@ inner join hc_tipo_cuestionario tc on tc.seq_tipo_cuestionario =  c.seq_tipo_cue
 	<parameter name="imagenPaciente" class="java.lang.String"/>
 	<parameter name="imagenMedico" class="java.lang.String"/>
 	<parameter name="documentoMedico" class="java.lang.String"/>
+	<parameter name="numeroHistoria" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rolUsuario" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT hgym.seq_historia_gym as seq_historia
       ,hgym.acepto_condiciones
@@ -184,7 +188,7 @@ inner join hc_tipo_cuestionario tc on tc.seq_tipo_cuestionario =  c.seq_tipo_cue
       ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 12 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as cirugias
       ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 13 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as enfermedades_columna
       ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 14 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as otra
-      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.otra_condicion != null and hgym.seq_historia_gym = seq_historia_gym),
+      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.seq_historia_gym = seq_historia_gym),
 Cast(DecryptByPassPhrase('konradU',hgym.otra_condicion) As varchar(max)), '')) as otro_condicion
       ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 1 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as enfermedad_coronaria
       ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 2 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as diabetes
@@ -196,15 +200,15 @@ Cast(DecryptByPassPhrase('konradU',hgym.otra_condicion) As varchar(max)), '')) a
       ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 8 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as obesidad
       ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 9 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as hiperteroidismo
       ,(SELECT IIF (EXISTS (select 1 from hc_familiar_historia_gym where seq_familiar_gym = 10 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as otrof
-      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.otra_familiar != null and hgym.seq_historia_gym = seq_historia_gym),
-Cast(DecryptByPassPhrase('konradU',hgym.otra_familiar) As varchar(max)) , '')) as otro_familiar
-      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.tipo_cancer != null and hgym.seq_historia_gym = seq_historia_gym),
-Cast(DecryptByPassPhrase('konradU',hgym.tipo_cancer) As varchar(max)), '')) as tipo_cancer
+      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.seq_historia_gym = seq_historia_gym),
+       Cast(DecryptByPassPhrase('konradU',hgym.otra_familiar) As varchar(max)) , '')) as otro_familiar
+      ,(SELECT IIF (EXISTS (select 1 from hc_historia_gym where hgym.seq_historia_gym = seq_historia_gym),
+       Cast(DecryptByPassPhrase('konradU',hgym.tipo_cancer) As varchar(max)), '')) as tipo_cancer
 FROM hc_personas p
 inner join hc_historia_gym hgym on hgym.seq_persona = p.seq_persona
 inner join hc_examen_fisico exa on exa.seq_exa_fisico = hgym.seq_exa_fisico
 inner join hc_aseguradora s on s.seq_aseguradora = p.seq_aseguradora
-where p.seq_persona = $P{numeroPersona}]]>
+where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHistoria}]]>
 	</queryString>
 	<field name="seq_historia" class="java.lang.Long"/>
 	<field name="acepto_condiciones" class="java.lang.String"/>
@@ -371,7 +375,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 	<detail>
 		<band height="752">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="13" width="100" height="20" backcolor="#CCCCCC" uuid="30d69e28-6565-4922-bd17-4f7742bbeb78"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="13" width="100" height="20" backcolor="#CCCCCC" uuid="30d69e28-6565-4922-bd17-4f7742bbeb78"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -380,12 +384,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FECHA:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="100" y="13" width="145" height="20" uuid="90fbb7f2-1d1b-40cb-8818-245820c8a608"/>
+				<reportElement positionType="Float" x="100" y="13" width="145" height="20" uuid="90fbb7f2-1d1b-40cb-8818-245820c8a608"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -399,7 +403,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{dia_historia_gym}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="245" y="13" width="151" height="20" backcolor="#CCCCCC" uuid="a9ad59f0-ba89-4a47-9c24-6cd48f73c06e"/>
+				<reportElement positionType="Float" mode="Opaque" x="245" y="13" width="151" height="20" backcolor="#CCCCCC" uuid="a9ad59f0-ba89-4a47-9c24-6cd48f73c06e"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -408,12 +412,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Documento Identidad:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="396" y="13" width="159" height="20" uuid="d1ad58ae-c0ec-4aa6-bb04-37e0ea2373e3"/>
+				<reportElement positionType="Float" x="396" y="13" width="159" height="20" uuid="d1ad58ae-c0ec-4aa6-bb04-37e0ea2373e3"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -427,7 +431,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{numero_documento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="33" width="100" height="20" backcolor="#CCCCCC" uuid="a4ab1fda-17d2-4c96-bd15-36ebc53fe9dc"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="33" width="100" height="20" backcolor="#CCCCCC" uuid="a4ab1fda-17d2-4c96-bd15-36ebc53fe9dc"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -436,12 +440,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Código:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="33" width="145" height="20" uuid="1829c762-c5bd-4170-a603-9ae5b71cf0ab"/>
+				<reportElement positionType="Float" x="100" y="33" width="145" height="20" uuid="1829c762-c5bd-4170-a603-9ae5b71cf0ab"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -455,7 +459,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="53" width="124" height="20" backcolor="#CCCCCC" uuid="a6dffa6a-bd58-44d3-9faa-1549517738ad"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="53" width="124" height="20" backcolor="#CCCCCC" uuid="a6dffa6a-bd58-44d3-9faa-1549517738ad"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -464,12 +468,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nombre Completo:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="124" y="53" width="431" height="20" uuid="151eda3a-7ed9-4f43-b763-cff11cf94dc1"/>
+				<reportElement positionType="Float" x="124" y="53" width="431" height="20" uuid="151eda3a-7ed9-4f43-b763-cff11cf94dc1"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -477,13 +481,13 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nom_primer_nombre} + " " + $F{nom_segundo_nombre} + " " + $F{nom_primer_apellido} + " " + $F{nom_segundo_apellido}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="73" width="124" height="20" backcolor="#CCCCCC" uuid="379b5be3-b01c-41ac-a405-d902092409c3"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="73" width="100" height="20" backcolor="#CCCCCC" uuid="379b5be3-b01c-41ac-a405-d902092409c3"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -492,12 +496,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tipo de Usuario: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="266" y="73" width="56" height="20" backcolor="#CCCCCC" uuid="26f7855a-6775-4ace-bc71-71077334410e"/>
+				<reportElement positionType="Float" mode="Opaque" x="407" y="73" width="56" height="20" backcolor="#CCCCCC" uuid="26f7855a-6775-4ace-bc71-71077334410e"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -505,13 +509,13 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
-					<font size="14"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Celular:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="322" y="73" width="122" height="20" uuid="5c9c8a5a-5829-4162-bde2-b834221dd5df"/>
+				<reportElement positionType="Float" x="463" y="73" width="92" height="20" uuid="5c9c8a5a-5829-4162-bde2-b834221dd5df"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -520,12 +524,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="13"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="442" y="73" width="52" height="20" backcolor="#CCCCCC" uuid="450bc7a9-a046-4539-9e59-6775fa9da693"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="93" width="39" height="20" backcolor="#CCCCCC" uuid="450bc7a9-a046-4539-9e59-6775fa9da693"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -534,12 +538,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Edad:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="494" y="73" width="61" height="20" uuid="95dbdc35-633e-4bcf-ba55-fbbf6b4e74d9"/>
+				<reportElement positionType="Float" x="39" y="93" width="61" height="20" uuid="95dbdc35-633e-4bcf-ba55-fbbf6b4e74d9"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -553,7 +557,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{edad}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="93" width="76" height="20" backcolor="#CCCCCC" uuid="5745b5a4-6d8b-4aed-98a1-af26c6a846f3"/>
+				<reportElement positionType="Float" mode="Opaque" x="100" y="93" width="56" height="20" backcolor="#CCCCCC" uuid="5745b5a4-6d8b-4aed-98a1-af26c6a846f3"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -562,12 +566,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sexo:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="76" y="93" width="118" height="20" uuid="6edca375-9076-4e56-9043-2d5e6f9d3f07"/>
+				<reportElement positionType="Float" x="156" y="93" width="118" height="20" uuid="6edca375-9076-4e56-9043-2d5e6f9d3f07"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -581,7 +585,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{genero}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="194" y="93" width="131" height="20" backcolor="#CCCCCC" uuid="55ceac75-9f9c-4b87-8242-3bfd95362ac9"/>
+				<reportElement positionType="Float" mode="Opaque" x="274" y="93" width="133" height="20" backcolor="#CCCCCC" uuid="55ceac75-9f9c-4b87-8242-3bfd95362ac9"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -590,12 +594,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Grupo Sanguíneo:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="325" y="93" width="55" height="20" uuid="a6cbcaa8-7a63-4da8-9cf4-6725712d4a1f"/>
+				<reportElement positionType="Float" x="407" y="93" width="56" height="20" uuid="a6cbcaa8-7a63-4da8-9cf4-6725712d4a1f"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -609,7 +613,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{grupo_sanguineo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="380" y="93" width="37" height="20" backcolor="#CCCCCC" uuid="9b76fac7-f913-4d66-be54-812d4c8e1467"/>
+				<reportElement positionType="Float" mode="Opaque" x="463" y="93" width="34" height="20" backcolor="#CCCCCC" uuid="9b76fac7-f913-4d66-be54-812d4c8e1467"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -618,12 +622,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[RH:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="417" y="93" width="58" height="20" uuid="fbfc61e0-834b-4783-9c11-58d47930efa3"/>
+				<reportElement positionType="Float" x="497" y="93" width="58" height="20" uuid="fbfc61e0-834b-4783-9c11-58d47930efa3"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -637,7 +641,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{rh}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="113" width="38" height="20" backcolor="#CCCCCC" uuid="3c0cc122-0ea1-44df-be4f-2d5e6b886448"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="113" width="38" height="20" backcolor="#CCCCCC" uuid="3c0cc122-0ea1-44df-be4f-2d5e6b886448"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -646,12 +650,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[EPS:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="133" width="224" height="20" backcolor="#CCCCCC" uuid="7c3a7224-ac58-4939-b497-75f994de4bba"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="133" width="224" height="20" backcolor="#CCCCCC" uuid="7c3a7224-ac58-4939-b497-75f994de4bba"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -660,12 +664,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Contacto en caso de emergencia:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="224" y="133" width="331" height="20" uuid="d448abcb-aa2a-478b-90b8-7e98a4a3d97f"/>
+				<reportElement positionType="Float" x="224" y="133" width="331" height="20" uuid="d448abcb-aa2a-478b-90b8-7e98a4a3d97f"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -673,13 +677,13 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nom_emergencia}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="153" width="76" height="20" backcolor="#CCCCCC" uuid="6cd7368f-730d-4877-9a50-400dde3b007a"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="153" width="76" height="20" backcolor="#CCCCCC" uuid="6cd7368f-730d-4877-9a50-400dde3b007a"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -688,12 +692,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Teléfono(s):]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="76" y="153" width="126" height="20" uuid="1b5bc140-10ae-43eb-81b8-b1efe40ae1ae"/>
+				<reportElement positionType="Float" x="76" y="153" width="126" height="20" uuid="1b5bc140-10ae-43eb-81b8-b1efe40ae1ae"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -707,7 +711,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{tel_emergencia}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="202" y="153" width="90" height="20" backcolor="#CCCCCC" uuid="b445c208-102d-4e10-b38a-e0f089ab538c"/>
+				<reportElement positionType="Float" mode="Opaque" x="202" y="153" width="90" height="20" backcolor="#CCCCCC" uuid="b445c208-102d-4e10-b38a-e0f089ab538c"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -716,12 +720,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Parentesco:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="292" y="153" width="263" height="20" uuid="f0c4214c-d983-41b2-8d1a-4fe3db22f1db"/>
+				<reportElement positionType="Float" x="292" y="153" width="263" height="20" uuid="f0c4214c-d983-41b2-8d1a-4fe3db22f1db"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -729,27 +733,27 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parentesco_emergencia}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="198" width="178" height="20" uuid="7e23ba05-9526-411c-b198-64e96a61232c"/>
+				<reportElement positionType="Float" x="0" y="198" width="178" height="20" uuid="7e23ba05-9526-411c-b198-64e96a61232c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[1. HISTORIAS PERSONAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="218" width="555" height="56" uuid="3bc0902b-3e3b-4d20-93df-f3b29c5adfab"/>
+				<reportElement positionType="Float" x="0" y="218" width="555" height="56" uuid="3bc0902b-3e3b-4d20-93df-f3b29c5adfab"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[¿ Ha padecido o padece alguna de las siguientes condiciones? (marque con una x y en observaciones especifique si tiene algún tratamiento actualmente y en cirugía especifique tipo y fecha)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="411" width="555" height="20" uuid="becb9f13-c71e-4f2e-960f-5e6b38b298ad"/>
+				<reportElement positionType="Float" x="0" y="411" width="555" height="20" uuid="becb9f13-c71e-4f2e-960f-5e6b38b298ad"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -760,8 +764,8 @@ where p.seq_persona = $P{numeroPersona}]]>
 				</textElement>
 				<text><![CDATA[Observaciones:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="0" y="431" width="555" height="100" uuid="cb672690-d596-4282-ada8-99f11edec8ff"/>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="431" width="555" height="50" isRemoveLineWhenBlank="true" uuid="cb672690-d596-4282-ada8-99f11edec8ff"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -773,49 +777,49 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{observaciones_historia}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="531" width="200" height="20" uuid="df5c9ade-0d83-43d0-a818-8fd7461ebe8c"/>
+				<reportElement positionType="Float" x="0" y="481" width="200" height="20" isRemoveLineWhenBlank="true" uuid="df5c9ade-0d83-43d0-a818-8fd7461ebe8c"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[¿Si es mujer, está embarazada? ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="557" width="151" height="20" uuid="c3219e8c-16c5-4c53-a3a5-84b73f69e651"/>
+				<reportElement positionType="Float" x="0" y="507" width="151" height="20" isRemoveLineWhenBlank="true" uuid="c3219e8c-16c5-4c53-a3a5-84b73f69e651"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[¿Actualmente fuma?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="589" width="151" height="20" uuid="c510f998-2648-46f1-b436-16414a406ffc"/>
+				<reportElement positionType="Float" x="0" y="539" width="151" height="20" isRemoveLineWhenBlank="true" uuid="c510f998-2648-46f1-b436-16414a406ffc"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[¿Consume licor?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="624" width="151" height="20" uuid="50f27082-6d9b-4fe1-93f1-704b2e21d925"/>
+				<reportElement positionType="Float" x="0" y="574" width="151" height="20" isRemoveLineWhenBlank="true" uuid="50f27082-6d9b-4fe1-93f1-704b2e21d925"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[¿Realiza ejercicio físico?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="691" width="209" height="20" uuid="7a13c7e2-7794-4303-b961-8fcfe71ff33c"/>
+				<reportElement positionType="Float" x="0" y="634" width="209" height="20" isRemoveLineWhenBlank="true" uuid="7a13c7e2-7794-4303-b961-8fcfe71ff33c"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[¿Consume bebidas energizantes? ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="723" width="224" height="20" uuid="ef1af631-7540-4d29-82ff-d06663731e2a"/>
+				<reportElement positionType="Float" x="0" y="662" width="224" height="20" isRemoveLineWhenBlank="true" uuid="ef1af631-7540-4d29-82ff-d06663731e2a"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[¿Consume sustancias psicoactivas? ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="38" y="113" width="196" height="20" uuid="638b61bf-96ce-43c3-ac64-8a15dd27c494"/>
+				<reportElement positionType="Float" x="38" y="113" width="196" height="20" uuid="638b61bf-96ce-43c3-ac64-8a15dd27c494"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -829,7 +833,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{nom_aseguradora}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="234" y="113" width="163" height="20" backcolor="#CCCCCC" uuid="7891dfa2-574d-4b77-86c4-90b655b88d4d"/>
+				<reportElement positionType="Float" mode="Opaque" x="234" y="113" width="163" height="20" backcolor="#CCCCCC" uuid="7891dfa2-574d-4b77-86c4-90b655b88d4d"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -838,12 +842,12 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Programa/Dependencia:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="397" y="113" width="158" height="20" uuid="8581d463-e3a3-4afd-81e0-3260e40fdae1"/>
+				<reportElement positionType="Float" x="397" y="113" width="158" height="20" uuid="8581d463-e3a3-4afd-81e0-3260e40fdae1"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -857,98 +861,98 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{nom_cargo_dep}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="39" y="274" width="134" height="20" uuid="9327be17-f845-4e5e-9aa1-ae9013d41cc9"/>
+				<reportElement positionType="Float" x="39" y="274" width="134" height="20" uuid="9327be17-f845-4e5e-9aa1-ae9013d41cc9"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Patología cardiaca]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="39" y="294" width="134" height="20" uuid="d1381c7d-5800-4deb-9996-4f9116cd20eb"/>
+				<reportElement positionType="Float" x="39" y="294" width="134" height="20" uuid="d1381c7d-5800-4deb-9996-4f9116cd20eb"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Enfermedad tiroidea]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="39" y="314" width="134" height="20" uuid="6bb47adb-1c8d-4761-b104-5cab5d896be3"/>
+				<reportElement positionType="Float" x="39" y="314" width="134" height="20" uuid="6bb47adb-1c8d-4761-b104-5cab5d896be3"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Esguinces, Luxaciones]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="39" y="334" width="134" height="20" uuid="b8f16e86-7932-40a4-ab56-113f7163646c"/>
+				<reportElement positionType="Float" x="39" y="334" width="134" height="20" uuid="b8f16e86-7932-40a4-ab56-113f7163646c"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Enfermedades columna]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="39" y="354" width="134" height="20" uuid="19097270-8f46-41c5-9d2a-052d3520a701"/>
+				<reportElement positionType="Float" x="39" y="354" width="134" height="20" uuid="19097270-8f46-41c5-9d2a-052d3520a701"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Colesterol alto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="39" y="374" width="134" height="20" uuid="218d7804-f393-4605-8829-e680a0da38ba"/>
+				<reportElement positionType="Float" x="39" y="374" width="134" height="20" uuid="218d7804-f393-4605-8829-e680a0da38ba"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Epilepsia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="209" y="274" width="121" height="20" uuid="06da68ba-8e66-4d81-92e1-560aeec36ca2"/>
+				<reportElement positionType="Float" x="209" y="274" width="121" height="20" uuid="06da68ba-8e66-4d81-92e1-560aeec36ca2"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Insuficiencia renal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="209" y="294" width="121" height="20" uuid="9bc23fdf-9ad2-4509-bca1-bddbf181f177"/>
+				<reportElement positionType="Float" x="209" y="294" width="121" height="20" uuid="9bc23fdf-9ad2-4509-bca1-bddbf181f177"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Fracturas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="209" y="314" width="121" height="20" uuid="271a36ce-052e-4d3a-9379-801e0e349e52"/>
+				<reportElement positionType="Float" x="209" y="314" width="121" height="20" uuid="271a36ce-052e-4d3a-9379-801e0e349e52"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Diabetes mellitus]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="209" y="334" width="121" height="20" uuid="5ed94b66-1626-460e-83da-a4a9f29d4f96"/>
+				<reportElement positionType="Float" x="209" y="334" width="121" height="20" uuid="5ed94b66-1626-460e-83da-a4a9f29d4f96"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Asma]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="209" y="354" width="121" height="20" uuid="14220ad1-5a78-4834-a09d-7c34423b16c9"/>
+				<reportElement positionType="Float" x="209" y="354" width="121" height="20" uuid="14220ad1-5a78-4834-a09d-7c34423b16c9"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Hipertensión arterial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="397" y="274" width="112" height="20" uuid="00bccd19-d375-466b-845c-66e6bdc49f98"/>
+				<reportElement positionType="Float" x="397" y="274" width="112" height="20" uuid="00bccd19-d375-466b-845c-66e6bdc49f98"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Problemas de peso]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="397" y="294" width="112" height="20" uuid="7201a442-8cf1-4190-b3a1-dea57b77da32"/>
+				<reportElement positionType="Float" x="397" y="294" width="112" height="20" uuid="7201a442-8cf1-4190-b3a1-dea57b77da32"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Cirugías]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="209" y="374" width="71" height="20" uuid="3318a49a-e026-4404-8a0e-94c6da8f1296"/>
+				<reportElement positionType="Float" x="209" y="374" width="71" height="20" uuid="3318a49a-e026-4404-8a0e-94c6da8f1296"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
@@ -1109,105 +1113,105 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="17" y="276" width="15" height="15" uuid="368d3ae4-0434-4f7e-9cf7-9e5cd89c79c3"/>
+				<reportElement positionType="Float" x="17" y="276" width="15" height="15" uuid="368d3ae4-0434-4f7e-9cf7-9e5cd89c79c3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{patologia_cardiaca}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="17" y="356" width="15" height="15" uuid="018d8e80-6e56-4bb9-b64c-6386360a8be3"/>
+				<reportElement positionType="Float" x="17" y="356" width="15" height="15" uuid="018d8e80-6e56-4bb9-b64c-6386360a8be3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{colesterol_alto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="187" y="276" width="15" height="15" uuid="c1e5e4b2-4408-4e49-b84b-99d9ef3e3c4b"/>
+				<reportElement positionType="Float" x="187" y="276" width="15" height="15" uuid="c1e5e4b2-4408-4e49-b84b-99d9ef3e3c4b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{insuficiencia_renal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="187" y="356" width="15" height="15" uuid="f53d8f34-ad67-4a03-9222-27e8bb401ddd"/>
+				<reportElement positionType="Float" x="187" y="356" width="15" height="15" uuid="f53d8f34-ad67-4a03-9222-27e8bb401ddd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{hipertencion_arterial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="17" y="296" width="15" height="15" uuid="491b2523-d0a3-4f31-86f9-6bc2d253145f"/>
+				<reportElement positionType="Float" x="17" y="296" width="15" height="15" uuid="491b2523-d0a3-4f31-86f9-6bc2d253145f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{enfermedad_tiroidea}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="17" y="376" width="15" height="15" uuid="fa949273-68df-4d19-98b3-571575e1d6d3"/>
+				<reportElement positionType="Float" x="17" y="376" width="15" height="15" uuid="fa949273-68df-4d19-98b3-571575e1d6d3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{epilepsia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="187" y="316" width="15" height="15" uuid="71f71950-06d3-4fee-86de-fdab0ba386dd"/>
+				<reportElement positionType="Float" x="187" y="316" width="15" height="15" uuid="71f71950-06d3-4fee-86de-fdab0ba386dd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{diabetes_mellitus}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="378" y="276" width="15" height="15" uuid="a034e3ee-3cb0-4c2b-9864-a7321a917ce1"/>
+				<reportElement positionType="Float" x="378" y="276" width="15" height="15" uuid="a034e3ee-3cb0-4c2b-9864-a7321a917ce1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{problemas_peso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="17" y="316" width="15" height="15" uuid="aa1a2809-c688-4b65-8d66-8b0e203efb1d"/>
+				<reportElement positionType="Float" x="17" y="316" width="15" height="15" uuid="aa1a2809-c688-4b65-8d66-8b0e203efb1d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{esquinces}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="187" y="296" width="15" height="15" uuid="04f26b01-4c79-499e-8739-8114e41441ef"/>
+				<reportElement positionType="Float" x="187" y="296" width="15" height="15" uuid="04f26b01-4c79-499e-8739-8114e41441ef"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fracturas}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="187" y="336" width="15" height="15" uuid="52c69320-051b-4432-8eb2-cf9c315c27ef"/>
+				<reportElement positionType="Float" x="187" y="336" width="15" height="15" uuid="52c69320-051b-4432-8eb2-cf9c315c27ef"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{asma}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="378" y="296" width="15" height="15" uuid="93e9e5c2-baea-4622-b35f-fb8acc67a419"/>
+				<reportElement positionType="Float" x="378" y="296" width="15" height="15" uuid="93e9e5c2-baea-4622-b35f-fb8acc67a419"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cirugias}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="17" y="336" width="15" height="15" uuid="f1a1ef88-d977-40ca-96d6-fac19f14ddbc"/>
+				<reportElement positionType="Float" x="17" y="336" width="15" height="15" uuid="f1a1ef88-d977-40ca-96d6-fac19f14ddbc"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{enfermedades_columna}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="187" y="376" width="15" height="15" uuid="2eef5c48-67d1-4faa-9062-c5bfcb2161bc"/>
+				<reportElement positionType="Float" x="187" y="376" width="15" height="15" uuid="2eef5c48-67d1-4faa-9062-c5bfcb2161bc"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{otra}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="280" y="374" width="275" height="20" uuid="aa25c5f6-3b51-46b4-a6b4-2a272f9f9fd0"/>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="280" y="374" width="275" height="20" uuid="aa25c5f6-3b51-46b4-a6b4-2a272f9f9fd0"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -1217,121 +1221,128 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{otro_condicion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="200" y="531" width="100" height="20" uuid="1ae0226e-40ed-45a0-93fd-14f061c13f82"/>
+				<reportElement positionType="Float" x="200" y="481" width="100" height="20" isRemoveLineWhenBlank="true" uuid="1ae0226e-40ed-45a0-93fd-14f061c13f82"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{embarazo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="151" y="557" width="73" height="20" uuid="82259608-746d-43f3-a312-fb4fc339841a"/>
+				<reportElement positionType="Float" x="151" y="507" width="73" height="20" isRemoveLineWhenBlank="true" uuid="82259608-746d-43f3-a312-fb4fc339841a"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fumaSN}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="223" y="557" width="174" height="20" uuid="2a288a56-7b36-4640-a0f3-1057d4dac86a"/>
+				<reportElement positionType="Float" x="223" y="507" width="174" height="20" isRemoveLineWhenBlank="true" uuid="2a288a56-7b36-4640-a0f3-1057d4dac86a"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Cuantos cigarrillos día:  "+ $P{fumacuantos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="397" y="557" width="158" height="20" uuid="79f9b4cb-036c-47d1-a3c9-3977722e1ff8"/>
+				<reportElement positionType="Float" x="397" y="507" width="158" height="20" isRemoveLineWhenBlank="true" uuid="79f9b4cb-036c-47d1-a3c9-3977722e1ff8"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Tiempo fumando:  " +$P{fumatiempo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="150" y="589" width="74" height="20" uuid="e291d331-299c-4e3a-8278-91e0e961c974"/>
+				<reportElement positionType="Float" x="150" y="539" width="74" height="20" isRemoveLineWhenBlank="true" uuid="e291d331-299c-4e3a-8278-91e0e961c974"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{licorSN}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="222" y="589" width="333" height="20" uuid="42430311-1ce0-493a-ae90-cee8e9affbc8"/>
+				<reportElement positionType="Float" x="222" y="539" width="333" height="20" isRemoveLineWhenBlank="true" uuid="42430311-1ce0-493a-ae90-cee8e9affbc8"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Cuantas veces al mes:  " +$P{licorcuantos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="151" y="624" width="72" height="20" uuid="e75cdf96-69ed-4668-adf7-eeeb27016296"/>
+				<reportElement positionType="Float" x="151" y="574" width="72" height="20" isRemoveLineWhenBlank="true" uuid="e75cdf96-69ed-4668-adf7-eeeb27016296"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ejercicioSN}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="222" y="624" width="333" height="20" uuid="7593878e-8518-4532-a4e4-dd640acf0098"/>
+				<reportElement positionType="Float" x="222" y="574" width="333" height="20" isRemoveLineWhenBlank="true" uuid="7593878e-8518-4532-a4e4-dd640acf0098"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Cual(es):  " +$P{ejerciciocuales}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="658" width="555" height="20" uuid="a88aae6b-3812-4581-86b0-5b9184d44665"/>
+				<reportElement positionType="Float" x="0" y="602" width="555" height="20" isRemoveLineWhenBlank="true" uuid="a88aae6b-3812-4581-86b0-5b9184d44665"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Cuantas veces por semana:  " +$P{ejerciciocuantas}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="209" y="691" width="100" height="20" uuid="d6d3be76-ce25-4860-ad8c-4c1a4184b015"/>
+				<reportElement positionType="Float" x="209" y="634" width="100" height="20" isRemoveLineWhenBlank="true" uuid="d6d3be76-ce25-4860-ad8c-4c1a4184b015"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{energizanteSN}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="309" y="691" width="246" height="20" uuid="a101c397-983f-48d8-84e7-dec7b7b16a98"/>
+				<reportElement positionType="Float" x="309" y="634" width="246" height="20" isRemoveLineWhenBlank="true" uuid="a101c397-983f-48d8-84e7-dec7b7b16a98"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Cuantas a la semana:  "+$P{energizantecuantas}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="222" y="723" width="87" height="20" uuid="f57cefd3-354d-4b6f-8fb6-868d1298c982"/>
+				<reportElement positionType="Float" x="222" y="662" width="87" height="20" isRemoveLineWhenBlank="true" uuid="f57cefd3-354d-4b6f-8fb6-868d1298c982"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{psicoactivasSN}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="309" y="723" width="246" height="20" uuid="0e294d44-8709-4b39-be19-4256c6ff6d31"/>
+				<reportElement positionType="Float" x="309" y="662" width="246" height="20" isRemoveLineWhenBlank="true" uuid="0e294d44-8709-4b39-be19-4256c6ff6d31"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["¿Cuáles?:  " +$P{psicoactivascuales}]]></textFieldExpression>
 			</textField>
-		</band>
-		<band height="752">
 			<staticText>
-				<reportElement x="0" y="0" width="178" height="20" uuid="ca466a21-fa38-4147-bc55-1194141c67fe"/>
+				<reportElement positionType="Float" x="0" y="689" width="178" height="20" isRemoveLineWhenBlank="true" uuid="ca466a21-fa38-4147-bc55-1194141c67fe"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[2. HISTORIAS FAMILIAR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="20" width="555" height="39" uuid="83360a3b-1b16-407a-9d89-89ce5a270507"/>
+				<reportElement positionType="Float" x="0" y="709" width="555" height="39" isRemoveLineWhenBlank="true" uuid="83360a3b-1b16-407a-9d89-89ce5a270507"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Alguno de sus familiares (padres, tíos, abuelos o hermanos) padece o ha padecido una o varias de las siguientes enfermedades:]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="102" y="73" width="305" height="20" uuid="0d88b5dd-c170-4d8e-a530-eaafbd994dc6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rolUsuario}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="752">
 			<staticText>
-				<reportElement x="0" y="219" width="410" height="20" uuid="a6013b89-cf88-4ce1-8db2-b510ed57eeb8"/>
+				<reportElement positionType="Float" x="0" y="113" width="410" height="20" isRemoveLineWhenBlank="true" uuid="a6013b89-cf88-4ce1-8db2-b510ed57eeb8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[3. CUESTIONARIO DE APTITUD PARA EL EJERCICIO FÍSICO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="239" width="555" height="34" uuid="c07ebe87-dd8f-4e08-af17-42529cf96bc4"/>
+				<reportElement positionType="Float" x="0" y="133" width="555" height="34" isRemoveLineWhenBlank="true" uuid="c07ebe87-dd8f-4e08-af17-42529cf96bc4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
@@ -1339,8 +1350,8 @@ where p.seq_persona = $P{numeroPersona}]]>
 ]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="0" y="273" width="555" height="75" uuid="6a258e64-e952-47a0-ab22-dd23b78c2b91"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+				<reportElement key="table 1" style="table 1" positionType="Float" x="0" y="167" width="555" height="50" isRemoveLineWhenBlank="true" uuid="6a258e64-e952-47a0-ab22-dd23b78c2b91"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
 					<datasetRun subDataset="cuestionarioGym" uuid="0f2eed8b-a7c7-49c8-a713-542881f3a287">
 						<datasetParameter name="numeroPersona">
 							<datasetParameterExpression><![CDATA[$P{numeroPersona}]]></datasetParameterExpression>
@@ -1390,169 +1401,77 @@ where p.seq_persona = $P{numeroPersona}]]>
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement x="267" y="131" width="15" height="15" uuid="e6956048-de3c-4de9-84a1-d801470fef97"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="51" y="89" width="206" height="20" uuid="97233817-dfab-47e2-807f-a99fd0558da0"/>
+				<reportElement positionType="Float" x="51" y="20" width="206" height="20" isRemoveLineWhenBlank="true" uuid="97233817-dfab-47e2-807f-a99fd0558da0"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Muerte súbita (antes de los 50 años)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="289" y="130" width="78" height="20" uuid="782a69ee-577a-46b9-b613-40c08925d605"/>
+				<reportElement positionType="Float" x="289" y="61" width="78" height="20" isRemoveLineWhenBlank="true" uuid="782a69ee-577a-46b9-b613-40c08925d605"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Otra, ¿cuál?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="51" y="69" width="134" height="20" uuid="b015aa29-e560-4204-bb2b-1262f837cde8"/>
+				<reportElement positionType="Float" x="51" y="0" width="134" height="20" isRemoveLineWhenBlank="true" uuid="b015aa29-e560-4204-bb2b-1262f837cde8"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Enfermedad coronaria (antes de los 30 años)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="29" y="91" width="15" height="15" uuid="4d60a8ce-4a5b-4242-864c-2c7c4088d57f"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="51" y="149" width="134" height="20" uuid="d9a02091-26de-468b-a6e2-d636af1b0d7b"/>
+				<reportElement positionType="Float" x="51" y="80" width="134" height="20" isRemoveLineWhenBlank="true" uuid="d9a02091-26de-468b-a6e2-d636af1b0d7b"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Obesidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="267" y="71" width="15" height="15" uuid="adad8aba-2017-4f22-a642-9e7ad5f7807b"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="267" y="153" width="15" height="15" uuid="c1428304-6604-4b70-a924-ce4003830032"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="289" y="152" width="78" height="20" uuid="54909fde-7967-4955-8e26-a9dc7d529f97"/>
+				<reportElement positionType="Float" x="289" y="83" width="78" height="20" isRemoveLineWhenBlank="true" uuid="54909fde-7967-4955-8e26-a9dc7d529f97"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Cáncer (tipo)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="51" y="109" width="134" height="20" uuid="2cd42229-52b5-4263-9890-a816fe8662bb"/>
+				<reportElement positionType="Float" x="51" y="40" width="134" height="20" isRemoveLineWhenBlank="true" uuid="2cd42229-52b5-4263-9890-a816fe8662bb"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Diabetes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="29" y="111" width="15" height="15" uuid="f297b723-cd0d-4eb2-99a2-486abc5d01e7"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="29" y="151" width="15" height="15" uuid="ffcccd11-0742-44af-a787-950dfcd67d45"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="267" y="91" width="15" height="15" uuid="2ee8ff17-87f9-4240-92db-4ee92dc1cccb"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="267" y="111" width="15" height="15" uuid="95e1394a-6d4e-4120-83b0-23b3ae94d145"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="289" y="109" width="166" height="20" uuid="53941701-695b-49a0-beb0-1a8583cafcfd"/>
+				<reportElement positionType="Float" x="289" y="40" width="166" height="20" isRemoveLineWhenBlank="true" uuid="53941701-695b-49a0-beb0-1a8583cafcfd"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Hipertiroidismo, hipotiroidismo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="289" y="69" width="150" height="20" uuid="2ab1fad8-87f7-4d35-9a17-66d47fda7649"/>
+				<reportElement positionType="Float" x="289" y="0" width="150" height="20" isRemoveLineWhenBlank="true" uuid="2ab1fad8-87f7-4d35-9a17-66d47fda7649"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Hipertensión arterial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="29" y="131" width="15" height="15" uuid="6726dcc9-4897-432e-b7d4-ee2645922fc7"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="289" y="89" width="150" height="20" uuid="ef56219b-16e0-4fd0-b280-b8087887fca6"/>
+				<reportElement positionType="Float" x="289" y="20" width="150" height="20" isRemoveLineWhenBlank="true" uuid="ef56219b-16e0-4fd0-b280-b8087887fca6"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Accidente cerebrovascular]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="29" y="71" width="15" height="15" uuid="fe7b9bdb-c58d-4bd2-bbe4-b3db668b1d02"/>
+				<reportElement positionType="Float" x="51" y="60" width="134" height="20" isRemoveLineWhenBlank="true" uuid="2d5c1313-4152-48a8-af60-1979af899a05"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Mellitus]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="29" y="2" width="15" height="15" uuid="1a785dd8-a7e0-4997-a5a8-569d43f402a6"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1560,87 +1479,139 @@ where p.seq_persona = $P{numeroPersona}]]>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="51" y="129" width="134" height="20" uuid="2d5c1313-4152-48a8-af60-1979af899a05"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Mellitus]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="29" y="71" width="15" height="15" uuid="1a785dd8-a7e0-4997-a5a8-569d43f402a6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{enfermedad_coronaria}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="29" y="111" width="15" height="15" uuid="b45bd37d-5859-4674-921f-1b4dbe3af385"/>
+				<reportElement positionType="Float" x="29" y="42" width="15" height="15" uuid="b45bd37d-5859-4674-921f-1b4dbe3af385"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{diabetes}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="267" y="71" width="15" height="15" uuid="04742296-ab48-4950-8c71-242146b53331"/>
+				<reportElement positionType="Float" x="267" y="2" width="15" height="15" uuid="04742296-ab48-4950-8c71-242146b53331"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{hipertension}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="29" y="91" width="15" height="15" uuid="6aa7f236-cf30-49da-975d-3224a39cb200"/>
+				<reportElement positionType="Float" x="29" y="22" width="15" height="15" uuid="6aa7f236-cf30-49da-975d-3224a39cb200"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{muerte_subita}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="29" y="131" width="15" height="15" uuid="6c956188-125b-4241-8f38-35129d28e442"/>
+				<reportElement positionType="Float" x="29" y="62" width="15" height="15" uuid="6c956188-125b-4241-8f38-35129d28e442"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mellitus}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="267" y="91" width="15" height="15" uuid="5b3f3f5b-71c7-4360-9230-c547bcf11fa6"/>
+				<reportElement positionType="Float" x="267" y="22" width="15" height="15" uuid="5b3f3f5b-71c7-4360-9230-c547bcf11fa6"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{accidente_cerebrovascular}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="267" y="154" width="15" height="15" uuid="ac59982d-4607-465f-a1d6-c33f8af1d33f"/>
+				<reportElement positionType="Float" x="267" y="85" width="15" height="15" uuid="ac59982d-4607-465f-a1d6-c33f8af1d33f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cancer}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="29" y="151" width="15" height="15" uuid="778a703d-2934-4df0-a05f-98b58abf9330"/>
+				<reportElement positionType="Float" x="29" y="82" width="15" height="15" uuid="778a703d-2934-4df0-a05f-98b58abf9330"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{obesidad}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="267" y="111" width="15" height="15" uuid="971df10f-8f5e-4499-aca2-403e85ed8dff"/>
+				<reportElement positionType="Float" x="267" y="42" width="15" height="15" uuid="971df10f-8f5e-4499-aca2-403e85ed8dff"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{hiperteroidismo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="267" y="131" width="15" height="15" uuid="0887bd82-95ed-4a9c-9e86-3abc0c55038e"/>
+				<reportElement positionType="Float" x="267" y="62" width="15" height="15" uuid="0887bd82-95ed-4a9c-9e86-3abc0c55038e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{otrof}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="367" y="130" width="188" height="20" uuid="23d30b01-1ec4-4a98-ac7b-81caae4fd0da"/>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="367" y="61" width="188" height="20" isRemoveLineWhenBlank="true" uuid="23d30b01-1ec4-4a98-ac7b-81caae4fd0da"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -1649,8 +1620,8 @@ where p.seq_persona = $P{numeroPersona}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{otro_familiar}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="367" y="152" width="188" height="20" uuid="4d171817-56f9-48d9-9c8f-962a43cef502"/>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="367" y="83" width="188" height="20" isRemoveLineWhenBlank="true" uuid="4d171817-56f9-48d9-9c8f-962a43cef502"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -1659,66 +1630,64 @@ where p.seq_persona = $P{numeroPersona}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tipo_cancer}]]></textFieldExpression>
 			</textField>
-		</band>
-		<band height="602">
 			<staticText>
-				<reportElement x="0" y="0" width="410" height="20" uuid="924aea52-5cb2-4c1c-9c7e-b7ebc6f54bb1"/>
+				<reportElement positionType="Float" x="0" y="217" width="410" height="20" isRemoveLineWhenBlank="true" uuid="924aea52-5cb2-4c1c-9c7e-b7ebc6f54bb1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[4.  EXAMEN FÍSICO (espacio diligenciado por el médico)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="40" width="100" height="20" uuid="f2c03c44-ffbc-4b13-b353-2250f6928f40"/>
+				<reportElement positionType="Float" x="0" y="237" width="100" height="20" isRemoveLineWhenBlank="true" uuid="f2c03c44-ffbc-4b13-b353-2250f6928f40"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Tensión arterial:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="178" y="40" width="114" height="20" uuid="aaa2ddc8-8b2f-44ba-89df-05e6fc9aafc0"/>
+				<reportElement positionType="Float" x="178" y="237" width="114" height="20" isRemoveLineWhenBlank="true" uuid="aaa2ddc8-8b2f-44ba-89df-05e6fc9aafc0"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Frecuencia cardiaca:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="367" y="40" width="138" height="20" uuid="f071fc15-4f39-43cc-b549-e7df63d05ac2"/>
+				<reportElement positionType="Float" x="367" y="237" width="138" height="20" isRemoveLineWhenBlank="true" uuid="f071fc15-4f39-43cc-b549-e7df63d05ac2"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Frecuencia respiratoria:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="76" width="46" height="20" uuid="161ac8b0-230d-448a-b144-8f13b2d3ba34"/>
+				<reportElement positionType="Float" x="0" y="273" width="46" height="20" isRemoveLineWhenBlank="true" uuid="161ac8b0-230d-448a-b144-8f13b2d3ba34"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[SatO2:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="132" y="76" width="41" height="20" uuid="769d86c4-b788-4c96-bbf9-5cee9a738148"/>
+				<reportElement positionType="Float" x="132" y="273" width="41" height="20" isRemoveLineWhenBlank="true" uuid="769d86c4-b788-4c96-bbf9-5cee9a738148"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Peso:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="76" width="33" height="20" uuid="ba8d291f-ecee-4b05-81ac-832ede7c3fb2"/>
+				<reportElement positionType="Float" x="280" y="273" width="33" height="20" isRemoveLineWhenBlank="true" uuid="ba8d291f-ecee-4b05-81ac-832ede7c3fb2"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Talla:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="417" y="76" width="27" height="20" uuid="0baf2582-b66a-4324-8ec2-94eab3f7d565"/>
+				<reportElement positionType="Float" x="417" y="273" width="27" height="20" isRemoveLineWhenBlank="true" uuid="0baf2582-b66a-4324-8ec2-94eab3f7d565"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[IMC:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="46" y="76" width="50" height="20" uuid="f1f830cf-69c2-45ea-9c4b-bf5ccb0468ca"/>
+				<reportElement positionType="Float" x="46" y="273" width="50" height="20" isRemoveLineWhenBlank="true" uuid="f1f830cf-69c2-45ea-9c4b-bf5ccb0468ca"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -1728,7 +1697,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{num_imc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="40" width="50" height="20" uuid="63f701db-9e56-4d4c-ac1f-eeff3f590c92"/>
+				<reportElement positionType="Float" x="100" y="237" width="50" height="20" isRemoveLineWhenBlank="true" uuid="63f701db-9e56-4d4c-ac1f-eeff3f590c92"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -1738,7 +1707,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{num_tension}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="292" y="40" width="50" height="20" uuid="00c4008a-4841-41e9-9600-a594bd40e7c8"/>
+				<reportElement positionType="Float" x="292" y="237" width="50" height="20" isRemoveLineWhenBlank="true" uuid="00c4008a-4841-41e9-9600-a594bd40e7c8"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -1748,7 +1717,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{num_frec_car}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="505" y="40" width="50" height="20" uuid="b2507d7b-e7c6-4581-a6fa-8c540a797fe2"/>
+				<reportElement positionType="Float" x="505" y="237" width="50" height="20" isRemoveLineWhenBlank="true" uuid="b2507d7b-e7c6-4581-a6fa-8c540a797fe2"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -1758,7 +1727,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{num_frec_resp}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="173" y="76" width="50" height="20" uuid="be8ac51e-c3cd-4918-acc7-16c11a594af0"/>
+				<reportElement positionType="Float" x="173" y="273" width="50" height="20" isRemoveLineWhenBlank="true" uuid="be8ac51e-c3cd-4918-acc7-16c11a594af0"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -1768,7 +1737,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{num_peso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="313" y="76" width="50" height="20" uuid="55781f3f-8d5f-48c6-999f-791c8e7fbad2"/>
+				<reportElement positionType="Float" x="313" y="273" width="50" height="20" isRemoveLineWhenBlank="true" uuid="55781f3f-8d5f-48c6-999f-791c8e7fbad2"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -1778,7 +1747,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{num_talla}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="444" y="76" width="50" height="20" uuid="603a065e-aef3-4ee5-924b-0a56b93076d2"/>
+				<reportElement positionType="Float" x="444" y="273" width="50" height="20" isRemoveLineWhenBlank="true" uuid="603a065e-aef3-4ee5-924b-0a56b93076d2"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -1788,7 +1757,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{num_imc}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="126" width="100" height="20" backcolor="#CCCCCC" uuid="d5610024-4a08-411a-af61-ab006e060d24"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="306" width="100" height="20" isRemoveLineWhenBlank="true" backcolor="#CCCCCC" uuid="d5610024-4a08-411a-af61-ab006e060d24"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1802,7 +1771,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[Cabeza y Cuello]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="146" width="100" height="20" backcolor="#CCCCCC" uuid="82900931-b018-4c23-a39a-38034f912f7a"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="326" width="100" height="20" isRemoveLineWhenBlank="true" backcolor="#CCCCCC" uuid="82900931-b018-4c23-a39a-38034f912f7a"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1816,7 +1785,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[Tórax]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="166" width="100" height="20" backcolor="#CCCCCC" uuid="ebbb8f52-9f3f-4f1d-81b3-55029c329779"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="346" width="100" height="20" isRemoveLineWhenBlank="true" backcolor="#CCCCCC" uuid="ebbb8f52-9f3f-4f1d-81b3-55029c329779"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1829,120 +1798,8 @@ where p.seq_persona = $P{numeroPersona}]]>
 				</textElement>
 				<text><![CDATA[Abdomen]]></text>
 			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="0" y="186" width="100" height="20" backcolor="#CCCCCC" uuid="5a12227e-83ed-4e16-815f-2010d2416242"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Genitourinario]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="0" y="206" width="100" height="20" backcolor="#CCCCCC" uuid="09bdca43-57e1-472c-b30e-8d58aa81426a"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Columna]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="0" y="226" width="100" height="20" backcolor="#CCCCCC" uuid="fc398db0-89cc-4764-b30a-fd724cff139d"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Neurológico]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="0" y="246" width="100" height="20" backcolor="#CCCCCC" uuid="96a8d8c8-4809-4eaf-9b3a-dd136a7365cf"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Piel y flaneras]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="100" y="186" width="455" height="20" uuid="ec9dd310-c1e5-4a8b-855c-149249758632"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{desp_genitourinario}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="100" y="226" width="455" height="20" uuid="dfb38e01-22c1-4f45-8f72-aebfe07084e4"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{desp_neurologico}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="100" y="246" width="455" height="20" uuid="11649e4c-8848-4dbc-9bad-f9c8182b7811"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{desp_piel_fan}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="100" y="206" width="455" height="20" uuid="c7ad09fa-11e6-472f-8bdb-75a205f66514"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{desp_column}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="100" y="166" width="455" height="20" uuid="6313472c-2c63-44cf-bcb9-29256c6239dd"/>
+				<reportElement positionType="Float" x="100" y="346" width="455" height="20" isRemoveLineWhenBlank="true" uuid="6313472c-2c63-44cf-bcb9-29256c6239dd"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1956,7 +1813,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{desp_adb}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="146" width="455" height="20" uuid="391fca4e-52a5-4e5c-819a-28017869bd27"/>
+				<reportElement positionType="Float" x="100" y="326" width="455" height="20" isRemoveLineWhenBlank="true" uuid="391fca4e-52a5-4e5c-819a-28017869bd27"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1970,7 +1827,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{desp_torax}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="126" width="455" height="20" uuid="e1bad5d7-ad7b-4907-82de-d34a0f63b46a"/>
+				<reportElement positionType="Float" x="100" y="306" width="455" height="20" isRemoveLineWhenBlank="true" uuid="e1bad5d7-ad7b-4907-82de-d34a0f63b46a"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1984,7 +1841,119 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{desp_cap_cuello}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="290" width="555" height="20" uuid="e1681bc7-4571-4395-9338-bf068f6166b8"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="366" width="100" height="20" isRemoveLineWhenBlank="true" backcolor="#CCCCCC" uuid="5a12227e-83ed-4e16-815f-2010d2416242"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Genitourinario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="386" width="100" height="20" isRemoveLineWhenBlank="true" backcolor="#CCCCCC" uuid="09bdca43-57e1-472c-b30e-8d58aa81426a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Columna]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="406" width="100" height="20" isRemoveLineWhenBlank="true" backcolor="#CCCCCC" uuid="fc398db0-89cc-4764-b30a-fd724cff139d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Neurológico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="426" width="100" height="20" isRemoveLineWhenBlank="true" backcolor="#CCCCCC" uuid="96a8d8c8-4809-4eaf-9b3a-dd136a7365cf"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Piel y flaneras]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="100" y="366" width="455" height="20" isRemoveLineWhenBlank="true" uuid="ec9dd310-c1e5-4a8b-855c-149249758632"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{desp_genitourinario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="100" y="406" width="455" height="20" isRemoveLineWhenBlank="true" uuid="dfb38e01-22c1-4f45-8f72-aebfe07084e4"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{desp_neurologico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="100" y="426" width="455" height="20" isRemoveLineWhenBlank="true" uuid="11649e4c-8848-4dbc-9bad-f9c8182b7811"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{desp_piel_fan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="100" y="386" width="455" height="20" isRemoveLineWhenBlank="true" uuid="c7ad09fa-11e6-472f-8bdb-75a205f66514"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{desp_column}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="474" width="555" height="20" uuid="e1681bc7-4571-4395-9338-bf068f6166b8"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -1995,8 +1964,20 @@ where p.seq_persona = $P{numeroPersona}]]>
 				</textElement>
 				<text><![CDATA[5.  IMPRESIÓN DIAGNÓSTICA]]></text>
 			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="0" y="494" width="555" height="48" isRemoveLineWhenBlank="true" uuid="8802de52-cb7d-4bb6-a3b4-e39f1eb4ed9b"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{impresionDiagnostica}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="0" y="358" width="555" height="20" uuid="16d254af-5753-4341-a183-ab2ca7c95c2c"/>
+				<reportElement positionType="Float" x="0" y="542" width="555" height="20" uuid="16d254af-5753-4341-a183-ab2ca7c95c2c"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -2008,7 +1989,7 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<text><![CDATA[6. CONDUCTA]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="378" width="555" height="100" uuid="991d36a0-dbcf-40f7-aacb-a9ff6bf2199a"/>
+				<reportElement positionType="Float" x="0" y="562" width="555" height="50" uuid="991d36a0-dbcf-40f7-aacb-a9ff6bf2199a"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -2020,25 +2001,13 @@ where p.seq_persona = $P{numeroPersona}]]>
 				<textFieldExpression><![CDATA[$F{conducta}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="478" width="555" height="59" uuid="168a01f8-9af1-44f6-96a1-5a6fc7cc9258"/>
+				<reportElement positionType="Float" x="0" y="637" width="555" height="59" isRemoveLineWhenBlank="true" uuid="168a01f8-9af1-44f6-96a1-5a6fc7cc9258"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Yo he sido cuestionado sobre mis antecedentes médicos familiares y personales que pueden ocasionar riesgo para mi salud con la práctica del ejercicio. notifico que toda la información ha sido veraz y compleja, por la cual me hago responsable y firma en evaluado.
 ]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="0" y="310" width="555" height="48" uuid="8802de52-cb7d-4bb6-a3b4-e39f1eb4ed9b"/>
-				<box>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement verticalAlignment="Top">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{impresionDiagnostica}]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 	<lastPageFooter>

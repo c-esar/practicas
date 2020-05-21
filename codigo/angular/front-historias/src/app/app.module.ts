@@ -52,6 +52,7 @@ import { FormGestionComponent } from './form-gestionAdm/form-gestion.component';
 import { FormHistoriasComponent } from './form-historias/form-historias.component';
 import { FirmaIndividualComponent } from './firma-individual/firma-individual.component';
 import { FormCertificadoComponent } from './form-certificado/form-certificado.component';
+import { FormDescargaComponent } from './form-descarga/form-descarga.component';
 //rutas
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, //ruta principal de la aplicacion
@@ -66,9 +67,8 @@ const routes: Routes = [
   { path: 'menuPrincipal/form-gym/auxiliar', component: FormGymAuxiliarComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/creacion-actualizacion', component: FormGestionComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/informes', component: TablesComponent, canActivate: [LoginService]},
-  { path: 'menuPrincipal/crear/certificado',  component: FormCertificadoComponent, canActivate: [LoginService]   
-}
-
+  { path: 'menuPrincipal/crear/certificado/:id',  component: FormCertificadoComponent, canActivate: [LoginService]   },
+  { path: 'menuPrincipal/crear/certificado',  component: FormDescargaComponent, canActivate: [LoginService]   }
 ];
 
 @NgModule({
@@ -92,7 +92,8 @@ const routes: Routes = [
     FormGestionComponent,
     FormHistoriasComponent,
     FirmaIndividualComponent,
-    FormCertificadoComponent
+    FormCertificadoComponent,
+    FormDescargaComponent
   ],
   imports: [
     BrowserModule,

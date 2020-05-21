@@ -18,6 +18,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.ColumnTransformer;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "hc_certificado")
 public class CertificadoEntity implements Serializable{
@@ -52,10 +56,16 @@ public class CertificadoEntity implements Serializable{
 	private String tipoRestriccionLimitacion;
 
 	@Column(name = "recomendaciones")
-	private String Recomendaciones;
+	private String recomendaciones;
 
 	@Column(name = "control_epidemiologica")
 	private String controlEpidemiologica;
+	
+	@Column(name="seq_eval")
+	private String tipoEvaluacionEntity;
+	
+	@Column(name = "otro_evaluacion")
+	private String otroEvaluacion;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinTable(name = "hc_certificado_ocupacional", joinColumns = @JoinColumn(name = "seq_certificado", unique = false), 
@@ -124,12 +134,47 @@ public class CertificadoEntity implements Serializable{
 		this.tipoRestriccionLimitacion = tipoRestriccionLimitacion;
 	}
 
+	
+
 	public String getRecomendaciones() {
-		return Recomendaciones;
+		return recomendaciones;
 	}
 
 	public void setRecomendaciones(String recomendaciones) {
-		Recomendaciones = recomendaciones;
+		this.recomendaciones = recomendaciones;
 	}
 
+	public void setTipoEvaluacionEntity(String tipoEvaluacionEntity) {
+		this.tipoEvaluacionEntity = tipoEvaluacionEntity;
+	}
+
+	public String getControlEpidemiologica() {
+		return controlEpidemiologica;
+	}
+
+	public void setControlEpidemiologica(String controlEpidemiologica) {
+		this.controlEpidemiologica = controlEpidemiologica;
+	}
+
+	public HistoriaOcupacionalEntity getHistoriaOcupacionalEntity() {
+		return historiaOcupacionalEntity;
+	}
+
+	public void setHistoriaOcupacionalEntity(HistoriaOcupacionalEntity historiaOcupacionalEntity) {
+		this.historiaOcupacionalEntity = historiaOcupacionalEntity;
+	}
+
+	public String getOtroEvaluacion() {
+		return otroEvaluacion;
+	}
+
+	public void setOtroEvaluacion(String otroEvaluacion) {
+		this.otroEvaluacion = otroEvaluacion;
+	}
+
+	public String getTipoEvaluacionEntity() {
+		return tipoEvaluacionEntity;
+	}
+	
+	
 }

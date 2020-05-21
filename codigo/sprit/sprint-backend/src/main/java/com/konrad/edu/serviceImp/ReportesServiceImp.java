@@ -2,6 +2,7 @@ package com.konrad.edu.serviceImp;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,9 +19,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import com.konrad.edu.IService.IReportesService;
+import com.konrad.edu.dao.ICertificadoDao;
 import com.konrad.edu.dao.IHistoriaGymDao;
 import com.konrad.edu.dao.IHistoriaOcupacionalDao;
 import com.konrad.edu.dao.IPersonaDao;
+import com.konrad.edu.entity.CertificadoEntity;
 import com.konrad.edu.entity.HistoriaGYMEntity;
 import com.konrad.edu.entity.PersonaEntity;
 
@@ -42,6 +45,9 @@ public class ReportesServiceImp implements IReportesService {
 
 	@Autowired
 	private IPersonaDao personaDao;
+	
+	@Autowired
+	private ICertificadoDao certificadoDao;
 
 	@Override
 	public String exportReport(String id, int historias, String documentoMedico) {
@@ -130,8 +136,18 @@ public class ReportesServiceImp implements IReportesService {
 					impresionDiagnostica += ";  ";
 				}
 			}
+			String rolUsuario = "";
+			for (int i = 0; i < historia.getPersona().getRolUsuario().size(); i++) {
+				rolUsuario += historia.getPersona().getRolUsuario().get(i).getNomTipoUsuario();
+				if (i < historia.getPersona().getRolUsuario().size() - 1) {
+					rolUsuario += ";  ";
+				}
+			}
+			
 			parameters.put("impresionDiagnostica", impresionDiagnostica);
-			parameters.put("numeroPersona", persona.getSeqPersona());		
+			parameters.put("numeroPersona", persona.getSeqPersona());
+			parameters.put("numeroHistoria", historias);
+			parameters.put("rolUsuario", rolUsuario);
 			if(persona.getImagenEncriptada() != null) {
 				persona.setImagen(new String(persona.getImagenEncriptada()));
 				persona.setImagen(new String(persona.getImagenEncriptada()));
@@ -404,6 +420,7 @@ public class ReportesServiceImp implements IReportesService {
 			}
 			parameters.put("impresionDiagnostica", impresionDiagnostica);
 			parameters.put("numeroPersona", persona.getSeqPersona());
+			parameters.put("numeroHistoria", historias);
 			if(persona.getImagenEncriptada() != null) {
 				persona.setImagen(new String(persona.getImagenEncriptada()));
 				parameters.put("imagenPaciente", crearImagenPaciente(persona.getImagen(), "paciente"));
@@ -461,6 +478,46 @@ public class ReportesServiceImp implements IReportesService {
 
 	@Override
 	public String exportReportCertificado(String id, int historia, String documentoMedico) {
+		try {
+			Connection conexion = DriverManager
+					.getConnection("jdbc:sqlserver://192.168.0.42;databaseName=HC_Historiass", "sa", "12345");
+			File file = ResourceUtils.getFile("classpath:certificado.jrxml");
+			Map<String, Object> parameters = new HashMap<>();
+			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+			String certificado = certificadoDao.findByNumeroCertificado(id);
+			PersonaEntity medico = this.personaDao.findByPersonaMedico(certificado);
+			if(medico.getImagenEncriptada() != null) {
+				medico.setImagen(new String(medico.getImagenEncriptada()));
+				parameters.put("imagenMedico", crearImagenPaciente(medico.getImagen(), "medico"));
+			}
+			parameters.put("historia", id);
+			parameters.put("licsalud", medico.getLicenciaSalud());
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conexion);
+			File pdf = File.createTempFile("certificado", ".pdf");
+			System.out.println("Lo exportamos a " + pdf.getAbsolutePath());
+			FileOutputStream pdffinal = new FileOutputStream(pdf);
+			JasperExportManager.exportReportToPdfStream(jasperPrint, pdffinal);
+			pdffinal.close();
+			byte[] inFileBytes = Files.readAllBytes(Paths.get(pdf.getAbsolutePath()));
+			byte[] encoded = java.util.Base64.getEncoder().encode(inFileBytes);
+			String base64EncryptedString = "";
+			base64EncryptedString = new String(encoded);
+			System.out.print(base64EncryptedString);
+			return base64EncryptedString;
+		} catch (SQLException e) {
+			System.err.print(e.getMessage());
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			System.err.print(e.getMessage());
+			e.printStackTrace();
+		} catch (JRException e) {
+			System.err.print(e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.err.print(e.getMessage());
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 }

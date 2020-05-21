@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./list-usuarios-app.component.css']
 })
 export class ListUsuariosAppComponent implements OnInit {
-  displayedColumns: string[] = ['Tipo Documento', 'No.', 'Nombre', 'Apellido', 'Celular', 'boton'];
+  displayedColumns: string[] = null
   dataSource = new MatTableDataSource(null);
   datosSingleton: DatosSingleton;
   tipoUsuario: TipoUsuario[];
@@ -44,6 +44,11 @@ export class ListUsuariosAppComponent implements OnInit {
     this.onCargarAtributos();
     this.onCargarFunciones();
     this.obtenerPermisos();
+    if(this.permiso.crearUsuario === 1){
+      this.displayedColumns = ['Tipo Documento', 'No.', 'Nombre', 'Apellido', 'Celular', 'boton'];
+    }else{
+      this.displayedColumns = ['Tipo Documento', 'No.', 'Nombre', 'Apellido', 'Celular'];
+    }
     this.userIdle.startWatching();
 
     // Start watching when user idle is starting.

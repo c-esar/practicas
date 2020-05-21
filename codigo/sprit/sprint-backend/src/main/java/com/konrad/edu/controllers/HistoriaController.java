@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import com.konrad.edu.IService.IFamiliarGymService;
 import com.konrad.edu.IService.IHistoriaGymService;
 import com.konrad.edu.IService.IHistoriaOcupacionalService;
 import com.konrad.edu.IService.IPersonaService;
+import com.konrad.edu.IService.IReportesService;
 import com.konrad.edu.IService.ITipoCuestioService;
 import com.konrad.edu.IService.ITipoEvaluacionService;
 import com.konrad.edu.IService.ITipoHistoriaService;
@@ -42,6 +44,7 @@ import com.konrad.edu.entity.HistoriaGYMEntity;
 import com.konrad.edu.entity.HistoriaGymEncriptacion;
 import com.konrad.edu.entity.HistoriaOcupacionalEncriptacion;
 import com.konrad.edu.entity.HistoriaOcupacionalEntity;
+import com.konrad.edu.entity.PersonaEntity;
 import com.konrad.edu.entity.TipoCuestionarioEntity;
 import com.konrad.edu.entity.TipoEvaluacionEntity;
 import com.konrad.edu.entity.TipoHistoriasEntity;
@@ -91,7 +94,8 @@ public class HistoriaController {
 	private ICertificadoService certificadoService;
 	
 	@Autowired
-	private IPersonaService personaService;
+	private IReportesService reportesService;
+	
 	
 	private EncriptacionDatosServiceImp encriptacionService = new EncriptacionDatosServiceImp();
 
@@ -165,13 +169,36 @@ public class HistoriaController {
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insertar en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			response.put("certificado", certificadoentity);
+			response.put("certificado", null);
 			System.err.print(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		response.put("mensaje", "el certificado ha sido creado con éxito!");
 		response.put("certificado", certificadoentity);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/buscarCertificado/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<?> buscarCertificado(@PathVariable Long id) {
+		CertificadoEntity certificadoentity = new CertificadoEntity();
+		Map<String, Object> response = new HashMap<>();
+		try {
+			certificadoentity = certificadoService.findByNumeroHistoria(id);
+			if(certificadoentity == null) {
+				response.put("mensaje", "Error al buscar certificado");
+				response.put("error", "Error al buscar certificado");
+				response.put("certificado", null);
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al buscar certificado");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			response.put("certificado", null);
+			System.err.print(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Long>(certificadoentity.getSeqCertificado(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/listConcepto")
