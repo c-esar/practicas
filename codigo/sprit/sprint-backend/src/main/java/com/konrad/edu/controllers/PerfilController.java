@@ -47,9 +47,13 @@ public class PerfilController {
 			password = Encriptacion.Encriptar(password);
 			p = perfilService.getSession(nom_usuario, password);
 			if (p != null) {
-				p.getPersona().get(0).setPerfil(null);
-				p.getPersona().get(0).setHistorias(null);
-				p.getPersona().get(0).setHistoriaGym(null);
+				if(!p.getPersona().isEmpty()) {
+					p.getPersona().get(0).setPerfil(null);
+					p.getPersona().get(0).setHistorias(null);
+					p.getPersona().get(0).setHistoriaGym(null);
+					p.getPersona().get(0).setHistoriaGymEncriptacion(null);
+					p.getPersona().get(0).setHistoriasEncriptacion(null);
+				}
 			}
 			if (p != null && p.getEstado() != null && p.getEstado().equalsIgnoreCase("a")) {
 				System.out.println("entre activo");

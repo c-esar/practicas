@@ -12,4 +12,7 @@ public interface IHistoriaOcupacionalDao extends CrudRepository<HistoriaOcupacio
 
 	@Query(value = "ALTER TABLE hc_concepto_historia DROP CONSTRAINT seq_concepto", nativeQuery = true)
 	public boolean alterConcepto();
+	
+	@Query(value = "ALTER TABLE hc_diagnostico_ocupacional_historia DROP CONSTRAINT seq_diagnostico", nativeQuery = true)
+	public boolean alterdiagnostico();
 }

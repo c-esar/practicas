@@ -2,7 +2,7 @@ export class AntecedentesTrabajo {
   seqAnt: number;
   fechaAnt: Date;
   nomEmpresa: string;
-  despCaus: string;
+  despCausa: string;
   tipoLesion: string;
   parteAfectada: string;
   despIncapacidad: string;
@@ -12,7 +12,7 @@ export class AntecedentesTrabajo {
     this.seqAnt = null;
     this.fechaAnt = null;
     this.nomEmpresa= null;
-    this.despCaus= null;
+    this.despCausa= null;
     this.tipoLesion= null;
     this.parteAfectada= null;
     this.despIncapacidad= null;

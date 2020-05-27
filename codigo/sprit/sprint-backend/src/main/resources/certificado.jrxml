@@ -368,21 +368,21 @@ where seq_certificado = $P{historia}]]>
 				<text><![CDATA[El médico certifica que el trabajador es:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="170" width="555" height="18" uuid="6c35f2b0-54c3-456e-8a51-d8fbfb622242"/>
+				<reportElement positionType="Float" x="0" y="160" width="555" height="18" uuid="6c35f2b0-54c3-456e-8a51-d8fbfb622242"/>
 				<textElement verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tipo de restricciones o limitaciones:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="218" width="555" height="20" uuid="71857013-78f1-4d9b-aa04-5ef3566e9d08"/>
+				<reportElement positionType="Float" x="0" y="198" width="555" height="20" uuid="71857013-78f1-4d9b-aa04-5ef3566e9d08"/>
 				<textElement verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Recomendaciones:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="268" width="555" height="20" uuid="ec103fe4-7dfd-4792-8beb-2fec3f98c12e"/>
+				<reportElement positionType="Float" x="0" y="248" width="555" height="20" uuid="ec103fe4-7dfd-4792-8beb-2fec3f98c12e"/>
 				<textElement verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -411,34 +411,53 @@ where seq_certificado = $P{historia}]]>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="Float" x="174" y="60" width="381" height="20" uuid="bd9fe3ba-f0ae-4bb5-8fa6-1ca58922e09c"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{exa_realizados}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="0" y="140" width="555" height="30" uuid="4d3348a0-3e1e-4dcd-bb53-8ca2cebc5b16"/>
+				<reportElement positionType="Float" x="0" y="140" width="555" height="20" uuid="4d3348a0-3e1e-4dcd-bb53-8ca2cebc5b16"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{medico_certificado}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="0" y="238" width="555" height="30" uuid="6cd5ec2f-a537-41d3-9c25-df550f1a1176"/>
+				<reportElement positionType="Float" x="0" y="218" width="555" height="30" uuid="6cd5ec2f-a537-41d3-9c25-df550f1a1176"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{recomendaciones}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="0" y="288" width="555" height="30" isRemoveLineWhenBlank="true" uuid="b1cd9fdd-9daf-4aa8-884e-1369c478aa0c"/>
+				<reportElement positionType="Float" x="0" y="268" width="555" height="20" isRemoveLineWhenBlank="true" uuid="b1cd9fdd-9daf-4aa8-884e-1369c478aa0c"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{control_epidemiologica}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="0" y="188" width="555" height="30" uuid="d92e15c9-b70a-49b6-a53d-17b55202f22f"/>
+				<reportElement positionType="Float" x="0" y="178" width="555" height="20" uuid="d92e15c9-b70a-49b6-a53d-17b55202f22f"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
 				<textElement>
 					<font size="12"/>
 				</textElement>

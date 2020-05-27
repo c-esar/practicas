@@ -35,7 +35,7 @@ import { FormControl } from '@angular/forms';
 import { TipoEvaluacion } from '../DatosBean/tipoEvaluacion';
 import { FirmaIndividualComponent } from '../firma-individual/firma-individual.component';
 import { UserIdleService } from 'angular-user-idle';
-import { EditSettingsModel} from '@syncfusion/ej2-angular-grids';
+import { EditSettingsModel } from '@syncfusion/ej2-angular-grids';
 declare var jQuery: any;
 declare var $: any;
 @Component({
@@ -123,28 +123,25 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      Swal.fire({
-        title: 'Cargando Informacion',
-        timer: 3000,
-        timerProgressBar: true,
-        showConfirmButton: false
-      })
-    }, 500);
-    setTimeout(() => {
-      this.onCargarAtributos();
-      this.onCargarFunciones();
-      this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true };
-      this.pageSettings = { pageSize: 6 };
-    }, 1000);
+    Swal.fire({
+      title: 'Cargando Informacion',
+      timer: 3000,
+      timerProgressBar: true,
+      showConfirmButton: false
+    });
+    this.onLabels();
+    this.onCargarAtributos();
+    this.onCargarFunciones();
+    this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true };
+    this.pageSettings = { pageSize: 6 };
     this.userIdle.startWatching();
 
     // Start watching when user idle is starting.
     this.userIdle.onTimerStart().subscribe(count => console.log(count));
 
     // Start watch when time is up.
-    this.userIdle.onTimeout().subscribe(() => {     
-      this.loginService.logOut();  
+    this.userIdle.onTimeout().subscribe(() => {
+      this.loginService.logOut();
       this.router.navigate(['login']);
       Swal.fire('Tiempo agotado', 'Inactivo', 'error');
     });
@@ -165,7 +162,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   restart() {
     this.userIdle.resetTimer();
   }
-  
+
   ngAfterViewInit() {
     this.getDatosPersonaLogin();
   }
@@ -190,7 +187,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private actualizarFirmaMedico(): void{
+  private actualizarFirmaMedico(): void {
     this.personaService.update(this.personaLogin).subscribe(
       response => {
         console.log(response);
@@ -216,7 +213,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.barProgres = false;
     this.buscoPerson = false;
     this.guardado = true;
-    this.persona.historias[0].ciudadHistoria.seqCuidad = 0;
+    this.persona.historias[0].ciudadHistoria.seqCuidad = 5137;
     this.firmaMedico = null;
     this.firmaPaciente = null;
     this.firmaPacienteBoolean = false;
@@ -226,17 +223,16 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   onCargarFunciones(): void {
     this.getPermisos();
     this.getAuxOMedico();
-    this.onLabels();
     this.onActivarSubMenu("DatosPricipales");
     this.getTipoDocumento();
     this.getCiudad();
     this.getAseguradora();
     this.getTipoAntecedente();
-    this.getImpresionDiagnostica();
     this.getTipoEvaluacion();
     this.getAnosHabitosList();
     this.getTipoUsuario();
     this.getDatosPersonaLogin();
+    //this.getImpresionDiagnostica();
   }
 
   public onValidatePersona(): void {
@@ -258,7 +254,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
       this.buscoPerson = false;
       this.persona.historias = new Array<Historias>();
       this.persona.historias.push(new Historias());
-      this.persona.historias[0].ciudadHistoria.seqCuidad = 0;
+      this.persona.historias[0].ciudadHistoria.seqCuidad = 5137;
       this.cargarListas();
       this.personaService.onBuscarDocumento(this.persona).subscribe(
         (respuesta) => {
@@ -546,15 +542,13 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       if (this.persona.historias[0].aceptoCondiciones != null) {
         this.persona.historias[0].aceptoCondiciones = "true";
-        this.actualizarPerson(this.Spersona);
         this.persona.localidad.seqLocalidad = 0;
         this.persona.lugarDeResidencia.seqCuidad = 0;
-        this.persona.rolUsuario[0] = this.tipoUsuario[1];
         this.barProgres = true;
         this.cargarDatosActededentesHistoria();
         this.firmaMedico = this.firmaMedicohtml.imagenUsuario == null || this.firmaMedicohtml.imagenUsuario == undefined ? this.firmaMedico : this.firmaMedicohtml.imagenUsuario;
         this.firmaPaciente = this.firmaPacientehtml.imagenUsuario == null || this.firmaPacientehtml.imagenUsuario == undefined ? this.firmaPaciente : this.firmaPacientehtml.imagenUsuario;
-        if (this.firmaMedico != null || this.firmaPaciente != null) {         
+        if (this.firmaMedico != null || this.firmaPaciente != null) {
           this.personaLogin.imagen = this.firmaMedico;
           this.actualizarFirmaMedico();
           this.persona.imagen = this.firmaPaciente;
@@ -568,7 +562,12 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
                 this.updatePersona();
                 this.createHistoria();
               } else {
-                console.log(this.persona)
+                console.log(this.persona);
+                debugger
+                this.actualizarPerson(this.Spersona);
+                if(this.persona.rolUsuario.length === 0){
+                  this.persona.rolUsuario[0] = this.tipoUsuario[1];
+                }
                 this.personaService.create(this.persona, "2").subscribe(
                   response => {
                     console.log(response);
@@ -620,7 +619,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
       );
       this.persona.historias = new Array<Historias>();
       this.persona.historias.push(new Historias());
-      this.persona.historias[0].ciudadHistoria.seqCuidad = 0;
+      //this.persona.historias[0].ciudadHistoria.seqCuidad = 5137;
       this.cargarListas();
     }, 1000);
   }
@@ -874,6 +873,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
     let nuevoRol = new TipoUsuario();
+    debugger
     nuevoRol.seqTipoUsuario = 2;
     if (this.persona.rolUsuario != null && this.persona.rolUsuario.length > 0) {
     } else if (per.rolUsuario != null && per.rolUsuario.length > 0) {
@@ -883,6 +883,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
       this.persona.rolUsuario.push(nuevoRol);
     }
     this.persona.imagen = this.persona.imagen == null ? per.imagen : this.persona.imagen;
+    this.persona.perfil = per.perfil == null || per.perfil.seqPerfil == null ? null : per.perfil;
   }
 
 
@@ -1054,11 +1055,20 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   }
 
   getImpresionDiagnostica(): void {
-    this.historiaService.getImpresionDiagnostica().subscribe(
-      (respuesta) => {
-        this.diagnostica = respuesta;
-      }
-    )
+    Swal.fire({
+      title: 'Cargando Informacion',
+      timer: 3000,
+      timerProgressBar: true,
+      showConfirmButton: false
+    });
+    if (this.diagnostica === undefined) {
+      this.historiaService.getImpresionDiagnostica().subscribe(
+        (respuesta) => {
+          this.diagnostica = respuesta;
+          console.log(this.diagnostica);
+        }
+      )
+    }
   }
 
   private getListConcepto(): void {
@@ -1084,7 +1094,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.personaService.getCiudad().subscribe(
       (respuesta) => {
         this.ciudad = respuesta
-        console.log(respuesta)
       }
     )
   }
@@ -1093,7 +1102,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.personaService.getAseguradora().subscribe(
       (respuesta) => {
         this.aseguradora = respuesta
-        console.log(respuesta)
       }
     )
   }
@@ -1146,7 +1154,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.historiaService.getTipoUsuario().subscribe(
       (respuesta) => {
         this.tipoUsuario = respuesta
-        console.log(respuesta)
+
       }
     )
   }

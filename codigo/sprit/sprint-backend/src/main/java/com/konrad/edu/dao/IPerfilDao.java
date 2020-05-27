@@ -8,7 +8,9 @@ import com.konrad.edu.entity.PerfilEntity;
 
 public interface IPerfilDao extends CrudRepository<PerfilEntity, Long> {
 
-	@Query(value = "select * from hc_perfiles u where u.nom_usuario = ?1 and u.password = ?2 and u.estado = 'A'", nativeQuery = true)
+	@Query(value = "select * from hc_perfiles u"
+			+ " inner join hc_personas hp on hp.seq_perfil = u.seq_perfil"
+			+ " where u.nom_usuario = ?1 and u.password = ?2 and u.estado = 'A'", nativeQuery = true)
 	public PerfilEntity findHcPerfilesByNomusuarioAndPassword(@Param("nom_usuario") String nom_usuario,
 			@Param("password") String password);
 	

@@ -49,6 +49,7 @@ public class ReportesServiceImp implements IReportesService {
 	@Autowired
 	private ICertificadoDao certificadoDao;
 
+	//reporte historia gym
 	@Override
 	public String exportReport(String id, int historias, String documentoMedico) {
 		try {
@@ -131,7 +132,7 @@ public class ReportesServiceImp implements IReportesService {
 			}
 			for (int i = 0; i < historia.getDiagnosticoOcupacionalEntity().size(); i++) {
 				impresionDiagnostica += historia.getDiagnosticoOcupacionalEntity().get(i).getCodDiagnostico() + "-"
-						+ historia.getDiagnosticoOcupacionalEntity().get(i).getAfectacionPrincipal();
+						+ historia.getDiagnosticoOcupacionalEntity().get(i).getDesDiagnostico();
 				if (i < historia.getDiagnosticoOcupacionalEntity().size() - 1) {
 					impresionDiagnostica += ";  ";
 				}
@@ -184,6 +185,7 @@ public class ReportesServiceImp implements IReportesService {
 
 	}
 
+	//reporte historia ocupacional
 	@Override
 	public String exportReportOcupacional(String id, int historias, String documentoMedico) {
 		try {
@@ -412,8 +414,7 @@ public class ReportesServiceImp implements IReportesService {
 					.size(); i++) {
 				impresionDiagnostica += historia.getHistoriasEncriptacion().get(0).getDiagnosticoOcupacionalEntity()
 						.get(i).getCodDiagnostico() + "-"
-						+ historia.getHistoriasEncriptacion().get(0).getDiagnosticoOcupacionalEntity().get(i)
-								.getAfectacionPrincipal();
+						+ historia.getHistoriasEncriptacion().get(0).getDiagnosticoOcupacionalEntity().get(i).getDesDiagnostico();
 				if (i < historia.getHistoriasEncriptacion().get(0).getDiagnosticoOcupacionalEntity().size() - 1) {
 					impresionDiagnostica += "\n";
 				}
@@ -455,6 +456,7 @@ public class ReportesServiceImp implements IReportesService {
 		return null;
 	}
 
+	//crear imagen para reporte
 	private String crearImagenPaciente(String imagen, String id) {
 		String[] palabras = imagen.split(",");
 		String imgentmp = palabras[1];
@@ -476,6 +478,7 @@ public class ReportesServiceImp implements IReportesService {
 		return personaDao.findByPersonaOcupacional(id);
 	}
 
+	//crear reporte certificado
 	@Override
 	public String exportReportCertificado(String id, int historia, String documentoMedico) {
 		try {

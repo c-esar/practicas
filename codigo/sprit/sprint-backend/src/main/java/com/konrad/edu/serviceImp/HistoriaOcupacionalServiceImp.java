@@ -23,4 +23,9 @@ public class HistoriaOcupacionalServiceImp implements IHistoriaOcupacionalServic
 		return historiaDao.alterConcepto();
 		
 	}
+
+	@Override
+	public boolean alterdiagnostico() {
+		return historiaDao.alterdiagnostico();
+	}
 }

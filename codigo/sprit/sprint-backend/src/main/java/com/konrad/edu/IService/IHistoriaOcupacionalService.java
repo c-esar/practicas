@@ -7,4 +7,6 @@ public interface IHistoriaOcupacionalService {
 	public HistoriaOcupacionalEntity save(HistoriaOcupacionalEntity historia);
 	
 	public boolean alterConcepto();
+	
+	public boolean alterdiagnostico();
 }

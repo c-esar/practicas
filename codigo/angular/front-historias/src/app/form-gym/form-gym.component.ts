@@ -97,7 +97,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       Swal.fire({
         title: 'Cargando Informacion',
-        timer: 3000,
+        timer: 4000,
         timerProgressBar: true,
         showConfirmButton: false
       })
@@ -189,7 +189,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.estadoFamiliar = false;
     this.estadoTipoCancer = false;
     this.guardado = true;
-    this.persona.historiaGym[0].ciudadHistoria.seqCuidad = 0;
+    this.persona.historiaGym[0].ciudadHistoria.seqCuidad = 5137;
     this.onCargarAtributosNuevos();
   }
 
@@ -242,6 +242,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
       this.personaService.onBuscarDocumento(this.persona).subscribe(
         (respuesta) => {
           console.log(respuesta);
+          debugger
           this.Spersona = respuesta;
           this.seqPersona = respuesta.seqPersona;
           if (this.Spersona.aseguradora === null) {
@@ -635,6 +636,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
 
     setTimeout(() => {
       if (this.onCargarTipoUsuario()) {
+        debugger
         this.persona.localidad.seqLocalidad = 0;
         this.persona.lugarDeResidencia.seqCuidad = 0;
         this.actualizarPerson(this.Spersona);
@@ -872,12 +874,14 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.persona.parentescoEmergencia = this.persona.parentescoEmergencia == null ? per.parentescoEmergencia : this.persona.parentescoEmergencia;
     this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
+    debugger
+    this.persona.perfil = per.perfil == null || per.perfil.seqPerfil == null ? null : per.perfil;
+    this.persona.imagen = this.persona.imagen == null ? per.imagen : this.persona.imagen;
   }
   private onLabels(): void {
     this.labelService.getLabel().subscribe(
       (respuesta) => {
         this.datosSingleton = respuesta
-        console.log(respuesta)
       }
     );
   }
@@ -885,7 +889,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.personaService.getTipoDocumento().subscribe(
       (respuesta) => {
         this.tipoDocumento = respuesta
-        console.log(respuesta)
       }
     )
   }
@@ -894,7 +897,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.personaService.getCiudad().subscribe(
       (respuesta) => {
         this.ciudad = respuesta
-        console.log(respuesta)
       }
     )
   }
@@ -903,7 +905,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.personaService.getAseguradora().subscribe(
       (respuesta) => {
         this.aseguradora = respuesta
-        console.log(respuesta)
       }
     )
   }
@@ -912,7 +913,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.historiaService.getTipoUsuario().subscribe(
       (respuesta) => {
         this.tipoUsuario = respuesta
-        console.log(respuesta)
       }
     )
   }
@@ -921,7 +921,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.historiaService.getTipoPreguntaHistoriaGym().subscribe(
       (respuesta) => {
         this.tipoPreguntaHistoriaGym = respuesta
-        console.log(respuesta)
       }
     )
   }
@@ -969,7 +968,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos[0].crearUsuario;
     this.permiso.gestionarUsuario = this.loginService.obtenerPerfilSesion().permisos[0].gestionarUsuario;
     this.permiso.descargar = this.loginService.obtenerPerfilSesion().permisos[0].descargar;
-    console.log(this.permiso.crearAux);
   }
 
 }

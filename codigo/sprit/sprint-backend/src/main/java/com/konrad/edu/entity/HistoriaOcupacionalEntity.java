@@ -82,8 +82,9 @@ public class HistoriaOcupacionalEntity implements Serializable {
 	private List<ConceptoEntity> conceptoConcepto;
 
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "hc_diagnosticoOcupacional_historia", joinColumns = @JoinColumn(name = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_diagnostico"), uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "seq_historia", "seq_diagnostico" }) })
+	@JoinTable(name = "hc_diagnosticoOcupacional_historia", joinColumns = @JoinColumn(name = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_diagnostico"), indexes = {
+			@Index(name = "seq_historia", columnList = "seq_historia", unique = false),
+			@Index(name = "seq_diagnostico", columnList = "seq_diagnostico", unique = true) })
 	private List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity;
 
 	@Column(name = "dia_historia")

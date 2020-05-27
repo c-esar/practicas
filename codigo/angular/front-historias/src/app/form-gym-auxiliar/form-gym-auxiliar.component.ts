@@ -400,6 +400,8 @@ export class FormGymAuxiliarComponent implements OnInit {
     this.persona.parentescoEmergencia = this.persona.parentescoEmergencia == null ? per.parentescoEmergencia : this.persona.parentescoEmergencia;
     this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
+    this.persona.perfil = per.perfil == null || per.perfil.seqPerfil == null ? null : per.perfil;
+    this.persona.imagen = this.persona.imagen == null ? per.imagen : this.persona.imagen;
   }
   private onLabels(): void {
     this.labelService.getLabel().subscribe(

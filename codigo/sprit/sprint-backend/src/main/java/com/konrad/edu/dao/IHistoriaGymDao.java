@@ -22,4 +22,7 @@ public interface IHistoriaGymDao extends CrudRepository<HistoriaGYMEntity, Long>
 	
 	@Query(value = "ALTER TABLE hc_rol_usuario_persona DROP CONSTRAINT tipo_usuario", nativeQuery = true)
 	public boolean alterUsuarios();
+	
+	@Query(value = "ALTER TABLE hc_diagnostico_gym_historia DROP CONSTRAINT seq_diagnostico", nativeQuery = true)
+	public boolean alterDiagnostico();
 }

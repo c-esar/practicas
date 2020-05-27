@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="historiasGym" language="groovy" columnDirection="RTL" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="58a19427-39b6-40d6-a40b-27c995e2dc0f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="552"/>
 	<import value="org.apache.commons.codec.binary.*"/>
 	<style name="table">
 		<box>
@@ -49,6 +49,9 @@
 	</style>
 	<subDataset name="preguntasGym" uuid="905b5db7-2d4f-4ade-b91f-70877cb6ce4f">
 		<parameter name="numeroPersona" class="java.lang.String"/>
+		<parameter name="numeroHistoria" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
 		<queryString>
 			<![CDATA[SELECT
        hpre.seq_historia_preguntas_gym
@@ -61,7 +64,7 @@
 FROM hc_personas p
 inner join hc_historia_gym hgym on hgym.seq_persona = p.seq_persona
 inner join hc_historias_preguntas_gym hpre on hpre.seq_historia_gym = hgym.seq_historia_gym
-where p.seq_persona = $P{numeroPersona}]]>
+where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHistoria}]]>
 		</queryString>
 		<field name="seq_historia_preguntas_gym" class="java.lang.Long"/>
 		<field name="cantidad" class="java.lang.Integer"/>
@@ -73,13 +76,17 @@ where p.seq_persona = $P{numeroPersona}]]>
 	</subDataset>
 	<subDataset name="cuestionarioGym" uuid="4a5db833-0c10-4b18-9104-5fdb08bf7b90">
 		<parameter name="numeroPersona" class="java.lang.String"/>
-		<queryString language="SQL">
+		<parameter name="numeroHistoria" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
 			<![CDATA[SELECT
 c.estado_cuestionario,
 tc.nom_cuestionario
 FROM hc_cuestionario_gym c
 inner join hc_historia_gym hgym on hgym.seq_historia_gym = c.seq_historia_gym
-inner join hc_tipo_cuestionario tc on tc.seq_tipo_cuestionario =  c.seq_tipo_cuestionario]]>
+inner join hc_tipo_cuestionario tc on tc.seq_tipo_cuestionario =  c.seq_tipo_cuestionario
+where c.seq_historia_gym = $P{numeroHistoria}]]>
 		</queryString>
 		<field name="estado_cuestionario" class="java.lang.String"/>
 		<field name="nom_cuestionario" class="java.lang.String"/>
@@ -453,7 +460,7 @@ where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHis
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
@@ -523,7 +530,7 @@ where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHis
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle">
 					<font size="13"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
@@ -827,7 +834,7 @@ where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHis
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nom_aseguradora}]]></textFieldExpression>
@@ -1222,6 +1229,9 @@ where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHis
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="200" y="481" width="100" height="20" isRemoveLineWhenBlank="true" uuid="1ae0226e-40ed-45a0-93fd-14f061c13f82"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
@@ -1229,87 +1239,57 @@ where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHis
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="151" y="507" width="73" height="20" isRemoveLineWhenBlank="true" uuid="82259608-746d-43f3-a312-fb4fc339841a"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fumaSN}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="223" y="507" width="174" height="20" isRemoveLineWhenBlank="true" uuid="2a288a56-7b36-4640-a0f3-1057d4dac86a"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Cuantos cigarrillos día:  "+ $P{fumacuantos}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement positionType="Float" x="397" y="507" width="158" height="20" isRemoveLineWhenBlank="true" uuid="79f9b4cb-036c-47d1-a3c9-3977722e1ff8"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Tiempo fumando:  " +$P{fumatiempo}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement positionType="Float" x="150" y="539" width="74" height="20" isRemoveLineWhenBlank="true" uuid="e291d331-299c-4e3a-8278-91e0e961c974"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{licorSN}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="222" y="539" width="333" height="20" isRemoveLineWhenBlank="true" uuid="42430311-1ce0-493a-ae90-cee8e9affbc8"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Cuantas veces al mes:  " +$P{licorcuantos}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement positionType="Float" x="151" y="574" width="72" height="20" isRemoveLineWhenBlank="true" uuid="e75cdf96-69ed-4668-adf7-eeeb27016296"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ejercicioSN}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="222" y="574" width="333" height="20" isRemoveLineWhenBlank="true" uuid="7593878e-8518-4532-a4e4-dd640acf0098"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Cual(es):  " +$P{ejerciciocuales}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement positionType="Float" x="0" y="602" width="555" height="20" isRemoveLineWhenBlank="true" uuid="a88aae6b-3812-4581-86b0-5b9184d44665"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Cuantas veces por semana:  " +$P{ejerciciocuantas}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement positionType="Float" x="209" y="634" width="100" height="20" isRemoveLineWhenBlank="true" uuid="d6d3be76-ce25-4860-ad8c-4c1a4184b015"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{energizanteSN}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="309" y="634" width="246" height="20" isRemoveLineWhenBlank="true" uuid="a101c397-983f-48d8-84e7-dec7b7b16a98"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Cuantas a la semana:  "+$P{energizantecuantas}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement positionType="Float" x="222" y="662" width="87" height="20" isRemoveLineWhenBlank="true" uuid="f57cefd3-354d-4b6f-8fb6-868d1298c982"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{psicoactivasSN}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement positionType="Float" x="309" y="662" width="246" height="20" isRemoveLineWhenBlank="true" uuid="0e294d44-8709-4b39-be19-4256c6ff6d31"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA["¿Cuáles?:  " +$P{psicoactivascuales}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="0" y="689" width="178" height="20" isRemoveLineWhenBlank="true" uuid="ca466a21-fa38-4147-bc55-1194141c67fe"/>
@@ -1328,10 +1308,129 @@ where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHis
 			<textField>
 				<reportElement x="102" y="73" width="305" height="20" uuid="0d88b5dd-c170-4d8e-a530-eaafbd994dc6"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{rolUsuario}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement positionType="Float" x="156" y="602" width="399" height="20" uuid="5e468fe8-b17e-44a7-aa7f-8db749d7c459"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ejerciciocuantas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="353" y="539" width="202" height="20" uuid="4c21fbf3-8aec-459a-9daf-ec3add19f1f0"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{licorcuantos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="282" y="574" width="273" height="20" uuid="c510a7a5-c417-474b-98ba-85ae413339cd"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ejerciciocuales}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="367" y="662" width="188" height="20" uuid="11c4b84d-1135-49f5-87cb-809cbabd4e83"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{psicoactivascuales}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="439" y="634" width="116" height="20" uuid="50c0fa82-c0cd-4a9a-b3c3-6ef7ecb1605a"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{energizantecuantas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="507" width="44" height="20" uuid="4812780a-c9ce-47e7-8bef-41a891233414"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fumacuantos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="497" y="507" width="58" height="20" uuid="d0770a8f-d938-4163-9fcc-587dd6151741"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fumatiempo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="222" y="507" width="131" height="20" uuid="a0798913-455d-45df-9a15-5b818825904f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Cuantos cigarrillos día:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="507" width="100" height="20" uuid="15e874f2-79cb-40b6-a5f2-7c511b5a0863"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Tiempo fumando:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="539" width="129" height="20" uuid="7224466a-18a6-409d-8a6e-1f743ca7e625"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Cuantas veces al mes:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="574" width="60" height="20" uuid="365cfd59-7b09-4770-a28e-17803e660bad"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Cual(es):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="602" width="156" height="20" uuid="7d1f8736-f85e-4bd7-b32e-239360717afe"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Cuantas veces por semana:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="634" width="130" height="20" uuid="9178e669-c0d7-40cf-b5ac-e7348ded212d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Cuantas a la semana:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="662" width="60" height="20" uuid="0599193f-ecb8-43fd-b7d5-a16e7320036b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[¿Cuáles?: ]]></text>
+			</staticText>
 		</band>
 		<band height="752">
 			<staticText>
@@ -1352,9 +1451,12 @@ where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHis
 			<componentElement>
 				<reportElement key="table 1" style="table 1" positionType="Float" x="0" y="167" width="555" height="50" isRemoveLineWhenBlank="true" uuid="6a258e64-e952-47a0-ab22-dd23b78c2b91"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="cuestionarioGym" uuid="0f2eed8b-a7c7-49c8-a713-542881f3a287">
+					<datasetRun subDataset="cuestionarioGym" uuid="f4809f08-0c94-4645-bcab-1c95c53c0757">
 						<datasetParameter name="numeroPersona">
 							<datasetParameterExpression><![CDATA[$P{numeroPersona}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="numeroHistoria">
+							<datasetParameterExpression><![CDATA[$P{numeroHistoria}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>

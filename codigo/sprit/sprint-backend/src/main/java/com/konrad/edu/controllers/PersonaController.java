@@ -272,12 +272,22 @@ public class PersonaController {
 		try {
 			historiaService.alterConcepto();
 		}catch (Exception e) {
-			
+			System.err.print(e.getMessage().concat(" alter Concepto ocupacional"));
+		}
+		try {
+			historiaService.alterdiagnostico();
+		}catch (Exception e) {
+			System.err.print(e.getMessage().concat(" alter diagnostico ocupacional"));
 		}
 		try {
 			historiaGymService.alterCondiciones();
 		}catch (Exception e) {
 			System.err.print(e.getMessage().concat(" alter Concepto gym"));
+		}
+		try {
+			historiaGymService.alterDiagnostico();
+		}catch (Exception e) {
+			System.err.print(e.getMessage().concat(" alter diagnostico gym"));
 		}
 		try {
 			historiaGymService.alterFamiliares();

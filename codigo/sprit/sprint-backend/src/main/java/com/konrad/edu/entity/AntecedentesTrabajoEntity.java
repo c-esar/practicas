@@ -32,21 +32,15 @@ public class AntecedentesTrabajoEntity implements Serializable {
 	private String nomEmpresa;
 
 	@Column(name = "desp_causa", length = 4000)
-	@Lob
 	private String despCausa;
 
-	@Column(name = "tipo_lesion", length = 50)
+	@Column(name = "tipo_lesion", length = 1000)
 	private String tipoLesion;
 
-	@Column(name = "parte_afectada", length = 50)
-	private String parteAfectada;
-
 	@Column(name = "desp_incapacidad", length = 4000)
-	@Lob
 	private String despIncapacidad;
 
 	@Column(name = "desp_secuelas", length = 4000)
-	@Lob
 	private String despSecuelas;
 
 	public Long getSeqAnt() {
@@ -80,15 +74,6 @@ public class AntecedentesTrabajoEntity implements Serializable {
 	public void setTipoLesion(String tipoLesion) {
 		this.tipoLesion = tipoLesion;
 	}
-
-	public String getParteAfectada() {
-		return parteAfectada;
-	}
-
-	public void setParteAfectada(String parteAfectada) {
-		this.parteAfectada = parteAfectada;
-	}
-
 	public String getDespCausa() {
 		return despCausa;
 	}

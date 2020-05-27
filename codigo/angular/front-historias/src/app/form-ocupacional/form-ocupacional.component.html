@@ -463,7 +463,7 @@
 									<e-columns>
 										<e-column field='fechaAnt' headerText='Fecha'></e-column>
 										<e-column field='nomEmpresa' headerText='Empresa'></e-column>
-										<e-column field='despCaus' headerText='Causa'></e-column>
+										<e-column field='despCausa' headerText='Causa'></e-column>
 										<e-column field='tipoLesion' headerText='Tipo de lesión-parte afectada'>
 										</e-column>
 										<e-column field='despIncapacidad' headerText='Incapacidad'>
@@ -1233,26 +1233,11 @@
 					<!--Ultima final-->
 					<div class="card-body" id="datosFinalFormulario" style="display: none;" style="width: 100%;">
 						<blockquote class="blockquote mb-0  form-row etiquetas">
-							<div class="form-group col-md-12 col-sm-12 col-xs-12">
-								<h3>{{datosSingleton.menuImpresionDiagnostico}}</h3>
-							</div>
-							<div class="form-group col-md-12 col-sm-12 col-xs-6" id="ImpresionDiagnostico">
-								<mat-form-field>
-									<mat-label>{{datosSingleton.menuImpresionDiagnostico}}</mat-label>
-									<mat-select multiple [(ngModel)]="persona.historias[0].diagnosticoOcupacionalEntity"
-										name="labeldiagnostica">
-										<mat-option *ngFor="let doc of diagnostica" [value]="doc">
-											{{doc.codDiagnostico + " " + doc.desDiagnostico}}</mat-option>
-									</mat-select>
-									<mat-error>Seleccione
-										una opción</mat-error>
-								</mat-form-field>
-							</div>
 							<div class="form-group col-md-12 col-sm-12 col-xs-12" id="tituloConcepto">
 								<h3>{{datosSingleton.menuConcepto}}</h3>
 							</div>
 							<div class="form-group col-md-12 col-sm-12 col-xs-6" id="conceptoIngreso">
-								<mat-form-field>
+								<mat-form-field >
 									<mat-label>{{datosSingleton.labelIngreso}}</mat-label>
 									<mat-select required
 										[(ngModel)]="persona.historias[0].conceptoConcepto[0].seqConcepto"
@@ -1317,6 +1302,21 @@
 									<textarea matInput [(ngModel)]="persona.historias[0].recomHabitos"
 										name="Recomendaciones3" id="formRecomendaciones3" rows="3" cols="80"
 										required></textarea>
+								</mat-form-field>
+							</div>
+							<div class="form-group col-md-12 col-sm-12 col-xs-12">
+								<h3>{{datosSingleton.menuImpresionDiagnostico}}</h3>
+							</div>
+							<div class="form-group col-md-12 col-sm-12 col-xs-6" id="ImpresionDiagnostico" (click)="getImpresionDiagnostica()">
+								<mat-form-field>
+									<mat-label>{{datosSingleton.menuImpresionDiagnostico}}</mat-label>
+									<mat-select multiple [(ngModel)]="persona.historias[0].diagnosticoOcupacionalEntity"
+									 name="labeldiagnostica">
+										<mat-option *ngFor="let doc of diagnostica" [value]="doc">
+											{{doc.codDiagnostico + " " + doc.desDiagnostico}}</mat-option>
+									</mat-select>
+									<mat-error>Seleccione
+										una opción</mat-error>
 								</mat-form-field>
 							</div>
 							<div class="form-group col-md-12 col-sm-12 col-xs-12">

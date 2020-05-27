@@ -62,8 +62,9 @@ public class HistoriaGYMEntity implements Serializable {
 	private List<HistoriaPreguntasGym> historiaPreguntasGyms;
 	
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "hc_diagnosticoGym_historia", joinColumns = @JoinColumn(name = "seq_historia_gym"), inverseJoinColumns = @JoinColumn(name = "seq_diagnostico"), uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "seq_historia_gym", "seq_diagnostico" }) })
+	@JoinTable(name = "hc_diagnosticoGym_historia", joinColumns = @JoinColumn(name = "seq_historia_gym"), inverseJoinColumns = @JoinColumn(name = "seq_diagnostico"), indexes = {
+			@Index(name = "seq_historia_gym", columnList = "seq_historia_gym", unique = false),
+			@Index(name = "seq_diagnostico", columnList = "seq_diagnostico", unique = true) })
 	private List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity;
 	
 	@OneToMany(fetch = FetchType.LAZY)

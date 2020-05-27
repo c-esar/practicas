@@ -5,6 +5,7 @@ import { Localidad } from './localidad';
 import { Historias } from './historias';
 import { HistoriaGym } from './historiaGym';
 import { TipoUsuario } from './tipoUsuario';
+import { Login } from './login';
 export class Persona {
   seqPersona: number;
   nomPrimerNombre: string;
@@ -46,6 +47,7 @@ export class Persona {
   historiaGymEncriptacion: HistoriaGym[];
   historiasEncriptacion: Historias[];
   licenciaSalud: string;
+  perfil: Login;
   constructor() {
     this.seqPersona = null;
     this.nomPrimerNombre = null;
@@ -87,5 +89,6 @@ export class Persona {
     this.historiaGymEncriptacion = new Array<HistoriaGym>();
     this.historiasEncriptacion = new Array<Historias>();
     this.licenciaSalud = null;
+    this.perfil = new Login();
   }
 }

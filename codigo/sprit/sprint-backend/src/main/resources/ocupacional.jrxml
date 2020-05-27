@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ocupacional" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d79f072-6031-41ef-a555-d43045149939">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="768"/>
+	<property name="ireport.y" value="1728"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -203,8 +203,31 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
+	<style name="table 10">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
 	<subDataset name="trabajosprevios" uuid="36697164-4655-4c4d-a3dd-ee1d350f152a">
 		<parameter name="numeroPersona" class="java.lang.String"/>
+		<parameter name="numeroHistoria" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
 		<queryString>
 			<![CDATA[SELECT
     el.seq_empresa,
@@ -216,7 +239,7 @@ FROM hc_personas p
 inner join hc_historia_ocupacional ho on ho.seq_persona = p.seq_persona
 inner join hc_historia_laboral lb on lb.seq_historia_laboral = ho.seq_historia_laboral
 inner join hc_empresa_labora el on el.seq_historia_laboral = lb.seq_historia_laboral
-where p.seq_persona = $P{numeroPersona}]]>
+where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}]]>
 		</queryString>
 		<field name="seq_empresa" class="java.lang.Long"/>
 		<field name="cargo" class="java.lang.String"/>
@@ -228,6 +251,9 @@ where p.seq_persona = $P{numeroPersona}]]>
 		<parameter name="numeroPersona" class="java.lang.String">
 			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 		</parameter>
+		<parameter name="numeroHistoria" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
 		<queryString>
 			<![CDATA[SELECT
     el.desp_causa,
@@ -235,25 +261,26 @@ where p.seq_persona = $P{numeroPersona}]]>
     el.desp_secuelas,
     el.dat_fecha_ant,
     el.nom_empresa,
-    el.parte_afectada,
     el.tipo_lesion
 FROM hc_personas p
 inner join hc_historia_ocupacional ho on ho.seq_persona = p.seq_persona
 inner join hc_historia_laboral lb on lb.seq_historia_laboral = ho.seq_historia_laboral
 inner join hc_antecedentes_trabajo el on el.seq_historia_laboral = lb.seq_historia_laboral
-where p.seq_persona = $P{numeroPersona}]]>
+where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}]]>
 		</queryString>
 		<field name="desp_causa" class="java.lang.String"/>
 		<field name="desp_incapacidad" class="java.lang.String"/>
 		<field name="desp_secuelas" class="java.lang.String"/>
 		<field name="dat_fecha_ant" class="java.sql.Timestamp"/>
 		<field name="nom_empresa" class="java.lang.String"/>
-		<field name="parte_afectada" class="java.lang.String"/>
 		<field name="tipo_lesion" class="java.lang.String"/>
 	</subDataset>
 	<subDataset name="enfermedadlaboral" uuid="a7bc4bce-89c8-45f9-8716-7e77be51a4fd">
 		<parameter name="numeroPersona" class="java.lang.String"/>
-		<queryString language="SQL">
+		<parameter name="numeroHistoria" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
 			<![CDATA[SELECT
     el.desp_diagnostico,
     el.desp_indemnizar,
@@ -263,17 +290,21 @@ where p.seq_persona = $P{numeroPersona}]]>
 FROM hc_personas p
 inner join hc_historia_ocupacional ho on ho.seq_persona = p.seq_persona
 inner join hc_historia_laboral lb on lb.seq_historia_laboral = ho.seq_historia_laboral
-inner join hc_enfermedades_laborales el on el.seq_historia_laboral = lb.seq_historia_laboral]]>
+inner join hc_enfermedades_laborales el on el.seq_historia_laboral = lb.seq_historia_laboral
+where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria} ]]>
 		</queryString>
+		<field name="desp_diagnostico" class="java.lang.String"/>
+		<field name="desp_indemnizar" class="java.lang.String"/>
+		<field name="desp_recomendaciones" class="java.lang.String"/>
 		<field name="dat_fecha_ant" class="java.sql.Timestamp"/>
 		<field name="nom_empresa" class="java.lang.String"/>
-		<field name="desp_diagnostico" class="java.lang.String"/>
-		<field name="desp_recomendaciones" class="java.lang.String"/>
-		<field name="desp_indemnizar" class="java.lang.String"/>
 	</subDataset>
 	<subDataset name="factoresriesgo" uuid="0c6ed693-0453-4aec-9db4-ad9a3ff341a0">
 		<parameter name="numeroPersona" class="java.lang.String"/>
-		<queryString language="SQL">
+		<parameter name="numeroHistoria" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
 			<![CDATA[SELECT
     el.desp_factores,
     el.desp_medidas_control,
@@ -282,27 +313,32 @@ inner join hc_enfermedades_laborales el on el.seq_historia_laboral = lb.seq_hist
 FROM hc_personas p
 inner join hc_historia_ocupacional ho on ho.seq_persona = p.seq_persona
 inner join hc_historia_laboral lb on lb.seq_historia_laboral = ho.seq_historia_laboral
-inner join hc_factores_riesgo el on el.seq_historia_laboral = lb.seq_historia_laboral]]>
+inner join hc_factores_riesgo el on el.seq_historia_laboral = lb.seq_historia_laboral
+where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}]]>
 		</queryString>
-		<field name="nom_empresa" class="java.lang.String"/>
 		<field name="desp_factores" class="java.lang.String"/>
-		<field name="tiempo" class="java.lang.String"/>
 		<field name="desp_medidas_control" class="java.lang.String"/>
+		<field name="nom_empresa" class="java.lang.String"/>
+		<field name="tiempo" class="java.lang.String"/>
 	</subDataset>
 	<subDataset name="paraclinicos" uuid="532b4f91-eb9f-4baa-8a77-f2c254dfa411">
 		<parameter name="numeroPersona" class="java.lang.String"/>
-		<queryString language="SQL">
+		<parameter name="numeroHistoria" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
 			<![CDATA[SELECT
     el.desp_examen,
     el.desp_resultado,
     el.dat_fecha
 FROM hc_personas p
 inner join hc_historia_ocupacional ho on ho.seq_persona = p.seq_persona
-inner join hc_paraclinicos el on el.seq_historia = ho.seq_historia]]>
+inner join hc_paraclinicos el on el.seq_historia = ho.seq_historia
+where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}]]>
 		</queryString>
 		<field name="desp_examen" class="java.lang.String"/>
-		<field name="dat_fecha" class="java.sql.Timestamp"/>
 		<field name="desp_resultado" class="java.lang.String"/>
+		<field name="dat_fecha" class="java.sql.Timestamp"/>
 	</subDataset>
 	<parameter name="numeroPersona" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -752,7 +788,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				<text><![CDATA[Estado Civil]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="161" y="120" width="100" height="20" backcolor="#CCCCCC" uuid="d89a121c-e6d5-4705-bd3d-655b115fe96c"/>
+				<reportElement mode="Opaque" x="161" y="120" width="85" height="20" backcolor="#CCCCCC" uuid="d89a121c-e6d5-4705-bd3d-655b115fe96c"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -775,7 +811,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font size="11"/>
+					<font size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Cargo-dependencia]]></text>
 			</staticText>
@@ -1270,7 +1306,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				<textFieldExpression><![CDATA[$F{afp_persona}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="261" y="120" width="85" height="20" uuid="c0946b25-65d5-4555-a2fa-5a87df8aa70b"/>
+				<reportElement x="246" y="120" width="100" height="20" uuid="c0946b25-65d5-4555-a2fa-5a87df8aa70b"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -1364,18 +1400,21 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				<textFieldExpression><![CDATA[$F{acciones_trabajo_sn}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="0" y="380" width="555" height="20" isRemoveLineWhenBlank="true" uuid="10205af7-688b-4739-a19a-c0404a75d017"/>
+				<reportElement key="table 1" style="table 1" positionType="Float" x="0" y="380" width="555" height="20" isRemoveLineWhenBlank="true" uuid="10205af7-688b-4739-a19a-c0404a75d017"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="trabajosprevios" uuid="50bfc2fd-7eaf-4057-bca3-b11ea3c340d8">
+					<datasetRun subDataset="trabajosprevios" uuid="bb2d6b0e-fd3a-4b44-907d-b36b7454f95a">
 						<datasetParameter name="numeroPersona">
 							<datasetParameterExpression><![CDATA[$P{numeroPersona}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="numeroHistoria">
+							<datasetParameterExpression><![CDATA[$P{numeroHistoria}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="120" uuid="8eaac067-5da8-41de-a9b0-c6db9487883b">
 						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="120" height="30" backcolor="#CCCCCC" uuid="3af54a94-7c20-4736-8558-c9aa4dd32f5f"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="120" height="30" backcolor="#CCCCCC" uuid="3af54a94-7c20-4736-8558-c9aa4dd32f5f"/>
 								<box>
 									<pen lineWidth="1.0"/>
 									<topPen lineWidth="1.0"/>
@@ -1391,7 +1430,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="120" height="20" uuid="eab64b5f-66e9-484d-9462-c61ee5fbc27d"/>
+								<reportElement positionType="Float" x="0" y="0" width="120" height="20" uuid="eab64b5f-66e9-484d-9462-c61ee5fbc27d"/>
 								<box>
 									<pen lineWidth="1.0"/>
 									<topPen lineWidth="1.0"/>
@@ -1409,7 +1448,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 					<jr:column width="310" uuid="428cc94f-ad47-4987-a5b3-7f9bb662cf26">
 						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="310" height="30" backcolor="#CCCCCC" uuid="2e8a82cf-2422-4829-95f7-1e5b9b0856e2"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="310" height="30" backcolor="#CCCCCC" uuid="2e8a82cf-2422-4829-95f7-1e5b9b0856e2"/>
 								<box>
 									<pen lineWidth="1.0"/>
 									<topPen lineWidth="1.0"/>
@@ -1425,7 +1464,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="310" height="20" uuid="e8b034ed-f677-41b9-9676-d05ffbab3e5e"/>
+								<reportElement positionType="Float" x="0" y="0" width="310" height="20" uuid="e8b034ed-f677-41b9-9676-d05ffbab3e5e"/>
 								<box>
 									<pen lineWidth="1.0"/>
 									<topPen lineWidth="1.0"/>
@@ -1443,7 +1482,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 					<jr:column width="124" uuid="d72666f1-88d2-47d0-94ee-90615b5be3cd">
 						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="124" height="30" backcolor="#CCCCCC" uuid="1ba273d7-6893-4da4-8ae0-ed70bc9526f7"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="124" height="30" backcolor="#CCCCCC" uuid="1ba273d7-6893-4da4-8ae0-ed70bc9526f7"/>
 								<box>
 									<pen lineWidth="1.0"/>
 									<topPen lineWidth="1.0"/>
@@ -1459,7 +1498,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="124" height="20" uuid="f9e34dec-005a-4216-9ff2-4c648c64b124"/>
+								<reportElement positionType="Float" x="0" y="0" width="124" height="20" uuid="f9e34dec-005a-4216-9ff2-4c648c64b124"/>
 								<box>
 									<pen lineWidth="1.0"/>
 									<topPen lineWidth="1.0"/>
@@ -1471,157 +1510,6 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 									<font size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{tiempo}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-				</jr:table>
-			</componentElement>
-			<componentElement>
-				<reportElement key="table 5" style="table 5" positionType="Float" x="0" y="440" width="556" height="50" isRemoveLineWhenBlank="true" uuid="6c81dea7-3fbe-45ef-853e-5b7b4b35a099"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="accidentestrabajo" uuid="5a4a4fe0-e639-4ba9-9029-c397fd41a9db">
-						<datasetParameter name="numeroPersona">
-							<datasetParameterExpression><![CDATA[$P{numeroPersona}]]></datasetParameterExpression>
-						</datasetParameter>
-						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					</datasetRun>
-					<jr:column width="80" uuid="d8bb4361-417c-4867-a2d9-42246af9fbfa">
-						<jr:columnHeader style="table 5_CH" height="36" rowSpan="1">
-							<staticText>
-								<reportElement mode="Opaque" x="2" y="2" width="77" height="34" backcolor="#CCCCCC" uuid="23bd71f1-2283-4b76-8c5d-bc838e350c0a"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Fecha]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 5_TD" height="63" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="79" height="63" uuid="bcbc830c-664f-4997-acf4-689c29820bd3"/>
-								<textElement verticalAlignment="Middle">
-									<font size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{dat_fecha_ant}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="80" uuid="acdd5673-2874-4cbc-bc3e-3f4e698751e9">
-						<jr:columnHeader style="table 5_CH" height="36" rowSpan="1">
-							<staticText>
-								<reportElement mode="Opaque" x="1" y="0" width="79" height="36" backcolor="#CCCCCC" uuid="8c098a44-f10e-49cc-8de8-3f4abf2d42cc"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Empresa]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 5_TD" height="63" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="79" height="63" uuid="2b43a7b1-531a-459b-afa4-1a1aef7fc384"/>
-								<textElement verticalAlignment="Middle">
-									<font size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{nom_empresa}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="80" uuid="5db2f5b8-5b95-47f0-b79b-6f65648a84c9">
-						<jr:columnHeader style="table 5_CH" height="36" rowSpan="1">
-							<staticText>
-								<reportElement mode="Opaque" x="2" y="2" width="78" height="34" backcolor="#CCCCCC" uuid="d1cf40e4-c6b5-4796-b7c7-deb007a4ec1f"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Causa]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 5_TD" height="63" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="80" height="63" uuid="9f529a68-2e13-4a2b-8c34-fcfd90cf0063"/>
-								<textElement verticalAlignment="Middle">
-									<font size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{desp_causa}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="80" uuid="a7c52d78-7ca9-4d0d-a4cf-2d20465941b0">
-						<jr:columnHeader style="table 5_CH" height="36" rowSpan="1">
-							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="80" height="36" backcolor="#CCCCCC" uuid="6e37925c-17a2-45ea-aab4-5ef814dc3aa0"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Tipo lesión]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 5_TD" height="63" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="80" height="63" uuid="eef16e6e-0b26-4334-ac6f-0df479b0d683"/>
-								<textElement verticalAlignment="Middle">
-									<font size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{tipo_lesion}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="80" uuid="0f7df4ef-4014-490c-a82c-84b2162b9cff">
-						<jr:columnHeader style="table 5_CH" height="36" rowSpan="1">
-							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="80" height="36" backcolor="#CCCCCC" uuid="9c26ef77-3b65-4826-9ba2-6b88ab866b36"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Parte Afectada]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 5_TD" height="63" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="80" height="63" uuid="90f6d7be-8025-43b6-a537-c590635bab37"/>
-								<textElement verticalAlignment="Middle">
-									<font size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{parte_afectada}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="80" uuid="5e24d5cb-0625-41d8-865d-ce42e90b2081">
-						<jr:columnHeader style="table 5_CH" height="36" rowSpan="1">
-							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="80" height="36" backcolor="#CCCCCC" uuid="89dc9bd9-c01e-42a7-8a29-e8d3cb170bfc"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Incapacidad]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 5_TD" height="63" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="80" height="63" uuid="ebb713d3-86a4-4b83-b61a-bffb5d19500e"/>
-								<textElement verticalAlignment="Middle">
-									<font size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{desp_incapacidad}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="74" uuid="a8e8c59a-bd3e-4f14-9809-f68a85f49a3c">
-						<jr:columnHeader style="table 5_CH" height="36" rowSpan="1">
-							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="74" height="36" backcolor="#CCCCCC" uuid="6f119cd5-cf51-42a5-b5e0-adb59b6bdc0b"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Secuelas]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 5_TD" height="63" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="74" height="63" uuid="c641b636-333a-4ff8-bc0c-6b492e3fe531"/>
-								<textElement verticalAlignment="Middle">
-									<font size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{desp_secuelas}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -1782,16 +1670,26 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 			<componentElement>
 				<reportElement key="table 6" style="table 6" positionType="Float" x="0" y="510" width="555" height="50" isRemoveLineWhenBlank="true" uuid="b62b575d-b6b7-4fe9-ad70-26911e99640c"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="enfermedadlaboral" uuid="707a2db6-c23e-4589-b569-b8abded2c9c8">
+					<datasetRun subDataset="enfermedadlaboral" uuid="b4a99f53-06b9-41fc-b48a-683bc111985b">
 						<datasetParameter name="numeroPersona">
 							<datasetParameterExpression><![CDATA[$P{numeroPersona}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="numeroHistoria">
+							<datasetParameterExpression><![CDATA[$P{numeroHistoria}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="80" uuid="c9a59b18-3d68-4bfd-ae79-16d48da7ed53">
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="80" height="30" backcolor="#CCCCCC" uuid="5357a5bb-63b0-48cc-a7d4-420601095d67"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="80" height="30" backcolor="#CCCCCC" uuid="5357a5bb-63b0-48cc-a7d4-420601095d67"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -1800,7 +1698,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 6_TD" height="60" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="80" height="60" uuid="962d331e-b59a-403b-a000-744a9e3adea0"/>
+								<reportElement positionType="Float" x="0" y="0" width="80" height="60" uuid="962d331e-b59a-403b-a000-744a9e3adea0"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12"/>
 								</textElement>
@@ -1811,7 +1716,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 					<jr:column width="120" uuid="c5038eaf-d384-4916-8555-e35b53e6c2f5">
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="120" height="30" backcolor="#CCCCCC" uuid="d455e29e-0d5a-4736-bf29-8aa1a2f9f965"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="120" height="30" backcolor="#CCCCCC" uuid="d455e29e-0d5a-4736-bf29-8aa1a2f9f965"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -1820,7 +1732,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 6_TD" height="60" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="120" height="60" uuid="307ed3c8-b2c8-4c1f-9168-5c84dc7d0f12"/>
+								<reportElement positionType="Float" x="0" y="0" width="120" height="60" uuid="307ed3c8-b2c8-4c1f-9168-5c84dc7d0f12"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12"/>
 								</textElement>
@@ -1831,7 +1750,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 					<jr:column width="120" uuid="c5d306a5-d433-4bd6-9f56-d35555aeab9a">
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="120" height="30" backcolor="#CCCCCC" uuid="1de54088-5af2-43da-a906-cc227d79d56d"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="120" height="30" backcolor="#CCCCCC" uuid="1de54088-5af2-43da-a906-cc227d79d56d"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -1840,7 +1766,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 6_TD" height="60" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="120" height="60" uuid="8e6e1e2d-ccd5-452f-a104-014ef889a6d1"/>
+								<reportElement positionType="Float" x="0" y="0" width="120" height="60" uuid="8e6e1e2d-ccd5-452f-a104-014ef889a6d1"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12"/>
 								</textElement>
@@ -1851,7 +1784,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 					<jr:column width="120" uuid="aaa690b0-4d71-43d5-a3e4-0b332551613f">
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="120" height="30" backcolor="#CCCCCC" uuid="1e4bd512-5c99-42e2-8359-828b1567a786"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="120" height="30" backcolor="#CCCCCC" uuid="1e4bd512-5c99-42e2-8359-828b1567a786"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="true"/>
 								</textElement>
@@ -1860,7 +1800,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 6_TD" height="60" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="120" height="60" uuid="222396fe-f6dc-4e13-a997-dc4161944385"/>
+								<reportElement positionType="Float" x="0" y="0" width="120" height="60" uuid="222396fe-f6dc-4e13-a997-dc4161944385"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement verticalAlignment="Middle">
 									<font size="12"/>
 								</textElement>
@@ -1871,7 +1818,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 					<jr:column width="113" uuid="86370604-2629-40df-96e8-80daf425d535">
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="113" height="30" backcolor="#CCCCCC" uuid="353026b3-5240-4d61-b171-94fa224cb594"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="113" height="30" backcolor="#CCCCCC" uuid="353026b3-5240-4d61-b171-94fa224cb594"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -1880,7 +1834,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 6_TD" height="60" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="113" height="60" uuid="eb76d1f1-7b9e-49fe-b542-b32eb915c15e"/>
+								<reportElement positionType="Float" x="0" y="0" width="113" height="60" uuid="eb76d1f1-7b9e-49fe-b542-b32eb915c15e"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12"/>
 								</textElement>
@@ -1893,16 +1854,26 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 			<componentElement>
 				<reportElement key="table 8" style="table 8" positionType="Float" x="0" y="580" width="555" height="50" isRemoveLineWhenBlank="true" uuid="cbe2fc08-7fcd-4560-b27b-52c5030286a8"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="factoresriesgo" uuid="4522d0c9-2f00-4c7f-8ba5-dd1c75c8237f">
+					<datasetRun subDataset="factoresriesgo" uuid="34dd9bd1-2346-4edf-a007-56ae6681748e">
 						<datasetParameter name="numeroPersona">
 							<datasetParameterExpression><![CDATA[$P{numeroPersona}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="numeroHistoria">
+							<datasetParameterExpression><![CDATA[$P{numeroHistoria}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="90" uuid="d6e19299-7faa-4475-bcdd-fad972f1fb77">
 						<jr:columnHeader style="table 8_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" backcolor="#CCCCCC" uuid="49144827-53f0-4d5d-9272-b004e14bca6b"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="90" height="30" backcolor="#CCCCCC" uuid="49144827-53f0-4d5d-9272-b004e14bca6b"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -1911,7 +1882,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 8_TD" height="50" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="50" uuid="64f07c01-bc4c-435f-9f9b-d3a0ba833695"/>
+								<reportElement positionType="Float" x="0" y="0" width="90" height="50" uuid="64f07c01-bc4c-435f-9f9b-d3a0ba833695"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12"/>
 								</textElement>
@@ -1922,7 +1900,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 					<jr:column width="250" uuid="e04f163d-54ec-4b50-87ad-a750a4eb0644">
 						<jr:columnHeader style="table 8_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="250" height="30" backcolor="#CCCCCC" uuid="24e63680-d2d1-470e-a8d5-8d23893e8093"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="250" height="30" backcolor="#CCCCCC" uuid="24e63680-d2d1-470e-a8d5-8d23893e8093"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -1931,7 +1916,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 8_TD" height="50" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="250" height="50" uuid="fc1d750e-bb92-4e2d-a357-5be8454651cd"/>
+								<reportElement positionType="Float" x="0" y="0" width="250" height="50" uuid="fc1d750e-bb92-4e2d-a357-5be8454651cd"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12"/>
 								</textElement>
@@ -1942,7 +1934,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 					<jr:column width="90" uuid="e83a155d-48cf-4c35-9565-2be4b5ae2865">
 						<jr:columnHeader style="table 8_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" backcolor="#CCCCCC" uuid="1cd0b994-0c07-4f87-8766-5e8c1f68c5a1"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="90" height="30" backcolor="#CCCCCC" uuid="1cd0b994-0c07-4f87-8766-5e8c1f68c5a1"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -1951,7 +1950,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 8_TD" height="50" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="50" uuid="94dc58c9-449b-47aa-9487-374b38fd1100"/>
+								<reportElement positionType="Float" x="0" y="0" width="90" height="50" uuid="94dc58c9-449b-47aa-9487-374b38fd1100"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12"/>
 								</textElement>
@@ -1962,7 +1968,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 					<jr:column width="123" uuid="37aea7b6-a813-42f6-b782-1815014ba973">
 						<jr:columnHeader style="table 8_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="123" height="30" backcolor="#CCCCCC" uuid="10f9af84-a065-42df-b8d3-24b9edca239e"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="123" height="30" backcolor="#CCCCCC" uuid="10f9af84-a065-42df-b8d3-24b9edca239e"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -1971,7 +1984,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 8_TD" height="50" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="123" height="50" uuid="fc28be04-988a-4c93-9afc-58fa2f189de2"/>
+								<reportElement positionType="Float" x="0" y="0" width="123" height="50" uuid="fc28be04-988a-4c93-9afc-58fa2f189de2"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12"/>
 								</textElement>
@@ -2021,6 +2041,224 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				</textElement>
 				<textFieldExpression><![CDATA[$F{desp_motivo_consulta}]]></textFieldExpression>
 			</textField>
+			<componentElement>
+				<reportElement key="table 10" style="table 10" positionType="Float" x="1" y="440" width="554" height="50" uuid="89033473-fcc2-439b-887a-2b884981bfd3"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="accidentestrabajo" uuid="806e203b-009d-4b06-8f43-def23f87652c">
+						<datasetParameter name="numeroPersona">
+							<datasetParameterExpression><![CDATA[$P{numeroPersona}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="numeroHistoria">
+							<datasetParameterExpression><![CDATA[$P{numeroHistoria}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="c121d25e-a13d-4109-b79a-98a77eb12e7b">
+						<jr:columnHeader style="table 10_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="90" height="30" backcolor="#CCCCCC" uuid="b1f70b44-4efd-42fb-a77e-f824186407e5"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Fecha]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 10_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement positionType="Float" x="0" y="0" width="90" height="20" uuid="0eadd17d-269d-4077-91f9-9c5ff4aebc5a"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement>
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{dat_fecha_ant}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="6a5474a5-3c6c-4acb-9880-932ce63e110f">
+						<jr:columnHeader style="table 10_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="90" height="30" backcolor="#CCCCCC" uuid="c1f4303a-2478-482a-9b15-e904a67ab223"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Empresa]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 10_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement positionType="Float" x="0" y="0" width="90" height="20" uuid="e810421d-f421-4720-af63-e1fc1f408148"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement>
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{nom_empresa}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="470389df-6a5d-4878-8e61-ce94c9a38501">
+						<jr:columnHeader style="table 10_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="90" height="30" backcolor="#CCCCCC" uuid="51f76ef5-1b50-4b93-aca3-5d3015f566df"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Causa]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 10_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement positionType="Float" x="0" y="0" width="90" height="20" uuid="ef4e8e88-2a96-4549-b075-2fe895f56b70"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement>
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{desp_causa}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="102" uuid="18416ae1-ac10-46d8-88b0-f0b419190711">
+						<jr:columnHeader style="table 10_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="102" height="30" backcolor="#CCCCCC" uuid="e608a143-a12f-41d4-8b5c-7dc7471cb8bd"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Tipo de lesión-parte afectada]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 10_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement positionType="Float" x="0" y="0" width="102" height="20" uuid="cb3803d1-1dd1-4abb-bbb6-8ca88b2cf08b"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement>
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{tipo_lesion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="d4461e7a-21b7-429a-a1b8-0ab071fc0156">
+						<jr:columnHeader style="table 10_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="90" height="30" backcolor="#CCCCCC" uuid="553a5f7b-a553-4e97-a978-7c6bf88fda1f"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Incapacidad]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 10_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement positionType="Float" x="0" y="0" width="90" height="20" uuid="15f1f685-b100-4f20-9875-169793f78d3e"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement>
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{desp_incapacidad}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="99bde4de-e7b9-4f6c-b01e-74d44a43dadd">
+						<jr:columnHeader style="table 10_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="90" height="30" backcolor="#CCCCCC" uuid="448d69ec-f758-40f3-be7f-999dbc924ad4"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Secuelas]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 10_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement positionType="Float" x="0" y="0" width="90" height="20" uuid="cd2efe90-125d-489e-a5d5-a8caf09f944a"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement>
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{desp_secuelas}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
 		</band>
 		<band height="752">
 			<staticText>
@@ -2964,16 +3202,26 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 			<componentElement>
 				<reportElement key="table 9" style="table 9" positionType="Float" x="0" y="275" width="555" height="50" isRemoveLineWhenBlank="true" uuid="43ca40a0-45fd-42be-8d55-8dafedcd987f"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="paraclinicos" uuid="2ae33b9a-2240-4bb7-b0dd-f25cf8efd49a">
+					<datasetRun subDataset="paraclinicos" uuid="4f52be06-e502-43f5-b05d-e9e16593c6f1">
 						<datasetParameter name="numeroPersona">
 							<datasetParameterExpression><![CDATA[$P{numeroPersona}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="numeroHistoria">
+							<datasetParameterExpression><![CDATA[$P{numeroHistoria}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="100" uuid="6fc66697-c530-4d56-a275-54b196d54aef">
 						<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="100" height="30" backcolor="#CCCCCC" uuid="6dc807b5-c3e2-4d78-bcf2-47b4988bc31d"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="100" height="30" backcolor="#CCCCCC" uuid="6dc807b5-c3e2-4d78-bcf2-47b4988bc31d"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -2982,7 +3230,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 9_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="100" height="30" uuid="9d250beb-d74b-4e3a-b7cf-e5d7afb74ad3"/>
+								<reportElement positionType="Float" x="0" y="0" width="100" height="30" uuid="9d250beb-d74b-4e3a-b7cf-e5d7afb74ad3"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -2993,7 +3248,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 					<jr:column width="100" uuid="6274f35a-2640-4c80-8c6a-e510ae8b2036">
 						<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="100" height="30" backcolor="#CCCCCC" uuid="2ab79f58-b525-48ce-929a-d717523ff138"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="100" height="30" backcolor="#CCCCCC" uuid="2ab79f58-b525-48ce-929a-d717523ff138"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -3002,7 +3264,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 9_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="100" height="30" uuid="7692e4e4-4964-4272-a510-1d9559bfa98b"/>
+								<reportElement positionType="Float" x="0" y="0" width="100" height="30" uuid="7692e4e4-4964-4272-a510-1d9559bfa98b"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -3013,7 +3282,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 					<jr:column width="353" uuid="87efe28a-509a-45d1-a594-40681288e89e">
 						<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="353" height="30" backcolor="#CCCCCC" uuid="7f3cd362-fb1b-4edf-854f-efd60a70c53a"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="353" height="30" backcolor="#CCCCCC" uuid="7f3cd362-fb1b-4edf-854f-efd60a70c53a"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -3022,7 +3298,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 						</jr:columnHeader>
 						<jr:detailCell style="table 9_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="353" height="30" uuid="84827597-fc91-4de6-97cf-c6fa53c9eda5"/>
+								<reportElement positionType="Float" x="0" y="0" width="353" height="30" uuid="84827597-fc91-4de6-97cf-c6fa53c9eda5"/>
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
 								<textElement>
 									<font size="12"/>
 								</textElement>

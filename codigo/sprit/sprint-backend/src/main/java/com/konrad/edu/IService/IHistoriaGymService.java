@@ -13,4 +13,6 @@ public interface IHistoriaGymService {
 	public boolean alterFamiliares();
 	
 	public boolean alterUsuarios();
+	
+	public boolean alterDiagnostico();
 }

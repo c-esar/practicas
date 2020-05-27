@@ -32,4 +32,9 @@ public class HistoriaGymServiceImp implements IHistoriaGymService{
 	public boolean alterUsuarios() {
 		return historiaDao.alterUsuarios();
 	}
+
+	@Override
+	public boolean alterDiagnostico() {
+		return historiaDao.alterDiagnostico();
+	}
 }

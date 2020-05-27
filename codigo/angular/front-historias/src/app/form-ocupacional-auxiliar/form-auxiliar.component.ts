@@ -263,6 +263,8 @@ export class FormAuxiliarComponent implements OnInit {
       this.persona.rolUsuario = new Array<TipoUsuario>();
       this.persona.rolUsuario.push(nuevoRol);
     }
+    this.persona.perfil = per.perfil == null || per.perfil.seqPerfil == null ? null : per.perfil;
+    this.persona.imagen = this.persona.imagen == null ? per.imagen : this.persona.imagen;
   }
 
 }
