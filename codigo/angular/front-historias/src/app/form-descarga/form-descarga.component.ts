@@ -64,7 +64,6 @@ export class FormDescargaComponent implements OnInit {
       this.personaService.onBuscarDocumento(this.persona).subscribe(
         (respuesta) => {
           console.log(respuesta);
-          debugger;
           this.dataSource = respuesta.historiasEncriptacion;
           this.encontrado = true;
           Swal.fire('Exitoso', 'Persona Tiene Historias', 'success');

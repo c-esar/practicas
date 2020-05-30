@@ -129,7 +129,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
       timerProgressBar: true,
       showConfirmButton: false
     });
-    this.onLabels();
     this.onCargarAtributos();
     this.onCargarFunciones();
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true };
@@ -232,7 +231,8 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.getAnosHabitosList();
     this.getTipoUsuario();
     this.getDatosPersonaLogin();
-    //this.getImpresionDiagnostica();
+    this.onLabels();
+    this.getImpresionDiagnostica();
   }
 
   public onValidatePersona(): void {
@@ -563,7 +563,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
                 this.createHistoria();
               } else {
                 console.log(this.persona);
-                debugger
                 this.actualizarPerson(this.Spersona);
                 if(this.persona.rolUsuario.length === 0){
                   this.persona.rolUsuario[0] = this.tipoUsuario[1];
@@ -873,7 +872,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
     let nuevoRol = new TipoUsuario();
-    debugger
     nuevoRol.seqTipoUsuario = 2;
     if (this.persona.rolUsuario != null && this.persona.rolUsuario.length > 0) {
     } else if (per.rolUsuario != null && per.rolUsuario.length > 0) {
@@ -1055,20 +1053,20 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   }
 
   getImpresionDiagnostica(): void {
-    Swal.fire({
-      title: 'Cargando Informacion',
-      timer: 3000,
-      timerProgressBar: true,
-      showConfirmButton: false
-    });
-    if (this.diagnostica === undefined) {
+    //Swal.fire({
+    //  title: 'Cargando Informacion',
+    //  timer: 3000,
+    //  timerProgressBar: true,
+    //  showConfirmButton: false
+    //});
+    //if (this.diagnostica === undefined) {
       this.historiaService.getImpresionDiagnostica().subscribe(
         (respuesta) => {
           this.diagnostica = respuesta;
           console.log(this.diagnostica);
         }
       )
-    }
+    //}
   }
 
   private getListConcepto(): void {

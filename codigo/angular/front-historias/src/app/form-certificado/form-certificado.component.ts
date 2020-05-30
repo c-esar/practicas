@@ -95,7 +95,6 @@ export class FormCertificadoComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       let id = params['id']
       if (id) {
-        debugger;
         this.onVerificarCertificado(id);
         this.certificado.historiaOcupacionalEntity.seqHistoria = id;
       }
@@ -126,7 +125,6 @@ export class FormCertificadoComponent implements OnInit {
   onReporteCertificado(seqCertificado: number): void {
     this.reportes.onReporteHistoriasCertificado(seqCertificado).subscribe(
       (respuesta) => {
-        debugger
         this.ruta = respuesta;
         this.nombreArchivo = "certificado.pdf";
         const linkSource = 'data:application/pdf;base64,' + respuesta;
@@ -140,7 +138,6 @@ export class FormCertificadoComponent implements OnInit {
     this.router.navigate(['menuPrincipal']);
   }
   onCargarAtributos(): void {
-    debugger
     this.certificado = new Certificado();
     this.persona = new Persona();
     this.permiso = new Permiso();
@@ -165,7 +162,6 @@ export class FormCertificadoComponent implements OnInit {
   onOpcionEvaluacion($event): void {
     this.certificado.otroEvaluacion = null;
     $('#formOtroEvaluacion').hide();
-    debugger;
     switch ($event.value.nomEval) {
       case "INGRESO": {
         this.certificado.tipoEvaluacionEntity = $event.value.seqEval;
@@ -196,7 +192,6 @@ export class FormCertificadoComponent implements OnInit {
   }
 
   guardar(): void {
-    debugger
     this.historiaService.createCertificado(this.certificado).subscribe(
       (respuesta) => {
         if (respuesta == null) {

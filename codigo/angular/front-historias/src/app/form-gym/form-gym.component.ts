@@ -242,7 +242,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
       this.personaService.onBuscarDocumento(this.persona).subscribe(
         (respuesta) => {
           console.log(respuesta);
-          debugger
           this.Spersona = respuesta;
           this.seqPersona = respuesta.seqPersona;
           if (this.Spersona.aseguradora === null) {
@@ -573,7 +572,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
       if (this.persona.historiaGym[0].aceptoCondiciones != null) {
         this.persona.historiaGym[0].aceptoCondiciones = "true";
         this.onCargarPreguntas();
-        debugger;
         this.firmaMedico = this.firmaMedicohtml.imagenUsuario == null || this.firmaMedicohtml.imagenUsuario == undefined ? this.firmaMedico : this.firmaMedicohtml.imagenUsuario;
         this.firmaPaciente = this.firmaPacientehtml.imagenUsuario == null || this.firmaPacientehtml.imagenUsuario == undefined ? this.firmaPaciente : this.firmaPacientehtml.imagenUsuario;
         if (this.firmaMedico != null && this.firmaPaciente != null) {
@@ -636,7 +634,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
 
     setTimeout(() => {
       if (this.onCargarTipoUsuario()) {
-        debugger
         this.persona.localidad.seqLocalidad = 0;
         this.persona.lugarDeResidencia.seqCuidad = 0;
         this.actualizarPerson(this.Spersona);
@@ -874,7 +871,6 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.persona.parentescoEmergencia = this.persona.parentescoEmergencia == null ? per.parentescoEmergencia : this.persona.parentescoEmergencia;
     this.persona.codigo = this.persona.codigo == null ? per.codigo : this.persona.codigo;
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
-    debugger
     this.persona.perfil = per.perfil == null || per.perfil.seqPerfil == null ? null : per.perfil;
     this.persona.imagen = this.persona.imagen == null ? per.imagen : this.persona.imagen;
   }

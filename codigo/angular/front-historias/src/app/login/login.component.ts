@@ -65,12 +65,10 @@ export class LoginComponent implements OnInit {
       if (this.loginService.isAutorization()) {
         this.router.navigate(['menuPrincipal'])
       } else {
-        debugger
         this.loginService.getLoginSesion(this.login).subscribe(
           (respuesta) => {
             console.log("Estado:" + respuesta['estado']);
             console.log(respuesta.permisos);
-            debugger
             if (respuesta['estado'] == "ACTIVO" || respuesta['estado'] == "activo") {
               this.loginService.isLogin = true;
               this.loginService.correctLogin(respuesta);

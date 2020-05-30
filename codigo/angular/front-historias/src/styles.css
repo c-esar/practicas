@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "~@ng-select/ng-select/themes/ant.design.theme.css";
 html, body {
   background-image:url('assets/img/fondo.png');
   background-repeat: no-repeat;

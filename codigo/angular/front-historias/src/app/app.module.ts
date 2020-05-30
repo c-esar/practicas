@@ -53,6 +53,7 @@ import { FormHistoriasComponent } from './form-historias/form-historias.componen
 import { FirmaIndividualComponent } from './firma-individual/firma-individual.component';
 import { FormCertificadoComponent } from './form-certificado/form-certificado.component';
 import { FormDescargaComponent } from './form-descarga/form-descarga.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 //rutas
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, //ruta principal de la aplicacion
@@ -119,6 +120,7 @@ const routes: Routes = [
     GridModule,
     SignaturePadModule,
     MatProgressSpinnerModule,
+    NgSelectModule,
     UserIdleModule.forRoot({idle: 72000, timeout: 1, ping: 120})
   ],
   exports: [

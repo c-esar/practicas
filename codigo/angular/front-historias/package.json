@@ -26,6 +26,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
     "@fortawesome/free-regular-svg-icons": "^5.12.1",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
+    "@ng-select/ng-select": "^4.0.0",
     "@syncfusion/ej2-angular-grids": "^17.4.55",
     "@types/html2canvas": "0.0.35",
     "angular-user-idle": "^2.2.2",
