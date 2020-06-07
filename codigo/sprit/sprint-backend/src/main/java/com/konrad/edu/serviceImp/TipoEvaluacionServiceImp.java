@@ -17,8 +17,7 @@ public class TipoEvaluacionServiceImp implements ITipoEvaluacionService {
 
 	@Override
 	public List<TipoEvaluacionEntity> findAll() {
-		return  (List<TipoEvaluacionEntity>) tipoEvaluacionDao.findAll();
+		return (List<TipoEvaluacionEntity>) tipoEvaluacionDao.findAll();
 	}
-	
-	
+
 }

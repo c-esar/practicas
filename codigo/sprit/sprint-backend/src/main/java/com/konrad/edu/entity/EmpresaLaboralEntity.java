@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,12 +25,13 @@ public class EmpresaLaboralEntity implements Serializable {
 	@Column(name = "seq_empresa")
 	private Long seqEmpresa;
 
-	@Column(name = "nom_empresa", length = 50)
+	@Column(name = "nom_empresa", length = 100)
 	private String nomEmpresa;
 
-	@Column(length = 50)
+	@Column(name = "cargo", length = 100)
 	private String cargo;
 
+	@Column(name = "tiempo")
 	private String tiempo;
 
 	public Long getSeqEmpresa() {

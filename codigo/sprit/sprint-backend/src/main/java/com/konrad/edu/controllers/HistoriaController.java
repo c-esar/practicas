@@ -22,29 +22,23 @@ import com.konrad.edu.IService.IConceptoService;
 import com.konrad.edu.IService.ICondicionGymService;
 import com.konrad.edu.IService.IConstantes;
 import com.konrad.edu.IService.IDiagnosticaOcupacionalService;
-import com.konrad.edu.IService.IEncriptacionDatosService;
 import com.konrad.edu.IService.IFamiliarGymService;
 import com.konrad.edu.IService.IHistoriaGymService;
 import com.konrad.edu.IService.IHistoriaOcupacionalService;
-import com.konrad.edu.IService.IPersonaService;
-import com.konrad.edu.IService.IReportesService;
 import com.konrad.edu.IService.ITipoCuestioService;
 import com.konrad.edu.IService.ITipoEvaluacionService;
 import com.konrad.edu.IService.ITipoHistoriaService;
 import com.konrad.edu.IService.ITipoPreguntaHistoriaService;
 import com.konrad.edu.IService.ITipoUsuarioService;
-import com.konrad.edu.entity.CertificadoEntity;
+import com.konrad.edu.entity.CertificadoOcupacionalEntity;
 import com.konrad.edu.entity.ConceptoEntity;
 import com.konrad.edu.entity.CondicionGymEntity;
-import com.konrad.edu.entity.DiagnosticoOcupacionalEntity;
-import com.konrad.edu.entity.ExamenFisicoEncriptacion;
-import com.konrad.edu.entity.ExamenFisicoEntity;
+import com.konrad.edu.entity.DiagnosticoEntity;
 import com.konrad.edu.entity.FamiliarGymEntity;
 import com.konrad.edu.entity.HistoriaGYMEntity;
 import com.konrad.edu.entity.HistoriaGymEncriptacion;
 import com.konrad.edu.entity.HistoriaOcupacionalEncriptacion;
 import com.konrad.edu.entity.HistoriaOcupacionalEntity;
-import com.konrad.edu.entity.PersonaEntity;
 import com.konrad.edu.entity.TipoCuestionarioEntity;
 import com.konrad.edu.entity.TipoEvaluacionEntity;
 import com.konrad.edu.entity.TipoHistoriasEntity;
@@ -59,44 +53,28 @@ public class HistoriaController {
 
 	@Autowired
 	private IHistoriaOcupacionalService historiaService;
-
 	@Autowired
 	private IHistoriaGymService historiaGymService;
-
 	@Autowired
 	private IConceptoService conceptoService;
-
 	@Autowired
 	private IDiagnosticaOcupacionalService diagnosticaService;
-
 	@Autowired
 	private ITipoEvaluacionService tipoEvaluacionService;
-
 	@Autowired
 	private ITipoHistoriaService tipoHistoriaService;
-
 	@Autowired
 	private ITipoUsuarioService tipoUsuarioService;
-
-	@Autowired
-	private ITipoPreguntaHistoriaService tipoPreguntaGym;
-
-	@Autowired
-	private ITipoCuestioService tipoCuestion;
-
-	@Autowired
-	private IFamiliarGymService familiarservice;
-
-	@Autowired
-	private ICondicionGymService condicionService;
-	
 	@Autowired
 	private ICertificadoService certificadoService;
-	
 	@Autowired
-	private IReportesService reportesService;
-	
-	
+	private ITipoPreguntaHistoriaService tipoPreguntaGym;
+	@Autowired
+	private ITipoCuestioService tipoCuestion;
+	@Autowired
+	private IFamiliarGymService familiarservice;
+	@Autowired
+	private ICondicionGymService condicionService;
 	private EncriptacionDatosServiceImp encriptacionService = new EncriptacionDatosServiceImp();
 
 	@PostMapping("/crearHistoriaOcupacional")
@@ -111,7 +89,7 @@ public class HistoriaController {
 			historiaEntity.setSeqTipoHistoria(tipoHistoria);
 			historianew = encriptacionService.encriptacionHistoriaOcupacional(historiaEntity);
 			historianew = historiaService.save(historianew);
-			if(historianew == null) {
+			if (historianew == null) {
 				response.put("mensaje", "Error al realizar el insertar en la base de datos");
 				response.put("error", "Error al realizar el insertar en la base de datos");
 				response.put("historia", null);
@@ -141,7 +119,7 @@ public class HistoriaController {
 			historiaEntity.setSeqTipoHistoria(tipoHistoria);
 			historianew = encriptacionService.encriptacionHistoriaGym(historiaEntity);
 			historianew = historiaGymService.save(historianew);
-			if(historianew == null) {
+			if (historianew == null) {
 				response.put("mensaje", "Error al realizar el insertar en la base de datos");
 				response.put("error", "Error al realizar el insertar en la base de datos");
 				response.put("historia", null);
@@ -161,8 +139,8 @@ public class HistoriaController {
 
 	@PostMapping("/crearCertificado")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> createCertificado(@RequestBody CertificadoEntity certificadoEntity) {
-		CertificadoEntity certificadoentity = new CertificadoEntity();
+	public ResponseEntity<?> createCertificado(@RequestBody CertificadoOcupacionalEntity certificadoEntity) {
+		CertificadoOcupacionalEntity certificadoentity = new CertificadoOcupacionalEntity();
 		Map<String, Object> response = new HashMap<>();
 		try {
 			certificadoentity = certificadoService.save(certificadoEntity);
@@ -177,15 +155,15 @@ public class HistoriaController {
 		response.put("certificado", certificadoentity);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/buscarCertificado/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> buscarCertificado(@PathVariable Long id) {
-		CertificadoEntity certificadoentity = new CertificadoEntity();
+		CertificadoOcupacionalEntity certificadoentity = new CertificadoOcupacionalEntity();
 		Map<String, Object> response = new HashMap<>();
 		try {
 			certificadoentity = certificadoService.findByNumeroHistoria(id);
-			if(certificadoentity == null) {
+			if (certificadoentity == null) {
 				response.put("mensaje", "Error al buscar certificado");
 				response.put("error", "Error al buscar certificado");
 				response.put("certificado", null);
@@ -200,14 +178,14 @@ public class HistoriaController {
 		}
 		return new ResponseEntity<Long>(certificadoentity.getSeqCertificado(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/listConcepto")
 	public List<ConceptoEntity> getListConcepto() {
 		return conceptoService.findAll();
 	}
 
 	@GetMapping("/listImpresionDiagnostica")
-	public List<DiagnosticoOcupacionalEntity> getListImpresionDiagnostica() {
+	public List<DiagnosticoEntity> getListImpresionDiagnostica() {
 		return diagnosticaService.findAll();
 	}
 
@@ -245,37 +223,37 @@ public class HistoriaController {
 	public List<CondicionGymEntity> getListCondicionGym() {
 		return condicionService.findAll();
 	}
-	
-	//eliminacion de alter innecesarios
+
+	// eliminacion de alter innecesarios
 	private void eliminarAlterSql() {
 		try {
 			historiaService.alterConcepto();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.err.print(e.getMessage().concat(" alter Concepto ocupacional"));
 		}
 		try {
 			historiaService.alterdiagnostico();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.err.print(e.getMessage().concat(" alter diagnostico ocupacional"));
 		}
 		try {
 			historiaGymService.alterDiagnostico();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.err.print(e.getMessage().concat(" alter diagnostico gym"));
 		}
 		try {
 			historiaGymService.alterCondiciones();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.err.print(e.getMessage().concat(" alter Concepto gym"));
 		}
 		try {
 			historiaGymService.alterFamiliares();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.err.print(e.getMessage().concat(" alter Familiares Gym"));
 		}
 		try {
 			historiaGymService.alterUsuarios();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.err.print(e.getMessage().concat(" alter usuarios"));
 		}
 	}

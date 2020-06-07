@@ -1,6 +1,5 @@
 package com.konrad.edu.controllers;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,14 +62,14 @@ public class ReportesController {
 		response.put("persona", enviarRuta);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/certificado/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<?> reportescertificado(@PathVariable String id) {
 		String enviarRuta = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
-			enviarRuta = reportesService.exportReportCertificado(id,0,null);
+			enviarRuta = reportesService.exportReportCertificado(id, 0, null);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));

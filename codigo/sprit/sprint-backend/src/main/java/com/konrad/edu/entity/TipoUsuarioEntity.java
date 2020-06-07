@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="hc_tipo_usuario")
-public class TipoUsuarioEntity implements Serializable{
+@Table(name = "hc_tipo_usuario")
+public class TipoUsuarioEntity implements Serializable {
 
 	/**
 	 * 
@@ -20,10 +20,10 @@ public class TipoUsuarioEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="seq_tipo_usuario")
+	@Column(name = "seq_tipo_usuario")
 	private Long seqTipoUsuario;
-	
-	@Column(name="nom_tipo_usuario")
+
+	@Column(name = "nom_tipo_usuario")
 	private String nomTipoUsuario;
 
 	public Long getSeqTipoUsuario() {
@@ -41,5 +41,5 @@ public class TipoUsuarioEntity implements Serializable{
 	public void setNomTipoUsuario(String nomTipoUsuario) {
 		this.nomTipoUsuario = nomTipoUsuario;
 	}
-	
+
 }

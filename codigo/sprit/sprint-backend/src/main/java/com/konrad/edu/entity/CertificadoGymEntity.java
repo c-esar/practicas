@@ -11,20 +11,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.ColumnTransformer;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "hc_certificado")
-public class CertificadoEntity implements Serializable{
+@Table(name = "hc_certificado_gym")
+public class CertificadoGymEntity implements Serializable {
 
 	/**
 	 * 
@@ -60,18 +60,16 @@ public class CertificadoEntity implements Serializable{
 
 	@Column(name = "control_epidemiologica")
 	private String controlEpidemiologica;
-	
-	@Column(name="seq_eval")
+
+	@Column(name = "seq_eval")
 	private String tipoEvaluacionEntity;
-	
+
 	@Column(name = "otro_evaluacion")
 	private String otroEvaluacion;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "hc_certificado_ocupacional", joinColumns = @JoinColumn(name = "seq_certificado", unique = false), 
-			inverseJoinColumns = @JoinColumn(name = "seq_historia", unique = false), uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "seq_historia", "seq_certificado"}) })
-	private HistoriaOcupacionalEntity historiaOcupacionalEntity;
+
+	@OneToOne
+	@JoinColumn(name = "seq_historia", nullable = false)
+	private HistoriaGYMEntity seqHistoria;
 
 	@PrePersist
 	public void prePersist() {
@@ -134,8 +132,6 @@ public class CertificadoEntity implements Serializable{
 		this.tipoRestriccionLimitacion = tipoRestriccionLimitacion;
 	}
 
-	
-
 	public String getRecomendaciones() {
 		return recomendaciones;
 	}
@@ -156,14 +152,6 @@ public class CertificadoEntity implements Serializable{
 		this.controlEpidemiologica = controlEpidemiologica;
 	}
 
-	public HistoriaOcupacionalEntity getHistoriaOcupacionalEntity() {
-		return historiaOcupacionalEntity;
-	}
-
-	public void setHistoriaOcupacionalEntity(HistoriaOcupacionalEntity historiaOcupacionalEntity) {
-		this.historiaOcupacionalEntity = historiaOcupacionalEntity;
-	}
-
 	public String getOtroEvaluacion() {
 		return otroEvaluacion;
 	}
@@ -175,6 +163,13 @@ public class CertificadoEntity implements Serializable{
 	public String getTipoEvaluacionEntity() {
 		return tipoEvaluacionEntity;
 	}
-	
-	
+
+	public HistoriaGYMEntity getSeqHistoria() {
+		return seqHistoria;
+	}
+
+	public void setSeqHistoria(HistoriaGYMEntity seqHistoria) {
+		this.seqHistoria = seqHistoria;
+	}
+
 }

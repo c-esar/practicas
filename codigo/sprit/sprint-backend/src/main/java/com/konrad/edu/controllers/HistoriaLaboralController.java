@@ -25,7 +25,6 @@ import com.konrad.edu.entity.EnfermedadesLaboralEntity;
 import com.konrad.edu.entity.FactoresRiesgoEntity;
 import com.konrad.edu.entity.HistoriaLaboralEntity;
 import com.konrad.edu.entity.TipoAntecedenteEntity;
-import com.konrad.edu.entity.TipoDocumentoEntity;
 
 @CrossOrigin(origins = { IConstantes.RUTA })
 @RestController

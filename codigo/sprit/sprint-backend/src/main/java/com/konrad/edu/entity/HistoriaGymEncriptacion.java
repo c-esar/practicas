@@ -21,7 +21,7 @@ public class HistoriaGymEncriptacion implements Serializable {
 
 	private List<HistoriaPreguntasGym> historiaPreguntasGyms;
 
-	private List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity;
+	private List<DiagnosticoEntity> diagnosticoOcupacionalEntity;
 
 	private List<CondicionGymEntity> condicionGymEntity;
 
@@ -44,7 +44,7 @@ public class HistoriaGymEncriptacion implements Serializable {
 	private String conducta;
 
 	private String aceptoCondiciones;
-	
+
 	private Long personaMedico;
 
 	public HistoriaGymEncriptacion() {
@@ -95,11 +95,11 @@ public class HistoriaGymEncriptacion implements Serializable {
 		this.historiaPreguntasGyms = historiaPreguntasGyms;
 	}
 
-	public List<DiagnosticoOcupacionalEntity> getDiagnosticoOcupacionalEntity() {
+	public List<DiagnosticoEntity> getDiagnosticoOcupacionalEntity() {
 		return diagnosticoOcupacionalEntity;
 	}
 
-	public void setDiagnosticoOcupacionalEntity(List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity) {
+	public void setDiagnosticoOcupacionalEntity(List<DiagnosticoEntity> diagnosticoOcupacionalEntity) {
 		this.diagnosticoOcupacionalEntity = diagnosticoOcupacionalEntity;
 	}
 
@@ -199,7 +199,4 @@ public class HistoriaGymEncriptacion implements Serializable {
 		this.personaMedico = personaMedico;
 	}
 
-
-
-	
 }

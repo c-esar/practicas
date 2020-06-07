@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.konrad.edu.entity.CondicionGymEntity;
 
-public interface ICondicionGymDao extends CrudRepository<CondicionGymEntity, Long>{
+public interface ICondicionGymDao extends CrudRepository<CondicionGymEntity, Long> {
 
 }

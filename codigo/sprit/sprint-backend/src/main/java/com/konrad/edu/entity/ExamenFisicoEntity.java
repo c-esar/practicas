@@ -229,6 +229,4 @@ public class ExamenFisicoEntity implements Serializable {
 		this.despPielfan = despPielfan;
 	}
 
-	
-
 }

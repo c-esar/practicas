@@ -7,7 +7,6 @@ import { DatosSingleton } from '../DatosBean/datosSingleton';
 import { Persona } from '../DatosBean/persona';
 import { TipoDocumento } from '../DatosBean/tipoDocumento';
 import { Ciudad } from '../DatosBean/ciudad';
-import { Aseguradora } from '../DatosBean/aseguradora';
 import { TipoUsuario } from '../DatosBean/tipoUsuario';
 import { HistoriaPreguntaGym } from '../DatosBean/historiapreguntagym';
 import { TipoPreguntaHistoriaGym } from '../DatosBean/tipopreguntahistoriagym';
@@ -43,7 +42,6 @@ export class FormGymAuxiliarComponent implements OnInit {
   datosSingleton: DatosSingleton;
   tipoDocumento: TipoDocumento[];
   ciudad: Ciudad[];
-  aseguradora: Aseguradora[];
   tipoUsuario: TipoUsuario[];
   medico: boolean;
   aux: boolean;
@@ -127,7 +125,6 @@ export class FormGymAuxiliarComponent implements OnInit {
     this.onLabels();
     this.getTipoDocumento();
     this.getCiudad();
-    this.getAseguradora();
     this.getTipoUsuario();
   }
 
@@ -160,7 +157,6 @@ export class FormGymAuxiliarComponent implements OnInit {
     setTimeout(() => {
       let tmpDoc = this.persona.numeroDocumento;
       this.Spersona = new Persona();
-      this.persona.aseguradora = new Aseguradora();
       this.persona.tipoDocumento = new TipoDocumento();
       this.persona.lugarNacimiento = new Ciudad();
       this.buscoPerson = false;
@@ -169,9 +165,6 @@ export class FormGymAuxiliarComponent implements OnInit {
         (respuesta) => {
           console.log(respuesta);
           this.Spersona = respuesta;
-          if (this.Spersona.aseguradora === null) {
-            this.Spersona.aseguradora = new Aseguradora();
-          }
           if (this.Spersona.tipoDocumento === null) {
             this.persona.tipoDocumento = new TipoDocumento();
           }
@@ -254,7 +247,6 @@ export class FormGymAuxiliarComponent implements OnInit {
 
     setTimeout(() => {
       if (this.onCargarTipoUsuario()) {
-        this.persona.localidad.seqLocalidad = 0;
         this.persona.lugarDeResidencia.seqCuidad = 0;
         this.actualizarPerson(this.Spersona);
         let personaup = new Persona();
@@ -393,7 +385,7 @@ export class FormGymAuxiliarComponent implements OnInit {
     this.persona.nomCargoDep = this.persona.nomCargoDep == null ? per.nomCargoDep : this.persona.nomCargoDep;
     this.persona.afp = this.persona.afp == null ? per.afp : this.persona.afp;
     this.persona.arl = this.persona.arl == null ? per.arl : this.persona.arl;
-    this.persona.aseguradora = (this.persona.aseguradora == null || this.persona.aseguradora.seqAseguradora == null) ? per.aseguradora : this.persona.aseguradora;
+    this.persona.aseguradora = this.persona.aseguradora == null ? per.aseguradora : this.persona.aseguradora;
     this.persona.rh = this.persona.rh == null ? per.rh : this.persona.rh;
     this.persona.nomEmergencia = this.persona.nomEmergencia == null ? per.nomEmergencia : this.persona.nomEmergencia;
     this.persona.telEmergencia = this.persona.telEmergencia == null ? per.telEmergencia : this.persona.telEmergencia;
@@ -424,15 +416,6 @@ export class FormGymAuxiliarComponent implements OnInit {
     this.personaService.getCiudad().subscribe(
       (respuesta) => {
         this.ciudad = respuesta
-        console.log(respuesta)
-      }
-    )
-  }
-
-  private getAseguradora(): void {
-    this.personaService.getAseguradora().subscribe(
-      (respuesta) => {
-        this.aseguradora = respuesta
         console.log(respuesta)
       }
     )

@@ -1,7 +1,6 @@
 package com.konrad.edu.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -35,16 +32,20 @@ public class HistoriaPreguntasGym implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoPreguntaHistoriaGymEntity tipoPreguntaHistoriaGymEntity;
 
+	@ManyToOne
+	@JoinColumn(name = "seq_historia_gym")
+	private HistoriaGYMEntity historiaGYMEntity;
+
 	@Column(name = "estado_pregunta", length = 3)
 	private String estadoPregunta;
 
 	@Column(name = "cantidad")
 	private int cantidad;
 
-	@Column(name="tiempo_fumando")
+	@Column(name = "tiempo_fumando")
 	private String tiempoFumando;
 
-	@Column(name="desp_cuales", length=4000)
+	@Column(name = "desp_cuales", length = 4000)
 	private String despCuales;
 
 	public Long getSeqHistoriasPreguntasGym() {
@@ -94,5 +95,13 @@ public class HistoriaPreguntasGym implements Serializable {
 	public void setDespCuales(String despCuales) {
 		this.despCuales = despCuales;
 	}
-	
+
+	public HistoriaGYMEntity getHistoriaGYMEntity() {
+		return historiaGYMEntity;
+	}
+
+	public void setHistoriaGYMEntity(HistoriaGYMEntity historiaGYMEntity) {
+		this.historiaGYMEntity = historiaGYMEntity;
+	}
+
 }

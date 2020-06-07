@@ -37,9 +37,14 @@ public class PerfilServiceImp implements IPerfilService {
 
 	@Override
 	public String Encriptar(String textoSinEncriptar) {
-		String textoEncriptadoConMD5=DigestUtils.md5Hex(textoSinEncriptar); 
-		System.out.println("Texto Encriptado con MD5 : "+textoEncriptadoConMD5);
+		String textoEncriptadoConMD5 = DigestUtils.md5Hex(textoSinEncriptar);
+		System.out.println("Texto Encriptado con MD5 : " + textoEncriptadoConMD5);
 		return textoEncriptadoConMD5;
+	}
+
+	@Override
+	public void delete(PerfilEntity persona) {
+		perfildao.deleteById(persona.getSeqPerfil());
 	}
 
 }

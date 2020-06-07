@@ -2,9 +2,9 @@ package com.konrad.edu.IService;
 
 import java.util.List;
 
-import com.konrad.edu.entity.DiagnosticoOcupacionalEntity;
+import com.konrad.edu.entity.DiagnosticoEntity;
 
 public interface IDiagnosticaOcupacionalService {
 
-	public List<DiagnosticoOcupacionalEntity> findAll();
+	public List<DiagnosticoEntity> findAll();
 }

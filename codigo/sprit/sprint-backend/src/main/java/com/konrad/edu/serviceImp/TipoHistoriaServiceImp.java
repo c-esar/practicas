@@ -10,7 +10,7 @@ import com.konrad.edu.dao.ITipoHistoriaDao;
 import com.konrad.edu.entity.TipoHistoriasEntity;
 
 @Service
-public class TipoHistoriaServiceImp implements ITipoHistoriaService{
+public class TipoHistoriaServiceImp implements ITipoHistoriaService {
 
 	@Autowired
 	private ITipoHistoriaDao tipoHistoriaDao;
@@ -19,6 +19,5 @@ public class TipoHistoriaServiceImp implements ITipoHistoriaService{
 	public List<TipoHistoriasEntity> findAll() {
 		return (List<TipoHistoriasEntity>) tipoHistoriaDao.findAll();
 	}
-	
-	
+
 }

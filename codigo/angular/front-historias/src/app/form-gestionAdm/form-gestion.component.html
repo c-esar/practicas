@@ -218,12 +218,24 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6" *ngIf="medicotipo == true">
                                 <mat-form-field>
-                                    <mat-label for="formotroUsuarioGym">LIC. SALUD
+                                    <mat-label for="formolicGym">LIC. SALUD
                                     </mat-label>
                                     <input matInput
                                         [ngModel]="Spersona.licenciaSalud"
                                         (ngModelChange)="persona.licenciaSalud = $event" name="licmedico"
-                                        id="formlicmedicoGym" type="text" class="form-control campoGrande"
+                                        id="formolicGym" type="text" class="form-control campoGrande"
+                                        placeholder="LIC. SALUD" />
+                                    <mat-error>Texto Incorrecto</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6" *ngIf="medicotipo == true">
+                                <mat-form-field>
+                                    <mat-label for="formoRegistroGym">REGISTRO MÉDICO
+                                    </mat-label>
+                                    <input matInput
+                                        [ngModel]="Spersona.registroMedico"
+                                        (ngModelChange)="persona.registroMedico = $event" name="registromedico"
+                                        id="formoRegistroGym" type="text" class="form-control campoGrande"
                                         placeholder="LIC. SALUD" />
                                     <mat-error>Texto Incorrecto</mat-error>
                                 </mat-form-field>
@@ -320,6 +332,18 @@
                                         </div>
                                     </div>
                                 </section>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                                <mat-form-field>
+                                    <mat-label for="formnomusuario">NOMBRE USUARIO
+                                    </mat-label>
+                                    <input matInput required
+                                        [ngModel]="nomUsuario" (ngModelChange)="nomUsuario = $event"
+                                        name="nomUsuario" id="formnomusuario" type="text"
+                                        class="form-control campoGrande"
+                                        placeholder="NOMBRE USUARIO" />
+                                    <mat-error>Texto Incorrecto</mat-error>
+                                </mat-form-field>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                 <mat-form-field>

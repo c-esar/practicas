@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="hc_familiar_gym")
-public class FamiliarGymEntity implements Serializable{
+@Table(name = "hc_familiar_gym")
+public class FamiliarGymEntity implements Serializable {
 
 	/**
 	 * 
@@ -20,10 +20,10 @@ public class FamiliarGymEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="seq_familiar_gym")
+	@Column(name = "seq_familiar_gym")
 	private Long seqFamiliarGym;
-	
-	@Column(name="nom_familiar")
+
+	@Column(name = "nom_familiar")
 	private String nomFamiliar;
 
 	public Long getSeqFamiliarGym() {
@@ -41,6 +41,5 @@ public class FamiliarGymEntity implements Serializable{
 	public void setNomFamiliar(String nomFamiliar) {
 		this.nomFamiliar = nomFamiliar;
 	}
-	
-		
+
 }

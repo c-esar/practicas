@@ -8,7 +8,7 @@ import com.konrad.edu.dao.IHistoriaGymDao;
 import com.konrad.edu.entity.HistoriaGYMEntity;
 
 @Service
-public class HistoriaGymServiceImp implements IHistoriaGymService{
+public class HistoriaGymServiceImp implements IHistoriaGymService {
 
 	@Autowired
 	private IHistoriaGymDao historiaDao;

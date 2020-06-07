@@ -34,8 +34,7 @@
                   <div class="form-group col-md-4 col-sm-4 col-xs-12">
                     <button id="BuscarPersona" mat-raised-button color="primary"
                       (click)="onValidatePersona()">Buscar</button>
-                    <button id="limpiar" mat-raised-button color="primary"
-                      (click)="onLimpiar()">Limpiar</button>
+                    <button id="limpiar" mat-raised-button color="primary" (click)="onLimpiar()">Limpiar</button>
                   </div>
                 </div>
                 <div class="form-group col-md-6 col-sm-6 col-xs-3">
@@ -66,7 +65,7 @@
                 <div class="form-group col-md-6 col-sm-6 col-xs-3">
                   <mat-form-field>
                     <mat-label for="formSegundoApelldioOcupacional">{{datosSingleton.labelSegundoApellido}}</mat-label>
-                    <input matInput 
+                    <input matInput
                       pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
                       [ngModel]="Spersona.nomSegundoApellido" (ngModelChange)="persona.nomSegundoApellido = $event"
                       name="nomSegundoApellido" id="formSegundoApelldioOcupacional" type="text"
@@ -89,7 +88,7 @@
                 <div class="form-group col-md-6 col-sm-6 col-xs-3">
                   <mat-form-field>
                     <mat-label for="formSegundoNombreOcupacional">{{datosSingleton.labelSegundoNombre}}</mat-label>
-                    <input matInput 
+                    <input matInput
                       pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
                       [ngModel]="Spersona.nomSegundoNombre" (ngModelChange)="persona.nomSegundoNombre = $event"
                       name="nomSegundoNombre" id="formSegundoNombreOcupacional" type="text"
@@ -201,14 +200,20 @@
                 </div>
                 <div class="form-group col-md-6 col-sm-6 col-xs-3">
                   <mat-form-field>
+                    <mat-label for="formcelularOcupacional">Celular</mat-label>
+                    <mat-error>No son números</mat-error> <input matInput required pattern="[0-9]*"
+                      [ngModel]="Spersona.celular" name="celular" id="formcelularOcupacional" type="text"
+                      (ngModelChange)="persona.celular = $event" class="form-control campoGrande"
+                      placeholder="Celular" value="" />
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                  <mat-form-field>
                     <mat-label for="formaseguradoraOcupacional">{{datosSingleton.labelAseguradora}}</mat-label>
-                    <mat-select required [ngModel]="Spersona.aseguradora.seqAseguradora"
-                      (ngModelChange)="persona.aseguradora.seqAseguradora = $event" name="aseguradora">
-                      <mat-option *ngFor="let eps of aseguradora" [value]="eps.seqAseguradora">
-                        {{eps.nomAseguradora}}
-                      </mat-option>
-                    </mat-select>
-                    <mat-error>Seleccione una opción</mat-error>
+                    <input matInput required [ngModel]="Spersona.aseguradora"
+                      (ngModelChange)="persona.aseguradora = $event" name="aseguradora" id="formaseguradoraOcupacional"
+                      type="text" class="form-control campoGrande" placeholder={{datosSingleton.labelAseguradora}} />
+                    <mat-error>Escriba una EPS</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="form-group col-md-6 col-sm-6 col-xs-3">

@@ -1,6 +1,5 @@
 package com.konrad.edu.IService;
 
-import java.util.Collection;
 import java.util.List;
 
 import com.konrad.edu.entity.PersonaEntity;
@@ -16,13 +15,13 @@ public interface IPersonaService {
 	public void delete(Long id);
 
 	public PersonaEntity findByNumeroDocumento(String numero_documento);
-	
+
 	public PersonaEntity findByNumeroPerfil(String seq_perfil);
-	
+
 	public List<PersonaEntity> findAllTipoUsuario(List<String> seq_tipo_usuario);
-	
+
 	public void eliminarConstRolUsuario();
-	
+
 	public PersonaEntity findByPersonaMedico(String numero_documento);
 
 }

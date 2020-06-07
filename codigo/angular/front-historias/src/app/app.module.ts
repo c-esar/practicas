@@ -51,9 +51,11 @@ import { FormGymAuxiliarComponent } from './form-gym-auxiliar/form-gym-auxiliar.
 import { FormGestionComponent } from './form-gestionAdm/form-gestion.component';
 import { FormHistoriasComponent } from './form-historias/form-historias.component';
 import { FirmaIndividualComponent } from './firma-individual/firma-individual.component';
-import { FormCertificadoComponent } from './form-certificado/form-certificado.component';
-import { FormDescargaComponent } from './form-descarga/form-descarga.component';
+import { FormCertificadoComponent } from './form-certificado-ocupacional/form-certificado.component';
+import { FormDescargaComponent } from './form-descarga-ocupacional/form-descarga.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { FormCertificadoGymComponent } from './form-certificado-gym/form-certificado-gym.component';
+import { FormDescargaGymComponent } from './form-descarga-gym/form-descarga-gym.component';
 //rutas
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, //ruta principal de la aplicacion
@@ -69,7 +71,9 @@ const routes: Routes = [
   { path: 'menuPrincipal/creacion-actualizacion', component: FormGestionComponent, canActivate: [LoginService] },
   { path: 'menuPrincipal/informes', component: TablesComponent, canActivate: [LoginService]},
   { path: 'menuPrincipal/crear/certificado/:id',  component: FormCertificadoComponent, canActivate: [LoginService]   },
-  { path: 'menuPrincipal/crear/certificado',  component: FormDescargaComponent, canActivate: [LoginService]   }
+  { path: 'menuPrincipal/crear/certificado',  component: FormDescargaComponent, canActivate: [LoginService]   },
+  { path: 'menuPrincipal/crear/certificadoGym/:id',  component: FormCertificadoGymComponent, canActivate: [LoginService]   },
+  { path: 'menuPrincipal/crear/certificadoGym',  component: FormDescargaGymComponent, canActivate: [LoginService]   }
 ];
 
 @NgModule({
@@ -94,7 +98,9 @@ const routes: Routes = [
     FormHistoriasComponent,
     FirmaIndividualComponent,
     FormCertificadoComponent,
-    FormDescargaComponent
+    FormDescargaComponent,
+    FormCertificadoGymComponent,
+    FormDescargaGymComponent
   ],
   imports: [
     BrowserModule,

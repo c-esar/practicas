@@ -147,7 +147,8 @@ export class DatosSingleton {
   menuCuestionario: string;
   despMenuCuestionario: string;
   parteFinal: string;
-  ultimaParte: string;
+  ultimaParteGym: string;
+  ultimaParteOcupacional: string;
   labelRh: string;
   labelConducta: string;
   labelItem: string;

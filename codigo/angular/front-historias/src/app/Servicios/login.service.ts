@@ -31,7 +31,6 @@ export class LoginService implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-
     console.log("Valor CanActivate" + this.isAutorization());
     if (!this.isAutorization()) {
       this.router.navigate(['login']);

@@ -137,16 +137,16 @@ public class LabelConstantes implements Serializable {
 	private String labelRecomendacionesMedicas;
 	private String labelRecomendacinesOcupacionales;
 	private String labelHabitos;
-	
-	//CONSTANTES
+
+	// CONSTANTES
 	private String actividadFisica;
 	private String mensajeBarProgress;
-	
-	//separadores
+
+	// separadores
 	private String separadorPrincipal;
 	private String separadorEvaluacion;
-	
-	//gym
+
+	// gym
 	private String labelCodigo;
 	private String labelGrupoSanguuineo;
 	private String labelContactoEmergencia;
@@ -172,7 +172,8 @@ public class LabelConstantes implements Serializable {
 	private String menuCuestionario;
 	private String despMenuCuestionario;
 	private String parteFinal;
-	private String ultimaParte;
+	private String ultimaParteGym;
+	private String ultimaParteOcupacional;
 	private String labelRh;
 	private String tipoUsuario;
 	private String labelConducta;
@@ -329,7 +330,8 @@ public class LabelConstantes implements Serializable {
 		this.menuCuestionario = IConstantes.MENU_CUESTIONARIO;
 		this.despMenuCuestionario = IConstantes.DESP_MENU_CUESTIONARIO;
 		this.parteFinal = IConstantes.PARTE_FINAL;
-		this.ultimaParte = IConstantes.ULTIMA_PARTE;
+		this.ultimaParteGym = IConstantes.ULTIMA_PARTE_GYM;
+		this.ultimaParteOcupacional = IConstantes.ULTIMA_PARTE_OCUPACIONAL;
 		this.labelRh = IConstantes.LABEL_RH;
 		this.tipoUsuario = IConstantes.TIPO_USUARIO;
 		this.labelConducta = IConstantes.LABEL_CONDUCTA;
@@ -1173,7 +1175,6 @@ public class LabelConstantes implements Serializable {
 		this.menuRecomendaciones = menuRecomendaciones;
 	}
 
-	
 	public String getLabelCiudad() {
 		return labelCiudad;
 	}
@@ -1182,7 +1183,6 @@ public class LabelConstantes implements Serializable {
 		this.labelCiudad = labelCiudad;
 	}
 
-	
 	public String getLabelNuevo() {
 		return labelNuevo;
 	}
@@ -1191,7 +1191,6 @@ public class LabelConstantes implements Serializable {
 		this.labelNuevo = labelNuevo;
 	}
 
-	
 	public String getLableCerrar() {
 		return lableCerrar;
 	}
@@ -1224,7 +1223,6 @@ public class LabelConstantes implements Serializable {
 		this.label_Modalenfermedades = label_Modalenfermedades;
 	}
 
-	
 	public String getLabel_eliminar() {
 		return label_eliminar;
 	}
@@ -1233,7 +1231,6 @@ public class LabelConstantes implements Serializable {
 		this.label_eliminar = label_eliminar;
 	}
 
-	
 	public String getLabelMenarquia() {
 		return labelMenarquia;
 	}
@@ -1266,7 +1263,6 @@ public class LabelConstantes implements Serializable {
 		this.labelCcv = labelCcv;
 	}
 
-	
 	public String getLabelRecomendacionesMedicas() {
 		return labelRecomendacionesMedicas;
 	}
@@ -1291,7 +1287,6 @@ public class LabelConstantes implements Serializable {
 		this.labelHabitos = labelHabitos;
 	}
 
-	
 	public String getActividadFisica() {
 		return actividadFisica;
 	}
@@ -1299,7 +1294,6 @@ public class LabelConstantes implements Serializable {
 	public void setActividadFisica(String actividadFisica) {
 		this.actividadFisica = actividadFisica;
 	}
-	
 
 	public String getSeparadorPrincipal() {
 		return separadorPrincipal;
@@ -1316,7 +1310,6 @@ public class LabelConstantes implements Serializable {
 	public void setSeparadorEvaluacion(String separadorEvaluacion) {
 		this.separadorEvaluacion = separadorEvaluacion;
 	}
-	
 
 	public String getMensajeBarProgress() {
 		return mensajeBarProgress;
@@ -1526,15 +1519,6 @@ public class LabelConstantes implements Serializable {
 		this.parteFinal = parteFinal;
 	}
 
-	public String getUltimaParte() {
-		return ultimaParte;
-	}
-
-	public void setUltimaParte(String ultimaParte) {
-		this.ultimaParte = ultimaParte;
-	}
-
-	
 	public String getLabelRh() {
 		return labelRh;
 	}
@@ -1543,7 +1527,6 @@ public class LabelConstantes implements Serializable {
 		this.labelRh = labelRh;
 	}
 
-	
 	public String getTipoUsuario() {
 		return tipoUsuario;
 	}
@@ -1552,7 +1535,6 @@ public class LabelConstantes implements Serializable {
 		this.tipoUsuario = tipoUsuario;
 	}
 
-	
 	public String getLabelConducta() {
 		return labelConducta;
 	}
@@ -1561,7 +1543,6 @@ public class LabelConstantes implements Serializable {
 		this.labelConducta = labelConducta;
 	}
 
-	
 	public String getLabelItem() {
 		return labelItem;
 	}
@@ -1585,7 +1566,6 @@ public class LabelConstantes implements Serializable {
 	public void setLabelCancer(String labelCancer) {
 		this.labelCancer = labelCancer;
 	}
-	
 
 	public String getLabelTipoCancer() {
 		return labelTipoCancer;
@@ -1595,86 +1575,20 @@ public class LabelConstantes implements Serializable {
 		this.labelTipoCancer = labelTipoCancer;
 	}
 
-	@Override
-	public String toString() {
-		return "LabelConstantes [labelPrimerNombre=" + labelPrimerNombre + ", labelSegundoNombre=" + labelSegundoNombre
-				+ ", labelPrimerApellido=" + labelPrimerApellido + ", labelSegundoApellido=" + labelSegundoApellido
-				+ ", labeledad=" + labeledad + ", labelNoDocumento=" + labelNoDocumento + ", labelTipoDocumento="
-				+ labelTipoDocumento + ", labelGenero=" + labelGenero + ", labelFechaNacimiento=" + labelFechaNacimiento
-				+ ", labelLugarDeNacimiento=" + labelLugarDeNacimiento + ", labelEstadoCivil=" + labelEstadoCivil
-				+ ", labelEscolaridad=" + labelEscolaridad + ", labelCargoDependencia=" + labelCargoDependencia
-				+ ", labelDireccionCasa=" + labelDireccionCasa + ", labelTelefono=" + labelTelefono
-				+ ", labelAseguradora=" + labelAseguradora + ", labelAFP=" + labelAFP + ", labelARL=" + labelARL
-				+ ", labelCiudad=" + labelCiudad + ", labelDepartamento=" + labelDepartamento
-				+ ", labelFechaHistoriaClinica=" + labelFechaHistoriaClinica + ", labelIngreso=" + labelIngreso
-				+ ", labelPeriodico=" + labelPeriodico + ", labelEgreso=" + labelEgreso + ", labelOtroEvaluacion="
-				+ labelOtroEvaluacion + ", menuOcupacionalDatosPrincipales=" + menuOcupacionalDatosPrincipales
-				+ ", menuOcupacionalHistoriaLaboral=" + menuOcupacionalHistoriaLaboral
-				+ ", menusubmenuOcupacionalHistoriaLTrabajoAC=" + menusubmenuOcupacionalHistoriaLTrabajoAC
-				+ ", labelNombreEmpresa=" + labelNombreEmpresa + ", labelActividadEconomica=" + labelActividadEconomica
-				+ ", labelFechaIngreso=" + labelFechaIngreso + ", labelAntiguo=" + labelAntiguo + ", labelCargo="
-				+ labelCargo + ", labelDescripcionTareasFuncion=" + labelDescripcionTareasFuncion
-				+ ", menusubmenuOcupacionalHistoriaLTrabajoPre=" + menusubmenuOcupacionalHistoriaLTrabajoPre
-				+ ", tablaTrabajoPreLabelEmpresa=" + tablaTrabajoPreLabelEmpresa + ", tablaTrabajoPreLabelCargOficina="
-				+ tablaTrabajoPreLabelCargOficina + ", tablaTrabajoPreLabelTimepo=" + tablaTrabajoPreLabelTimepo
-				+ ", menusubmenuOcupacionalHistoriaLAntecedentesTrabajo="
-				+ menusubmenuOcupacionalHistoriaLAntecedentesTrabajo + ", labelSNaccidentesTrabajo="
-				+ labelSNaccidentesTrabajo + ", tablaEnfermedadesFecha=" + tablaEnfermedadesFecha
-				+ ", tablaEnfermedadesEmpresa=" + tablaEnfermedadesEmpresa + ", tablaEnfermedadesCausa="
-				+ tablaEnfermedadesCausa + ", tablaEnfermedadesTipoLesion=" + tablaEnfermedadesTipoLesion
-				+ ", tablaEnfermedadesIncapacidad=" + tablaEnfermedadesIncapacidad + ", tablaEnfermedadesSecuelas="
-				+ tablaEnfermedadesSecuelas + ", labelTieneEnfermedad=" + labelTieneEnfermedad
-				+ ", tablaEnfermedadesDiagnostico=" + tablaEnfermedadesDiagnostico
-				+ ", tablaEnfermedadesRecomendaciones=" + tablaEnfermedadesRecomendaciones
-				+ ", tablaEnfermedadesIndemnizacion=" + tablaEnfermedadesIndemnizacion + ", labelSI=" + labelSI
-				+ ", labelNO=" + labelNO + ", tablaFactoresFactoresRiesgo=" + tablaFactoresFactoresRiesgo
-				+ ", tablaFactoresTiempo=" + tablaFactoresTiempo + ", tablaFactoresMedidasControl="
-				+ tablaFactoresMedidasControl + ", labelMotivacionDeConsulta=" + labelMotivacionDeConsulta
-				+ ", labelAntecedentes=" + labelAntecedentes + ", menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo="
-				+ menuSubmenuOcupacionalHistoriaLaboralFactoresRiesgo + ", menuMotivoConsulta=" + menuMotivoConsulta
-				+ ", labelAntecednetesPersonales=" + labelAntecednetesPersonales + ", labelCualEs=" + labelCualEs
-				+ ", labelPatologicos=" + labelPatologicos + ", labelQuirurgicos=" + labelQuirurgicos
-				+ ", labelFarmacologicos=" + labelFarmacologicos + ", labelAlergicos=" + labelAlergicos
-				+ ", labelTramauticos=" + labelTramauticos + ", labelToxicos=" + labelToxicos + ", labelHospitalarios="
-				+ labelHospitalarios + ", lableInmunologicos=" + lableInmunologicos + ", lableFamiliares="
-				+ lableFamiliares + ", lableEstilosVida=" + lableEstilosVida + ", lableTabaquismo=" + lableTabaquismo
-				+ ", lableFrecuencia=" + lableFrecuencia + ", lableHabito=" + lableHabito + ", lableExfumador="
-				+ lableExfumador + ", lableConsumoAlcohol=" + lableConsumoAlcohol + ", lableActividadFisica="
-				+ lableActividadFisica + ", lableTipo=" + lableTipo + ", lableActividadesExtra=" + lableActividadesExtra
-				+ ", lableRevisionSistemas=" + lableRevisionSistemas + ", labelMenarquia=" + labelMenarquia
-				+ ", labelFur=" + labelFur + ", labelPlanificacion=" + labelPlanificacion + ", labelCcv=" + labelCcv
-				+ ", menuExamenFisico=" + menuExamenFisico + ", labelTesionArterial=" + labelTesionArterial
-				+ ", labelFrecuenciaCardiaca=" + labelFrecuenciaCardiaca + ", labelSat02=" + labelSat02
-				+ ", labelFrecuenciaRespiratoria=" + labelFrecuenciaRespiratoria + ", labelPeso=" + labelPeso
-				+ ", labelTalla=" + labelTalla + ", labelImc=" + labelImc + ", labelLateralidad=" + labelLateralidad
-				+ ", labelCabezaCuello=" + labelCabezaCuello + ", labelTorax=" + labelTorax + ", labelAbdomen="
-				+ labelAbdomen + ", labelGenitourinario=" + labelGenitourinario + ", labelColumna=" + labelColumna
-				+ ", labelMiembrosSuperioresInferiores=" + labelMiembrosSuperioresInferiores + ", labelOsteomuscular="
-				+ labelOsteomuscular + ", labelNeurologico=" + labelNeurologico + ", labelPielFaneras="
-				+ labelPielFaneras + ", menuParaclinicos=" + menuParaclinicos + ", labelExamen=" + labelExamen
-				+ ", labelFecha=" + labelFecha + ", labelResultado=" + labelResultado + ", menuImpresionDiagnostico="
-				+ menuImpresionDiagnostico + ", menuConcepto=" + menuConcepto + ", menuRecomendaciones="
-				+ menuRecomendaciones + ", labelNuevo=" + labelNuevo + ", lableCerrar=" + lableCerrar
-				+ ", labelModaltrabajo=" + labelModaltrabajo + ", label_Modalaccidente=" + label_Modalaccidente
-				+ ", label_Modalenfermedades=" + label_Modalenfermedades + ", label_eliminar=" + label_eliminar
-				+ ", labelRecomendacionesMedicas=" + labelRecomendacionesMedicas + ", labelRecomendacinesOcupacionales="
-				+ labelRecomendacinesOcupacionales + ", labelHabitos=" + labelHabitos + ", actividadFisica="
-				+ actividadFisica + ", mensajeBarProgress=" + mensajeBarProgress + ", separadorPrincipal="
-				+ separadorPrincipal + ", separadorEvaluacion=" + separadorEvaluacion + ", labelCodigo=" + labelCodigo
-				+ ", labelGrupoSanguuineo=" + labelGrupoSanguuineo + ", labelContactoEmergencia="
-				+ labelContactoEmergencia + ", labelParentesco=" + labelParentesco + ", menuPersonal=" + menuPersonal
-				+ ", despMenuPersonal=" + despMenuPersonal + ", labelObservaciones=" + labelObservaciones
-				+ ", labelPreguntaEmbarazo=" + labelPreguntaEmbarazo + ", labelPreguntaFuma=" + labelPreguntaFuma
-				+ ", labelPreguntaFumaCuantos=" + labelPreguntaFumaCuantos + ", labelPreguntaFumaTiempo="
-				+ labelPreguntaFumaTiempo + ", labelPreguntaLicor=" + labelPreguntaLicor
-				+ ", labelPreguntaLicorCuantas=" + labelPreguntaLicorCuantas + ", labelPreguntaEjercicio="
-				+ labelPreguntaEjercicio + ", labelPreguntaEjercicioCual=" + labelPreguntaEjercicioCual
-				+ ", labelPreguntaEjercicioCuantas=" + labelPreguntaEjercicioCuantas + ", labelPreguntaEnergizantes="
-				+ labelPreguntaEnergizantes + ", labelPreguntaEnergizanteCuantas=" + labelPreguntaEnergizanteCuantas
-				+ ", labelPreguntaSustancias=" + labelPreguntaSustancias + ", labelPreguntaSustanciasCuales="
-				+ labelPreguntaSustanciasCuales + ", labelMenuFamiliar=" + labelMenuFamiliar + ", despMenuFamiliar="
-				+ despMenuFamiliar + ", menuCuestionario=" + menuCuestionario + ", despMenuCuestionario="
-				+ despMenuCuestionario + ", parteFinal=" + parteFinal + "]";
+	public String getUltimaParteGym() {
+		return ultimaParteGym;
+	}
+
+	public void setUltimaParteGym(String ultimaParteGym) {
+		this.ultimaParteGym = ultimaParteGym;
+	}
+
+	public String getUltimaParteOcupacional() {
+		return ultimaParteOcupacional;
+	}
+
+	public void setUltimaParteOcupacional(String ultimaParteOcupacional) {
+		this.ultimaParteOcupacional = ultimaParteOcupacional;
 	}
 
 }

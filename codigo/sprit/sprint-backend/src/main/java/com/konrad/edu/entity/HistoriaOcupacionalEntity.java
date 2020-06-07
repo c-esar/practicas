@@ -23,7 +23,6 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.ColumnTransformer;
 
@@ -47,45 +46,42 @@ public class HistoriaOcupacionalEntity implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoHistoriasEntity seqTipoHistoria;
 
-	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "seq_exa_fisico", unique = false)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "seq_exa_fisico", unique = true)
 	private ExamenFisicoEntity examenFisico;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "seq_historia_laboral", unique = true)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private HistoriaLaboralEntity historiaLaboral;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "seq_historia")
+	@JoinColumn(name = "seq_historia_laboral")
 	private List<AntecedentesHistoriaEntity> antecedentesHistoriaEntity;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "seq_historia")
+	@JoinColumn(name = "seq_historia_laboral")
 	private List<ParaclinicosEntity> paraclinicosEntity;
 
-	@ManyToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "seq_eval")
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoEvaluacionEntity tipoEvaluacionEntity;
 
 	@ManyToOne
-	@JoinColumn(name = "seq_ciudad", updatable = false)
+	@JoinColumn(name = "seq_ciudad")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private CiudadEntity ciudadHistoria;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "hc_concepto_historia", joinColumns = @JoinColumn(name = "seq_historia", referencedColumnName = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_concepto", referencedColumnName = "seq_concepto"), indexes = {
 			@Index(name = "seq_historia", columnList = "seq_historia", unique = false),
 			@Index(name = "seq_concepto", columnList = "seq_concepto", unique = true) })
 	private List<ConceptoEntity> conceptoConcepto;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "hc_diagnosticoOcupacional_historia", joinColumns = @JoinColumn(name = "seq_historia"), inverseJoinColumns = @JoinColumn(name = "seq_diagnostico"), indexes = {
 			@Index(name = "seq_historia", columnList = "seq_historia", unique = false),
 			@Index(name = "seq_diagnostico", columnList = "seq_diagnostico", unique = true) })
-	private List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity;
+	private List<DiagnosticoEntity> diagnosticoOcupacionalEntity;
 
 	@Column(name = "dia_historia")
 	@Temporal(TemporalType.DATE)
@@ -115,13 +111,14 @@ public class HistoriaOcupacionalEntity implements Serializable {
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',otro_evaluacion)")
 	private byte[] otroEvaluacion;
 
-	@Column()
+	@Column(name = "acepto_condiciones")
 	private String aceptoCondiciones;
 
 	@ManyToOne
 	@JoinColumn(name = "seq_persona")
 	private PersonaEntity persona;
-	
+
+	@Column(name = "persona_medico")
 	private Long personaMedico;
 
 	@PrePersist
@@ -224,11 +221,11 @@ public class HistoriaOcupacionalEntity implements Serializable {
 		this.conceptoConcepto = conceptoConcepto;
 	}
 
-	public List<DiagnosticoOcupacionalEntity> getDiagnosticoOcupacionalEntity() {
+	public List<DiagnosticoEntity> getDiagnosticoOcupacionalEntity() {
 		return diagnosticoOcupacionalEntity;
 	}
 
-	public void setDiagnosticoOcupacionalEntity(List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity) {
+	public void setDiagnosticoOcupacionalEntity(List<DiagnosticoEntity> diagnosticoOcupacionalEntity) {
 		this.diagnosticoOcupacionalEntity = diagnosticoOcupacionalEntity;
 	}
 
@@ -304,7 +301,4 @@ public class HistoriaOcupacionalEntity implements Serializable {
 		this.personaMedico = personaMedico;
 	}
 
-
-
-	
 }

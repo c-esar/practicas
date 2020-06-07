@@ -10,10 +10,10 @@ public interface IConstantes {
 //	public static final String RUTA = "http://localhost:"+IConstantes.PUERTO;
 //	public static final String PUERTO = "4200";
 
-	//separadores
-	public static final String SEPARADOR_PRINCIPAL ="HISTORIA CLÍNICA OCUPACIONAL";
-	public static final String SEPARADOR_EVALUACION="TIPO DE EVALUACIÓN";
-	
+	// separadores
+	public static final String SEPARADOR_PRINCIPAL = "HISTORIA CLÍNICA OCUPACIONAL";
+	public static final String SEPARADOR_EVALUACION = "TIPO DE EVALUACIÓN";
+
 	public static final String ESTADO_PERDIDA_CONEXION = "FALLO";
 	public static final String ESTADO_SESION_ACTIVO = "ACTIVO";
 	public static final String ESTADO_SESION_INACTIVO = "INACTIVO";
@@ -81,7 +81,7 @@ public interface IConstantes {
 	// tercera fase ocupacional
 	public static final String LABEL_MOTIVACION_DE_CONSULTA = "4. MOTIVO DE CONSULTA Y ENFERMEDAD ACTUAL";
 	public static final String LABEL_ANTECEDENTES = "5. ANTECEDENTES";
-	public static final String MENU_MOTIVO_CONSULTA = "MOTIVO CONSULTA";
+	public static final String MENU_MOTIVO_CONSULTA = "ANAMNESIS";
 	public static final String LABEL_ANTECEDENTES_PERSONALES = "5.1 PERSONALES";
 	public static final String LABEL_CUAL_ES = "CUÁL (ES) ?";
 	public static final String LABEL_PATOLOGICOS = "A. PATOLÓGICOS";
@@ -95,7 +95,7 @@ public interface IConstantes {
 	public static final String LABEL_MENARQUIA = "I. G/O: MENARQUIA";
 	public static final String LABEL_FUR = "FECHA ÚLTIMA MENSTRUACIÓN";
 	public static final String LABEL_PLANIFICACION = "PLANIFICACIÓN";
-	public static final String LABEL_CCV ="FECHA ÚLTIMA CITOLOGÍA Y RESULTADO";
+	public static final String LABEL_CCV = "FECHA ÚLTIMA CITOLOGÍA Y RESULTADO";
 	public static final String LABEL_FAMILIARES = "5.2 FAMILIARES";
 	public static final String LABEL_ESTILOS_VIDA = "5.3 ESTILOS DE VIDA";
 	public static final String LABEL_TABAQUISMO = "A. TABAQUISMO";
@@ -136,22 +136,22 @@ public interface IConstantes {
 	public static final String MENU_IMPRESION_DIAGNOSTICO = "IMPRESIÓN DIAGNÓSTICA";
 	public static final String MENU_CONCEPTO = "CONCEPTO";
 	public static final String MENU_RECOMENDACIONES = "RECOMENDACIONES";
-	public static final String LABEL_NUEVO ="NUEVO";
-	public static final String LABEL_CERRAR ="CERRAR";
-	public static final String LABEL_MODALTRABAJO ="TRABAJOS PREVIOS";
-	public static final String LABEL_MODALACCIDENTE ="ACCIDENTES TRABAJO";
-	public static final String LABEL_MODALENFERMEDADES ="ENFERMEDADES LABORALES";
-	public static final String LABEL_ELIMINAR ="ELIMINAR";
+	public static final String LABEL_NUEVO = "NUEVO";
+	public static final String LABEL_CERRAR = "CERRAR";
+	public static final String LABEL_MODALTRABAJO = "TRABAJOS PREVIOS";
+	public static final String LABEL_MODALACCIDENTE = "ACCIDENTES TRABAJO";
+	public static final String LABEL_MODALENFERMEDADES = "ENFERMEDADES LABORALES";
+	public static final String LABEL_ELIMINAR = "ELIMINAR";
 	public static final String LABEL_RECOMENDACIONES_MEDICAS = "RECOMENDACIONES MÉDICAS (REMISIONES, TRATAMIENTOS)";
-	public static final String LABEL_RECOMENDACIONES_OCUPACIONALES ="RECOMENDACIONES OCUPACIONALES (USO DE EPP, INGRESO A SVE,RECOMEDACIONES, REUBICACIONES)";
-	public static final String LABEL_HABITOS ="HÁBITOS Y ESTILOS DE VIDA SALUDABLES";
-	
-	//constantes front
-	public static final String ACTIVIDAD_FISICA ="ACTIVIDAD FÍSICA";
+	public static final String LABEL_RECOMENDACIONES_OCUPACIONALES = "RECOMENDACIONES OCUPACIONALES (USO DE EPP, INGRESO A SVE,RECOMEDACIONES, REUBICACIONES)";
+	public static final String LABEL_HABITOS = "HÁBITOS Y ESTILOS DE VIDA SALUDABLES";
+
+	// constantes front
+	public static final String ACTIVIDAD_FISICA = "ACTIVIDAD FÍSICA";
 	public static final String MENSAJE_BAR_PROGRESS = "GUARDANDO INFORMACIÓN ESPERE UN MOMENTO";
-	
-	//GYM
-	public static final String LABEL_CODIGO ="CÓDIGO";
+
+	// GYM
+	public static final String LABEL_CODIGO = "CÓDIGO";
 	public static final String LABEL_GRUPO_SANGUUINEO = "GRUPO SANGUÍNEO";
 	public static final String LABEL_CONTACTO_EMERGENCIA = "CONTACTO EN CASO DE EMERGENCIA";
 	public static final String LABEL_PARENTESCO = "PARENTESCO";
@@ -159,36 +159,36 @@ public interface IConstantes {
 	public static final String DESP_MENU_PERSONAL = "¿ HA PADECIDO O PADECE ALGUNA DE LAS SIGUIENTES CONDICIONES? "
 			+ "(SELECCIONE Y EN OBSERVACIONES ESPECIFIQUE SI TIENE ALGÚN TRATAMIENTO ACTUALMENTE Y EN CIRUGÍA ESPECIFIQUE TIPO Y FECHA)";
 	public static final String LABEL_OBSERVACIONES = "OBSERVACIONES";
-	public static final String LABEL_PREGUNTA_EMBARAZO ="¿SI ES MUJER, ESTÁ EMBARAZADA?";
+	public static final String LABEL_PREGUNTA_EMBARAZO = "¿SI ES MUJER, ESTÁ EMBARAZADA?";
 	public static final String LABEL_PREGUNTA_FUMA = "¿ACTUALMENTE FUMA";
 	public static final String LABEL_PREGUNTA_FUMA_CUANTOS = "CUANTOS CIGARRILLOS DÍA";
 	public static final String LABEL_PREGUNTA_FUMA_TIEMPO = "TIEMPO FUMANDO";
-	public static final String LABEL_PREGUNTA_LICOR ="¿CONSUME LICOR?";
-	public static final String LABEL_PREGUNTA_LICOR_CUANTAS ="CUANTAS VECES AL MES";
-	public static final String LABEL_PREGUNTA_EJERCICIO ="¿REALIZA EJERCICIO FÍSICO?";
+	public static final String LABEL_PREGUNTA_LICOR = "¿CONSUME LICOR?";
+	public static final String LABEL_PREGUNTA_LICOR_CUANTAS = "CUANTAS VECES AL MES";
+	public static final String LABEL_PREGUNTA_EJERCICIO = "¿REALIZA EJERCICIO FÍSICO?";
 	public static final String LABEL_PREGUNTA_EJERCICIO_CUAL = "CÚAL(ES)";
-	public static final String LABEL_PREGUNTA_EJERCICIO_CUANTAS ="CUANTAS VECES POR SEMANA";
-	public static final String LABEL_PREGUNTA_ENERGIZANTES ="¿CONSUME BEBIDAS ENERGIZANTES?";
+	public static final String LABEL_PREGUNTA_EJERCICIO_CUANTAS = "CUANTAS VECES POR SEMANA";
+	public static final String LABEL_PREGUNTA_ENERGIZANTES = "¿CONSUME BEBIDAS ENERGIZANTES?";
 	public static final String LABEL_PREGUNTA_ENERGIZANTE_CUANTAS = "¿CUANTAS A LA SEMANA?";
 	public static final String LABEL_PREGUNTA_SUSTANCIAS = "¿CONSUME SUSTANCIAS PSICOACTIVAS?";
 	public static final String LABEL_PREGUNTA_SUSTANCIAS_CUALES = "¿CUÁLES?";
 	public static final String LABEL_MENU_FAMILIAR = "HISTORIA FAMILIAR";
 	public static final String DESP_MENU_FAMILIAR = "ALGUNO DE SUS FAMILIARES (PADRES, TIOS, ABUELOS O HERMANOS) PADECE O HA PADECIDO UNA O VARIAS DE LAS "
 			+ "SIGUIENTES ENFERMEDADES:";
-	public static final String MENU_CUESTIONARIO ="CUESTIONARIO DE APTITUD PARA EL EJERCICIO FÍSICO";
+	public static final String MENU_CUESTIONARIO = "CUESTIONARIO DE APTITUD PARA EL EJERCICIO FÍSICO";
 	public static final String DESP_MENU_CUESTIONARIO = "POR FAVOR, LEA LAS SIGUIENTES PREGUNTAS CUIDADOSAMENTE Y SELECCIONE "
 			+ "EL CUADRO CORRESPONDIENTE A AQUELLAS PREGUNTAS QUE SEAN CIERTAS EN SU CASO";
 	public static final String PARTE_FINAL = "YO HE SIDO CUESTIONADO SOBRE MIS ANTECEDENTES MÉDICOS FAMILIARES Y PERSONALES QUE PUEDEN "
 			+ "OCASIONAR RIESGO PARA MI SALUD CON LA PRÁCTICA DEL EJERCICIO. NOTIFICO QUE TODA LA INFORMACIÓN HA SIDO "
 			+ "VERAZ Y COMPLEJA, POR LA CUAL ME HAGO RESPONSABLE Y FIRMA EN EVALUADO.";
-	public static final String ULTIMA_PARTE ="ÚLTIMA PARTE";
+	public static final String ULTIMA_PARTE_GYM = "DIAGNÓSTICO CONDUCTA";
+	public static final String ULTIMA_PARTE_OCUPACIONAL = "CONCEPTO-RECOMENDACIONES";
 	public static final String LABEL_RH = "RH";
 	public static final String TIPO_USUARIO = "TIPO USUARIO";
 	public static final String LABEL_CONDUCTA = "CONDUCTA";
 	public static final String LABEL_ITEM = "ÍTEM";
 	public static final String LABEL_SI_NO = "SI / NO";
 	public static final String LABEL_CANCER = "CÁNCER";
-	public static final String LABEL_TIPO_CANCER ="TIPO CÁNCER";
-			
-	
+	public static final String LABEL_TIPO_CANCER = "TIPO CÁNCER";
+
 }

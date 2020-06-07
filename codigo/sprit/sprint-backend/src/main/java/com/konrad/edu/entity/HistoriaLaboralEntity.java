@@ -13,10 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,20 +32,20 @@ public class HistoriaLaboralEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long seqHistoriaLaboral;
 
-	@Column(name = "nom_empresa", length = 50)
+	@Column(name = "nom_empresa", length = 100)
 	private String nomEmpresa;
 
-	@Column(name = "act_economica", length = 50)
+	@Column(name = "act_economica", length = 100)
 	private String actEconomica;
 
 	@Column(name = "dat_fecha_ingreso")
 	@Temporal(TemporalType.DATE)
 	private Date fechaIngreso;
 
-	@Column(name = "antiguedad", length = 50)
+	@Column(name = "antiguedad", length = 100)
 	private String antiguedad;
 
-	@Column(name = "cargo", length = 50)
+	@Column(name = "cargo", length = 100)
 	private String cargo;
 
 	@Column(name = "desp_funciones_cargo", length = 4000)
@@ -75,7 +72,7 @@ public class HistoriaLaboralEntity implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "seq_historia_laboral")
 	private List<FactoresRiesgoEntity> factoresRiesgo;
-	
+
 	public HistoriaLaboralEntity() {
 		this.antecedentesTrabajo = new ArrayList<>();
 		this.enfermedadesLaboral = new ArrayList<>();
@@ -187,5 +184,4 @@ public class HistoriaLaboralEntity implements Serializable {
 		this.enfermedadLaboralSN = enfermedadLaboralSN;
 	}
 
-	
 }

@@ -30,7 +30,7 @@
 						</li>
 						<li class="nav-item">
 							<button id="DatosFinalFormulario" class="nav-link btn btn-primary "
-								(click)="onActivarSubMenu('DatosFinalFormulario')">{{datosSingleton.ultimaParte}}</button>
+								(click)="onActivarSubMenu('DatosFinalFormulario')">{{datosSingleton.ultimaParteGym}}</button>
 						</li>
 					</ul>
 				</div>
@@ -295,6 +295,15 @@
 							</div>
 							<div class="form-group col-md-6 col-sm-6 col-xs-3">
 								<mat-form-field>
+									<mat-label for="formcelularGym">Celular</mat-label>
+									<mat-error>No son números</mat-error> <input matInput required pattern="[0-9]*"
+										[ngModel]="Spersona.celular" name="celular" id="formcelularGym" type="text"
+										(ngModelChange)="persona.celular = $event" class="form-control campoGrande"
+										placeholder="Celular" value="" />
+								</mat-form-field>
+							</div>
+							<div class="form-group col-md-6 col-sm-6 col-xs-3">
+								<mat-form-field>
 									<mat-label for="formgeneroGym">{{datosSingleton.labelGenero}}</mat-label>
 									<mat-select [ngModel]="Spersona.genero" (ngModelChange)="persona.genero = $event"
 										required name="genero" id="formgeneroGym">
@@ -335,15 +344,12 @@
 							<div class="form-group col-md-6 col-sm-6 col-xs-3">
 								<mat-form-field>
 									<mat-label for="formaseguradoraGym">{{datosSingleton.labelAseguradora}}</mat-label>
-									<mat-select required [ngModel]="Spersona.aseguradora.seqAseguradora"
-										id="formaseguradoraGym"
-										(ngModelChange)="persona.aseguradora.seqAseguradora = $event"
-										name="aseguradora">
-										<mat-option *ngFor="let eps of aseguradora" [value]="eps.seqAseguradora">
-											{{eps.nomAseguradora}} </mat-option>
-									</mat-select>
-									<mat-error>Seleccione una
-										opción</mat-error>
+									<input matInput required	
+									[ngModel]="Spersona.aseguradora" (ngModelChange)="persona.aseguradora = $event"
+									name="aseguradora" id="formaseguradoraGym" type="text"
+									class="form-control campoGrande"
+									placeholder={{datosSingleton.labelAseguradora}} />
+									<mat-error>Escriba una EPS</mat-error>
 								</mat-form-field>
 							</div>
 							<div class="form-group col-md-6 col-sm-6 col-xs-3">

@@ -19,39 +19,6 @@
         </div>
         <div class="col-md-8 col-sm-8 col-xs-12">
           <section *ngIf="anchoPantalla > 1033">
-            <!--
-div id="header">
-              <ul class="nav">
-                <li><a href="/menuPrincipal">Inicio</a></li>
-                <li *ngIf="permiso.gestionarUsuario == 1"><a>Gestión Usuarios</a>
-                  <ul>
-                    <li><a href="menuPrincipal/creacion-actualizacion">Creación/Actualización</a></li>
-                    <li><a href="menuPrincipal/list-usuariosApp">Listado Usuarios</a></li>
-                  </ul>
-                </li>
-                <li *ngIf="permiso.crearUsuario == 1 || permiso.crearAux == 1"><a>Creación Formularios</a>
-                  <ul>
-                    <li *ngIf="permiso.crearUsuario == 1"><a href="menuPrincipal/list-usuariosApp">Listado Pacientes</a>
-                    </li>
-                    <li><a>Crear Formularios</a>
-                      <ul>
-                        <li *ngIf="permiso.crearUsuario == 1" ><a href="menuPrincipal/form-ocupacional"> Crear Formulario Ocupacional</a></li>
-                        <li *ngIf="permiso.crearUsuario == 1"><a href="menuPrincipal/form-gym">Crear Formulario GYM</a></li>
-                        <li *ngIf="permiso.crearAux == 1"><a href="menuPrincipal/form-ocupacional/auxiliar">Crear Formulario Ocupacional</a></li>
-                        <li *ngIf="permiso.crearAux == 1"><a href="menuPrincipal/form-gym/auxiliar">Crear Formulario GYM</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li *ngIf="permiso.descargar == 1"><a>Descargas</a>
-                  <ul>
-                    <li><a href="menuPrincipal/crear/certificado">Crear Certificado</a></li>
-                  </ul>
-                </li>
-                <li><a href="" (click)="salirApp()">Salir</a></li>
-              </ul>
-            </div>
-          -->
             <button mat-button style="background: black;"><a href="/menuPrincipal"><span
                   style="color: white; font-size: 18px;">Inicio</span></a></button>
             <button mat-button [matMenuTriggerFor]="gestion" *ngIf="permiso.gestionarUsuario == 1"
@@ -73,20 +40,23 @@ div id="header">
                   href="menuPrincipal/form-ocupacional"><span style="color: white;">Crear Formulario
                     Ocupacional</span></a></button>
               <button style="background: black;" mat-menu-item *ngIf="permiso.crearUsuario == 1"><a
-                  href="menuPrincipal/form-gym"><span style="color: white;">Crear Formulario GYM</span></a></button>
+                  href="menuPrincipal/form-gym"><span style="color: white;">Crear Formulario Valoración
+                    Deportiva</span></a></button>
               <button style="background: black;" mat-menu-item *ngIf="permiso.crearAux == 1"><a
                   href="menuPrincipal/form-ocupacional/auxiliar"><span style="color: white;">Crear Formulario
                     Ocupacional</span></a></button>
               <button style="background: black;" mat-menu-item *ngIf="permiso.crearAux == 1"><a
                   href="menuPrincipal/form-gym/auxiliar"><span style="color: white;">Crear Formulario
-                    GYM</span></a></button>
+                    Valoración Deportiva</span></a></button>
             </mat-menu>
 
             <button mat-button [matMenuTriggerFor]="descargas" *ngIf="permiso.descargar == 1"
-              style="background: black;"><span style="color: white; font-size: 18px;">Descargas</span></button>
+              style="background: black;"><span style="color: white; font-size: 18px;">Generar Certificados</span></button>
             <mat-menu #descargas="matMenu">
               <button style="background: black;" mat-menu-item><a href="menuPrincipal/crear/certificado"><span
-                    style="color: white;">Crear Certificado</span></a></button>
+                    style="color: white;">Crear Certificado Ocupacional</span></a></button>
+              <button style="background: black;" mat-menu-item><a href="menuPrincipal/crear/certificadoGym"><span
+                    style="color: white;">Crear Certificado Valoración Deportiva</span></a></button>
             </mat-menu>
 
             <button mat-button style="background: black;" (click)="salirApp()"><a href="/"><span

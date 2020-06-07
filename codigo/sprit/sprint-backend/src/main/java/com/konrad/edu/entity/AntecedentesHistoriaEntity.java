@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,8 +31,8 @@ public class AntecedentesHistoriaEntity implements Serializable {
 	@Column(name = "seq_ant_historias")
 	private Long seqAntHistorias;
 
-	@ManyToOne
-	@JoinColumn(name = "seq_tipo_antecedente", updatable = false)
+	@OneToOne
+	@JoinColumn(name = "seq_tipo_antecedente")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoAntecedenteEntity tipoAntecedenteEntity;
 
@@ -41,31 +42,31 @@ public class AntecedentesHistoriaEntity implements Serializable {
 	@Column(name = "desp_antecedente", length = 4000)
 	private String despAntecedente;
 
-	@Column(length = 50)
+	@Column(length = 100)
 	private String frecuencia;
 
-	@Column(length = 50)
+	@Column(length = 100)
 	private String tipo;
 
-	@Column(length = 50)
+	@Column(length = 100)
 	private String exFumador;
 
 	@Column(name = "anos_habito")
 	private int anosHabito;
-	
+
 	private String planificacion;
-	
-	//fecha ultima citoligias y resultados
+
+	// fecha ultima citoligias y resultados
 	private String ccv;
-	
-	//fecha ultima mestruacion
+
+	// fecha ultima mestruacion
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fur;
-	
-	@Column(name="menarquia")
+
+	@Column(name = "menarquia")
 	private String mernarquia;
-	
-	@Column(name="menarquia_list")
+
+	@Column(name = "menarquia_list")
 	private String menarquiaList;
 
 	public Long getSeqAntHistorias() {
@@ -148,7 +149,6 @@ public class AntecedentesHistoriaEntity implements Serializable {
 		this.ccv = ccv;
 	}
 
-
 	public String getMenarquiaList() {
 		return menarquiaList;
 	}
@@ -173,6 +173,4 @@ public class AntecedentesHistoriaEntity implements Serializable {
 		this.mernarquia = mernarquia;
 	}
 
-	
-	
 }

@@ -21,7 +21,7 @@ public class HistoriaOcupacionalServiceImp implements IHistoriaOcupacionalServic
 	@Override
 	public boolean alterConcepto() {
 		return historiaDao.alterConcepto();
-		
+
 	}
 
 	@Override

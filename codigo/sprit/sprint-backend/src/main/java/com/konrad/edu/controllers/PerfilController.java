@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.konrad.edu.IService.IConstantes;
+import com.konrad.edu.IService.IHistoriaGymService;
+import com.konrad.edu.IService.IHistoriaOcupacionalService;
 import com.konrad.edu.IService.IPerfilService;
 import com.konrad.edu.IService.IPersonaService;
 import com.konrad.edu.entity.Desencriptacion;
@@ -24,7 +26,6 @@ import com.konrad.edu.entity.Encriptacion;
 import com.konrad.edu.entity.LabelConstantes;
 import com.konrad.edu.entity.PerfilEntity;
 import com.konrad.edu.entity.PersonaEntity;
-import com.konrad.edu.entity.TipoHistoriasEntity;
 
 @CrossOrigin(origins = { IConstantes.RUTA })
 @RestController
@@ -33,9 +34,12 @@ public class PerfilController {
 
 	@Autowired
 	private IPerfilService perfilService;
-
 	@Autowired
 	private IPersonaService personaService;
+	@Autowired
+	private IHistoriaOcupacionalService historiaService;
+	@Autowired
+	private IHistoriaGymService historiaGymService;
 
 	@GetMapping("/sesion/{nomUsuario}/{pass}")
 	public ResponseEntity<?> RecibirSesion(@PathVariable("nomUsuario") String nom_usuario,
@@ -47,7 +51,7 @@ public class PerfilController {
 			password = Encriptacion.Encriptar(password);
 			p = perfilService.getSession(nom_usuario, password);
 			if (p != null) {
-				if(!p.getPersona().isEmpty()) {
+				if (!p.getPersona().isEmpty()) {
 					p.getPersona().get(0).setPerfil(null);
 					p.getPersona().get(0).setHistorias(null);
 					p.getPersona().get(0).setHistoriaGym(null);
@@ -93,7 +97,9 @@ public class PerfilController {
 			String password = persona.getPassword();
 			password = Encriptacion.Encriptar(password);
 			persona.setPassword(password);
-			personaEntity.setImagenEncriptada(personaEntity.getImagen() == null ? null :personaEntity.getImagen().getBytes());
+			personaEntity.setImagenEncriptada(
+					personaEntity.getImagen() == null ? null : personaEntity.getImagen().getBytes());
+			eliminarAlterSql();
 			personaNew = perfilService.save(persona);
 			if (personaNew != null) {
 				personaEntity.setPerfil(new PerfilEntity());
@@ -106,6 +112,9 @@ public class PerfilController {
 				}
 			}
 		} catch (DataAccessException e) {
+			if (personaNew != null) {
+				perfilService.delete(personaNew);
+			}
 			response.put("mensaje", "Error al realizar el insertar en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			response.put("persona", personaNew);
@@ -124,7 +133,7 @@ public class PerfilController {
 		PersonaEntity tmp = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
-			personaNew = perfilService.findHcPerfilesByNumeroDocumneto(numero_documento);		
+			personaNew = perfilService.findHcPerfilesByNumeroDocumneto(numero_documento);
 			if (personaNew != null) {
 				personaNew.setPassword(Desencriptacion.Desencriptar(personaNew.getPassword()));
 				tmp = personaNew.getPersona().get(0);
@@ -133,10 +142,11 @@ public class PerfilController {
 				tmp.setPerfil(null);
 				personaNew.getPersona().clear();
 				personaNew.getPersona().add(tmp);
-				if(personaNew.getPersona().get(0).getImagenEncriptada() != null) {
-					personaNew.getPersona().get(0).setImagen(new String(personaNew.getPersona().get(0).getImagenEncriptada()));
+				if (personaNew.getPersona().get(0).getImagenEncriptada() != null) {
+					personaNew.getPersona().get(0)
+							.setImagen(new String(personaNew.getPersona().get(0).getImagenEncriptada()));
 				}
-				
+
 			}
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error no se encuentra registrado en la base de datos");
@@ -157,10 +167,11 @@ public class PerfilController {
 					personaNew.getPersona().add(persona);
 					personaNew.getPersona().get(0).setHistoriasEncriptacion(null);
 					personaNew.getPersona().get(0).setHistoriaGymEncriptacion(null);
-					if(personaNew.getPersona().get(0).getImagenEncriptada() != null) {
-						personaNew.getPersona().get(0).setImagen(new String(personaNew.getPersona().get(0).getImagenEncriptada()));
+					if (personaNew.getPersona().get(0).getImagenEncriptada() != null) {
+						personaNew.getPersona().get(0)
+								.setImagen(new String(personaNew.getPersona().get(0).getImagenEncriptada()));
 					}
-				}else {
+				} else {
 					response.put("mensaje", "La persona no ha sido encontrada con éxito!");
 					response.put("persona", null);
 					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
@@ -176,5 +187,39 @@ public class PerfilController {
 		response.put("mensaje", "La persona ha sido encontrada con éxito!");
 		response.put("persona", personaNew);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+
+	// eliminar constraint innecesarios
+	private void eliminarAlterSql() {
+		try {
+			historiaService.alterConcepto();
+		} catch (Exception e) {
+			System.err.print(e.getMessage().concat(" alter Concepto ocupacional"));
+		}
+		try {
+			historiaService.alterdiagnostico();
+		} catch (Exception e) {
+			System.err.print(e.getMessage().concat(" alter diagnostico ocupacional"));
+		}
+		try {
+			historiaGymService.alterCondiciones();
+		} catch (Exception e) {
+			System.err.print(e.getMessage().concat(" alter Concepto gym"));
+		}
+		try {
+			historiaGymService.alterDiagnostico();
+		} catch (Exception e) {
+			System.err.print(e.getMessage().concat(" alter diagnostico gym"));
+		}
+		try {
+			historiaGymService.alterFamiliares();
+		} catch (Exception e) {
+			System.err.print(e.getMessage().concat(" alter Familiares Gym"));
+		}
+		try {
+			historiaGymService.alterUsuarios();
+		} catch (Exception e) {
+			System.err.print(e.getMessage().concat(" alter usuarios"));
+		}
 	}
 }

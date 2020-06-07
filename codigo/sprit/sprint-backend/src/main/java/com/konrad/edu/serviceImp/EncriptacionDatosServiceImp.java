@@ -61,7 +61,8 @@ public class EncriptacionDatosServiceImp implements IEncriptacionDatosService {
 		historianew.setTipoCancer(
 				historiaEntity.getTipoCancer() == null ? null : historiaEntity.getTipoCancer().getBytes());
 		historianew.setConducta(historiaEntity.getConducta() == null ? null : historiaEntity.getConducta().getBytes());
-		historianew.setPersonaMedico(historiaEntity.getPersonaMedico() == null ? null : historiaEntity.getPersonaMedico());
+		historianew
+				.setPersonaMedico(historiaEntity.getPersonaMedico() == null ? null : historiaEntity.getPersonaMedico());
 		return historianew;
 	}
 

@@ -8,7 +8,6 @@ import { DatosSingleton } from '../DatosBean/datosSingleton';
 import { Persona } from '../DatosBean/persona';
 import { TipoDocumento } from '../DatosBean/tipoDocumento';
 import { Ciudad } from '../DatosBean/ciudad';
-import { Aseguradora } from '../DatosBean/aseguradora';
 import { Router } from '@angular/router';
 import { Permiso } from '../DatosBean/permiso';
 import { Historias } from '../DatosBean/historias';
@@ -53,10 +52,12 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   @ViewChild('gridParaclinicos') public gridParaclinicos: GridComponent;
   @ViewChild('medicoind') firmaMedicohtml;
   @ViewChild('pacienteind') firmaPacientehtml: FirmaIndividualComponent;
+  //firmas
   firmaMedico: any;
   firmaMedioBoolean: Boolean;
   firmaPaciente: any;
   firmaPacienteBoolean: Boolean;
+  //atributos
   public pageSettings: PageSettingsModel;
   date = new FormControl(new Date());
   dateNacimiento = new FormControl(new Date());
@@ -71,7 +72,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   datosSingleton: DatosSingleton;
   tipoDocumento: TipoDocumento[];
   ciudad: Ciudad[];
-  aseguradora: Aseguradora[];
   tipoUsuario: TipoUsuario[];
   medico: boolean;
   aux: boolean;
@@ -193,6 +193,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
       }
     );
   }
+  
   onCargarAtributos(): void {
     this.conceptoIngreso = new Array<Concepto>();
     this.conceptoPeriodico = new Array<Concepto>();
@@ -225,7 +226,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.onActivarSubMenu("DatosPricipales");
     this.getTipoDocumento();
     this.getCiudad();
-    this.getAseguradora();
     this.getTipoAntecedente();
     this.getTipoEvaluacion();
     this.getAnosHabitosList();
@@ -248,7 +248,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       let tmpDoc = this.persona.numeroDocumento;
       this.Spersona = new Persona();
-      this.persona.aseguradora = new Aseguradora();
       this.persona.tipoDocumento = new TipoDocumento();
       this.persona.lugarNacimiento = new Ciudad();
       this.buscoPerson = false;
@@ -260,10 +259,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
         (respuesta) => {
           console.log(respuesta);
           this.Spersona = respuesta;
-          if (this.Spersona.aseguradora === null) {
-            this.persona.aseguradora = new Aseguradora();
-            this.Spersona.aseguradora = new Aseguradora();
-          }
           if (this.Spersona.tipoDocumento === null) {
             this.persona.tipoDocumento = new TipoDocumento();
             this.Spersona.tipoDocumento = new TipoDocumento();
@@ -542,7 +537,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       if (this.persona.historias[0].aceptoCondiciones != null) {
         this.persona.historias[0].aceptoCondiciones = "true";
-        this.persona.localidad.seqLocalidad = 0;
         this.persona.lugarDeResidencia.seqCuidad = 0;
         this.barProgres = true;
         this.cargarDatosActededentesHistoria();
@@ -564,7 +558,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
               } else {
                 console.log(this.persona);
                 this.actualizarPerson(this.Spersona);
-                if(this.persona.rolUsuario.length === 0){
+                if (this.persona.rolUsuario.length === 0) {
                   this.persona.rolUsuario[0] = this.tipoUsuario[1];
                 }
                 this.personaService.create(this.persona, "2").subscribe(
@@ -580,7 +574,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
             }
           } else {
             this.persona.historias[0].antecedentesHistoriaEntity = new Array<AntecedentesHistoria>();
-            Swal.fire('Error', 'Falta completar información necesaria en la sección MOTIVO CONSULTA verificar campos', 'error');
+            Swal.fire('Error', 'Falta completar información necesaria en la sección ANAMNESIS verificar campos', 'error');
           }
         } else {
           Swal.fire('Error', 'Falta completar firmas', 'error');
@@ -604,7 +598,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     }, 500);
 
     setTimeout(() => {
-      this.persona.localidad.seqLocalidad = 0;
       this.persona.lugarDeResidencia.seqCuidad = 0;
       this.actualizarPerson(this.Spersona);
       let personaup = new Persona();
@@ -864,7 +857,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.persona.nomCargoDep = this.persona.nomCargoDep == null ? per.nomCargoDep : this.persona.nomCargoDep;
     this.persona.afp = this.persona.afp == null ? per.afp : this.persona.afp;
     this.persona.arl = this.persona.arl == null ? per.arl : this.persona.arl;
-    this.persona.aseguradora = (this.persona.aseguradora == null || this.persona.aseguradora.seqAseguradora == null) ? per.aseguradora : this.persona.aseguradora;
+    this.persona.aseguradora = this.persona.aseguradora == null ? per.aseguradora : this.persona.aseguradora;
     this.persona.rh = this.persona.rh == null ? per.rh : this.persona.rh;
     this.persona.nomEmergencia = this.persona.nomEmergencia == null ? per.nomEmergencia : this.persona.nomEmergencia;
     this.persona.telEmergencia = this.persona.telEmergencia == null ? per.telEmergencia : this.persona.telEmergencia;
@@ -1053,20 +1046,12 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   }
 
   getImpresionDiagnostica(): void {
-    //Swal.fire({
-    //  title: 'Cargando Informacion',
-    //  timer: 3000,
-    //  timerProgressBar: true,
-    //  showConfirmButton: false
-    //});
-    //if (this.diagnostica === undefined) {
-      this.historiaService.getImpresionDiagnostica().subscribe(
-        (respuesta) => {
-          this.diagnostica = respuesta;
-          console.log(this.diagnostica);
-        }
-      )
-    //}
+    this.historiaService.getImpresionDiagnostica().subscribe(
+      (respuesta) => {
+        this.diagnostica = respuesta;
+        console.log(this.diagnostica);
+      }
+    );
   }
 
   private getListConcepto(): void {
@@ -1092,14 +1077,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.personaService.getCiudad().subscribe(
       (respuesta) => {
         this.ciudad = respuesta
-      }
-    )
-  }
-
-  getAseguradora(): void {
-    this.personaService.getAseguradora().subscribe(
-      (respuesta) => {
-        this.aseguradora = respuesta
       }
     )
   }

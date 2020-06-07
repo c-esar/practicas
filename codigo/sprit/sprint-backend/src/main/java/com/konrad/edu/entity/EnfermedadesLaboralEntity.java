@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,18 +31,16 @@ public class EnfermedadesLaboralEntity implements Serializable {
 	@Column(name = "dat_fecha_ant")
 	private Date fechaAnt;
 
-	@Column(name = "nom_empresa", length = 50)
+	@Column(name = "nom_empresa", length = 100)
 	private String nomEmpresa;
 
 	@Column(name = "desp_diagnostico", length = 4000)
-	@Lob
 	private String despDiagnostico;
 
 	@Column(name = "desp_recomendaciones", length = 4000)
-	@Lob
 	private String despRecomendaciones;
 
-	@Column(name = "desp_indemnizar", length = 50)
+	@Column(name = "desp_indemnizar", length = 100)
 	private String despIndemnizar;
 
 	public Long getSeqEnfermedadesLab() {
@@ -90,5 +90,4 @@ public class EnfermedadesLaboralEntity implements Serializable {
 	public void setDespRecomendaciones(String despRecomendaciones) {
 		this.despRecomendaciones = despRecomendaciones;
 	}
-
 }

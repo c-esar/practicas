@@ -42,6 +42,4 @@ public class TipoPreguntaHistoriaGymEntity implements Serializable {
 		this.nomPregunta = nomPregunta;
 	}
 
-	
-
 }

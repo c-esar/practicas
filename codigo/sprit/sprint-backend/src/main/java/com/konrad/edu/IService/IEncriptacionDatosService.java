@@ -10,8 +10,8 @@ import com.konrad.edu.entity.HistoriaOcupacionalEntity;
 public interface IEncriptacionDatosService {
 
 	public HistoriaOcupacionalEntity encriptacionHistoriaOcupacional(HistoriaOcupacionalEncriptacion historiaEntity);
-	
+
 	public HistoriaGYMEntity encriptacionHistoriaGym(HistoriaGymEncriptacion historiaEntity);
-	
+
 	public ExamenFisicoEntity encriptacionExamenFisico(ExamenFisicoEncriptacion examenFisicoEntity);
 }

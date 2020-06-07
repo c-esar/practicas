@@ -1,5 +1,4 @@
 import { Historias } from './historias';
-import { TipoEvaluacion } from './tipoEvaluacion';
 export class Certificado {
     seqCertificado: number;
     datFechaCertificado: Date;

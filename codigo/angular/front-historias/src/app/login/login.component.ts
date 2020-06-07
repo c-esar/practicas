@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     setTimeout(() => {
       Swal.fire({
         title: 'Buscando',
-        timer: 2000,
+        timer: 1000,
         timerProgressBar: true,
         showConfirmButton: false
       })

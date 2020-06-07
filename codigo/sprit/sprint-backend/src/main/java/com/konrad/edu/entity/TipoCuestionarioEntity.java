@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="hc_tipo_cuestionario")
-public class TipoCuestionarioEntity implements Serializable{
+@Table(name = "hc_tipo_cuestionario")
+public class TipoCuestionarioEntity implements Serializable {
 
 	/**
 	 * 
@@ -41,6 +41,5 @@ public class TipoCuestionarioEntity implements Serializable{
 	public void setNomCuestionario(String nomCuestionario) {
 		this.nomCuestionario = nomCuestionario;
 	}
-	
-	
+
 }

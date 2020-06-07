@@ -34,16 +34,16 @@ public class PerfilEntity implements Serializable {
 	@Column(name = "seq_perfil")
 	private Long seqPerfil;
 
-	@Column(name = "nom_usuario", unique = true, length = 50)
+	@Column(name = "nom_usuario", unique = true, length = 100)
 	private String nomUsuario;
 
 	@Column(name = "password", length = 50)
 	private String password;
 
-	@Column
+	@Column(name = "estado", length = 2)
 	private String estado;
 
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "perfil")
+	@OneToMany(mappedBy = "perfil", fetch = FetchType.EAGER)
 	private List<PersonaEntity> persona;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -51,7 +51,7 @@ public class PerfilEntity implements Serializable {
 			@UniqueConstraint(columnNames = { "seq_perfil", "seq_permiso" }) })
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<PermisosEntity> permisos;
-	
+
 	public PerfilEntity() {
 		this.persona = new ArrayList<>();
 		this.permisos = new ArrayList<>();
@@ -110,5 +110,5 @@ public class PerfilEntity implements Serializable {
 		return "PerfilEntity [seqPerfil=" + seqPerfil + ", nomUsuario=" + nomUsuario + ", password=" + password
 				+ ", estado=" + estado + ", persona=" + persona + ", permisos=" + permisos + "]";
 	}
-	
+
 }

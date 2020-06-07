@@ -1,7 +1,5 @@
 import { TipoDocumento } from './tipoDocumento';
 import { Ciudad } from './ciudad';
-import { Aseguradora } from './aseguradora';
-import { Localidad } from './localidad';
 import { Historias } from './historias';
 import { HistoriaGym } from './historiaGym';
 import { TipoUsuario } from './tipoUsuario';
@@ -35,8 +33,7 @@ export class Persona {
   telEmergencia: string;
   nomEmergencia: string;
   parentescoEmergencia: string;
-  aseguradora: Aseguradora;
-  localidad: Localidad;
+  aseguradora: string;
   historias: Historias[];
   historiaGym: HistoriaGym[];
   historiasGym: HistoriaGym[];
@@ -47,6 +44,7 @@ export class Persona {
   historiaGymEncriptacion: HistoriaGym[];
   historiasEncriptacion: Historias[];
   licenciaSalud: string;
+  registroMedico: string;
   perfil: Login;
   constructor() {
     this.seqPersona = null;
@@ -75,8 +73,7 @@ export class Persona {
     this.parentescoEmergencia = null;
     this.rolUsuario = new Array<TipoUsuario>();
     this.fechaCreacion = new Date();
-    this.aseguradora = new Aseguradora();
-    this.localidad = new Localidad();
+    this.aseguradora = null;
     this.lugarNacimiento = new Ciudad();
     this.lugarDeResidencia = new Ciudad();
     this.tipoDocumento = new TipoDocumento();
@@ -89,6 +86,7 @@ export class Persona {
     this.historiaGymEncriptacion = new Array<HistoriaGym>();
     this.historiasEncriptacion = new Array<Historias>();
     this.licenciaSalud = null;
+    this.registroMedico = null;
     this.perfil = new Login();
   }
 }

@@ -1,10 +1,10 @@
 package com.konrad.edu.IService;
 
-import com.konrad.edu.entity.CertificadoEntity;
+import com.konrad.edu.entity.CertificadoOcupacionalEntity;
 
 public interface ICertificadoService {
 
-	public CertificadoEntity save(CertificadoEntity certificado);
+	public CertificadoOcupacionalEntity save(CertificadoOcupacionalEntity certificado);
 
-	public CertificadoEntity findByNumeroHistoria(Long seqHistoria);
+	public CertificadoOcupacionalEntity findByNumeroHistoria(Long seqHistoria);
 }

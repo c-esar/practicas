@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="hc_condicion_gym")
-public class CondicionGymEntity implements Serializable{
+@Table(name = "hc_condicion_gym")
+public class CondicionGymEntity implements Serializable {
 
 	/**
 	 * 
@@ -20,10 +20,10 @@ public class CondicionGymEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="seq_condicion_gym")
+	@Column(name = "seq_condicion_gym")
 	private Long seqCondicionGym;
-	
-	@Column(name="nom_condicion")
+
+	@Column(name = "nom_condicion")
 	private String nomCondicion;
 
 	public Long getSeqCondicionGym() {
@@ -41,5 +41,5 @@ public class CondicionGymEntity implements Serializable{
 	public void setNomCondicion(String nomCondicion) {
 		this.nomCondicion = nomCondicion;
 	}
-		
+
 }

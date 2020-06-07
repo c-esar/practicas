@@ -10,14 +10,14 @@ import com.konrad.edu.dao.ITipoCuestionarioDao;
 import com.konrad.edu.entity.TipoCuestionarioEntity;
 
 @Service
-public class TipoCuestionarioServiceImp implements ITipoCuestioService{
+public class TipoCuestionarioServiceImp implements ITipoCuestioService {
 
 	@Autowired
 	private ITipoCuestionarioDao tipoCuestionario;
-	
+
 	@Override
 	public List<TipoCuestionarioEntity> findAll() {
 		return (List<TipoCuestionarioEntity>) tipoCuestionario.findAll();
 	}
-	
+
 }

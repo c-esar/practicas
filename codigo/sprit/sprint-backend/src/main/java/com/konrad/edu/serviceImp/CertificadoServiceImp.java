@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.konrad.edu.IService.ICertificadoService;
 import com.konrad.edu.dao.ICertificadoDao;
-import com.konrad.edu.entity.CertificadoEntity;
+import com.konrad.edu.entity.CertificadoOcupacionalEntity;
 
 @Service
 public class CertificadoServiceImp implements ICertificadoService {
@@ -14,12 +14,12 @@ public class CertificadoServiceImp implements ICertificadoService {
 	private ICertificadoDao certificadoDao;
 
 	@Override
-	public CertificadoEntity save(CertificadoEntity persona) {
+	public CertificadoOcupacionalEntity save(CertificadoOcupacionalEntity persona) {
 		return certificadoDao.save(persona);
 	}
 
 	@Override
-	public CertificadoEntity findByNumeroHistoria(Long seqHistoria) {
+	public CertificadoOcupacionalEntity findByNumeroHistoria(Long seqHistoria) {
 		return certificadoDao.findByNumeroHistoria(seqHistoria);
 	}
 

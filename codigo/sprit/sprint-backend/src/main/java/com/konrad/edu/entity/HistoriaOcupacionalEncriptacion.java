@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 public class HistoriaOcupacionalEncriptacion implements Serializable {
 
 	/**
@@ -21,7 +20,7 @@ public class HistoriaOcupacionalEncriptacion implements Serializable {
 	private TipoEvaluacionEntity tipoEvaluacionEntity;
 	private CiudadEntity ciudadHistoria;
 	private List<ConceptoEntity> conceptoConcepto;
-	private List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity;
+	private List<DiagnosticoEntity> diagnosticoOcupacionalEntity;
 	private Date diaHistoria;
 	private String despMotivoConsulta;
 	private String revisionSistemas;
@@ -113,11 +112,11 @@ public class HistoriaOcupacionalEncriptacion implements Serializable {
 		this.conceptoConcepto = conceptoConcepto;
 	}
 
-	public List<DiagnosticoOcupacionalEntity> getDiagnosticoOcupacionalEntity() {
+	public List<DiagnosticoEntity> getDiagnosticoOcupacionalEntity() {
 		return diagnosticoOcupacionalEntity;
 	}
 
-	public void setDiagnosticoOcupacionalEntity(List<DiagnosticoOcupacionalEntity> diagnosticoOcupacionalEntity) {
+	public void setDiagnosticoOcupacionalEntity(List<DiagnosticoEntity> diagnosticoOcupacionalEntity) {
 		this.diagnosticoOcupacionalEntity = diagnosticoOcupacionalEntity;
 	}
 
@@ -201,7 +200,4 @@ public class HistoriaOcupacionalEncriptacion implements Serializable {
 		this.personaMedico = personaMedico;
 	}
 
-	
-
-	
 }

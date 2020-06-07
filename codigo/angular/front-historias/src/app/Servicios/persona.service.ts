@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Persona } from '../DatosBean/persona';
 import { TipoDocumento } from '../DatosBean/tipoDocumento';
 import { Ciudad } from '../DatosBean/ciudad';
-import { Aseguradora } from '../DatosBean/aseguradora';
 //import { personas } from '../lista-personas/personas.json';
 import { of, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -29,10 +28,6 @@ export class PersonaService {
 
   getTipoDocumento(): Observable<TipoDocumento[]> {
     return this.http.get<TipoDocumento[]>(this.url + "tipoDocumento/listTipoDocumento");
-  }
-
-  getAseguradora(): Observable<Aseguradora[]> {
-    return this.http.get<Aseguradora[]>(this.url + "aseguradora/listAseguradora");
   }
 
   getCiudad(): Observable<Ciudad[]> {

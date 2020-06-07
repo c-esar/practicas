@@ -7,7 +7,6 @@ import { DatosSingleton } from '../DatosBean/datosSingleton';
 import { Persona } from '../DatosBean/persona';
 import { TipoDocumento } from '../DatosBean/tipoDocumento';
 import { Ciudad } from '../DatosBean/ciudad';
-import { Aseguradora } from '../DatosBean/aseguradora';
 import { Router } from '@angular/router';
 import { Permiso } from '../DatosBean/permiso';
 import { TipoHistoria } from '../DatosBean/tipoHistoria';
@@ -30,8 +29,6 @@ export class FormAuxiliarComponent implements OnInit {
   datosSingleton: DatosSingleton;
   tipoDocumento: TipoDocumento[];
   ciudad: Ciudad[];
-  aseguradora: Aseguradora[];
-
   medico: boolean;
   aux: boolean;
   //constantes
@@ -95,7 +92,6 @@ export class FormAuxiliarComponent implements OnInit {
     this.obtenerPermisos();
     this.obtenerTipoDocumento();
     this.obtenerCiudad();
-    this.obtenerAseguradora();
     this.getAuxOMedico();
   }
   private activarLabels(): void {
@@ -130,15 +126,6 @@ export class FormAuxiliarComponent implements OnInit {
     )
   }
 
-  private obtenerAseguradora(): void {
-    this.personaService.getAseguradora().subscribe(
-      (respuesta) => {
-        this.aseguradora = respuesta
-        console.log(respuesta)
-      }
-    )
-  }
-
   private obtenerPermisos(): void {
     this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos[0].crearAux;
     this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos[0].crearUsuario;
@@ -159,7 +146,6 @@ export class FormAuxiliarComponent implements OnInit {
     setTimeout(() => {
       let tmpDoc = this.persona.numeroDocumento;
       this.Spersona = new Persona();
-      this.persona.aseguradora = new Aseguradora();
       this.persona.tipoDocumento = new TipoDocumento();
       this.persona.lugarNacimiento = new Ciudad();
       this.buscoPerson = false;
@@ -167,10 +153,6 @@ export class FormAuxiliarComponent implements OnInit {
         (respuesta) => { 
           console.log(respuesta);
           this.Spersona = respuesta;
-          if (this.Spersona.aseguradora === null) {
-            this.persona.aseguradora = new Aseguradora();
-            this.Spersona.aseguradora = new Aseguradora();
-          }
           if (this.Spersona.tipoDocumento === null) {
             this.persona.tipoDocumento = new TipoDocumento();
             this.Spersona.tipoDocumento = new TipoDocumento();
@@ -209,7 +191,6 @@ export class FormAuxiliarComponent implements OnInit {
     }, 500);
 
     setTimeout(() => {
-      this.persona.localidad.seqLocalidad = 0;
       this.persona.lugarDeResidencia.seqCuidad = 0;
       this.actualizarPerson(this.Spersona);
       this.personaService.update(this.persona).subscribe(
@@ -247,7 +228,7 @@ export class FormAuxiliarComponent implements OnInit {
     this.persona.nomCargoDep = this.persona.nomCargoDep == null ? per.nomCargoDep : this.persona.nomCargoDep;
     this.persona.afp = this.persona.afp == null ? per.afp : this.persona.afp;
     this.persona.arl = this.persona.arl == null ? per.arl : this.persona.arl;
-    this.persona.aseguradora = (this.persona.aseguradora == null || this.persona.aseguradora.seqAseguradora == null) ? per.aseguradora : this.persona.aseguradora;
+    this.persona.aseguradora = this.persona.aseguradora == null ? per.aseguradora : this.persona.aseguradora;
     this.persona.rh = this.persona.rh == null ? per.rh : this.persona.rh;
     this.persona.nomEmergencia = this.persona.nomEmergencia == null ? per.nomEmergencia : this.persona.nomEmergencia;
     this.persona.telEmergencia = this.persona.telEmergencia == null ? per.telEmergencia : this.persona.telEmergencia;

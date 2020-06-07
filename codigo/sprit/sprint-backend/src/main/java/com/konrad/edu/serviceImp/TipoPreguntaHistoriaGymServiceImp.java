@@ -19,5 +19,5 @@ public class TipoPreguntaHistoriaGymServiceImp implements ITipoPreguntaHistoriaS
 	public List<TipoPreguntaHistoriaGymEntity> findAll() {
 		return (List<TipoPreguntaHistoriaGymEntity>) tipoPregunta.findAll();
 	}
-	
+
 }

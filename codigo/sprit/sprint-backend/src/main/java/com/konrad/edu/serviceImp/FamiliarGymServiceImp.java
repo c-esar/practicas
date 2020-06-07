@@ -19,6 +19,5 @@ public class FamiliarGymServiceImp implements IFamiliarGymService {
 	public List<FamiliarGymEntity> findAll() {
 		return (List<FamiliarGymEntity>) familiarDao.findAll();
 	}
-	
-	
+
 }

@@ -1,11 +1,9 @@
 package com.konrad.edu.serviceImp;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -20,10 +18,7 @@ import org.springframework.util.ResourceUtils;
 
 import com.konrad.edu.IService.IReportesService;
 import com.konrad.edu.dao.ICertificadoDao;
-import com.konrad.edu.dao.IHistoriaGymDao;
-import com.konrad.edu.dao.IHistoriaOcupacionalDao;
 import com.konrad.edu.dao.IPersonaDao;
-import com.konrad.edu.entity.CertificadoEntity;
 import com.konrad.edu.entity.HistoriaGYMEntity;
 import com.konrad.edu.entity.PersonaEntity;
 
@@ -38,18 +33,12 @@ import net.sf.jasperreports.engine.JasperReport;
 public class ReportesServiceImp implements IReportesService {
 
 	@Autowired
-	private IHistoriaGymDao historiasDao;
-
-	@Autowired
-	private IHistoriaOcupacionalDao historiaOcupacionalDao;
-
-	@Autowired
 	private IPersonaDao personaDao;
-	
+
 	@Autowired
 	private ICertificadoDao certificadoDao;
 
-	//reporte historia gym
+	// reporte historia gym
 	@Override
 	public String exportReport(String id, int historias, String documentoMedico) {
 		try {
@@ -144,17 +133,17 @@ public class ReportesServiceImp implements IReportesService {
 					rolUsuario += ";  ";
 				}
 			}
-			
+
 			parameters.put("impresionDiagnostica", impresionDiagnostica);
 			parameters.put("numeroPersona", persona.getSeqPersona());
 			parameters.put("numeroHistoria", historias);
 			parameters.put("rolUsuario", rolUsuario);
-			if(persona.getImagenEncriptada() != null) {
+			if (persona.getImagenEncriptada() != null) {
 				persona.setImagen(new String(persona.getImagenEncriptada()));
 				persona.setImagen(new String(persona.getImagenEncriptada()));
 				parameters.put("imagenPaciente", crearImagenPaciente(persona.getImagen(), "paciente"));
 			}
-			if(medico.getImagenEncriptada() != null) {
+			if (medico.getImagenEncriptada() != null) {
 				medico.setImagen(new String(medico.getImagenEncriptada()));
 				parameters.put("imagenMedico", crearImagenPaciente(medico.getImagen(), "medico"));
 			}
@@ -185,7 +174,7 @@ public class ReportesServiceImp implements IReportesService {
 
 	}
 
-	//reporte historia ocupacional
+	// reporte historia ocupacional
 	@Override
 	public String exportReportOcupacional(String id, int historias, String documentoMedico) {
 		try {
@@ -202,7 +191,8 @@ public class ReportesServiceImp implements IReportesService {
 					break;
 				}
 			}
-			PersonaEntity medico = this.personaDao.findByPersonaMedico(historia.getHistoriasEncriptacion().get(0).getPersonaMedico().toString());
+			PersonaEntity medico = this.personaDao
+					.findByPersonaMedico(historia.getHistoriasEncriptacion().get(0).getPersonaMedico().toString());
 			for (int i = 0; i < historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
 					.size(); i++) {
 				switch (historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
@@ -414,7 +404,8 @@ public class ReportesServiceImp implements IReportesService {
 					.size(); i++) {
 				impresionDiagnostica += historia.getHistoriasEncriptacion().get(0).getDiagnosticoOcupacionalEntity()
 						.get(i).getCodDiagnostico() + "-"
-						+ historia.getHistoriasEncriptacion().get(0).getDiagnosticoOcupacionalEntity().get(i).getDesDiagnostico();
+						+ historia.getHistoriasEncriptacion().get(0).getDiagnosticoOcupacionalEntity().get(i)
+								.getDesDiagnostico();
 				if (i < historia.getHistoriasEncriptacion().get(0).getDiagnosticoOcupacionalEntity().size() - 1) {
 					impresionDiagnostica += "\n";
 				}
@@ -422,11 +413,11 @@ public class ReportesServiceImp implements IReportesService {
 			parameters.put("impresionDiagnostica", impresionDiagnostica);
 			parameters.put("numeroPersona", persona.getSeqPersona());
 			parameters.put("numeroHistoria", historias);
-			if(persona.getImagenEncriptada() != null) {
+			if (persona.getImagenEncriptada() != null) {
 				persona.setImagen(new String(persona.getImagenEncriptada()));
 				parameters.put("imagenPaciente", crearImagenPaciente(persona.getImagen(), "paciente"));
 			}
-			if(medico.getImagenEncriptada() != null) {
+			if (medico.getImagenEncriptada() != null) {
 				medico.setImagen(new String(medico.getImagenEncriptada()));
 				parameters.put("imagenMedico", crearImagenPaciente(medico.getImagen(), "medico"));
 			}
@@ -456,7 +447,7 @@ public class ReportesServiceImp implements IReportesService {
 		return null;
 	}
 
-	//crear imagen para reporte
+	// crear imagen para reporte
 	private String crearImagenPaciente(String imagen, String id) {
 		String[] palabras = imagen.split(",");
 		String imgentmp = palabras[1];
@@ -478,7 +469,7 @@ public class ReportesServiceImp implements IReportesService {
 		return personaDao.findByPersonaOcupacional(id);
 	}
 
-	//crear reporte certificado
+	// crear reporte certificado
 	@Override
 	public String exportReportCertificado(String id, int historia, String documentoMedico) {
 		try {
@@ -489,7 +480,7 @@ public class ReportesServiceImp implements IReportesService {
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 			String certificado = certificadoDao.findByNumeroCertificado(id);
 			PersonaEntity medico = this.personaDao.findByPersonaMedico(certificado);
-			if(medico.getImagenEncriptada() != null) {
+			if (medico.getImagenEncriptada() != null) {
 				medico.setImagen(new String(medico.getImagenEncriptada()));
 				parameters.put("imagenMedico", crearImagenPaciente(medico.getImagen(), "medico"));
 			}

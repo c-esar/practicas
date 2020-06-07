@@ -8,7 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,7 +29,7 @@ public class AntecedentesTrabajoEntity implements Serializable {
 	@Column(name = "dat_fecha_ant")
 	private Date fechaAnt;
 
-	@Column(name = "nom_empresa", length = 50)
+	@Column(name = "nom_empresa", length = 100)
 	private String nomEmpresa;
 
 	@Column(name = "desp_causa", length = 4000)
@@ -74,6 +75,7 @@ public class AntecedentesTrabajoEntity implements Serializable {
 	public void setTipoLesion(String tipoLesion) {
 		this.tipoLesion = tipoLesion;
 	}
+
 	public String getDespCausa() {
 		return despCausa;
 	}

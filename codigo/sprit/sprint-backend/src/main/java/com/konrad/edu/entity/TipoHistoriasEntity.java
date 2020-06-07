@@ -34,7 +34,6 @@ public class TipoHistoriasEntity implements Serializable {
 		this.seqTipoHistoria = seqTipoHistoria;
 	}
 
-
 	public String getNomTipoHistoria() {
 		return nomTipoHistoria;
 	}

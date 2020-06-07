@@ -14,8 +14,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="hc_cuestionario_gym")
-public class CuestionarioGymEntity implements Serializable{
+@Table(name = "hc_cuestionario_gym")
+public class CuestionarioGymEntity implements Serializable {
 
 	/**
 	 * 
@@ -23,16 +23,20 @@ public class CuestionarioGymEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="seq_cuestionario_gym")
+	@Column(name = "seq_cuestionario_gym")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long seqCuestionarioGym;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "seq_tipo_cuestionario", updatable = false)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoCuestionarioEntity tipoCuestionarioEntity;
-	
-	@Column(name="estado_cuestionario")
+
+	@ManyToOne
+	@JoinColumn(name = "seq_historia_gym")
+	private HistoriaGYMEntity historiaGYMEntity;
+
+	@Column(name = "estado_cuestionario")
 	private String estadoCuestionario;
 
 	public Long getSeqCuestionarioGym() {
@@ -58,7 +62,13 @@ public class CuestionarioGymEntity implements Serializable{
 	public void setEstadoCuestionario(String estadoCuestionario) {
 		this.estadoCuestionario = estadoCuestionario;
 	}
-	
-	
-	
+
+	public HistoriaGYMEntity getHistoriaGYMEntity() {
+		return historiaGYMEntity;
+	}
+
+	public void setHistoriaGYMEntity(HistoriaGYMEntity historiaGYMEntity) {
+		this.historiaGYMEntity = historiaGYMEntity;
+	}
+
 }

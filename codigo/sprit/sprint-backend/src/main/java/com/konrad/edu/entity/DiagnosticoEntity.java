@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="hc_diagnostico_ocupacional")
-public class DiagnosticoOcupacionalEntity implements Serializable{
+@Table(name = "hc_diagnostico")
+public class DiagnosticoEntity implements Serializable {
 
 	/**
 	 * 
@@ -20,31 +20,31 @@ public class DiagnosticoOcupacionalEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="seq_diagnostico")
+	@Column(name = "seq_diagnostico")
 	private Long seqDiagnostico;
-	
-	@Column(name="cod_diagnostico")
+
+	@Column(name = "cod_diagnostico")
 	private String codDiagnostico;
-	
-	@Column(name="sim_diagnostico")
+
+	@Column(name = "sim_diagnostico")
 	private String simDiagnostico;
-	
-	@Column(name="des_diagnostico")
+
+	@Column(name = "des_diagnostico")
 	private String desDiagnostico;
-	
-	@Column(name="sexo")
+
+	@Column(name = "sexo")
 	private String sexo;
-	
-	@Column(name="lim_inferior")
+
+	@Column(name = "lim_inferior")
 	private String limInferior;
-	
-	@Column(name="lim_superior")
+
+	@Column(name = "lim_superior")
 	private String limSuperior;
-	
-	@Column(name="afectacion_principal")
+
+	@Column(name = "afectacion_principal")
 	private String afectacionPrincipal;
-	
-	@Column(name="obser_diagnostico")
+
+	@Column(name = "obser_diagnostico")
 	private String obserDiagnostico;
 
 	public Long getSeqDiagnostico() {
@@ -118,6 +118,5 @@ public class DiagnosticoOcupacionalEntity implements Serializable{
 	public void setObserDiagnostico(String obserDiagnostico) {
 		this.obserDiagnostico = obserDiagnostico;
 	}
-	
-	
+
 }
