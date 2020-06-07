@@ -52,8 +52,9 @@ public class AntecedentesHistoriaEntity implements Serializable {
 	private String exFumador;
 
 	@Column(name = "anos_habito")
-	private int anosHabito;
+	private String anosHabito;
 
+	@Column(name="planificacion", length = 100)
 	private String planificacion;
 
 	// fecha ultima citoligias y resultados
@@ -117,11 +118,11 @@ public class AntecedentesHistoriaEntity implements Serializable {
 		this.exFumador = exFumador;
 	}
 
-	public int getAnosHabito() {
+	public String getAnosHabito() {
 		return anosHabito;
 	}
 
-	public void setAnosHabito(int anosHabito) {
+	public void setAnosHabito(String anosHabito) {
 		this.anosHabito = anosHabito;
 	}
 

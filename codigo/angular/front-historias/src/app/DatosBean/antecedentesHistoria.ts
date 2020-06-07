@@ -7,7 +7,7 @@ export class AntecedentesHistoria {
   frecuencia: string;
   tipo: string;
   exFumador: string;
-  anosHabito: number;
+  anosHabito: string;
   planificacion: string;
   ccv: string;
   fur: Date;

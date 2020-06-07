@@ -496,10 +496,9 @@
 										<mat-form-field id="formtiempoCigarrilloGym">
 											<mat-label for="formtiempoCigarrilloGym">
 												{{datosSingleton.labelPreguntaFumaTiempo}}</mat-label>
-											<mat-select [(ngModel)]="FUMA.tiempoFumando" name="tiempoCigarrillos">
-												<mat-option *ngFor="let doc of listAnosHabito" [value]="doc">
-													{{doc}} </mat-option>
-											</mat-select>
+											<input matInput [ngModel]="FUMA.tiempoFumando"
+											(ngModelChange)="FUMA.tiempoFumando = $event" name="tiempoCigarrillos"
+											type="text" class="form-control campoGrande" />
 										</mat-form-field>
 									</div>
 								</div>

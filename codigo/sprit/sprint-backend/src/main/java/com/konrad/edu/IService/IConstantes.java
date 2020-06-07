@@ -92,7 +92,7 @@ public interface IConstantes {
 	public static final String LABEL_TOXICOS = "F. TÓXICOS";
 	public static final String LABEL_HOSPITALARIOS = "G. HOSPITALARIOS";
 	public static final String LABEL_INMUNOLOGICOS = "H. INMUNOLÓGICOS";
-	public static final String LABEL_MENARQUIA = "I. G/O: MENARQUIA";
+	public static final String LABEL_MENARQUIA = "I. GINECO-OSTETRICO";
 	public static final String LABEL_FUR = "FECHA ÚLTIMA MENSTRUACIÓN";
 	public static final String LABEL_PLANIFICACION = "PLANIFICACIÓN";
 	public static final String LABEL_CCV = "FECHA ÚLTIMA CITOLOGÍA Y RESULTADO";
@@ -111,7 +111,7 @@ public interface IConstantes {
 	// cuarta fase ocupacional
 	public static final String MENU_EXAMEN_FISICO = "EXAMEN FÍSICO";
 	public static final String LABEL_TENSION_ARTERIAL = "TENSIÓN ARTERIAL (mm/hg)";
-	public static final String LABEL_FRECUENCIA_CARDIACA = "FRECUENCIA CARDIACA ()";
+	public static final String LABEL_FRECUENCIA_CARDIACA = "FRECUENCIA CARDIACA (lpm)";
 	public static final String LABEL_SAT02 = "SAT02 (%)";
 	public static final String LABEL_FRECUENCIA_RESPIRATORIA = " FRECUENCIA RESPIRATORIA (rpm)";
 	public static final String LABEL_PESO = "PESO (kg)";

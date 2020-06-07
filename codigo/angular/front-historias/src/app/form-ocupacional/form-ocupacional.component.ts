@@ -667,7 +667,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
               }
             } else {
               this.persona.historias[0].antecedentesHistoriaEntity[i].frecuencia = null;
-              this.persona.historias[0].antecedentesHistoriaEntity[i].anosHabito = 0;
+              this.persona.historias[0].antecedentesHistoriaEntity[i].anosHabito = null;
               this.persona.historias[0].antecedentesHistoriaEntity[i].exFumador = "N";
             }
             break;
