@@ -112,10 +112,10 @@ export class HistoriasService {
     );
   }
 
-  createCertificado(certificado: Certificado): Observable<Certificado> {
-    return this.http.post<Certificado>(this.url + "historiaPaciente/crearCertificado", certificado, { headers: this.httpHeaders }).pipe(
-      map( (resp: any) => resp.certificado  as Certificado)
-      ,catchError(e => {
+  createCertificado(certificado: Certificado): Observable<number> {
+    return this.http.post<number>(this.url + "historiaPaciente/crearCertificado", certificado, { headers: this.httpHeaders }).pipe(
+      map((resp: any) => resp as number)
+      , catchError(e => {
         console.error(e.error.mensaje);
         Swal.fire('Error al crear Certificado', e.error.mensaje, 'error');
         return throwError(e);
@@ -123,9 +123,10 @@ export class HistoriasService {
     );
   }
 
-  buscarCertificado(id: number): Observable<number> {
-    return this.http.get<number>(`${this.url + "historiaPaciente/buscarCertificado"}/${id}`, { headers: this.httpHeaders }).pipe(
-      catchError(e => {
+  buscarCertificado(id: number): Observable<Certificado> {
+    return this.http.get<Certificado>(`${this.url + "historiaPaciente/buscarCertificado"}/${id}`, { headers: this.httpHeaders }).pipe(
+      map((resp: any) => resp.certificado as Certificado)
+      ,catchError(e => {
         console.error(e.error.mensaje);
         Swal.fire('Error', 'no tiene certificado la historia', 'error');
         return throwError(e);
@@ -138,6 +139,17 @@ export class HistoriasService {
       catchError(e => {
         console.error(e.error.mensaje);
         Swal.fire('Error al crear la persona', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  onBuscarPersonaPorHistoria(historia: number): Observable<Historias> {
+    return this.http.get<Historias>(`${this.url + "historiaPaciente/buscarHistoriaPersona"}/${historia}`, { headers: this.httpHeaders }).pipe(
+      map((resp: any) => resp.historia as Historias)
+      , catchError(e => {
+        console.error(e.error.mensaje);
+        Swal.fire('Error', 'Error al obtener persona', 'error');
         return throwError(e);
       })
     );

@@ -56,6 +56,7 @@ import { FormDescargaComponent } from './form-descarga-ocupacional/form-descarga
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormCertificadoGymComponent } from './form-certificado-gym/form-certificado-gym.component';
 import { FormDescargaGymComponent } from './form-descarga-gym/form-descarga-gym.component';
+import { NotFoundComponentComponent } from './not-found-component/not-found-component.component';
 //rutas
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, //ruta principal de la aplicacion
@@ -73,7 +74,9 @@ const routes: Routes = [
   { path: 'menuPrincipal/crear/certificado/:id',  component: FormCertificadoComponent, canActivate: [LoginService]   },
   { path: 'menuPrincipal/crear/certificado',  component: FormDescargaComponent, canActivate: [LoginService]   },
   { path: 'menuPrincipal/crear/certificadoGym/:id',  component: FormCertificadoGymComponent, canActivate: [LoginService]   },
-  { path: 'menuPrincipal/crear/certificadoGym',  component: FormDescargaGymComponent, canActivate: [LoginService]   }
+  { path: 'menuPrincipal/crear/certificadoGym',  component: FormDescargaGymComponent, canActivate: [LoginService]   },
+  {path: '**', component: NotFoundComponentComponent }
+
 ];
 
 @NgModule({
@@ -100,7 +103,8 @@ const routes: Routes = [
     FormCertificadoComponent,
     FormDescargaComponent,
     FormCertificadoGymComponent,
-    FormDescargaGymComponent
+    FormDescargaGymComponent,
+    NotFoundComponentComponent
   ],
   imports: [
     BrowserModule,

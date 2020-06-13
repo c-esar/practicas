@@ -3,7 +3,7 @@
     <div class="col-12" style="text-align:center;">
       <div id="contorno">
         <h1>
-          <font face="times">Historias Clinicas Universidad Konrad Lorenz</font>
+          <font face="times" style="font-size: xxx-large;">Historias Clinicas Universidad Konrad Lorenz</font>
         </h1>
       </div>
     </div>
@@ -19,8 +19,10 @@
         </div>
         <div class="col-md-8 col-sm-8 col-xs-12">
           <section *ngIf="anchoPantalla > 1033">
-            <button mat-button style="background: black;"><a href="/menuPrincipal"><span
-                  style="color: white; font-size: 18px;">Inicio</span></a></button>
+            <button mat-button style="background: black;">
+              <a href="/menuPrincipal"><span
+                  style="color: white; font-size: 18px;">Inicio</span></a>
+            </button>
             <button mat-button [matMenuTriggerFor]="gestion" *ngIf="permiso.gestionarUsuario == 1"
               style="background: black;"><span style="color: white; font-size: 18px;">Gestión Usuarios</span></button>
             <mat-menu #gestion="matMenu">
@@ -51,7 +53,8 @@
             </mat-menu>
 
             <button mat-button [matMenuTriggerFor]="descargas" *ngIf="permiso.descargar == 1"
-              style="background: black;"><span style="color: white; font-size: 18px;">Generar Certificados</span></button>
+              style="background: black;"><span style="color: white; font-size: 18px;">Generar
+                Certificados</span></button>
             <mat-menu #descargas="matMenu">
               <button style="background: black;" mat-menu-item><a href="menuPrincipal/crear/certificado"><span
                     style="color: white;">Crear Certificado Ocupacional</span></a></button>

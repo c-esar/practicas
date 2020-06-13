@@ -5,6 +5,7 @@ import { HistoriasService } from '../Servicios/historias.service';
 import { PersonaService } from '../Servicios/persona.service';
 import { Persona } from '../DatosBean/persona';
 import { Certificado } from '../DatosBean/certificado';
+import { Historias } from '../DatosBean/historias';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Permiso } from '../DatosBean/permiso';
 import { FormControl } from '@angular/forms';
@@ -33,6 +34,8 @@ export class FormCertificadoComponent implements OnInit {
   certificado: Certificado;
   ruta: String;
   nombreArchivo: string;
+  historia: Historias;
+  entre: boolean;
   //constantes
   private PERSONA_PACIENTE: string = "Paciente";
 
@@ -96,7 +99,7 @@ export class FormCertificadoComponent implements OnInit {
       let id = params['id']
       if (id) {
         this.onVerificarCertificado(id);
-        this.certificado.historiaOcupacionalEntity.seqHistoria = id;
+        this.certificado.seqHistoria.seqHistoria = id;
       }
     });
   }
@@ -113,16 +116,50 @@ export class FormCertificadoComponent implements OnInit {
     setTimeout(() => {
       this.historiaService.buscarCertificado(id).subscribe(
         (respuesta) => {
-          if (respuesta != null) {
-            this.onReporteCertificado(respuesta);
+          if (respuesta.seqCertificado != null || respuesta.seqCertificado != undefined) {
+            this.onReporteCertificado(respuesta.seqCertificado);
           } else {
+            this.onObtenerDatospersonas(respuesta.seqHistoria);
             Swal.fire('Error', 'No se encuentra certificado guardado', 'error');
           }
         });
     }, 1000);
   }
 
+  private onObtenerDatospersonas(id: Historias): void {
+    this.certificado.nombre = id.persona.nomPrimerNombre + " " + id.persona.nomSegundoNombre + " " +
+    id.persona.nomPrimerApellido + " " + id.persona.nomSegundoApellido;
+    this.certificado.numero = id.persona.numeroDocumento;
+    this.onOpcionEvaluacionPersona(id);
+  }
+
+  onOpcionEvaluacionPersona(historia: Historias): void {
+    this.certificado.otroEvaluacion = null;
+    $('#formOtroEvaluacion').hide();
+    switch (historia.tipoEvaluacionEntity.nomEval) {
+      case "INGRESO": {
+        this.certificado.tipoEvaluacionEntity = historia.tipoEvaluacionEntity.nomEval;
+        break;
+      }
+      case "PERIÓDICO": {
+        this.certificado.tipoEvaluacionEntity = historia.tipoEvaluacionEntity.nomEval;
+        break;
+      }
+      case "EGRESO": {
+        this.certificado.tipoEvaluacionEntity = historia.tipoEvaluacionEntity.nomEval;
+        break;
+      }
+      case "OTRO": {
+        this.certificado.tipoEvaluacionEntity = historia.tipoEvaluacionEntity.nomEval;
+        $('#formOtroEvaluacion').show();
+        this.certificado.otroEvaluacion = historia.otroEvaluacion;
+        break;
+      }
+    }
+  }
+
   onReporteCertificado(seqCertificado: number): void {
+    this.entre = false;
     this.reportes.onReporteHistoriasCertificado(seqCertificado).subscribe(
       (respuesta) => {
         this.ruta = respuesta;
@@ -143,6 +180,7 @@ export class FormCertificadoComponent implements OnInit {
     this.permiso = new Permiso();
     this.Spersona = new Persona();
     this.buscoPerson = false;
+    this.entre = true;
     $('#formOtroEvaluacion').hide();
   }
 
@@ -159,30 +197,6 @@ export class FormCertificadoComponent implements OnInit {
     )
   }
 
-  onOpcionEvaluacion($event): void {
-    this.certificado.otroEvaluacion = null;
-    $('#formOtroEvaluacion').hide();
-    switch ($event.value.nomEval) {
-      case "INGRESO": {
-        this.certificado.tipoEvaluacionEntity = $event.value.seqEval;
-        break;
-      }
-      case "PERIÓDICO": {
-        this.certificado.tipoEvaluacionEntity = $event.value.seqEval;
-        break;
-      }
-      case "EGRESO": {
-        this.certificado.tipoEvaluacionEntity = $event.value.seqEval;
-        break;
-      }
-      case "OTRO": {
-        this.certificado.tipoEvaluacionEntity = $event.value.seqEval;
-        $('#formOtroEvaluacion').show();
-        break;
-      }
-    }
-  }
-
   private getPermisos(): void {
     this.permiso.crearAux = this.loginService.obtenerPerfilSesion().permisos[0].crearAux;
     this.permiso.crearUsuario = this.loginService.obtenerPerfilSesion().permisos[0].crearUsuario;
@@ -194,12 +208,14 @@ export class FormCertificadoComponent implements OnInit {
   guardar(): void {
     this.historiaService.createCertificado(this.certificado).subscribe(
       (respuesta) => {
+        debugger
         if (respuesta == null) {
           Swal.fire('Error', 'Problemas al guardar', 'error');
         } else {
           Swal.fire('Exitoso', 'Certificado Creado Se puede Descargar', 'success');
-          this.onVerificarCertificado(respuesta.historiaOcupacionalEntity.seqHistoria);
+          //this.onVerificarCertificado(respuesta);
+          this.onReporteCertificado(respuesta);
         }
-      })
+      });
   }
 }

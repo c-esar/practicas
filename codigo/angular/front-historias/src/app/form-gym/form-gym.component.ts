@@ -81,6 +81,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
   personaLogin: Persona;
   //constantes
   private PERSONA_PACIENTE: string = "Paciente";
+  private CODIGO_CIUDAD: number = 5137;
 
   constructor(private labelService: LabelService,
     private loginService: LoginService,
@@ -187,7 +188,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.estadoFamiliar = false;
     this.estadoTipoCancer = false;
     this.guardado = true;
-    this.persona.historiaGym[0].ciudadHistoria.seqCuidad = 5137;
+    this.persona.historiaGym[0].ciudadHistoria.seqCuidad = this.CODIGO_CIUDAD;
     this.onCargarAtributosNuevos();
   }
 
@@ -234,7 +235,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
       this.buscoPerson = false;
       this.persona.historiaGym = new Array<HistoriaGym>();
       this.persona.historiaGym.push(new HistoriaGym());
-      this.persona.historiaGym[0].ciudadHistoria.seqCuidad = 0;
+      this.persona.historiaGym[0].ciudadHistoria.seqCuidad = this.CODIGO_CIUDAD;
       this.personaService.onBuscarDocumento(this.persona).subscribe(
         (respuesta) => {
           console.log(respuesta);

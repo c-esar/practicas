@@ -67,8 +67,20 @@ public class AntecedentesHistoriaEntity implements Serializable {
 	@Column(name = "menarquia")
 	private String mernarquia;
 
-	@Column(name = "menarquia_list")
-	private String menarquiaList;
+	@Column(name = "menarquia_gestaciones")
+	private String menarquiaGestaciones;
+	
+	@Column(name = "menarquia_partos")
+	private String menarquiaPartos;
+	
+	@Column(name = "menarquia_cesarias")
+	private String menarquiaCesarias;
+	
+	@Column(name = "menarquia_abortos")
+	private String menarquiaAbortos;
+	
+	@Column(name = "menarquia_vivos")
+	private String menarquiaVivos;
 
 	public Long getSeqAntHistorias() {
 		return seqAntHistorias;
@@ -149,13 +161,46 @@ public class AntecedentesHistoriaEntity implements Serializable {
 	public void setCcv(String ccv) {
 		this.ccv = ccv;
 	}
+	
 
-	public String getMenarquiaList() {
-		return menarquiaList;
+	public String getMenarquiaGestaciones() {
+		return menarquiaGestaciones;
 	}
 
-	public void setMenarquiaList(String menarquiaList) {
-		this.menarquiaList = menarquiaList;
+	public void setMenarquiaGestaciones(String menarquiaGestaciones) {
+		this.menarquiaGestaciones = menarquiaGestaciones;
+	}
+
+	public String getMenarquiaPartos() {
+		return menarquiaPartos;
+	}
+
+	public void setMenarquiaPartos(String menarquiaPartos) {
+		this.menarquiaPartos = menarquiaPartos;
+	}
+
+	public String getMenarquiaCesarias() {
+		return menarquiaCesarias;
+	}
+
+	public void setMenarquiaCesarias(String menarquiaCesarias) {
+		this.menarquiaCesarias = menarquiaCesarias;
+	}
+
+	public String getMenarquiaAbortos() {
+		return menarquiaAbortos;
+	}
+
+	public void setMenarquiaAbortos(String menarquiaAbortos) {
+		this.menarquiaAbortos = menarquiaAbortos;
+	}
+
+	public String getMenarquiaVivos() {
+		return menarquiaVivos;
+	}
+
+	public void setMenarquiaVivos(String menarquiaVivos) {
+		this.menarquiaVivos = menarquiaVivos;
 	}
 
 	public Date getFur() {

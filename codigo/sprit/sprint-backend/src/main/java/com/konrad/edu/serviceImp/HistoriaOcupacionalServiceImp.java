@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.konrad.edu.IService.IHistoriaOcupacionalService;
 import com.konrad.edu.dao.IHistoriaOcupacionalDao;
+import com.konrad.edu.entity.HistoriaOcupacionalEncriptacion;
 import com.konrad.edu.entity.HistoriaOcupacionalEntity;
 
 @Service
@@ -27,5 +28,10 @@ public class HistoriaOcupacionalServiceImp implements IHistoriaOcupacionalServic
 	@Override
 	public boolean alterdiagnostico() {
 		return historiaDao.alterdiagnostico();
+	}
+
+	@Override
+	public HistoriaOcupacionalEntity FindBySeqHistoria(Long seqHistoria) {
+		return historiaDao.FindBySeqHistoria(seqHistoria);
 	}
 }

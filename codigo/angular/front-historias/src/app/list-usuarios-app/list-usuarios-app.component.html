@@ -18,7 +18,7 @@
               </mat-form-field>
             </div>
             <div class="form-group col-md-4 col-sm-4 col-xs-4">
-              <button id="BuscarPersona" mat-raised-button color="primary" (click)="onBuscarTipo()">Buscar
+              <button id="BuscarPersona" mat-raised-button color="primary" (click)="onBuscarTipo()"><mat-icon>search</mat-icon>Buscar
                 Criterio</button>
             </div>
           </blockquote>
@@ -31,7 +31,7 @@
       <div class="card text-center col-md-12 col-sm-12 col-xs-12" style="top:10px;">
         <div class="card">
           <div class="card-header">
-            Listado Personas
+            LISTADO PERSONAS
           </div>
           <div class="form-group col-md-12 col-sm-12 col-xs-12">
             <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -86,7 +86,7 @@
                           <button mat-raised-button [routerLink]="['/menuPrincipal/list-usuariosApp',element.documento]"
                             color="primary"> Ver
                             Historias
-                          </button>
+                            <mat-icon>book</mat-icon></button>
                         </mat-cell>
                       </ng-container>
 

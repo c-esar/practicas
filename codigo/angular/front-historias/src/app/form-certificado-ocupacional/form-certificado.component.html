@@ -24,7 +24,7 @@
                                 <mat-form-field>
                                     <mat-label for="formlabelfecha">
                                         FECHA
-                                    </mat-label> <input matInput required [matDatepicker]="picker1" [formControl]="date"
+                                    </mat-label> <input matInput required disabled="true" [matDatepicker]="picker1" [formControl]="date"
                                         (ngModelChange)=" certificado.datFechaCertificado = $event">
                                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                     <mat-datepicker #picker1></mat-datepicker>
@@ -34,8 +34,7 @@
                             <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                 <mat-form-field>
                                     <mat-label for="formNombre">NOMBRE:</mat-label>
-                                    <input matInput required
-                                        pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                                    <input matInput disabled="true"
                                         [(ngModel)]="certificado.nombre" name="nombre" id="formNombre" type="text"
                                         class="form-control campoGrande " placeholder="NOMBRE">
                                     <mat-error>Texto Incorrecto</mat-error>
@@ -44,9 +43,8 @@
 
                             <div class="form-group col-md-6 col-sm-6 col-xs-3">
                                 <mat-form-field>
-                                    <mat-label for="formdi">D.I NO.
-                                    </mat-label>
-                                    <input matInput required [(ngModel)]="certificado.numero" name="di" id="formdi"
+                                    <mat-label for="formdi">D.I NO.</mat-label>
+                                    <input matInput disabled="true" [(ngModel)]="certificado.numero" name="di" id="formdi"
                                         type="text" class="form-control campoGrande " placeholder="D.I NO.">
                                     <mat-error>Texto Incorrecto</mat-error>
                                 </mat-form-field>
@@ -70,18 +68,16 @@
                             </div>
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <mat-radio-group (change)="onOpcionEvaluacion($event)"
-                                        aria-labelledby="example-radio-group-label" class="example-radio-group"
-                                        name="tipoEvaluacionSelecionado">
-                                        <mat-radio-button class="example-radio-button"
-                                            *ngFor="let tipo of tipoEvaluacion" [value]="tipo">
-                                            {{tipo.nomEval}} </mat-radio-button>
-                                    </mat-radio-group>
+                                    <mat-form-field>
+                                        <input matInput required [(ngModel)]="certificado.tipoEvaluacionEntity"
+                                            name="tipoEvaluacionSelecionado" id="tipo" type="text"
+                                            class="form-control campoGrande" disabled="true"/>
+                                    </mat-form-field>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12" id="formOtroEvaluacion">
                                     <mat-form-field> <input matInput [(ngModel)]="certificado.otroEvaluacion"
                                             name="otroEvaluacion" type="text" class="form-control campoGrande"
-                                            placeholder="OTRO" />
+                                            placeholder="OTRO"  disabled="true"/>
                                         <mat-error>Texto
                                             Incorrecto</mat-error>
                                     </mat-form-field>

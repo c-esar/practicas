@@ -152,22 +152,36 @@ public class HistoriaController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		response.put("mensaje", "el certificado ha sido creado con éxito!");
+		certificadoentity.getSeqHistoria().getPersona().setHistoriaGymEncriptacion(null);
+		certificadoentity.getSeqHistoria().getPersona().setHistoriasEncriptacion(null);
+		certificadoentity.getSeqHistoria().getPersona().getPerfil().setPersona(null);
 		response.put("certificado", certificadoentity);
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		return new ResponseEntity<Long>(certificadoEntity.getSeqCertificado(), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/buscarCertificado/{id}")
-	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> buscarCertificado(@PathVariable Long id) {
 		CertificadoOcupacionalEntity certificadoentity = new CertificadoOcupacionalEntity();
+		HistoriaOcupacionalEntity historia = new HistoriaOcupacionalEntity();
 		Map<String, Object> response = new HashMap<>();
 		try {
 			certificadoentity = certificadoService.findByNumeroHistoria(id);
 			if (certificadoentity == null) {
 				response.put("mensaje", "Error al buscar certificado");
 				response.put("error", "Error al buscar certificado");
-				response.put("certificado", null);
-				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+				historia = historiaService.FindBySeqHistoria(id);
+				certificadoentity = new CertificadoOcupacionalEntity();
+				historia.getPersona().setHistoriaGymEncriptacion(null);
+				historia.getPersona().setHistoriasEncriptacion(null);
+				historia.getPersona().getPerfil().setPersona(null);
+				certificadoentity.setSeqHistoria(historia);
+				response.put("certificado", certificadoentity);
+			}else {
+				response.put("mensaje", "Certificado Encontrado");
+				certificadoentity.getSeqHistoria().getPersona().setHistoriaGymEncriptacion(null);
+				certificadoentity.getSeqHistoria().getPersona().setHistoriasEncriptacion(null);
+				certificadoentity.getSeqHistoria().getPersona().getPerfil().setPersona(null);
+				response.put("certificado", certificadoentity);
 			}
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al buscar certificado");
@@ -176,7 +190,34 @@ public class HistoriaController {
 			System.err.print(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<Long>(certificadoentity.getSeqCertificado(), HttpStatus.OK);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+	}
+	
+	@GetMapping("/buscarHistoriaPersona/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<?> buscarHistoriaPersona(@PathVariable Long id) {
+		HistoriaOcupacionalEntity historia = new HistoriaOcupacionalEntity();
+		Map<String, Object> response = new HashMap<>();
+		try {
+			historia = historiaService.FindBySeqHistoria(id);
+			if (historia == null) {
+				response.put("mensaje", "Error al buscar Historia");
+				response.put("error", "Error al buscar Historia");
+				response.put("historia", null);
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}else {
+				response.put("mensaje", "Encontrada");
+				response.put("error", "Encontrada");
+				response.put("historia", historia);
+			}
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al buscar Historia");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			response.put("historia", null);
+			System.err.print(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 
 	@GetMapping("/listConcepto")

@@ -1,6 +1,6 @@
 export class TipoEvaluacion {
   seqEval: number;
-  nomEval: String;
+  nomEval: string;
 
   constructor(){
     this.seqEval = null;

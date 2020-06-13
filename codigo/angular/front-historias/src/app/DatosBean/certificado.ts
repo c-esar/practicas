@@ -11,7 +11,7 @@ export class Certificado {
     controlEpidemiologica: string;
     tipoEvaluacionEntity: string;
     otroEvaluacion: string;
-    historiaOcupacionalEntity: Historias;
+    seqHistoria: Historias;
 
     constructor() {
         this.seqCertificado = null;
@@ -23,7 +23,7 @@ export class Certificado {
         this.tipoRestriccionLimitacion = null;
         this.recomendaciones = null;
         this.controlEpidemiologica = null;
-        this.historiaOcupacionalEntity = new Historias();
+        this.seqHistoria = new Historias();
         this.tipoEvaluacionEntity = null;
         this.otroEvaluacion = null;
     }

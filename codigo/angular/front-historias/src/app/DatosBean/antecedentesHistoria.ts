@@ -11,8 +11,12 @@ export class AntecedentesHistoria {
   planificacion: string;
   ccv: string;
   fur: Date;
-  menarquia: string
-  menarquiaList: string;
+  menarquia: string;
+  menarquiaGestaciones: string;
+  menarquiaPartos: string;
+  menarquiaCesarias: string;
+  menarquiaAbortos: string;
+  menarquiaVivos: string;
   constructor() {
     this.seqAntHistorias = null;
     this.tipoAntecedenteEntity = new TipoAntecedente();
@@ -25,7 +29,11 @@ export class AntecedentesHistoria {
     this.planificacion = null;
     this.ccv = null;
     this.fur = null;
-    this.menarquiaList = null;
+    this.menarquiaGestaciones = null;
+    this.menarquiaPartos = null;
+    this.menarquiaCesarias = null;
+    this.menarquiaAbortos = null;
+    this.menarquiaVivos = null;
     this.menarquia = null;
   }
 }

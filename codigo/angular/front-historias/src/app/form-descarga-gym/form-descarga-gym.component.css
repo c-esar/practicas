@@ -1,0 +1,13 @@
+mat-form-field{
+    width: 100%;
+  }
+table {
+    width: 100%;
+}
+
+table td {
+  text-align: left;
+}
+.card-header{
+  border-bottom: 2px solid black !important;
+}

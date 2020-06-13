@@ -287,40 +287,11 @@ public class ReportesServiceImp implements IReportesService {
 									.getFur() == null ? ""
 											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
 													.get(i).getFur());
-					parameters.put("menarquiafur",
+					parameters.put("menarquia",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
 									.getMernarquia() == null ? ""
 											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
 													.get(i).getMernarquia());
-					if (historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-							.getMenarquiaList() != null) {
-						switch (historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-								.getMenarquiaList()) {
-						case "GESTACIONES": {
-							parameters.put("G", "X");
-							break;
-						}
-						case "PARTOS": {
-							parameters.put("P", "X");
-							break;
-						}
-						case "CESAREAS": {
-							parameters.put("C", "X");
-							break;
-						}
-						case "ABORTOS": {
-							parameters.put("A", "X");
-							break;
-						}
-						case "VIVOS": {
-							parameters.put("V", "X");
-							break;
-						}
-
-						default:
-							break;
-						}
-					}
 					break;
 				}
 				case "HOSPITALARIOS": {

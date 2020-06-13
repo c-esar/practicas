@@ -111,6 +111,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   tipoEvaluacionSelecionado: string;
   historiaUpdate = new Historias();
   seqPersona: any;
+  private CODIGO_CIUDAD: number = 5137;
 
   constructor(private labelService: LabelService,
     private loginService: LoginService,
@@ -213,7 +214,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.barProgres = false;
     this.buscoPerson = false;
     this.guardado = true;
-    this.persona.historias[0].ciudadHistoria.seqCuidad = 5137;
+    this.persona.historias[0].ciudadHistoria.seqCuidad = this.CODIGO_CIUDAD;
     this.firmaMedico = null;
     this.firmaPaciente = null;
     this.firmaPacienteBoolean = false;
@@ -253,7 +254,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
       this.buscoPerson = false;
       this.persona.historias = new Array<Historias>();
       this.persona.historias.push(new Historias());
-      this.persona.historias[0].ciudadHistoria.seqCuidad = 5137;
+      this.persona.historias[0].ciudadHistoria.seqCuidad = this.CODIGO_CIUDAD;
       this.cargarListas();
       this.personaService.onBuscarDocumento(this.persona).subscribe(
         (respuesta) => {
@@ -674,7 +675,6 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
           } case "MENARQUIA": {
             if (this.persona.historias[0].antecedentesHistoriaEntity[i].estadoAntecedente === "S") {
               if (this.persona.historias[0].antecedentesHistoriaEntity[i].fur != null &&
-                this.persona.historias[0].antecedentesHistoriaEntity[i].menarquiaList != null &&
                 this.persona.historias[0].antecedentesHistoriaEntity[i].planificacion != null &&
                 this.persona.historias[0].antecedentesHistoriaEntity[i].ccv != null) {
               } else {
@@ -682,7 +682,11 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
               }
             } else {
               this.persona.historias[0].antecedentesHistoriaEntity[i].fur = null;
-              this.persona.historias[0].antecedentesHistoriaEntity[i].menarquiaList = null;
+              this.persona.historias[0].antecedentesHistoriaEntity[i].menarquiaGestaciones = null;
+              this.persona.historias[0].antecedentesHistoriaEntity[i].menarquiaPartos = null;
+              this.persona.historias[0].antecedentesHistoriaEntity[i].menarquiaCesarias = null;
+              this.persona.historias[0].antecedentesHistoriaEntity[i].menarquiaAbortos = null;
+              this.persona.historias[0].antecedentesHistoriaEntity[i].menarquiaVivos = null;
               this.persona.historias[0].antecedentesHistoriaEntity[i].planificacion != null;
               this.persona.historias[0].antecedentesHistoriaEntity[i].ccv = null;
             }

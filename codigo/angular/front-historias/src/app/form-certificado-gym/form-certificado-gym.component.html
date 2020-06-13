@@ -1,1 +1,140 @@
-<p>form-certificado-gym works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12" id="container-fluid">
+            <app-header></app-header>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12" style="top:10px;">
+            <div class="card text-center col-md-12 col-sm-12 col-xs-12">
+                <div class="card-header col-md-12 col-sm-12 col-xs-12">
+                    <ul class="nav nav-pills card-header-pills">
+                        <li class="nav-item">
+                            <button id="DatosPricipales" class="nav-link btn btn-primary active">CREAR
+                                CERTIFICADO</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-body " id="certificados" style="width: 100%;">
+                    <blockquote class="blockquote mb-0 form-row etiquetas">
+                        <form novalidate #datos="ngForm" class="form-inline" style="width: 100%;">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <h3>CERTIFICADO DE APTITUD LABORAL</h3>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                                <mat-form-field>
+                                    <mat-label for="formlabelfecha">
+                                        FECHA
+                                    </mat-label> <input matInput required [matDatepicker]="picker1" [formControl]="date"
+                                        (ngModelChange)=" certificado.datFechaCertificado = $event">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                                <mat-form-field>
+                                    <mat-label for="formNombre">NOMBRE:</mat-label>
+                                    <input matInput required
+                                        pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
+                                        [(ngModel)]="certificado.nombre" name="nombre" id="formNombre" type="text"
+                                        class="form-control campoGrande " placeholder="NOMBRE">
+                                    <mat-error>Texto Incorrecto</mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                                <mat-form-field>
+                                    <mat-label for="formdi">D.I NO.
+                                    </mat-label>
+                                    <input matInput required [(ngModel)]="certificado.numero" name="di" id="formdi"
+                                        type="text" class="form-control campoGrande " placeholder="D.I NO.">
+                                    <mat-error>Texto Incorrecto</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <h3>CONCEPTO</h3>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <mat-form-field>
+                                    <mat-label for="formexamenesRealizados">EXÁMENES REALIZADOS:
+                                    </mat-label>
+                                    <textarea rows="2" cols="80" required matInput
+                                        [(ngModel)]="certificado.exaRealizados" name="examenesRealizados"
+                                        id="formexamenesRealizados" type="text" class="form-control campoGrande"
+                                        placeholder="EXÁMENES REALIZADOS:"></textarea>
+                                    <mat-error>Texto Incorrecto</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <h3>REALIZADA LA EVALUACIÓN MÉDICA OCUPACIONAL DE:</h3>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <mat-radio-group (change)="onOpcionEvaluacion($event)"
+                                        aria-labelledby="example-radio-group-label" class="example-radio-group"
+                                        name="tipoEvaluacionSelecionado">
+                                        <mat-radio-button class="example-radio-button"
+                                            *ngFor="let tipo of tipoEvaluacion" [value]="tipo">
+                                            {{tipo.nomEval}} </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12" id="formOtroEvaluacion">
+                                    <mat-form-field> <input matInput [(ngModel)]="certificado.otroEvaluacion"
+                                            name="otroEvaluacion" type="text" class="form-control campoGrande"
+                                            placeholder="OTRO" />
+                                        <mat-error>Texto
+                                            Incorrecto</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <mat-form-field>
+                                    <mat-label for="formcertifica">EL MÉDICO CERTIFICA QUE EL TRABAJOR ES:
+                                    </mat-label>
+                                    <textarea rows="2" cols="80" matInput required
+                                        [(ngModel)]="certificado.medicoCertifica" name="certifica" id="formcertifica"
+                                        type="text" class="form-control campoGrande"
+                                        placeholder="EL MÉDICO CERTIFICA QUE EL TRABAJOR ES:"></textarea>
+                                    <mat-error>Texto Incorrecto</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <mat-form-field>
+                                    <mat-label for="formtipo">TIPO DE RESTRICCIONES O LIMITACIONES:</mat-label>
+                                    <textarea rows="2" cols="80" matInput required
+                                        [(ngModel)]="certificado.tipoRestriccionLimitacion" name="tipo" id="formtipo"
+                                        type="text" class="form-control campoGrande"
+                                        placeholder="TIPO DE RESTRICCIONES O LIMITACIONES:">
+                                    </textarea>
+                                    <mat-error>Texto Incorrecto</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <mat-form-field>
+                                    <mat-label for="formrecomendaciones">RECOMENDACIONES:</mat-label>
+                                    <textarea rows="2" cols="80" matInput required name="recomendaciones"
+                                        id="formrecomendaciones" type="text" [(ngModel)]="certificado.recomendaciones"
+                                        class="form-control campoGrande" placeholder="RECOMENDACIONES"></textarea>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <mat-form-field>
+                                    <mat-label for="formcontrol">SE SUGIERE CONTROL EN PROGRAMAS VIGILANCIA
+                                        EPIDEMIOLÓGICA:</mat-label>
+                                    <textarea rows="2" cols="80" matInput required name="control" id="formcontrol"
+                                        type="text" [(ngModel)]="certificado.controlEpidemiologica"
+                                        class="form-control campoGrande" placeholder="SE SUGIERE CONTROL EN PROGRAMAS VIGILANCIA
+                                        EPIDEMIOLÓGICA:"></textarea>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-3">
+                                <button mat-raised-button color="primary" role="button" [disabled]="datos.invalid"
+                                    (click)="guardar()">CREAR CERTIFICADO</button>
+                            </div>
+                        </form>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

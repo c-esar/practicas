@@ -3,6 +3,7 @@ package com.konrad.edu.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -68,12 +69,16 @@ public class CertificadoOcupacionalEntity implements Serializable {
 	private String otroEvaluacion;
 
 	@OneToOne
-	@JoinColumn(name = "seq_historia", nullable = false)
+	@JoinColumn(name = "seq_historia")
 	private HistoriaOcupacionalEntity seqHistoria;
 
 	@PrePersist
 	public void prePersist() {
 		this.datFechaCertificado = new Date();
+	}
+	
+	public CertificadoOcupacionalEntity() {
+		this.seqHistoria = new HistoriaOcupacionalEntity();
 	}
 
 	public Long getSeqCertificado() {

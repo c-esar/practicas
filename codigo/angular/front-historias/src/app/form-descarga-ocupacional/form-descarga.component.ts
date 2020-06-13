@@ -64,7 +64,11 @@ export class FormDescargaComponent implements OnInit {
       this.personaService.onBuscarDocumento(this.persona).subscribe(
         (respuesta) => {
           console.log(respuesta);
+          if(respuesta.historiasEncriptacion.length > 0){
+
+          }
           this.dataSource = respuesta.historiasEncriptacion;
+          document.getElementById("tablaDatos").style.display = "block";
           this.encontrado = true;
           Swal.fire('Exitoso', 'Persona Tiene Historias', 'success');
         }
