@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ocupacional" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d79f072-6031-41ef-a555-d43045149939">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1728"/>
+	<property name="ireport.y" value="768"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -291,7 +291,7 @@ FROM hc_personas p
 inner join hc_historia_ocupacional ho on ho.seq_persona = p.seq_persona
 inner join hc_historia_laboral lb on lb.seq_historia_laboral = ho.seq_historia_laboral
 inner join hc_enfermedades_laborales el on el.seq_historia_laboral = lb.seq_historia_laboral
-where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria} ]]>
+where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}]]>
 		</queryString>
 		<field name="desp_diagnostico" class="java.lang.String"/>
 		<field name="desp_indemnizar" class="java.lang.String"/>
@@ -1347,7 +1347,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				</textElement>
 				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="0" y="277" width="555" height="83" isRemoveLineWhenBlank="true" uuid="abc777a9-538e-4450-baa6-c9dff5b82a9e"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
@@ -1387,7 +1387,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				</textElement>
 				<textFieldExpression><![CDATA[$F{edad}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="194" y="420" width="361" height="20" uuid="b1d01d67-7179-4efa-b297-0e497b0dea22"/>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -1653,7 +1653,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				</textElement>
 				<text><![CDATA[Tiene alguna enfermedad laboral?:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="205" y="490" width="350" height="20" uuid="7279f272-e54f-4157-8907-256cb65ba9db"/>
 				<box>
 					<pen lineWidth="1.0"/>
@@ -2029,7 +2029,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				</textElement>
 				<text><![CDATA[4. Motivo de consulta y enfermedad actual]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="0" y="650" width="555" height="102" isRemoveLineWhenBlank="true" uuid="f5f95953-413f-4c92-bd63-085ea98245ae"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
@@ -2296,7 +2296,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				</textElement>
 				<text><![CDATA[D. Alérgicos]]></text>
 			</staticText>
-			<textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="111" y="38" width="39" height="20" uuid="cf0d09ad-6c85-4807-8e99-b3f89e802748"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
@@ -2306,14 +2306,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				</textElement>
 				<textFieldExpression><![CDATA[$P{patologicosSN}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="165" y="38" width="391" height="20" uuid="2d69fe08-332b-4731-a459-f5268a1830c6"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Cuál (es) ?: " + $P{patologicoscual}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="111" y="58" width="39" height="20" uuid="30225de4-8b14-4b13-8248-62cdc061a4aa"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
@@ -2323,14 +2323,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				</textElement>
 				<textFieldExpression><![CDATA[$P{quirurgicosSN}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="165" y="58" width="391" height="20" uuid="da8ce631-2143-497f-a83f-8421f890174e"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Cuál (es) ?: " + $P{quirurgicoscual}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="111" y="78" width="39" height="20" uuid="1b53b02c-416c-44df-b6a1-3dee7828ad90"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
@@ -2340,14 +2340,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				</textElement>
 				<textFieldExpression><![CDATA[$P{farmacologicosSN}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="165" y="78" width="390" height="20" uuid="d3b30471-f93b-40c0-8999-28f1c573fb6f"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Cuál (es) ?: " +$P{farmacologicoscual}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="111" y="98" width="39" height="20" uuid="a8483282-1ead-4784-953f-09046c6bedb9"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
@@ -2357,7 +2357,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				</textElement>
 				<textFieldExpression><![CDATA[$P{alergicosSN}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="165" y="98" width="391" height="20" uuid="a2116789-53d1-4220-b7bf-c1973718041a"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
@@ -2385,7 +2385,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				</textElement>
 				<text><![CDATA[G. Hospitalarios]]></text>
 			</staticText>
-			<textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="111" y="118" width="39" height="20" uuid="024cbec5-e1c4-420b-a16e-f2833610eb62"/>
 				<box>
 					<pen lineWidth="1.0"/>
@@ -2399,14 +2399,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				</textElement>
 				<textFieldExpression><![CDATA[$P{traumaticosSN}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="165" y="118" width="391" height="20" uuid="830552fb-98ba-4bf2-ae61-7e9f2392402e"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Cuál (es) ?: " +$P{traumaticoscual}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="111" y="138" width="39" height="20" uuid="6bbe0ffb-47ed-4adb-a02f-fadd5134d724"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
@@ -2416,14 +2416,14 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				</textElement>
 				<textFieldExpression><![CDATA[$P{toxicosSN}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="165" y="138" width="391" height="20" uuid="e763c861-6794-4268-9abf-85efb6d414f4"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Cuál (es) ?: " +$P{toxicoscual}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="111" y="158" width="40" height="20" uuid="acca6e5c-333b-40d3-8eed-dbd41fba6df1"/>
 				<box>
 					<pen lineWidth="1.0"/>
@@ -2437,7 +2437,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				</textElement>
 				<textFieldExpression><![CDATA[$P{hospitalariosSN}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="165" y="158" width="391" height="20" uuid="ae1d0cc1-a106-419f-ae8f-a7922445ede9"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>

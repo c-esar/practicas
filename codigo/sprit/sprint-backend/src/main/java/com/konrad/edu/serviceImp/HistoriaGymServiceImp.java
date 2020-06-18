@@ -37,4 +37,9 @@ public class HistoriaGymServiceImp implements IHistoriaGymService {
 	public boolean alterDiagnostico() {
 		return historiaDao.alterDiagnostico();
 	}
+
+	@Override
+	public HistoriaGYMEntity FindBySeqHistoria(Long seqHistoria) {
+		return historiaDao.FindBySeqHistoria(seqHistoria);
+	}
 }

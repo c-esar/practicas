@@ -5,10 +5,16 @@ public interface IConstantes {
 	// desarrollo
 	public static final String RUTA = "http://localhost:" + IConstantes.PUERTO;
 	public static final String PUERTO = "4200";
+	public static final String JDBC_REPORTE = "jdbc:sqlserver://192.168.0.42;databaseName=HC_Historia";
+	public static final String USER_DB = "sa";
+	public static final String PASS_DB = "12345";
 
 //	produccion
 //	public static final String RUTA = "http://localhost:"+IConstantes.PUERTO;
 //	public static final String PUERTO = "4200";
+//	public static final String JDBC_REPORTE = "jdbc:sqlserver://192.168.0.42;databaseName=HC_Historiass";
+//	public static final String USER_DB = "sa";
+//	public static final String PASS_DB = "12345";
 
 	// separadores
 	public static final String SEPARADOR_PRINCIPAL = "HISTORIA CLÍNICA OCUPACIONAL";

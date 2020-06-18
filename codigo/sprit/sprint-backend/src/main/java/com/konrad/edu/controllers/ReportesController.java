@@ -63,6 +63,7 @@ public class ReportesController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
+	// reporte certificado
 	@GetMapping("/certificado/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<?> reportescertificado(@PathVariable String id) {
@@ -70,6 +71,26 @@ public class ReportesController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			enviarRuta = reportesService.exportReportCertificado(id, 0, null);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			response.put("persona", enviarRuta);
+			System.err.print(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("mensaje", "Se ha realizado la consulta!");
+		response.put("persona", enviarRuta);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	//reporte gym
+	@GetMapping("/certificadoGym/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<?> reportescertificadoGym(@PathVariable String id) {
+		String enviarRuta = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			enviarRuta = reportesService.exportReportCertificadoGym(id, 0, null);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));

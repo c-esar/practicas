@@ -17,4 +17,5 @@ public interface ICertificadoDao extends CrudRepository<CertificadoOcupacionalEn
 			+ "inner join hc_historia_ocupacional hho on hho.seq_historia = hc.seq_historia "
 			+ "where hc.seq_certificado = ?1", nativeQuery = true)
 	public String findByNumeroCertificado(@Param("seq_certificado") String seqHistoria);
+	
 }

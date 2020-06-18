@@ -2,8 +2,6 @@ package com.konrad.edu.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,17 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "hc_certificado_ocupacional")
@@ -62,11 +54,12 @@ public class CertificadoOcupacionalEntity implements Serializable {
 	@Column(name = "control_epidemiologica")
 	private String controlEpidemiologica;
 
-	@Column(name = "seq_eval")
-	private String tipoEvaluacionEntity;
-
 	@Column(name = "otro_evaluacion")
 	private String otroEvaluacion;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "seq_eval")
+	private TipoEvaluacionEntity tipoEvaluacionEntity;
 
 	@OneToOne
 	@JoinColumn(name = "seq_historia")
@@ -145,10 +138,6 @@ public class CertificadoOcupacionalEntity implements Serializable {
 		this.recomendaciones = recomendaciones;
 	}
 
-	public void setTipoEvaluacionEntity(String tipoEvaluacionEntity) {
-		this.tipoEvaluacionEntity = tipoEvaluacionEntity;
-	}
-
 	public String getControlEpidemiologica() {
 		return controlEpidemiologica;
 	}
@@ -165,10 +154,6 @@ public class CertificadoOcupacionalEntity implements Serializable {
 		this.otroEvaluacion = otroEvaluacion;
 	}
 
-	public String getTipoEvaluacionEntity() {
-		return tipoEvaluacionEntity;
-	}
-
 	public HistoriaOcupacionalEntity getSeqHistoria() {
 		return seqHistoria;
 	}
@@ -177,4 +162,13 @@ public class CertificadoOcupacionalEntity implements Serializable {
 		this.seqHistoria = seqHistoria;
 	}
 
+	public TipoEvaluacionEntity getTipoEvaluacionEntity() {
+		return tipoEvaluacionEntity;
+	}
+
+	public void setTipoEvaluacionEntity(TipoEvaluacionEntity tipoEvaluacionEntity) {
+		this.tipoEvaluacionEntity = tipoEvaluacionEntity;
+	}
+
+	
 }

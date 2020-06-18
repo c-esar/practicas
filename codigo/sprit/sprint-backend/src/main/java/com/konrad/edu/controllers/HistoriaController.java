@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.konrad.edu.IService.ICertificadoGymService;
 import com.konrad.edu.IService.ICertificadoService;
 import com.konrad.edu.IService.IConceptoService;
 import com.konrad.edu.IService.ICondicionGymService;
@@ -26,10 +27,12 @@ import com.konrad.edu.IService.IFamiliarGymService;
 import com.konrad.edu.IService.IHistoriaGymService;
 import com.konrad.edu.IService.IHistoriaOcupacionalService;
 import com.konrad.edu.IService.ITipoCuestioService;
+import com.konrad.edu.IService.ITipoEvaluacionFisicaService;
 import com.konrad.edu.IService.ITipoEvaluacionService;
 import com.konrad.edu.IService.ITipoHistoriaService;
 import com.konrad.edu.IService.ITipoPreguntaHistoriaService;
 import com.konrad.edu.IService.ITipoUsuarioService;
+import com.konrad.edu.entity.CertificadoGymEntity;
 import com.konrad.edu.entity.CertificadoOcupacionalEntity;
 import com.konrad.edu.entity.ConceptoEntity;
 import com.konrad.edu.entity.CondicionGymEntity;
@@ -41,6 +44,7 @@ import com.konrad.edu.entity.HistoriaOcupacionalEncriptacion;
 import com.konrad.edu.entity.HistoriaOcupacionalEntity;
 import com.konrad.edu.entity.TipoCuestionarioEntity;
 import com.konrad.edu.entity.TipoEvaluacionEntity;
+import com.konrad.edu.entity.TipoEvaluacionFisicaEntity;
 import com.konrad.edu.entity.TipoHistoriasEntity;
 import com.konrad.edu.entity.TipoPreguntaHistoriaGymEntity;
 import com.konrad.edu.entity.TipoUsuarioEntity;
@@ -62,11 +66,15 @@ public class HistoriaController {
 	@Autowired
 	private ITipoEvaluacionService tipoEvaluacionService;
 	@Autowired
+	private ITipoEvaluacionFisicaService tipoEvaluacionFisicaService;
+	@Autowired
 	private ITipoHistoriaService tipoHistoriaService;
 	@Autowired
 	private ITipoUsuarioService tipoUsuarioService;
 	@Autowired
 	private ICertificadoService certificadoService;
+	@Autowired
+	private ICertificadoGymService certificadoGymService;
 	@Autowired
 	private ITipoPreguntaHistoriaService tipoPreguntaGym;
 	@Autowired
@@ -137,6 +145,7 @@ public class HistoriaController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
+	// crear certificado ocupacional
 	@PostMapping("/crearCertificado")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> createCertificado(@RequestBody CertificadoOcupacionalEntity certificadoEntity) {
@@ -154,11 +163,39 @@ public class HistoriaController {
 		response.put("mensaje", "el certificado ha sido creado con éxito!");
 		certificadoentity.getSeqHistoria().getPersona().setHistoriaGymEncriptacion(null);
 		certificadoentity.getSeqHistoria().getPersona().setHistoriasEncriptacion(null);
-		certificadoentity.getSeqHistoria().getPersona().getPerfil().setPersona(null);
+		if (certificadoentity.getSeqHistoria().getPersona().getPerfil() != null) {
+			certificadoentity.getSeqHistoria().getPersona().getPerfil().setPersona(null);
+		}
 		response.put("certificado", certificadoentity);
 		return new ResponseEntity<Long>(certificadoEntity.getSeqCertificado(), HttpStatus.CREATED);
 	}
 
+	// crear certificado gym
+	@PostMapping("/crearCertificadoGym")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<?> createCertificadoGym(@RequestBody CertificadoGymEntity certificadoEntity) {
+		CertificadoGymEntity certificadoentity = new CertificadoGymEntity();
+		Map<String, Object> response = new HashMap<>();
+		try {
+			certificadoentity = certificadoGymService.save(certificadoEntity);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar el insertar en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			response.put("certificado", null);
+			System.err.print(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("mensaje", "el certificado ha sido creado con éxito!");
+		certificadoentity.getSeqHistoria().getPersona().setHistoriaGymEncriptacion(null);
+		certificadoentity.getSeqHistoria().getPersona().setHistoriasEncriptacion(null);
+		if (certificadoentity.getSeqHistoria().getPersona().getPerfil() != null) {
+			certificadoentity.getSeqHistoria().getPersona().getPerfil().setPersona(null);
+		}
+		response.put("certificado", certificadoentity);
+		return new ResponseEntity<Long>(certificadoEntity.getSeqCertificado(), HttpStatus.CREATED);
+	}
+
+	// buscar certificado ocupacional
 	@GetMapping("/buscarCertificado/{id}")
 	public ResponseEntity<?> buscarCertificado(@PathVariable Long id) {
 		CertificadoOcupacionalEntity certificadoentity = new CertificadoOcupacionalEntity();
@@ -173,14 +210,18 @@ public class HistoriaController {
 				certificadoentity = new CertificadoOcupacionalEntity();
 				historia.getPersona().setHistoriaGymEncriptacion(null);
 				historia.getPersona().setHistoriasEncriptacion(null);
-				historia.getPersona().getPerfil().setPersona(null);
+				if (historia.getPersona().getPerfil() != null) {
+					historia.getPersona().getPerfil().setPersona(null);
+				}
 				certificadoentity.setSeqHistoria(historia);
 				response.put("certificado", certificadoentity);
-			}else {
+			} else {
 				response.put("mensaje", "Certificado Encontrado");
 				certificadoentity.getSeqHistoria().getPersona().setHistoriaGymEncriptacion(null);
 				certificadoentity.getSeqHistoria().getPersona().setHistoriasEncriptacion(null);
-				certificadoentity.getSeqHistoria().getPersona().getPerfil().setPersona(null);
+				if (certificadoentity.getSeqHistoria().getPersona().getPerfil() != null) {
+					certificadoentity.getSeqHistoria().getPersona().getPerfil().setPersona(null);
+				}
 				response.put("certificado", certificadoentity);
 			}
 		} catch (DataAccessException e) {
@@ -192,7 +233,46 @@ public class HistoriaController {
 		}
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
-	
+
+	// buscar certificado gym
+	@GetMapping("/buscarCertificadoGym/{id}")
+	public ResponseEntity<?> buscarCertificadoGym(@PathVariable Long id) {
+		CertificadoGymEntity certificadoentity = new CertificadoGymEntity();
+		HistoriaGYMEntity historia = new HistoriaGYMEntity();
+		Map<String, Object> response = new HashMap<>();
+		try {
+			certificadoentity = certificadoGymService.findByNumeroHistoria(id);
+			if (certificadoentity == null) {
+				response.put("mensaje", "Error al buscar certificado");
+				response.put("error", "Error al buscar certificado");
+				historia = historiaGymService.FindBySeqHistoria(id);
+				certificadoentity = new CertificadoGymEntity();
+				historia.getPersona().setHistoriaGymEncriptacion(null);
+				historia.getPersona().setHistoriasEncriptacion(null);
+				if (historia.getPersona().getPerfil() != null) {
+					historia.getPersona().getPerfil().setPersona(null);
+				}
+				certificadoentity.setSeqHistoria(historia);
+				response.put("certificado", certificadoentity);
+			} else {
+				response.put("mensaje", "Certificado Encontrado");
+				certificadoentity.getSeqHistoria().getPersona().setHistoriaGymEncriptacion(null);
+				certificadoentity.getSeqHistoria().getPersona().setHistoriasEncriptacion(null);
+				if (certificadoentity.getSeqHistoria().getPersona().getPerfil() != null) {
+					certificadoentity.getSeqHistoria().getPersona().getPerfil().setPersona(null);
+				}
+				response.put("certificado", certificadoentity);
+			}
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al buscar certificado");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			response.put("certificado", null);
+			System.err.print(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+	}
+
 	@GetMapping("/buscarHistoriaPersona/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> buscarHistoriaPersona(@PathVariable Long id) {
@@ -205,7 +285,7 @@ public class HistoriaController {
 				response.put("error", "Error al buscar Historia");
 				response.put("historia", null);
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			}else {
+			} else {
 				response.put("mensaje", "Encontrada");
 				response.put("error", "Encontrada");
 				response.put("historia", historia);
@@ -233,6 +313,11 @@ public class HistoriaController {
 	@GetMapping("/listTipoEvaluacion")
 	public List<TipoEvaluacionEntity> getListTipoEvaluacion() {
 		return tipoEvaluacionService.findAll();
+	}
+
+	@GetMapping("/listTipoEvaluacionFisica")
+	public List<TipoEvaluacionFisicaEntity> getListTipoEvaluacionFisica() {
+		return tipoEvaluacionFisicaService.findAll();
 	}
 
 	@GetMapping("/listTipoHistoria")

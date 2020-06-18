@@ -1,4 +1,5 @@
 import { Historias } from './historias';
+import { TipoEvaluacion } from './tipoEvaluacion';
 export class Certificado {
     seqCertificado: number;
     datFechaCertificado: Date;
@@ -9,7 +10,7 @@ export class Certificado {
     tipoRestriccionLimitacion: string;
     recomendaciones: string;
     controlEpidemiologica: string;
-    tipoEvaluacionEntity: string;
+    tipoEvaluacionEntity: TipoEvaluacion;
     otroEvaluacion: string;
     seqHistoria: Historias;
 

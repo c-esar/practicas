@@ -138,19 +138,19 @@ export class FormCertificadoComponent implements OnInit {
     $('#formOtroEvaluacion').hide();
     switch (historia.tipoEvaluacionEntity.nomEval) {
       case "INGRESO": {
-        this.certificado.tipoEvaluacionEntity = historia.tipoEvaluacionEntity.nomEval;
+        this.certificado.tipoEvaluacionEntity = historia.tipoEvaluacionEntity;
         break;
       }
       case "PERIÓDICO": {
-        this.certificado.tipoEvaluacionEntity = historia.tipoEvaluacionEntity.nomEval;
+        this.certificado.tipoEvaluacionEntity = historia.tipoEvaluacionEntity;
         break;
       }
       case "EGRESO": {
-        this.certificado.tipoEvaluacionEntity = historia.tipoEvaluacionEntity.nomEval;
+        this.certificado.tipoEvaluacionEntity = historia.tipoEvaluacionEntity;
         break;
       }
       case "OTRO": {
-        this.certificado.tipoEvaluacionEntity = historia.tipoEvaluacionEntity.nomEval;
+        this.certificado.tipoEvaluacionEntity = historia.tipoEvaluacionEntity;
         $('#formOtroEvaluacion').show();
         this.certificado.otroEvaluacion = historia.otroEvaluacion;
         break;

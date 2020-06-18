@@ -4,7 +4,7 @@ import { LoginService } from '../Servicios/login.service';
 import { HistoriasService } from '../Servicios/historias.service';
 import { PersonaService } from '../Servicios/persona.service';
 import { Persona } from '../DatosBean/persona';
-import { Certificado } from '../DatosBean/certificado';
+import { CertificadoGym } from '../DatosBean/certificadogym';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Permiso } from '../DatosBean/permiso';
 import { FormControl } from '@angular/forms';
@@ -13,6 +13,8 @@ import { TipoEvaluacion } from '../DatosBean/tipoEvaluacion';
 import { of, Observable, throwError } from 'rxjs';
 import { UserIdleService } from 'angular-user-idle';
 import { ReportesService } from '../Servicios/reportes.service';
+import { TipoEvaluacionFisica } from '../DatosBean/TipoEvaluacionFisicaEntity';
+import { HistoriaGym } from '../DatosBean/historiaGym';
 declare var jQuery: any;
 declare var $: any;
 
@@ -29,8 +31,8 @@ export class FormCertificadoGymComponent implements OnInit {
   Spersona: Persona;
   buscoPerson: boolean;
   permiso: Permiso;
-  tipoEvaluacion: TipoEvaluacion[];
-  certificado: Certificado;
+  tipoEvaluacion: TipoEvaluacionFisica[];
+  certificado: CertificadoGym;
   ruta: String;
   nombreArchivo: string;
   //constantes
@@ -96,7 +98,7 @@ export class FormCertificadoGymComponent implements OnInit {
       let id = params['id']
       if (id) {
         this.onVerificarCertificado(id);
-        this.certificado.seqHistoria.seqHistoria = id;
+        this.certificado.seqHistoria.seqHistoriaGym = id;
       }
     });
   }
@@ -111,22 +113,51 @@ export class FormCertificadoGymComponent implements OnInit {
       })
     }, 500);
     setTimeout(() => {
-      this.historiaService.buscarCertificado(id).subscribe(
+      this.historiaService.buscarCertificadoGym(id).subscribe(
         (respuesta) => {
-          if (respuesta != null) {
+          if (respuesta.seqCertificado != null || respuesta.seqCertificado != undefined) {
             this.onReporteCertificado(respuesta.seqCertificado);
           } else {
+            this.onObtenerDatospersonas(respuesta.seqHistoria);
             Swal.fire('Error', 'No se encuentra certificado guardado', 'error');
           }
         });
     }, 1000);
   }
 
+  private onObtenerDatospersonas(id: HistoriaGym): void {
+    this.certificado.nombre = id.persona.nomPrimerNombre + " " + id.persona.nomSegundoNombre + " " +
+    id.persona.nomPrimerApellido + " " + id.persona.nomSegundoApellido;
+    this.certificado.numero = id.persona.numeroDocumento;
+  }
+
+  onOpcionEvaluacion($event): void {
+    switch ($event.value.nomEval) {
+      case this.tipoEvaluacion[0].nomEval: {
+        this.certificado.tipoEvaluacionFisicaEntity = $event.value;
+        break;
+      }
+      case this.tipoEvaluacion[1].nomEval: {
+        this.certificado.tipoEvaluacionFisicaEntity = $event.value;
+        break;
+      }
+      case this.tipoEvaluacion[2].nomEval: {
+        this.certificado.tipoEvaluacionFisicaEntity = $event.value;
+        break;
+      }
+      case this.tipoEvaluacion[3].nomEval: {
+        this.certificado.tipoEvaluacionFisicaEntity = $event.value;
+        break;
+      }
+    }
+  }
+
+  //creacion reporte gym
   onReporteCertificado(seqCertificado: number): void {
-    this.reportes.onReporteHistoriasCertificado(seqCertificado).subscribe(
+    this.reportes.onReporteHistoriasCertificadoGym(seqCertificado).subscribe(
       (respuesta) => {
         this.ruta = respuesta;
-        this.nombreArchivo = "certificado.pdf";
+        this.nombreArchivo = "certificadoGym.pdf";
         const linkSource = 'data:application/pdf;base64,' + respuesta;
         const downloadLink = document.createElement("a");
         const fileName = this.nombreArchivo;
@@ -138,7 +169,7 @@ export class FormCertificadoGymComponent implements OnInit {
     this.router.navigate(['menuPrincipal']);
   }
   onCargarAtributos(): void {
-    this.certificado = new Certificado();
+    this.certificado = new CertificadoGym();
     this.persona = new Persona();
     this.permiso = new Permiso();
     this.Spersona = new Persona();
@@ -152,35 +183,11 @@ export class FormCertificadoGymComponent implements OnInit {
   }
 
   getTipoEvaluacion(): void {
-    this.historiaService.getTipoEvaluacion().subscribe(
+    this.historiaService.getTipoEvaluacionFisica().subscribe(
       (respuesta) => {
         this.tipoEvaluacion = respuesta;
       }
     )
-  }
-
-  onOpcionEvaluacion($event): void {
-    this.certificado.otroEvaluacion = null;
-    $('#formOtroEvaluacion').hide();
-    switch ($event.value.nomEval) {
-      case "INGRESO": {
-        this.certificado.tipoEvaluacionEntity = $event.value.seqEval;
-        break;
-      }
-      case "PERIÓDICO": {
-        this.certificado.tipoEvaluacionEntity = $event.value.seqEval;
-        break;
-      }
-      case "EGRESO": {
-        this.certificado.tipoEvaluacionEntity = $event.value.seqEval;
-        break;
-      }
-      case "OTRO": {
-        this.certificado.tipoEvaluacionEntity = $event.value.seqEval;
-        $('#formOtroEvaluacion').show();
-        break;
-      }
-    }
   }
 
   private getPermisos(): void {
@@ -192,14 +199,14 @@ export class FormCertificadoGymComponent implements OnInit {
   }
 
   guardar(): void {
-    this.historiaService.createCertificado(this.certificado).subscribe(
+    this.historiaService.createCertificadoGym(this.certificado).subscribe(
       (respuesta) => {
         if (respuesta == null) {
           Swal.fire('Error', 'Problemas al guardar', 'error');
         } else {
           Swal.fire('Exitoso', 'Certificado Creado Se puede Descargar', 'success');
           //this.onVerificarCertificado(respuesta);
-          //this.onReporteCertificado(respuesta.seqCertificado);
+          this.onReporteCertificado(respuesta);
         }
       })
   }

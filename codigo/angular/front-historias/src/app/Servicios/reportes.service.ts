@@ -39,6 +39,7 @@ export class ReportesService {
     );
   }
 
+  // certificado ocupacional
   onReporteHistoriasCertificado(id: number): Observable<String> {
     return this.http.get<String>(`${this.url + "reportes/certificado"}/${id}`, { headers: this.httpHeaders }).pipe(
       map( (resp: any) => resp.persona  as String)
@@ -49,4 +50,16 @@ export class ReportesService {
       })
     );
   }
+
+    // certificado gym
+    onReporteHistoriasCertificadoGym(id: number): Observable<String> {
+      return this.http.get<String>(`${this.url + "reportes/certificadoGym"}/${id}`, { headers: this.httpHeaders }).pipe(
+        map( (resp: any) => resp.persona  as String)
+        ,catchError(e => {
+          console.error(e.error.mensaje);
+          Swal.fire('Error', e.error.mensaje, 'error');
+          return throwError(e);
+        })
+      );
+    }
 }

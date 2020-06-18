@@ -8,6 +8,7 @@ import { ConstantesService } from './constantes.service';
 import { HistoriaLaboral } from '../DatosBean/historiaLaboral';
 import { Historias } from '../DatosBean/historias';
 import { Certificado } from '../DatosBean/certificado';
+import { CertificadoGym } from '../DatosBean/certificadogym';
 import { EmpresaLaboral } from '../DatosBean/empresaLaboral';
 import { AntecedentesTrabajo } from '../DatosBean/antecedentesTrabajo';
 import { EnfermedadesLaboral } from '../DatosBean/enfermedadesLaboral';
@@ -25,6 +26,7 @@ import { familiarGym } from '../DatosBean/familiargym';
 import Swal from 'sweetalert2';
 import { catchError } from 'rxjs/operators';
 import { HistoriaGym } from '../DatosBean/historiaGym';
+import { TipoEvaluacionFisica } from '../DatosBean/TipoEvaluacionFisicaEntity';
 @Injectable({
   providedIn: 'root'
 })
@@ -78,6 +80,10 @@ export class HistoriasService {
     return this.http.get<TipoEvaluacion[]>(this.url + "historiaPaciente/listTipoEvaluacion");
   }
 
+  getTipoEvaluacionFisica(): Observable<TipoEvaluacionFisica[]> {
+    return this.http.get<TipoEvaluacionFisica[]>(this.url + "historiaPaciente/listTipoEvaluacionFisica");
+  }
+
   getTipoHistorias(): Observable<TipoHistoria[]> {
     return this.http.get<TipoHistoria[]>(this.url + "historiaPaciente/listTipoHistoria");
   }
@@ -112,6 +118,7 @@ export class HistoriasService {
     );
   }
 
+  // crear certificado ocupacional
   createCertificado(certificado: Certificado): Observable<number> {
     return this.http.post<number>(this.url + "historiaPaciente/crearCertificado", certificado, { headers: this.httpHeaders }).pipe(
       map((resp: any) => resp as number)
@@ -123,6 +130,7 @@ export class HistoriasService {
     );
   }
 
+  // buscar certificado ocupacional
   buscarCertificado(id: number): Observable<Certificado> {
     return this.http.get<Certificado>(`${this.url + "historiaPaciente/buscarCertificado"}/${id}`, { headers: this.httpHeaders }).pipe(
       map((resp: any) => resp.certificado as Certificado)
@@ -134,6 +142,31 @@ export class HistoriasService {
     );
   }
 
+
+
+    // crear certificado gym
+    createCertificadoGym(certificado: CertificadoGym): Observable<number> {
+      return this.http.post<number>(this.url + "historiaPaciente/crearCertificadoGym", certificado, { headers: this.httpHeaders }).pipe(
+        map((resp: any) => resp as number)
+        , catchError(e => {
+          console.error(e.error.mensaje);
+          Swal.fire('Error al crear Certificado', e.error.mensaje, 'error');
+          return throwError(e);
+        })
+      );
+    }
+  
+    // buscar certificado gym
+    buscarCertificadoGym(id: number): Observable<CertificadoGym> {
+      return this.http.get<CertificadoGym>(`${this.url + "historiaPaciente/buscarCertificadoGym"}/${id}`, { headers: this.httpHeaders }).pipe(
+        map((resp: any) => resp.certificado as CertificadoGym)
+        ,catchError(e => {
+          console.error(e.error.mensaje);
+          Swal.fire('Error', 'no tiene certificado la historia', 'error');
+          return throwError(e);
+        })
+      );
+    }
   createGym(historia: HistoriaGym): Observable<HistoriaGym> {
     return this.http.post<HistoriaGym>(this.url + "historiaPaciente/crearHistoriaGym", historia, { headers: this.httpHeaders }).pipe(
       catchError(e => {

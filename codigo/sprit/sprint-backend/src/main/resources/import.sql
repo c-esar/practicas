@@ -13898,7 +13898,10 @@ Insert into hc_diagnostico ("seq_diagnostico","afectacion_principal","cod_diagno
 Insert into hc_diagnostico ("seq_diagnostico","afectacion_principal","cod_diagnostico","des_diagnostico","lim_inferior","lim_superior","obser_diagnostico","sexo","sim_diagnostico") values (12421,'','Z998','DEPENDENCIA DE OTRAS MAQUINAS Y DISPOSITIVOS CAPACITANTES','0','0','','A','');
 Insert into hc_diagnostico ("seq_diagnostico","afectacion_principal","cod_diagnostico","des_diagnostico","lim_inferior","lim_superior","obser_diagnostico","sexo","sim_diagnostico") values (12422,'','Z999','DEPENDENCIA DE MAQUINA Y DISPOSITIVO CAPACITANTE, NO ESPECIFICADA','0','0','','A','');
 
-
+Insert into hc_tipo_evaluacion_fisica values ('APTO');
+Insert into hc_tipo_evaluacion_fisica values ('APTO CON RESTRICCIONES');
+Insert into hc_tipo_evaluacion_fisica values ('NO APTO CONDICIONADO');
+Insert into hc_tipo_evaluacion_fisica values ('NO APTO CON LIMITACIÓN ABSOLUTA');
 
 
 

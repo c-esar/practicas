@@ -16,8 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
+import com.konrad.edu.IService.IConstantes;
 import com.konrad.edu.IService.IReportesService;
 import com.konrad.edu.dao.ICertificadoDao;
+import com.konrad.edu.dao.ICertificadoGymDao;
 import com.konrad.edu.dao.IPersonaDao;
 import com.konrad.edu.entity.HistoriaGYMEntity;
 import com.konrad.edu.entity.PersonaEntity;
@@ -37,13 +39,16 @@ public class ReportesServiceImp implements IReportesService {
 
 	@Autowired
 	private ICertificadoDao certificadoDao;
+	
+	@Autowired
+	private ICertificadoGymDao certificadoGymDao;
 
 	// reporte historia gym
 	@Override
 	public String exportReport(String id, int historias, String documentoMedico) {
 		try {
 			Connection conexion = DriverManager
-					.getConnection("jdbc:sqlserver://192.168.0.42;databaseName=HC_Historiass", "sa", "12345");
+					.getConnection(IConstantes.JDBC_REPORTE, IConstantes.USER_DB, IConstantes.PASS_DB);
 			File file = ResourceUtils.getFile("classpath:historiasGym.jrxml");
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 			PersonaEntity persona = this.obtenerInformacion(id);
@@ -179,7 +184,7 @@ public class ReportesServiceImp implements IReportesService {
 	public String exportReportOcupacional(String id, int historias, String documentoMedico) {
 		try {
 			Connection conexion = DriverManager
-					.getConnection("jdbc:sqlserver://192.168.0.42;databaseName=HC_Historiass", "sa", "12345");
+					.getConnection(IConstantes.JDBC_REPORTE, IConstantes.USER_DB, IConstantes.PASS_DB);
 			File file = ResourceUtils.getFile("classpath:ocupacional.jrxml");
 			Map<String, Object> parameters = new HashMap<>();
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -440,12 +445,12 @@ public class ReportesServiceImp implements IReportesService {
 		return personaDao.findByPersonaOcupacional(id);
 	}
 
-	// crear reporte certificado
+	// crear reporte certificado ocupacional
 	@Override
 	public String exportReportCertificado(String id, int historia, String documentoMedico) {
 		try {
 			Connection conexion = DriverManager
-					.getConnection("jdbc:sqlserver://192.168.0.42;databaseName=HC_Historiass", "sa", "12345");
+					.getConnection(IConstantes.JDBC_REPORTE, IConstantes.USER_DB, IConstantes.PASS_DB);
 			File file = ResourceUtils.getFile("classpath:certificado.jrxml");
 			Map<String, Object> parameters = new HashMap<>();
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -459,6 +464,52 @@ public class ReportesServiceImp implements IReportesService {
 			parameters.put("licsalud", medico.getLicenciaSalud());
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conexion);
 			File pdf = File.createTempFile("certificado", ".pdf");
+			System.out.println("Lo exportamos a " + pdf.getAbsolutePath());
+			FileOutputStream pdffinal = new FileOutputStream(pdf);
+			JasperExportManager.exportReportToPdfStream(jasperPrint, pdffinal);
+			pdffinal.close();
+			byte[] inFileBytes = Files.readAllBytes(Paths.get(pdf.getAbsolutePath()));
+			byte[] encoded = java.util.Base64.getEncoder().encode(inFileBytes);
+			String base64EncryptedString = "";
+			base64EncryptedString = new String(encoded);
+			System.out.print(base64EncryptedString);
+			return base64EncryptedString;
+		} catch (SQLException e) {
+			System.err.print(e.getMessage());
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			System.err.print(e.getMessage());
+			e.printStackTrace();
+		} catch (JRException e) {
+			System.err.print(e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.err.print(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	//certificado gym
+	@Override
+	public String exportReportCertificadoGym(String id, int historia, String documentoMedico) {
+		try {
+			Connection conexion = DriverManager
+					.getConnection(IConstantes.JDBC_REPORTE, IConstantes.USER_DB, IConstantes.PASS_DB);
+			File file = ResourceUtils.getFile("classpath:certificadoGym.jrxml");
+			Map<String, Object> parameters = new HashMap<>();
+			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+			String certificado = certificadoGymDao.findGymByNumeroCertificado(id);
+			PersonaEntity medico = this.personaDao.findByPersonaMedico(certificado);
+			if (medico.getImagenEncriptada() != null) {
+				medico.setImagen(new String(medico.getImagenEncriptada()));
+				parameters.put("imagenMedico", crearImagenPaciente(medico.getImagen(), "medico"));
+			}
+			parameters.put("historia", id);
+			parameters.put("licsalud", medico.getLicenciaSalud());
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conexion);
+			File pdf = File.createTempFile("certificadoGym", ".pdf");
 			System.out.println("Lo exportamos a " + pdf.getAbsolutePath());
 			FileOutputStream pdffinal = new FileOutputStream(pdf);
 			JasperExportManager.exportReportToPdfStream(jasperPrint, pdffinal);

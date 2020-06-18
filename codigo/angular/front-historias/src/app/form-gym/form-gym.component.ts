@@ -627,7 +627,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
 
     setTimeout(() => {
       if (this.onCargarTipoUsuario()) {
-        this.persona.lugarDeResidencia.seqCuidad = 0;
+        //this.persona.lugarDeResidencia.seqCuidad = 0;
         this.actualizarPerson(this.Spersona);
         let personaup = new Persona();
         personaup = this.persona;
@@ -643,7 +643,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
       }
       this.persona.historiaGym = new Array<HistoriaGym>();
       this.persona.historiaGym.push(new HistoriaGym());
-      this.persona.historiaGym[0].ciudadHistoria.seqCuidad = 0;
+      this.persona.historiaGym[0].ciudadHistoria.seqCuidad = this.CODIGO_CIUDAD;
     }, 1000);
 
 

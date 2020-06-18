@@ -6,29 +6,36 @@
 		<div class="col-md-12 col-sm-12 col-xs-12" style="top: 10px;" id="contenidoFormulario">
 			<!--(ngSubmit)="create()"-->
 			<div class="card text-center col-md-12 col-sm-12 col-xs-12">
-				<div class="card-header col-md-12 col-sm-12 col-xs-12">
-					<ul class="nav nav-pills card-header-pills">
-						<li class="nav-item">
-							<button id="DatosPricipales" class="nav-link btn btn-primary active"
-								(click)="onActivarSubMenu('DatosPricipales')">{{datosSingleton.menuOcupacionalDatosPrincipales}}</button>
-						</li>
-						<li class="nav-item">
-							<button id="DatosHistoriaLaboral" class="nav-link btn btn-primary"
-								(click)="onActivarSubMenu('DatosHistoriaLaboral')">{{datosSingleton.menuOcupacionalHistoriaLaboral}}</button>
-						</li>
-						<li class="nav-item">
-							<button id="DatosTerceraFase" class="nav-link btn btn-primary "
-								(click)="onActivarSubMenu('DatosTerceraFase')">{{datosSingleton.menuMotivoConsulta}}</button>
-						</li>
-						<li class="nav-item">
-							<button id="DatosExamenFisico" class="nav-link btn btn-primary "
-								(click)="onActivarSubMenu('DatosExamenFisico')">{{datosSingleton.menuExamenFisico}}</button>
-						</li>
-						<li class="nav-item">
-							<button id="DatosFinalFormulario" class="nav-link btn btn-primary "
-								(click)="onActivarSubMenu('DatosFinalFormulario')">{{datosSingleton.ultimaParteOcupacional}}</button>
-						</li>
-					</ul>
+				<div class="card-header navbar navbar-expand-lg navbar-light bg-light col-md-12 col-sm-12 col-xs-12">
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+						<ul class="nav nav-pills card-header-pills">
+							<li class="nav-item">
+								<button id="DatosPricipales" class="nav-link btn btn-primary active"
+									(click)="onActivarSubMenu('DatosPricipales')">{{datosSingleton.menuOcupacionalDatosPrincipales}}</button>
+							</li>
+							<li class="nav-item">
+								<button id="DatosHistoriaLaboral" class="nav-link btn btn-primary"
+									(click)="onActivarSubMenu('DatosHistoriaLaboral')">{{datosSingleton.menuOcupacionalHistoriaLaboral}}</button>
+							</li>
+							<li class="nav-item">
+								<button id="DatosTerceraFase" class="nav-link btn btn-primary "
+									(click)="onActivarSubMenu('DatosTerceraFase')">{{datosSingleton.menuMotivoConsulta}}</button>
+							</li>
+							<li class="nav-item">
+								<button id="DatosExamenFisico" class="nav-link btn btn-primary "
+									(click)="onActivarSubMenu('DatosExamenFisico')">{{datosSingleton.menuExamenFisico}}</button>
+							</li>
+							<li class="nav-item">
+								<button id="DatosFinalFormulario" class="nav-link btn btn-primary "
+									(click)="onActivarSubMenu('DatosFinalFormulario')">{{datosSingleton.ultimaParteOcupacional}}</button>
+							</li>
+						</ul>
+					</div>
 				</div>
 
 
@@ -52,7 +59,9 @@
 								</div>
 								<div class="form-group col-md-6 col-sm-6 col-xs-12">
 									<button id="BuscarPersona" mat-raised-button color="primary"
-										(click)="onValidatePersona()"><mat-icon>search</mat-icon>Buscar</button>
+										(click)="onValidatePersona()">
+										<mat-icon>search</mat-icon>Buscar
+									</button>
 									<button id="limpiar" mat-raised-button color="primary"
 										(click)="onLimpiar()">Limpiar</button>
 								</div>
@@ -1400,18 +1409,17 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group col-md-12 col-sm-12 col-xs-12">
+							<div class="form-inline col-md-12 col-sm-12 col-xs-12">
 								<mat-checkbox name="aceptoCondiciones"
 									[(ngModel)]="persona.historias[0].aceptoCondiciones">
-									Al enviar este formulario autorizo, expresamente y de manera voluntaria,
-									a la Fundación Universitaria Konrad Lorenz para usar y
-									<br>
-									manejar los datos que he suministrado, con propósitos académicos y según la
-									siguiente <a
-										href="http://www.konradlorenz.edu.co/es/informacion-institucional/nueva-imagen-institucional-2politicas-para-el-tratamiento-de-datos-personales.html"
-										target="_blank">política de tratamiento
-										de datos personales.</a>
 								</mat-checkbox>
+								<h2>Al enviar este formulario autorizo, expresamente y de manera voluntaria,
+									a la Fundación Universitaria Konrad Lorenz para usar y
+									manejar los datos que he suministrado <a
+									href="http://www.konradlorenz.edu.co/es/informacion-institucional/nueva-imagen-institucional-2politicas-para-el-tratamiento-de-datos-personales.html"
+									target="_blank">política de tratamiento
+									de datos personales.</a>
+								</h2>
 							</div>
 							<div class="form-group col-md-6 col-sm-6 col-xs-3 row">
 								<button mat-raised-button color="primary" role="button" [disabled]="f.invalid"

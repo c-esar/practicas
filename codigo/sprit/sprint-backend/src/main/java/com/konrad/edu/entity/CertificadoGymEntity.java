@@ -10,17 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "hc_certificado_gym")
@@ -46,26 +40,15 @@ public class CertificadoGymEntity implements Serializable {
 	@Column(name = "num_numero")
 	private String numero;
 
-	@Column(name = "exa_realizados")
-	private String exaRealizados;
-
-	@Column(name = "medico_certificado")
-	private String medicoCertifica;
-
 	@Column(name = "tipo_restriccion_limitacion")
 	private String tipoRestriccionLimitacion;
 
 	@Column(name = "recomendaciones")
 	private String recomendaciones;
-
-	@Column(name = "control_epidemiologica")
-	private String controlEpidemiologica;
-
-	@Column(name = "seq_eval")
-	private String tipoEvaluacionEntity;
-
-	@Column(name = "otro_evaluacion")
-	private String otroEvaluacion;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "seq_eval")
+	private TipoEvaluacionFisicaEntity tipoEvaluacionFisicaEntity;
 
 	@OneToOne
 	@JoinColumn(name = "seq_historia", nullable = false)
@@ -108,21 +91,6 @@ public class CertificadoGymEntity implements Serializable {
 		this.numero = numero;
 	}
 
-	public String getExaRealizados() {
-		return exaRealizados;
-	}
-
-	public void setExaRealizados(String exaRealizados) {
-		this.exaRealizados = exaRealizados;
-	}
-
-	public String getMedicoCertifica() {
-		return medicoCertifica;
-	}
-
-	public void setMedicoCertifica(String medicoCertifica) {
-		this.medicoCertifica = medicoCertifica;
-	}
 
 	public String getTipoRestriccionLimitacion() {
 		return tipoRestriccionLimitacion;
@@ -140,30 +108,6 @@ public class CertificadoGymEntity implements Serializable {
 		this.recomendaciones = recomendaciones;
 	}
 
-	public void setTipoEvaluacionEntity(String tipoEvaluacionEntity) {
-		this.tipoEvaluacionEntity = tipoEvaluacionEntity;
-	}
-
-	public String getControlEpidemiologica() {
-		return controlEpidemiologica;
-	}
-
-	public void setControlEpidemiologica(String controlEpidemiologica) {
-		this.controlEpidemiologica = controlEpidemiologica;
-	}
-
-	public String getOtroEvaluacion() {
-		return otroEvaluacion;
-	}
-
-	public void setOtroEvaluacion(String otroEvaluacion) {
-		this.otroEvaluacion = otroEvaluacion;
-	}
-
-	public String getTipoEvaluacionEntity() {
-		return tipoEvaluacionEntity;
-	}
-
 	public HistoriaGYMEntity getSeqHistoria() {
 		return seqHistoria;
 	}
@@ -172,4 +116,13 @@ public class CertificadoGymEntity implements Serializable {
 		this.seqHistoria = seqHistoria;
 	}
 
+	public TipoEvaluacionFisicaEntity getTipoEvaluacionFisicaEntity() {
+		return tipoEvaluacionFisicaEntity;
+	}
+
+	public void setTipoEvaluacionFisicaEntity(TipoEvaluacionFisicaEntity tipoEvaluacionFisicaEntity) {
+		this.tipoEvaluacionFisicaEntity = tipoEvaluacionFisicaEntity;
+	}
+
+	
 }
