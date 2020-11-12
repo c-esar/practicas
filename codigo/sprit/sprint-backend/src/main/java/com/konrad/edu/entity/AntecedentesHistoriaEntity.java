@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.ColumnTransformer;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -37,50 +39,65 @@ public class AntecedentesHistoriaEntity implements Serializable {
 	private TipoAntecedenteEntity tipoAntecedenteEntity;
 
 	@Column(name = "estado_antecedente", length = 3)
-	private String estadoAntecedente;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',estado_antecedente)")
+	private byte[] estadoAntecedente;
 
 	@Column(name = "desp_antecedente", length = 4000)
-	private String despAntecedente;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_antecedente)")
+	private byte[] despAntecedente;
 
-	@Column(length = 100)
-	private String frecuencia;
+	@Column(name="frecuencia", length = 100)
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',frecuencia)")
+	private byte[] frecuencia;
 
-	@Column(length = 100)
-	private String tipo;
+	@Column(name="tipo", length = 100)
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',tipo)")
+	private byte[] tipo;
 
-	@Column(length = 100)
-	private String exFumador;
+	@Column(name="ex_fumador", length = 100)
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',ex_fumador)")
+	private byte[] exFumador;
 
 	@Column(name = "anos_habito")
-	private String anosHabito;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',anos_habito)")
+	private byte[] anosHabito;
 
 	@Column(name="planificacion", length = 100)
-	private String planificacion;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',planificacion)")
+	private byte[] planificacion;
 
 	// fecha ultima citoligias y resultados
-	private String ccv;
+	@Column(name="ccv")
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',ccv)")
+	private byte[] ccv;
 
 	// fecha ultima mestruacion
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fur;
 
 	@Column(name = "menarquia")
-	private String mernarquia;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',menarquia)")
+	private byte[] mernarquia;
 
 	@Column(name = "menarquia_gestaciones")
-	private String menarquiaGestaciones;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',menarquia_gestaciones)")
+	private byte[] menarquiaGestaciones;
 	
 	@Column(name = "menarquia_partos")
-	private String menarquiaPartos;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',menarquia_partos)")
+	private byte[] menarquiaPartos;
 	
 	@Column(name = "menarquia_cesarias")
-	private String menarquiaCesarias;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',menarquia_cesarias)")
+	private byte[] menarquiaCesarias;
 	
 	@Column(name = "menarquia_abortos")
-	private String menarquiaAbortos;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',menarquia_abortos)")
+	private byte[] menarquiaAbortos;
 	
 	@Column(name = "menarquia_vivos")
-	private String menarquiaVivos;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',menarquia_vivos)")
+	private byte[] menarquiaVivos;
 
 	public Long getSeqAntHistorias() {
 		return seqAntHistorias;
@@ -88,54 +105,6 @@ public class AntecedentesHistoriaEntity implements Serializable {
 
 	public void setSeqAntHistorias(Long seqAntHistorias) {
 		this.seqAntHistorias = seqAntHistorias;
-	}
-
-	public String getEstadoAntecedente() {
-		return estadoAntecedente;
-	}
-
-	public void setEstadoAntecedente(String estadoAntecedente) {
-		this.estadoAntecedente = estadoAntecedente;
-	}
-
-	public String getDespAntecedente() {
-		return despAntecedente;
-	}
-
-	public void setDespAntecedente(String despAntecedente) {
-		this.despAntecedente = despAntecedente;
-	}
-
-	public String getFrecuencia() {
-		return frecuencia;
-	}
-
-	public void setFrecuencia(String frecuencia) {
-		this.frecuencia = frecuencia;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	public String getExFumador() {
-		return exFumador;
-	}
-
-	public void setExFumador(String exFumador) {
-		this.exFumador = exFumador;
-	}
-
-	public String getAnosHabito() {
-		return anosHabito;
-	}
-
-	public void setAnosHabito(String anosHabito) {
-		this.anosHabito = anosHabito;
 	}
 
 	public TipoAntecedenteEntity getTipoAntecedenteEntity() {
@@ -146,61 +115,68 @@ public class AntecedentesHistoriaEntity implements Serializable {
 		this.tipoAntecedenteEntity = tipoAntecedenteEntity;
 	}
 
-	public String getPlanificacion() {
+	public byte[] getEstadoAntecedente() {
+		return estadoAntecedente;
+	}
+
+	public void setEstadoAntecedente(byte[] estadoAntecedente) {
+		this.estadoAntecedente = estadoAntecedente;
+	}
+
+	public byte[] getDespAntecedente() {
+		return despAntecedente;
+	}
+
+	public void setDespAntecedente(byte[] despAntecedente) {
+		this.despAntecedente = despAntecedente;
+	}
+
+	public byte[] getFrecuencia() {
+		return frecuencia;
+	}
+
+	public void setFrecuencia(byte[] frecuencia) {
+		this.frecuencia = frecuencia;
+	}
+
+	public byte[] getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(byte[] tipo) {
+		this.tipo = tipo;
+	}
+
+	public byte[] getExFumador() {
+		return exFumador;
+	}
+
+	public void setExFumador(byte[] exFumador) {
+		this.exFumador = exFumador;
+	}
+
+	public byte[] getAnosHabito() {
+		return anosHabito;
+	}
+
+	public void setAnosHabito(byte[] anosHabito) {
+		this.anosHabito = anosHabito;
+	}
+
+	public byte[] getPlanificacion() {
 		return planificacion;
 	}
 
-	public void setPlanificacion(String planificacion) {
+	public void setPlanificacion(byte[] planificacion) {
 		this.planificacion = planificacion;
 	}
 
-	public String getCcv() {
+	public byte[] getCcv() {
 		return ccv;
 	}
 
-	public void setCcv(String ccv) {
+	public void setCcv(byte[] ccv) {
 		this.ccv = ccv;
-	}
-	
-
-	public String getMenarquiaGestaciones() {
-		return menarquiaGestaciones;
-	}
-
-	public void setMenarquiaGestaciones(String menarquiaGestaciones) {
-		this.menarquiaGestaciones = menarquiaGestaciones;
-	}
-
-	public String getMenarquiaPartos() {
-		return menarquiaPartos;
-	}
-
-	public void setMenarquiaPartos(String menarquiaPartos) {
-		this.menarquiaPartos = menarquiaPartos;
-	}
-
-	public String getMenarquiaCesarias() {
-		return menarquiaCesarias;
-	}
-
-	public void setMenarquiaCesarias(String menarquiaCesarias) {
-		this.menarquiaCesarias = menarquiaCesarias;
-	}
-
-	public String getMenarquiaAbortos() {
-		return menarquiaAbortos;
-	}
-
-	public void setMenarquiaAbortos(String menarquiaAbortos) {
-		this.menarquiaAbortos = menarquiaAbortos;
-	}
-
-	public String getMenarquiaVivos() {
-		return menarquiaVivos;
-	}
-
-	public void setMenarquiaVivos(String menarquiaVivos) {
-		this.menarquiaVivos = menarquiaVivos;
 	}
 
 	public Date getFur() {
@@ -211,12 +187,54 @@ public class AntecedentesHistoriaEntity implements Serializable {
 		this.fur = fur;
 	}
 
-	public String getMernarquia() {
+	public byte[] getMernarquia() {
 		return mernarquia;
 	}
 
-	public void setMernarquia(String mernarquia) {
+	public void setMernarquia(byte[] mernarquia) {
 		this.mernarquia = mernarquia;
 	}
+
+	public byte[] getMenarquiaGestaciones() {
+		return menarquiaGestaciones;
+	}
+
+	public void setMenarquiaGestaciones(byte[] menarquiaGestaciones) {
+		this.menarquiaGestaciones = menarquiaGestaciones;
+	}
+
+	public byte[] getMenarquiaPartos() {
+		return menarquiaPartos;
+	}
+
+	public void setMenarquiaPartos(byte[] menarquiaPartos) {
+		this.menarquiaPartos = menarquiaPartos;
+	}
+
+	public byte[] getMenarquiaCesarias() {
+		return menarquiaCesarias;
+	}
+
+	public void setMenarquiaCesarias(byte[] menarquiaCesarias) {
+		this.menarquiaCesarias = menarquiaCesarias;
+	}
+
+	public byte[] getMenarquiaAbortos() {
+		return menarquiaAbortos;
+	}
+
+	public void setMenarquiaAbortos(byte[] menarquiaAbortos) {
+		this.menarquiaAbortos = menarquiaAbortos;
+	}
+
+	public byte[] getMenarquiaVivos() {
+		return menarquiaVivos;
+	}
+
+	public void setMenarquiaVivos(byte[] menarquiaVivos) {
+		this.menarquiaVivos = menarquiaVivos;
+	}
+
+
 
 }

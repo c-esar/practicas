@@ -1,12 +1,19 @@
 package com.konrad.edu.serviceImp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.konrad.edu.IService.IEncriptacionDatosService;
+import com.konrad.edu.entity.AntecedentesHistoriaEntity;
+import com.konrad.edu.entity.AntecedentesHistoriaEntityEncriptacion;
 import com.konrad.edu.entity.ExamenFisicoEncriptacion;
 import com.konrad.edu.entity.ExamenFisicoEntity;
 import com.konrad.edu.entity.HistoriaGYMEntity;
 import com.konrad.edu.entity.HistoriaGymEncriptacion;
 import com.konrad.edu.entity.HistoriaOcupacionalEncriptacion;
 import com.konrad.edu.entity.HistoriaOcupacionalEntity;
+import com.konrad.edu.entity.ParaclinicosEntity;
+import com.konrad.edu.entity.ParaclinicosEntityEncriptacion;
 
 public class EncriptacionDatosServiceImp implements IEncriptacionDatosService {
 
@@ -17,8 +24,8 @@ public class EncriptacionDatosServiceImp implements IEncriptacionDatosService {
 		historia.setSeqTipoHistoria(historiaEntity.getSeqTipoHistoria());
 		historia.setExamenFisico(this.encriptacionExamenFisico(historiaEntity.getExamenFisico()));
 		historia.setHistoriaLaboral(historiaEntity.getHistoriaLaboral());
-		historia.setAntecedentesHistoriaEntity(historiaEntity.getAntecedentesHistoriaEntity());
-		historia.setParaclinicosEntity(historiaEntity.getParaclinicosEntity());
+		historia.setAntecedentesHistoriaEntity(this.encriptacionAntecedentesHistoriaEntity(historiaEntity.getAntecedentesHistoriaEntity()));
+		historia.setParaclinicosEntity(this.encriptacionParaclinicosEntity(historiaEntity.getParaclinicosEntity()));
 		historia.setTipoEvaluacionEntity(historiaEntity.getTipoEvaluacionEntity());
 		historia.setCiudadHistoria(historiaEntity.getCiudadHistoria());
 		historia.setConceptoConcepto(historiaEntity.getConceptoConcepto());
@@ -93,4 +100,44 @@ public class EncriptacionDatosServiceImp implements IEncriptacionDatosService {
 		return examen;
 	}
 
+	@Override
+	public List<ParaclinicosEntity> encriptacionParaclinicosEntity( List<ParaclinicosEntityEncriptacion> encriptacionParaclinicosEntity) {
+		List<ParaclinicosEntity> encriptacionParaclinicos = new ArrayList<ParaclinicosEntity>();
+		for(int i=0; i<encriptacionParaclinicosEntity.size(); i++) {
+			ParaclinicosEntity tmp = new ParaclinicosEntity();
+			tmp.setDespExamen(encriptacionParaclinicosEntity.get(i).getDespExamen().getBytes());
+			tmp.setDespResultado(encriptacionParaclinicosEntity.get(i).getDespResultado().getBytes());
+			tmp.setFecha(encriptacionParaclinicosEntity.get(i).getFecha());
+			tmp.setSeqParaclinicos(encriptacionParaclinicosEntity.get(i).getSeqParaclinicos());
+			encriptacionParaclinicos.add(tmp);
+		}
+		return encriptacionParaclinicos;
+	}
+
+	@Override
+	public List<AntecedentesHistoriaEntity> encriptacionAntecedentesHistoriaEntity( List<AntecedentesHistoriaEntityEncriptacion> encriptacionantecedentesEntity) {
+		List<AntecedentesHistoriaEntity> encriptacionantecedentes = new ArrayList<AntecedentesHistoriaEntity>();
+		for(int i=0; i<encriptacionantecedentesEntity.size(); i++) {
+			AntecedentesHistoriaEntity tmp = new AntecedentesHistoriaEntity();
+			tmp.setAnosHabito(encriptacionantecedentesEntity.get(i).getAnosHabito().getBytes());
+			tmp.setCcv(encriptacionantecedentesEntity.get(i).getCcv().getBytes());
+			tmp.setDespAntecedente(encriptacionantecedentesEntity.get(i).getDespAntecedente().getBytes());
+			tmp.setEstadoAntecedente(encriptacionantecedentesEntity.get(i).getEstadoAntecedente().getBytes());
+			tmp.setExFumador(encriptacionantecedentesEntity.get(i).getExFumador().getBytes());
+			tmp.setFrecuencia(encriptacionantecedentesEntity.get(i).getFrecuencia().getBytes());
+			tmp.setFur(encriptacionantecedentesEntity.get(i).getFur());
+			tmp.setMenarquiaAbortos(encriptacionantecedentesEntity.get(i).getMenarquiaAbortos().getBytes());
+			tmp.setMenarquiaCesarias(encriptacionantecedentesEntity.get(i).getMenarquiaCesarias().getBytes());
+			tmp.setMenarquiaGestaciones(encriptacionantecedentesEntity.get(i).getMenarquiaGestaciones().getBytes());
+			tmp.setMenarquiaPartos(encriptacionantecedentesEntity.get(i).getMenarquiaPartos().getBytes());
+			tmp.setMenarquiaVivos(encriptacionantecedentesEntity.get(i).getMenarquiaVivos().getBytes());
+			tmp.setMernarquia(encriptacionantecedentesEntity.get(i).getMernarquia().getBytes());
+			tmp.setPlanificacion(encriptacionantecedentesEntity.get(i).getPlanificacion().getBytes());
+			tmp.setSeqAntHistorias(encriptacionantecedentesEntity.get(i).getSeqAntHistorias());
+			tmp.setTipo(encriptacionantecedentesEntity.get(i).getTipo().getBytes());
+			tmp.setTipoAntecedenteEntity(encriptacionantecedentesEntity.get(i).getTipoAntecedenteEntity());
+			encriptacionantecedentes.add(tmp);
+		}
+		return encriptacionantecedentes;
+	}
 }

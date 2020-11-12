@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.ColumnTransformer;
+
 @Entity
 @Table(name = "hc_paraclinicos")
 public class ParaclinicosEntity implements Serializable {
@@ -30,14 +32,16 @@ public class ParaclinicosEntity implements Serializable {
 	private Long seqParaclinicos;
 
 	@Column(name = "desp_examen")
-	private String despExamen;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_examen)")
+	private byte[] despExamen;
 
 	@Column(name = "dat_fecha")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecha;
 
 	@Column(name = "desp_resultado")
-	private String despResultado;
+	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_resultado)")
+	private byte[] despResultado;
 
 	public Long getSeqParaclinicos() {
 		return seqParaclinicos;
@@ -47,20 +51,12 @@ public class ParaclinicosEntity implements Serializable {
 		this.seqParaclinicos = seqParaclinicos;
 	}
 
-	public String getDespExamen() {
+	public byte[] getDespExamen() {
 		return despExamen;
 	}
 
-	public void setDespExamen(String despExamen) {
+	public void setDespExamen(byte[] despExamen) {
 		this.despExamen = despExamen;
-	}
-
-	public String getDespResultado() {
-		return despResultado;
-	}
-
-	public void setDespResultado(String despResultado) {
-		this.despResultado = despResultado;
 	}
 
 	public Date getFecha() {
@@ -70,5 +66,15 @@ public class ParaclinicosEntity implements Serializable {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+
+	public byte[] getDespResultado() {
+		return despResultado;
+	}
+
+	public void setDespResultado(byte[] despResultado) {
+		this.despResultado = despResultado;
+	}
+
+	
 
 }

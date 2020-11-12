@@ -15,8 +15,8 @@ public class HistoriaOcupacionalEncriptacion implements Serializable {
 	private TipoHistoriasEntity seqTipoHistoria;
 	private ExamenFisicoEncriptacion examenFisico;
 	private HistoriaLaboralEntity historiaLaboral;
-	private List<AntecedentesHistoriaEntity> antecedentesHistoriaEntity;
-	private List<ParaclinicosEntity> paraclinicosEntity;
+	private List<AntecedentesHistoriaEntityEncriptacion> antecedentesHistoriaEntity;
+	private List<ParaclinicosEntityEncriptacion> paraclinicosEntity;
 	private TipoEvaluacionEntity tipoEvaluacionEntity;
 	private CiudadEntity ciudadHistoria;
 	private List<ConceptoEntity> conceptoConcepto;
@@ -72,19 +72,11 @@ public class HistoriaOcupacionalEncriptacion implements Serializable {
 		this.historiaLaboral = historiaLaboral;
 	}
 
-	public List<AntecedentesHistoriaEntity> getAntecedentesHistoriaEntity() {
-		return antecedentesHistoriaEntity;
-	}
-
-	public void setAntecedentesHistoriaEntity(List<AntecedentesHistoriaEntity> antecedentesHistoriaEntity) {
-		this.antecedentesHistoriaEntity = antecedentesHistoriaEntity;
-	}
-
-	public List<ParaclinicosEntity> getParaclinicosEntity() {
+	public List<ParaclinicosEntityEncriptacion> getParaclinicosEntity() {
 		return paraclinicosEntity;
 	}
 
-	public void setParaclinicosEntity(List<ParaclinicosEntity> paraclinicosEntity) {
+	public void setParaclinicosEntity(List<ParaclinicosEntityEncriptacion> paraclinicosEntity) {
 		this.paraclinicosEntity = paraclinicosEntity;
 	}
 
@@ -200,4 +192,13 @@ public class HistoriaOcupacionalEncriptacion implements Serializable {
 		this.personaMedico = personaMedico;
 	}
 
+	public List<AntecedentesHistoriaEntityEncriptacion> getAntecedentesHistoriaEntity() {
+		return antecedentesHistoriaEntity;
+	}
+
+	public void setAntecedentesHistoriaEntity(List<AntecedentesHistoriaEntityEncriptacion> antecedentesHistoriaEntity) {
+		this.antecedentesHistoriaEntity = antecedentesHistoriaEntity;
+	}
+
+	
 }

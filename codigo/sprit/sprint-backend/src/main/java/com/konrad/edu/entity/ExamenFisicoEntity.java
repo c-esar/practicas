@@ -141,6 +141,8 @@ public class ExamenFisicoEntity implements Serializable {
 		this.numTalla = numTalla;
 	}
 
+
+
 	public double getNumImc() {
 		return numImc;
 	}
