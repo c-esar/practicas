@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="historiasGym" language="groovy" columnDirection="RTL" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="58a19427-39b6-40d6-a40b-27c995e2dc0f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="552"/>
+	<property name="ireport.y" value="0"/>
 	<import value="org.apache.commons.codec.binary.*"/>
 	<style name="table">
 		<box>
@@ -150,14 +150,13 @@ where c.seq_historia_gym = $P{numeroHistoria}]]>
       ,p.nom_primer_nombre
       ,p.nom_segundo_apellido
       ,p.nom_segundo_nombre
-      ,p.nuevorol_usuario
+      ,p.nuevo_rol_usuario
       ,p.numero_documento
       ,p.parentesco_emergencia
       ,p.rh
       ,p.tel_emergencia
       ,p.telefono
       ,p.seq_aseguradora
-      ,p.seq_localidad
       ,p.seq_lugar_residencia
       ,p.seq_lugar_nacimiento
       ,p.seq_perfil
@@ -180,7 +179,6 @@ where c.seq_historia_gym = $P{numeroHistoria}]]>
       ,exa.num_sat
       ,exa.num_talla
       ,exa.num_tension
-      ,s.nom_aseguradora
       ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 1 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as patologia_cardiaca
       ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 2 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as colesterol_alto
       ,(SELECT IIF (EXISTS (select 1 from hc_condiciones_historia_gym where seq_condicion_gym = 3 and hgym.seq_historia_gym = seq_historia_gym), 'X', '')) as insuficiencia_renal
@@ -214,7 +212,6 @@ Cast(DecryptByPassPhrase('konradU',hgym.otra_condicion) As varchar(max)), '')) a
 FROM hc_personas p
 inner join hc_historia_gym hgym on hgym.seq_persona = p.seq_persona
 inner join hc_examen_fisico exa on exa.seq_exa_fisico = hgym.seq_exa_fisico
-inner join hc_aseguradora s on s.seq_aseguradora = p.seq_aseguradora
 where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHistoria}]]>
 	</queryString>
 	<field name="seq_historia" class="java.lang.Long"/>
@@ -224,7 +221,7 @@ where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHis
 	<field name="observaciones_historia" class="java.lang.String"/>
 	<field name="seq_ciudad" class="java.lang.Long"/>
 	<field name="seq_exa_fisico" class="java.lang.Long"/>
-	<field name="seq_persona" class="java.lang.Integer"/>
+	<field name="seq_persona" class="java.lang.Long"/>
 	<field name="seq_tipo_historia" class="java.lang.Long"/>
 	<field name="afp_persona" class="java.lang.String"/>
 	<field name="arl" class="java.lang.String"/>
@@ -237,7 +234,7 @@ where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHis
 	<field name="escolaridad" class="java.lang.String"/>
 	<field name="estado_civil" class="java.lang.String"/>
 	<field name="fecha_creacion" class="java.sql.Timestamp"/>
-	<field name="fecha_nacimiento" class="java.sql.Date"/>
+	<field name="fecha_nacimiento" class="java.sql.Timestamp"/>
 	<field name="genero" class="java.lang.String"/>
 	<field name="grupo_sanguineo" class="java.lang.String"/>
 	<field name="nom_cargo_dep" class="java.lang.String"/>
@@ -246,14 +243,13 @@ where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHis
 	<field name="nom_primer_nombre" class="java.lang.String"/>
 	<field name="nom_segundo_apellido" class="java.lang.String"/>
 	<field name="nom_segundo_nombre" class="java.lang.String"/>
-	<field name="nuevorol_usuario" class="java.lang.String"/>
+	<field name="nuevo_rol_usuario" class="java.lang.String"/>
 	<field name="numero_documento" class="java.lang.String"/>
 	<field name="parentesco_emergencia" class="java.lang.String"/>
 	<field name="rh" class="java.lang.String"/>
 	<field name="tel_emergencia" class="java.lang.String"/>
 	<field name="telefono" class="java.lang.String"/>
-	<field name="seq_aseguradora" class="java.lang.Long"/>
-	<field name="seq_localidad" class="java.lang.Long"/>
+	<field name="seq_aseguradora" class="java.lang.String"/>
 	<field name="seq_lugar_residencia" class="java.lang.Long"/>
 	<field name="seq_lugar_nacimiento" class="java.lang.Long"/>
 	<field name="seq_perfil" class="java.lang.Long"/>
@@ -275,7 +271,6 @@ where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHis
 	<field name="num_sat" class="java.lang.Double"/>
 	<field name="num_talla" class="java.lang.Double"/>
 	<field name="num_tension" class="java.lang.Double"/>
-	<field name="nom_aseguradora" class="java.lang.String"/>
 	<field name="patologia_cardiaca" class="java.lang.String"/>
 	<field name="colesterol_alto" class="java.lang.String"/>
 	<field name="insuficiencia_renal" class="java.lang.String"/>
@@ -825,20 +820,6 @@ where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHis
 				</textElement>
 				<text><![CDATA[¿Consume sustancias psicoactivas? ]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="38" y="113" width="196" height="20" uuid="638b61bf-96ce-43c3-ac64-8a15dd27c494"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{nom_aseguradora}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement positionType="Float" mode="Opaque" x="234" y="113" width="163" height="20" backcolor="#CCCCCC" uuid="7891dfa2-574d-4b77-86c4-90b655b88d4d"/>
 				<box>
@@ -1431,6 +1412,13 @@ where p.seq_persona = $P{numeroPersona} and hgym.seq_historia_gym = $P{numeroHis
 				</textElement>
 				<text><![CDATA[¿Cuáles?: ]]></text>
 			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="39" y="113" width="195" height="20" uuid="ca1336be-de03-4ad9-a5d1-17bafe38712c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{seq_aseguradora}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="752">
 			<staticText>
