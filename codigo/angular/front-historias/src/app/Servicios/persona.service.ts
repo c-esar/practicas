@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Persona } from '../DatosBean/persona';
 import { TipoDocumento } from '../DatosBean/tipoDocumento';
 import { Ciudad } from '../DatosBean/ciudad';
+import { Localidad } from '../DatosBean/localidad';
 //import { personas } from '../lista-personas/personas.json';
 import { of, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -32,6 +33,10 @@ export class PersonaService {
 
   getCiudad(): Observable<Ciudad[]> {
     return this.http.get<Ciudad[]>(this.url + "ciudad/listCiudad");
+  }
+
+  getLocalidad(): Observable<Localidad[]> {
+    return this.http.get<Localidad[]>(this.url + "localidad/listLocalidad");
   }
 
   create(persona: Persona, id: String): Observable<Persona> {

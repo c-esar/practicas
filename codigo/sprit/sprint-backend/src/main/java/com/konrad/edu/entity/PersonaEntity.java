@@ -150,17 +150,17 @@ public class PersonaEntity implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private LocalidadEntity localidad;
 	
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "persona")
-//	private List<HistoriaOcupacionalEntity> historiasEncriptacion;
-//
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "persona")
-//	private List<HistoriaGYMEntity> historiaGymEncriptacion;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "persona")
+	private List<HistoriaOcupacionalEntity> historiasEncriptacion;
 
-//	@Transient
-//	private List<HistoriaOcupacionalEncriptacion> historias;
-//
-//	@Transient
-//	private List<HistoriaGymEncriptacion> historiaGym;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "persona")
+	private List<HistoriaGYMEntity> historiaGymEncriptacion;
+
+	@Transient
+	private List<HistoriaOcupacionalEncriptacion> historias;
+
+	@Transient
+	private List<HistoriaGymEncriptacion> historiaGym;
 
 	@ManyToOne
 	@JoinColumn(name = "seq_perfil")
@@ -576,6 +576,38 @@ public class PersonaEntity implements Serializable {
 
 	public void setMunicipioResidencia(String municipioResidencia) {
 		this.municipioResidencia = municipioResidencia;
+	}
+
+	public List<HistoriaOcupacionalEntity> getHistoriasEncriptacion() {
+		return historiasEncriptacion;
+	}
+
+	public void setHistoriasEncriptacion(List<HistoriaOcupacionalEntity> historiasEncriptacion) {
+		this.historiasEncriptacion = historiasEncriptacion;
+	}
+
+	public List<HistoriaGYMEntity> getHistoriaGymEncriptacion() {
+		return historiaGymEncriptacion;
+	}
+
+	public void setHistoriaGymEncriptacion(List<HistoriaGYMEntity> historiaGymEncriptacion) {
+		this.historiaGymEncriptacion = historiaGymEncriptacion;
+	}
+
+	public List<HistoriaOcupacionalEncriptacion> getHistorias() {
+		return historias;
+	}
+
+	public void setHistorias(List<HistoriaOcupacionalEncriptacion> historias) {
+		this.historias = historias;
+	}
+
+	public List<HistoriaGymEncriptacion> getHistoriaGym() {
+		return historiaGym;
+	}
+
+	public void setHistoriaGym(List<HistoriaGymEncriptacion> historiaGym) {
+		this.historiaGym = historiaGym;
 	}
 
 }

@@ -6,6 +6,7 @@ import { HistoriasService } from '../Servicios/historias.service';
 import { PersonaService } from '../Servicios/persona.service';
 import { DatosSingleton } from '../DatosBean/datosSingleton';
 import { Persona } from '../DatosBean/persona';
+import { Localidad } from '../DatosBean/localidad';
 import { TipoDocumento } from '../DatosBean/tipoDocumento';
 import { Ciudad } from '../DatosBean/ciudad';
 import { Router } from '@angular/router';
@@ -112,6 +113,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   historiaUpdate = new Historias();
   seqPersona: any;
   private CODIGO_CIUDAD: number = 5137;
+  localidad: Localidad[];
 
   constructor(private labelService: LabelService,
     private loginService: LoginService,
@@ -231,6 +233,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.getTipoEvaluacion();
     this.getAnosHabitosList();
     this.getTipoUsuario();
+    this.getLocalidad();
     this.getDatosPersonaLogin();
     this.onLabels();
     this.getImpresionDiagnostica();
@@ -1034,7 +1037,16 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   getTipoDocumento(): void {
     this.personaService.getTipoDocumento().subscribe(
       (respuesta) => {
-        this.tipoDocumento = respuesta
+        this.tipoDocumento = respuesta;
+        console.log(respuesta)
+      }
+    )
+  }
+
+  getLocalidad(): void {
+    this.personaService.getLocalidad().subscribe(
+      (respuesta) => {
+        this.localidad = respuesta;
         console.log(respuesta)
       }
     )
