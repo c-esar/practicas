@@ -34,9 +34,9 @@ INSERT INTO hc_condicion_gym VALUES ('INSUFICIENCIA RENAL');
 INSERT INTO hc_condicion_gym VALUES ('HIPERTENSIÓN ARTERIAL');
 INSERT INTO hc_condicion_gym VALUES ('ENFERMEDAD TIROIDEA');
 INSERT INTO hc_condicion_gym VALUES ('EPILEPSIA');
-INSERT INTO hc_condicion_gym VALUES ('DIABETES MELLITUS');
+INSERT INTO hc_condicion_gym VALUES ('DIABETES Y MELLITUS');
 INSERT INTO hc_condicion_gym VALUES ('PROBLEMAS DE PESO');
-INSERT INTO hc_condicion_gym VALUES ('ESQUINCES, LUXACIONES');
+INSERT INTO hc_condicion_gym VALUES ('ESGUINCES, LUXACIONES');
 INSERT INTO hc_condicion_gym VALUES ('FRACTURAS');
 INSERT INTO hc_condicion_gym VALUES ('ASMA');
 INSERT INTO hc_condicion_gym VALUES ('CIRUGÍAS');
@@ -113,6 +113,29 @@ INSERT INTO hc_ciudad (seq_ciudad, cod_ciudad, cod_dpto, cod_pais, cod_poblacion
 
 INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,seq_perfil) values('Administrador','konrad',12345,1);
 INSERT INTO hc_rol_usuario_persona(seq_persona, tipo_usuario) values(1,6);
+
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (1, 'Usaquén');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (2, 'Chapinero');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (3, 'Sante fe');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (4, 'San Cristóbal');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (5, 'Usme');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (6, 'Tunjuelito');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (7, 'Bosa');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (8, 'Kennedy');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (9, 'Fontibón');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (10, 'Engativá');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (11, 'Suba');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (12, 'Barrios Unidos');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (13, 'Teusaquillo');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (14, 'Los Mártires');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (15, 'Antonio Nariño');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (16, 'Puente Aranda');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (17, 'La Candelaria');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (18, 'Rafael Uribe Uribe');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (19, 'Ciudad Bolívar');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (20, 'Sumapaz');
+insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (21, 'Ninguno');
+
 
 Insert into hc_ciudad ("seq_ciudad","cod_ciudad","cod_dpto","cod_pais","cod_poblacion","nom_ciudad") values (0,'1','1','1','1','No aplica');
 Insert into hc_ciudad ("seq_ciudad","cod_ciudad","cod_dpto","cod_pais","cod_poblacion","nom_ciudad") values (5001,'001 005 002','5','1','2','Abejorral - Antioquia, Colombia');
