@@ -145,17 +145,22 @@ public class PersonaEntity implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoDocumentoEntity tipoDocumento;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "persona")
-	private List<HistoriaOcupacionalEntity> historiasEncriptacion;
+	@ManyToOne
+	@JoinColumn(name = "seq_localidad", nullable = true)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private LocalidadEntity localidad;
+	
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "persona")
+//	private List<HistoriaOcupacionalEntity> historiasEncriptacion;
+//
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "persona")
+//	private List<HistoriaGYMEntity> historiaGymEncriptacion;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "persona")
-	private List<HistoriaGYMEntity> historiaGymEncriptacion;
-
-	@Transient
-	private List<HistoriaOcupacionalEncriptacion> historias;
-
-	@Transient
-	private List<HistoriaGymEncriptacion> historiaGym;
+//	@Transient
+//	private List<HistoriaOcupacionalEncriptacion> historias;
+//
+//	@Transient
+//	private List<HistoriaGymEncriptacion> historiaGym;
 
 	@ManyToOne
 	@JoinColumn(name = "seq_perfil")
@@ -175,17 +180,41 @@ public class PersonaEntity implements Serializable {
 	@Column(name = "nuevo_rol_usuario")
 	private String nuevorolUsuario;
 
+	
+	// nuevas colomnas 2021 enero
+	@Column(name = "nombre_acompanante")
+	private String nombreAcompanante;
+	
+	@Column(name = "telefono_acompanante")
+	private String telefonoAcompanante;
+	
+	@Column(name = "nombre_persona_responsable")
+	private String nombrePersonaResponsable;
+	
+	@Column(name = "telefono_persona_responsable")
+	private String telefonoPersonaResponsable;
+	
+	@Column(name = "parentesco_persona_responsable")
+	private String parentescoPersonaResponsable;
+	
+	@Column(name = "tipo_vinculacion")
+	private String tipoVinculacion;
+	
+	@Column(name = "municipio_residencia")
+	private String municipioResidencia;
+	
+	
 	@PrePersist
 	public void prePersist() {
 		this.fechaCreacion = new Date();
 	}
 
 	public PersonaEntity() {
-		this.historias = new ArrayList<>();
-		this.historiaGym = new ArrayList<>();
+//		this.historias = new ArrayList<>();
+//		this.historiaGym = new ArrayList<>();
 		this.rolUsuario = new ArrayList<>();
-		this.historiasEncriptacion = new ArrayList<HistoriaOcupacionalEntity>();
-		this.historiaGymEncriptacion = new ArrayList<HistoriaGYMEntity>();
+//		this.historiasEncriptacion = new ArrayList<HistoriaOcupacionalEntity>();
+//		this.historiaGymEncriptacion = new ArrayList<HistoriaGYMEntity>();
 	}
 
 	public Long getSeqPersona() {
@@ -356,14 +385,6 @@ public class PersonaEntity implements Serializable {
 		this.parentescoEmergencia = parentescoEmergencia;
 	}
 
-	public List<HistoriaOcupacionalEncriptacion> getHistorias() {
-		return historias;
-	}
-
-	public void setHistorias(List<HistoriaOcupacionalEncriptacion> historias) {
-		this.historias = historias;
-	}
-
 	public CiudadEntity getLugarNacimiento() {
 		return lugarNacimiento;
 	}
@@ -468,29 +489,6 @@ public class PersonaEntity implements Serializable {
 		this.imagenEncriptada = imagenEncriptada;
 	}
 
-	public List<HistoriaOcupacionalEntity> getHistoriasEncriptacion() {
-		return historiasEncriptacion;
-	}
-
-	public void setHistoriasEncriptacion(List<HistoriaOcupacionalEntity> historiasEncriptacion) {
-		this.historiasEncriptacion = historiasEncriptacion;
-	}
-
-	public List<HistoriaGYMEntity> getHistoriaGymEncriptacion() {
-		return historiaGymEncriptacion;
-	}
-
-	public void setHistoriaGymEncriptacion(List<HistoriaGYMEntity> historiaGymEncriptacion) {
-		this.historiaGymEncriptacion = historiaGymEncriptacion;
-	}
-
-	public List<HistoriaGymEncriptacion> getHistoriaGym() {
-		return historiaGym;
-	}
-
-	public void setHistoriaGym(List<HistoriaGymEncriptacion> historiaGym) {
-		this.historiaGym = historiaGym;
-	}
 
 	public String getLicenciaSalud() {
 		return licenciaSalud;
@@ -514,6 +512,70 @@ public class PersonaEntity implements Serializable {
 
 	public void setRegistroMedico(String registroMedico) {
 		this.registroMedico = registroMedico;
+	}
+
+	public LocalidadEntity getLocalidad() {
+		return localidad;
+	}
+
+	public void setLocalidad(LocalidadEntity localidad) {
+		this.localidad = localidad;
+	}
+
+	public String getNombreAcompanante() {
+		return nombreAcompanante;
+	}
+
+	public void setNombreAcompanante(String nombreAcompanante) {
+		this.nombreAcompanante = nombreAcompanante;
+	}
+
+	public String getTelefonoAcompanante() {
+		return telefonoAcompanante;
+	}
+
+	public void setTelefonoAcompanante(String telefonoAcompanante) {
+		this.telefonoAcompanante = telefonoAcompanante;
+	}
+
+	public String getNombrePersonaResponsable() {
+		return nombrePersonaResponsable;
+	}
+
+	public void setNombrePersonaResponsable(String nombrePersonaResponsable) {
+		this.nombrePersonaResponsable = nombrePersonaResponsable;
+	}
+
+	public String getTelefonoPersonaResponsable() {
+		return telefonoPersonaResponsable;
+	}
+
+	public void setTelefonoPersonaResponsable(String telefonoPersonaResponsable) {
+		this.telefonoPersonaResponsable = telefonoPersonaResponsable;
+	}
+
+	public String getParentescoPersonaResponsable() {
+		return parentescoPersonaResponsable;
+	}
+
+	public void setParentescoPersonaResponsable(String parentescoPersonaResponsable) {
+		this.parentescoPersonaResponsable = parentescoPersonaResponsable;
+	}
+
+	public String getTipoVinculacion() {
+		return tipoVinculacion;
+	}
+
+	public void setTipoVinculacion(String tipoVinculacion) {
+		this.tipoVinculacion = tipoVinculacion;
+	}
+
+	public String getMunicipioResidencia() {
+		return municipioResidencia;
+	}
+
+	public void setMunicipioResidencia(String municipioResidencia) {
+		this.municipioResidencia = municipioResidencia;
 	}
 
 }

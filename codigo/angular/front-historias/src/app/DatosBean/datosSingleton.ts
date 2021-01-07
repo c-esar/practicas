@@ -155,4 +155,13 @@ export class DatosSingleton {
   labelSiNo: string;
   labelCancer: string;
   labelTipoCancer: string;
+  labelNombreAcompanante: string;
+	labelTelefonoAcompanante: string;
+	labelNombrePersonaResponsable: string;
+	labelTelefonoPersonaResponsable: string;
+	labelParentescoResponsable: string;
+	labelTipoVinculacion: string;
+	labelLocalidad: string;
+  labelMunicipioResidencia: string;
+  labelCelular: string;
 }

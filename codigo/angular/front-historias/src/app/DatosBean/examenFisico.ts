@@ -1,13 +1,13 @@
 export class ExamenFisico {
 
   seqExaFisico: number;
-  numTesion: number;
-  numFreCar: number;
-  numSat: number;
-  numFrecResp: number;
-  numPeso: number;
-  numTalla: number;
-  numImc: number;
+  numTesion: string;
+  numFreCar: string;
+  numSat: string;
+  numFrecResp: string;
+  numPeso: string;
+  numTalla: string;
+  numImc: string;
   lateralidad: string;
   despCapCuello: string;
   despTorax: string;

@@ -36,9 +36,9 @@ public interface IConstantes {
 	public static final String LABEL_ESTADO_CIVIL = "ESTADO CIVIL";
 	public static final String LABEL_ESCOLARIDAD = "ESCOLARIDAD";
 	public static final String LABEL_CARGO_DEPENDENCIA = "CARGO DEPENDENCIA";
-	public static final String LABEL_DIRECCION_CASA = "DIRECCIÓN CASA";
+	public static final String LABEL_DIRECCION_CASA = "DIRECCIÓN DOMICILIO";
 	public static final String LABEL_TELEFONO = "TELÉFONO";
-	public static final String LABEL_ASEGURADORA = "ESP";
+	public static final String LABEL_ASEGURADORA = "EPS";
 	public static final String LABEL_AFP = "AFP";
 	public static final String LABEL_ARL = "ARL";
 	public static final String LABEL_SI = "SI";
@@ -65,7 +65,7 @@ public interface IConstantes {
 	public static final String LABEL_DESCRIPCION_TAREAS_FUNCION = "DESCRIPCIÓN DE TAREAS O FUNCIONES DEL CARGO";
 	public static final String MENU_SUBMENU_OCUPACIONAL_HISTORIA_LABORAL_TRABAJOPRE = "3.2 CONDICIONES DE TRABAJOS PREVIOS";
 	public static final String TABLA_TRABAJOPRE_LABEL_EMPRESA = "EMPRESA";
-	public static final String TABLA_TRABAJOPRE_LABEL_CARGOOFICINA = "CARGO U OFICINA";
+	public static final String TABLA_TRABAJOPRE_LABEL_CARGOOFICINA = "CARGO FUNCIONES";
 	public static final String TABLA_TRABAJOPRE_LABEL_TIEMPO = "TIEMPO";
 	public static final String MENU_SUBMENU_OCUPACIONAL_HISTORIA_LABORAL_ANTECEDENTES_TRABAJO = " 3.3 ANTECEDENTES DE ACCIDENTES DE TRABAJO O ENFERMEDADES LABORALES";
 	public static final String LABEL_SN_ACCIDENTES_TRABAJO = "HA SUFRIDO ACCIDENTES DE TRABAJO?";
@@ -196,5 +196,16 @@ public interface IConstantes {
 	public static final String LABEL_SI_NO = "SI / NO";
 	public static final String LABEL_CANCER = "CÁNCER";
 	public static final String LABEL_TIPO_CANCER = "TIPO CÁNCER";
+	
+	//nuevos campos
+	public static final String LABEL_NOMBRE_ACOMPANANTE = "NOMBRE COMPLETO ACOMPAÑANTE";
+	public static final String LABEL_TELEFONO_ACOMPANANTE = "TELÉFONO ACOMPAÑANTE";
+	public static final String LABEL_NOMBRE_PERSONA_RESPONSABLE = "NOMBRE COMPLETO PERSONA RESPONSABLE";
+	public static final String LABEL_TELEFONO_PERSONA_RESPONSABLE = "TELÉFONO PERSONA RESPONSABLE";
+	public static final String LABEL_PARENTESCO_RESPONSABLE = "PARENTESCO PERSONA RESPONSABLE" ;
+	public static final String LABEL_TIPO_VINVULACION = "TIPO VINCULACIÓN" ;
+	public static final String LABEL_LOCALIDAD = "LOCALIDAD";
+	public static final String LABEL_MUNICIPIO_RESIDENCIA = "MUNICIPIO RESIDENCIA";
+	public static final String LABEL_CELULAR = "CELULAR";
 
 }

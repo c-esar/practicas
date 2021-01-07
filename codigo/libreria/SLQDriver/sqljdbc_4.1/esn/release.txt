@@ -1,0 +1,104 @@
+﻿Información de la versión
+Controlador JDBC 4.1 de Microsoft para SQL Server
+Febrero de 2018
+
+
+INTRODUCCIÓN
+------------
+Este archivo contiene información importante o de última hora
+que complementa a la documentación de Microsoft JDBC Driver 4.1
+para SQL Server. Lea este archivo en su totalidad antes de 
+instalar el controlador JDBC.
+
+Sus comentarios son muy importantes y haremos lo posible
+para responder a ellos de forma oportuna. Para obtener información
+sobre cómo proporcionar comentarios mediante los blogs y los foros en línea del controlador JDBC,
+vea la página de Microsoft JDBC Driver 4.1 para SQL Server en
+http://msdn.microsoft.com/data/jdbc.
+
+
+INSTALACIÓN
+------------
+Las instrucciones para instalar el controlador JDBC se encuentran en install.txt.
+Consulte este archivo para obtener información sobre la instalación del controlador JDBC
+en sistemas operativos Windows y Unix.
+
+SISTEMAS OPERATIVOS ADMITIDOS
+---------------------------
+Microsoft JDBC Driver 4.1 para SQL Server admite los sistemas operativos siguientes: 
+Linux, Unix, Windows Server 2008,
+Windows Vista Service Pack 1, Windows Server 2008 R2, Windows 7, Windows 8 y Windows 8.1.
+
+Esta lista es un ejemplo de algunos de los sistemas operativos admitidos.
+El controlador JDBC está diseñado para trabajar en cualquier sistema operativo que admita
+el uso de una máquina virtual Java (JVM). Sin embargo, solo se han probado los sistemas operativos Sun Solaris, SUSE
+Linux y Windows Vista Service Pack 1 o versiones posteriores.
+
+CONTENIDO DE LA VERSIÓN
+----------------
+El archivo .zip o .tar ejecutable de Microsoft JDBC Driver 4.1 para SQL Server
+desempaqueta los siguientes archivos en las ubicaciones especificadas, relativas
+al directorio de instalación seleccionado:
+
+<directorio de instalación>\sqljdbc_<versión>\<idioma>\install.txt
+<directorio de instalación>\sqljdbc_<versión>\<idioma>\release.txt
+<directorio de instalación>\sqljdbc_<versión>\<idioma>\license.txt
+<directorio de instalación>\sqljdbc_<versión>\<idioma>\jre7\sqljdbc41.jar
+<directorio de instalación>\sqljdbc_<versión>\<idioma>\auth\x86\sqljdbc_auth.dll
+<directorio de instalación>\sqljdbc_<versión>\<idioma>\auth\x64\sqljdbc_auth.dll
+<directorio de instalación>\sqljdbc_<versión>\<idioma>\samples\<archivos de ejemplo...>
+<directorio de instalación>\sqljdbc_<versión>\<idioma>\xa\xa_install.sql
+<directorio de instalación>\sqljdbc_<versión>\<idioma>\xa\x86\sqljdbc_xa.dll
+<directorio de instalación>\sqljdbc_<versión>\<idioma>\xa\x64\sqljdbc_xa.dll
+
+
+LISTA DE CAMBIOS
+-----------
+
+Cambios entre las versiones 4.1.8112.100 y 4.1.8112.200
+
+Se ha modificado el compilador para mitigar vulnerabilidades relacionadas con Spectre y Meltdown.
+
+-----------------------------------------
+Cambios entre las versiones 4.1.5605.100 y 4.1.8112.100
+
+Se ha corregido un problema de validación de certificados al dirigirse al anillo del inquilino de SQL DB.
+
+Se ha corregido un problema del paquete LOGIN7, que no contenía el número de versión de los controladores.
+
+------------------------
+Cambios entre las versiones 4.0 y 4.1:
+
+2828290 El nuevo nombre del servidor se envía ahora en el paquete Login7 después de redirigir una solicitud.
+
+3362720 El controlador JDBC ahora es compatible con Java Development Kit (JDK) versión 7.0, además de con JDK 5.0 y 6.0. Incluye un nuevo archivo .jar, sqljdbc41.jar, que es compatible con JDK 7.0 y con la API de JDBC 4.0. 
+
+
+PROBLEMAS CONOCIDOS
+------------
+Estos son los problemas conocidos de Microsoft JDBC Driver 4.1 para SQL Server:
+
+1) LIMITACIONES PARA LA OBTENCIÓN DE METADATOS DE PARÁMETROS CON LA INSTRUCCIÓN MERGE DE SQL
+
+PreparedStatement.getParameterMetadata() genera una excepción de tipo SQLException cuando se usa
+con una consulta MERGE parametrizada.
+
+
+2) Kerberos de Java y las máquinas virtuales Java de IBM
+
+Si está en entornos Windows, quizás tenga que especificar el nombre de la entidad de seguridad (principalname) en el archivo de configuración para que Kerberos de Java funcione. Por ejemplo: 
+SQLJDBCDriver {
+com.ibm.security.auth.module.Krb5LoginModule required  useDefaultCcache=true credsType=initiator principal=principalname@principaldomain;
+};
+
+
+3) QUITAR CONEXIONES CON SQL AZURE
+
+Al conectarse a SQL Azure, un componente de red podría terminar las conexiones inactivas (como un firewall) después de un 
+período de inactividad. Para evitar la eliminación de las conexiones inactivas por un componente de red, 
+se debe establecer la siguiente configuración del Registro (o su equivalente si no es Windows) en el sistema operativo donde esté cargado el controlador:
+           
+Configuración del Registro                                                                     Valor recomendado
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\KeepAliveTime                 30000      
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\KeepAliveInterval             1000
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\TcpMaxDataRetransmission      10

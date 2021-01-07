@@ -25,25 +25,25 @@ public class ExamenFisicoEntity implements Serializable {
 	private Long seqExaFisico;
 
 	@Column(name = "num_tension")
-	private double numTesion;
+	private String numTesion;
 
 	@Column(name = "num_frec_car")
-	private double numFreCar;
+	private String numFreCar;
 
 	@Column(name = "num_sat")
-	private double numSat;
+	private String numSat;
 
 	@Column(name = "num_frec_resp")
-	private double numFrecResp;
+	private String numFrecResp;
 
 	@Column(name = "num_peso")
-	private double numPeso;
+	private String numPeso;
 
 	@Column(name = "num_talla")
-	private double numTalla;
+	private String numTalla;
 
 	@Column(name = "num_imc")
-	private double numImc;
+	private String numImc;
 
 	@Column(name = "lateralidad")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',lateralidad)")
@@ -93,61 +93,61 @@ public class ExamenFisicoEntity implements Serializable {
 		this.seqExaFisico = seqExaFisico;
 	}
 
-	public double getNumTesion() {
+	
+
+	public String getNumTesion() {
 		return numTesion;
 	}
 
-	public void setNumTesion(double numTesion) {
+	public void setNumTesion(String numTesion) {
 		this.numTesion = numTesion;
 	}
 
-	public double getNumFreCar() {
+	public String getNumFreCar() {
 		return numFreCar;
 	}
 
-	public void setNumFreCar(double numFreCar) {
+	public void setNumFreCar(String numFreCar) {
 		this.numFreCar = numFreCar;
 	}
 
-	public double getNumSat() {
+	public String getNumSat() {
 		return numSat;
 	}
 
-	public void setNumSat(double numSat) {
+	public void setNumSat(String numSat) {
 		this.numSat = numSat;
 	}
 
-	public double getNumFrecResp() {
+	public String getNumFrecResp() {
 		return numFrecResp;
 	}
 
-	public void setNumFrecResp(double numFrecResp) {
+	public void setNumFrecResp(String numFrecResp) {
 		this.numFrecResp = numFrecResp;
 	}
 
-	public double getNumPeso() {
+	public String getNumPeso() {
 		return numPeso;
 	}
 
-	public void setNumPeso(double numPeso) {
+	public void setNumPeso(String numPeso) {
 		this.numPeso = numPeso;
 	}
 
-	public double getNumTalla() {
+	public String getNumTalla() {
 		return numTalla;
 	}
 
-	public void setNumTalla(double numTalla) {
+	public void setNumTalla(String numTalla) {
 		this.numTalla = numTalla;
 	}
 
-
-
-	public double getNumImc() {
+	public String getNumImc() {
 		return numImc;
 	}
 
-	public void setNumImc(double numImc) {
+	public void setNumImc(String numImc) {
 		this.numImc = numImc;
 	}
 

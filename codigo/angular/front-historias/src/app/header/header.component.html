@@ -34,22 +34,22 @@
 
             <button mat-button [matMenuTriggerFor]="crear" *ngIf="permiso.crearUsuario == 1 || permiso.crearAux == 1"
               style="background: black;"><span style="color: white;font-size: 18px;">Creación
-                Formularios</span></button>
+                historias clínicas</span></button>
             <mat-menu #crear="matMenu">
               <button style="background: black;" mat-menu-item><a href="menuPrincipal/list-usuariosApp"><span
                     style="color: white;">Listado Pacientes</span></a></button>
               <button style="background: black;" mat-menu-item *ngIf="permiso.crearUsuario == 1"><a
-                  href="menuPrincipal/form-ocupacional"><span style="color: white;">Crear Formulario
+                  href="menuPrincipal/form-ocupacional"><span style="color: white;">Crear historia
                     Ocupacional</span></a></button>
               <button style="background: black;" mat-menu-item *ngIf="permiso.crearUsuario == 1"><a
-                  href="menuPrincipal/form-gym"><span style="color: white;">Crear Formulario Valoración
-                    Deportiva</span></a></button>
+                  href="menuPrincipal/form-gym"><span style="color: white;">Crear historia valoración deportiva
+                    </span></a></button>
               <button style="background: black;" mat-menu-item *ngIf="permiso.crearAux == 1"><a
-                  href="menuPrincipal/form-ocupacional/auxiliar"><span style="color: white;">Crear Formulario
+                  href="menuPrincipal/form-ocupacional/auxiliar"><span style="color: white;">Crear historia
                     Ocupacional</span></a></button>
               <button style="background: black;" mat-menu-item *ngIf="permiso.crearAux == 1"><a
-                  href="menuPrincipal/form-gym/auxiliar"><span style="color: white;">Crear Formulario
-                    Valoración Deportiva</span></a></button>
+                  href="menuPrincipal/form-gym/auxiliar"><span style="color: white;">Crear historia valoración deportiva
+                  </span></a></button>
             </mat-menu>
 
             <button mat-button [matMenuTriggerFor]="descargas" *ngIf="permiso.descargar == 1"

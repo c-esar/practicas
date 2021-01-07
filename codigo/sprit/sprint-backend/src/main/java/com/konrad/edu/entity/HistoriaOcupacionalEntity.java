@@ -59,7 +59,7 @@ public class HistoriaOcupacionalEntity implements Serializable {
 	private List<AntecedentesHistoriaEntity> antecedentesHistoriaEntity;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "seq_historia_laboral")
+	@JoinColumn(name = "seq_historia")
 	private List<ParaclinicosEntity> paraclinicosEntity;
 
 	@OneToOne(fetch = FetchType.EAGER)

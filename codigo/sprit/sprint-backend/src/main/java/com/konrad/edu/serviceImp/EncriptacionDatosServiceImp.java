@@ -24,7 +24,8 @@ public class EncriptacionDatosServiceImp implements IEncriptacionDatosService {
 		historia.setSeqTipoHistoria(historiaEntity.getSeqTipoHistoria());
 		historia.setExamenFisico(this.encriptacionExamenFisico(historiaEntity.getExamenFisico()));
 		historia.setHistoriaLaboral(historiaEntity.getHistoriaLaboral());
-		historia.setAntecedentesHistoriaEntity(this.encriptacionAntecedentesHistoriaEntity(historiaEntity.getAntecedentesHistoriaEntity()));
+		historia.setAntecedentesHistoriaEntity(
+				this.encriptacionAntecedentesHistoriaEntity(historiaEntity.getAntecedentesHistoriaEntity()));
 		historia.setParaclinicosEntity(this.encriptacionParaclinicosEntity(historiaEntity.getParaclinicosEntity()));
 		historia.setTipoEvaluacionEntity(historiaEntity.getTipoEvaluacionEntity());
 		historia.setCiudadHistoria(historiaEntity.getCiudadHistoria());
@@ -101,9 +102,10 @@ public class EncriptacionDatosServiceImp implements IEncriptacionDatosService {
 	}
 
 	@Override
-	public List<ParaclinicosEntity> encriptacionParaclinicosEntity( List<ParaclinicosEntityEncriptacion> encriptacionParaclinicosEntity) {
+	public List<ParaclinicosEntity> encriptacionParaclinicosEntity(
+			List<ParaclinicosEntityEncriptacion> encriptacionParaclinicosEntity) {
 		List<ParaclinicosEntity> encriptacionParaclinicos = new ArrayList<ParaclinicosEntity>();
-		for(int i=0; i<encriptacionParaclinicosEntity.size(); i++) {
+		for (int i = 0; i < encriptacionParaclinicosEntity.size(); i++) {
 			ParaclinicosEntity tmp = new ParaclinicosEntity();
 			tmp.setDespExamen(encriptacionParaclinicosEntity.get(i).getDespExamen().getBytes());
 			tmp.setDespResultado(encriptacionParaclinicosEntity.get(i).getDespResultado().getBytes());
@@ -115,9 +117,10 @@ public class EncriptacionDatosServiceImp implements IEncriptacionDatosService {
 	}
 
 	@Override
-	public List<AntecedentesHistoriaEntity> encriptacionAntecedentesHistoriaEntity( List<AntecedentesHistoriaEntityEncriptacion> encriptacionantecedentesEntity) {
+	public List<AntecedentesHistoriaEntity> encriptacionAntecedentesHistoriaEntity(
+			List<AntecedentesHistoriaEntityEncriptacion> encriptacionantecedentesEntity) {
 		List<AntecedentesHistoriaEntity> encriptacionantecedentes = new ArrayList<AntecedentesHistoriaEntity>();
-		for(int i=0; i<encriptacionantecedentesEntity.size(); i++) {
+		for (int i = 0; i < encriptacionantecedentesEntity.size(); i++) {
 			AntecedentesHistoriaEntity tmp = new AntecedentesHistoriaEntity();
 			tmp.setAnosHabito(encriptacionantecedentesEntity.get(i).getAnosHabito().getBytes());
 			tmp.setCcv(encriptacionantecedentesEntity.get(i).getCcv().getBytes());

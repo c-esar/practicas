@@ -181,8 +181,28 @@ public class LabelConstantes implements Serializable {
 	private String labelSiNo;
 	private String labelCancer;
 	private String labelTipoCancer;
+	
+	private String labelNombreAcompanante;
+	private String labelTelefonoAcompanante;
+	private String labelNombrePersonaResponsable;
+	private String labelTelefonoPersonaResponsable;
+	private String labelParentescoResponsable;
+	private String labelTipoVinculacion;
+	private String labelLocalidad;
+	private String labelMunicipioResidencia;
+	private String labelCelular;
 
 	public LabelConstantes() {
+		this.labelCelular = IConstantes.LABEL_CELULAR;
+		this.labelNombreAcompanante = IConstantes.LABEL_NOMBRE_ACOMPANANTE;
+		this.labelTelefonoAcompanante = IConstantes.LABEL_TELEFONO_ACOMPANANTE;
+		this.labelNombrePersonaResponsable = IConstantes.LABEL_NOMBRE_PERSONA_RESPONSABLE;
+		this.labelTelefonoPersonaResponsable = IConstantes.LABEL_TELEFONO_PERSONA_RESPONSABLE;
+		this.labelParentescoResponsable = IConstantes.LABEL_PARENTESCO_RESPONSABLE;
+		this.labelTipoVinculacion = IConstantes.LABEL_TIPO_VINVULACION;
+		this.labelLocalidad = IConstantes.LABEL_LOCALIDAD;
+		this.labelMunicipioResidencia =  IConstantes.LABEL_MUNICIPIO_RESIDENCIA;
+		
 		this.labelPrimerNombre = IConstantes.LABEL_PRIMER_NOMBRE;
 		this.labelSegundoNombre = IConstantes.LABEL_SEGUNDO_NOMBRE;
 		this.labelPrimerApellido = IConstantes.LABEL_PRIMER_APELLIDO;
@@ -1591,4 +1611,77 @@ public class LabelConstantes implements Serializable {
 		this.ultimaParteOcupacional = ultimaParteOcupacional;
 	}
 
+	public String getLabelNombreAcompanante() {
+		return labelNombreAcompanante;
+	}
+
+	public void setLabelNombreAcompanante(String labelNombreAcompanante) {
+		this.labelNombreAcompanante = labelNombreAcompanante;
+	}
+
+	public String getLabelTelefonoAcompanante() {
+		return labelTelefonoAcompanante;
+	}
+
+	public void setLabelTelefonoAcompanante(String labelTelefonoAcompanante) {
+		this.labelTelefonoAcompanante = labelTelefonoAcompanante;
+	}
+
+	public String getLabelNombrePersonaResponsable() {
+		return labelNombrePersonaResponsable;
+	}
+
+	public void setLabelNombrePersonaResponsable(String labelNombrePersonaResponsable) {
+		this.labelNombrePersonaResponsable = labelNombrePersonaResponsable;
+	}
+
+	public String getLabelTelefonoPersonaResponsable() {
+		return labelTelefonoPersonaResponsable;
+	}
+
+	public void setLabelTelefonoPersonaResponsable(String labelTelefonoPersonaResponsable) {
+		this.labelTelefonoPersonaResponsable = labelTelefonoPersonaResponsable;
+	}
+
+	public String getLabelParentescoResponsable() {
+		return labelParentescoResponsable;
+	}
+
+	public void setLabelParentescoResponsable(String labelParentescoResponsable) {
+		this.labelParentescoResponsable = labelParentescoResponsable;
+	}
+
+	public String getLabelTipoVinculacion() {
+		return labelTipoVinculacion;
+	}
+
+	public void setLabelTipoVinculacion(String labelTipoVinculacion) {
+		this.labelTipoVinculacion = labelTipoVinculacion;
+	}
+
+	public String getLabelLocalidad() {
+		return labelLocalidad;
+	}
+
+	public void setLabelLocalidad(String labelLocalidad) {
+		this.labelLocalidad = labelLocalidad;
+	}
+
+	public String getLabelMunicipioResidencia() {
+		return labelMunicipioResidencia;
+	}
+
+	public void setLabelMunicipioResidencia(String labelMunicipioResidencia) {
+		this.labelMunicipioResidencia = labelMunicipioResidencia;
+	}
+
+	public String getLabelCelular() {
+		return labelCelular;
+	}
+
+	public void setLabelCelular(String labelCelular) {
+		this.labelCelular = labelCelular;
+	}
+
+	
 }

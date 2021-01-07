@@ -4,6 +4,7 @@ import { Historias } from './historias';
 import { HistoriaGym } from './historiaGym';
 import { TipoUsuario } from './tipoUsuario';
 import { Login } from './login';
+import { Localidad } from './localidad';
 export class Persona {
   seqPersona: number;
   nomPrimerNombre: string;
@@ -46,6 +47,14 @@ export class Persona {
   licenciaSalud: string;
   registroMedico: string;
   perfil: Login;
+  localidad: Localidad;
+	nombreAcompanante : string;
+	telefonoAcompanante: string;
+	nombrePersonaResponsable: string;
+	telefonoPersonaResponsable: string;
+	parentescoPersonaResponsable: string;
+	tipoVinculacion: string;
+	municipioResidencia: string;
   constructor() {
     this.seqPersona = null;
     this.nomPrimerNombre = null;
@@ -88,5 +97,13 @@ export class Persona {
     this.licenciaSalud = null;
     this.registroMedico = null;
     this.perfil = new Login();
+    this.localidad = new Localidad();
+    this.nombreAcompanante = null;
+    this.telefonoAcompanante= null;
+    this.nombrePersonaResponsable= null;
+    this.telefonoPersonaResponsable= null;
+    this.parentescoPersonaResponsable= null;
+    this.tipoVinculacion= null;
+    this.municipioResidencia= null;
   }
 }

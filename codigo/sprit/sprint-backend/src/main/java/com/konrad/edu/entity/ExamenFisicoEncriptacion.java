@@ -6,13 +6,13 @@ public class ExamenFisicoEncriptacion implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Long seqExaFisico;
-	private double numTesion;
-	private double numFreCar;
-	private double numSat;
-	private double numFrecResp;
-	private double numPeso;
-	private double numTalla;
-	private double numImc;
+	private String numTesion;
+	private String numFreCar;
+	private String numSat;
+	private String numFrecResp;
+	private String numPeso;
+	private String numTalla;
+	private String numImc;
 	private String lateralidad;
 	private String despCapCuello;
 	private String despTorax;
@@ -32,59 +32,61 @@ public class ExamenFisicoEncriptacion implements Serializable {
 		this.seqExaFisico = seqExaFisico;
 	}
 
-	public double getNumTesion() {
+	
+	
+	public String getNumTesion() {
 		return numTesion;
 	}
 
-	public void setNumTesion(double numTesion) {
+	public void setNumTesion(String numTesion) {
 		this.numTesion = numTesion;
 	}
 
-	public double getNumFreCar() {
+	public String getNumFreCar() {
 		return numFreCar;
 	}
 
-	public void setNumFreCar(double numFreCar) {
+	public void setNumFreCar(String numFreCar) {
 		this.numFreCar = numFreCar;
 	}
 
-	public double getNumSat() {
+	public String getNumSat() {
 		return numSat;
 	}
 
-	public void setNumSat(double numSat) {
+	public void setNumSat(String numSat) {
 		this.numSat = numSat;
 	}
 
-	public double getNumFrecResp() {
+	public String getNumFrecResp() {
 		return numFrecResp;
 	}
 
-	public void setNumFrecResp(double numFrecResp) {
+	public void setNumFrecResp(String numFrecResp) {
 		this.numFrecResp = numFrecResp;
 	}
 
-	public double getNumPeso() {
+	public String getNumPeso() {
 		return numPeso;
 	}
 
-	public void setNumPeso(double numPeso) {
+	public void setNumPeso(String numPeso) {
 		this.numPeso = numPeso;
 	}
 
-	public double getNumTalla() {
+	public String getNumTalla() {
 		return numTalla;
 	}
 
-	public void setNumTalla(double numTalla) {
+	public void setNumTalla(String numTalla) {
 		this.numTalla = numTalla;
 	}
 
-	public double getNumImc() {
+	public String getNumImc() {
 		return numImc;
 	}
 
-	public void setNumImc(double numImc) {
+	public void setNumImc(String numImc) {
 		this.numImc = numImc;
 	}
 
