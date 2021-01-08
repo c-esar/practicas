@@ -32,8 +32,6 @@ public class ExamenFisicoEncriptacion implements Serializable {
 		this.seqExaFisico = seqExaFisico;
 	}
 
-	
-	
 	public String getNumTesion() {
 		return numTesion;
 	}

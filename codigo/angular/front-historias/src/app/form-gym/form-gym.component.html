@@ -96,7 +96,7 @@
 								<mat-form-field>
 									<mat-label for="formTipoDocumentoGym">{{datosSingleton.labelTipoDocumento}}
 									</mat-label>
-									<mat-select id="formTipoDocumentoGym"
+									<mat-select required id="formTipoDocumentoGym"
 										[ngModel]="Spersona.tipoDocumento.seqTipoDocumento" name="tipoDocumento"
 										(ngModelChange)="persona.tipoDocumento.seqTipoDocumento = $event">
 										<mat-option *ngFor="let doc of tipoDocumento" [value]="doc.seqTipoDocumento">
@@ -246,7 +246,7 @@
 										</div>
 									</div>
 
-									<br>
+									<!--<br>
 									<div style="float: left;">
 										<div style="float: left">
 											<mat-checkbox id="medicotipo" name="medicotipo" [(ngModel)]="medicotipo">
@@ -266,7 +266,7 @@
 										<div style="float: right">
 											<label>AUXILIAR</label>
 										</div>
-									</div>
+									</div>-->
 								</section>
 							</div>
 							<div class="form-group col-md-6 col-sm-6 col-xs-6" *ngIf="otro == true">
@@ -278,6 +278,17 @@
 										id="formotroUsuarioGym" type="text" class="form-control campoGrande"
 										placeholder=OTRO TIPO USUARIO />
 									<mat-error>Texto Incorrecto</mat-error>
+								</mat-form-field>
+							</div>
+							<div class="form-group col-md-6 col-sm-6 col-xs-3">
+								<mat-form-field>
+									<mat-label for="formfechaNacimientoOcupacional">
+										{{datosSingleton.labelFechaNacimiento}}</mat-label>
+									<input matInput required [matDatepicker]="picker2"
+										[ngModel]="Spersona.fechaNacimiento" name="fechaNacimiento"
+										(ngModelChange)="persona.fechaNacimiento = $event">
+									<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+									<mat-datepicker #picker2></mat-datepicker>
 								</mat-form-field>
 							</div>
 							<div class="form-group col-md-6 col-sm-6 col-xs-3">
@@ -301,11 +312,11 @@
 							</div>
 							<div class="form-group col-md-6 col-sm-6 col-xs-3">
 								<mat-form-field>
-									<mat-label for="formcelularGym">Celular</mat-label>
+									<mat-label for="formcelularGym">{{datosSingleton.labelCelular}}</mat-label>
 									<mat-error>No son números</mat-error> <input matInput required pattern="[0-9]*"
 										[ngModel]="Spersona.celular" name="celular" id="formcelularGym" type="text"
 										(ngModelChange)="persona.celular = $event" class="form-control campoGrande"
-										placeholder="Celular" value="" />
+										placeholder="{{datosSingleton.labelCelular}}" value="" />
 								</mat-form-field>
 							</div>
 							<div class="form-group col-md-6 col-sm-6 col-xs-3">
@@ -315,6 +326,21 @@
 										required name="genero" id="formgeneroGym">
 										<mat-option value="M">Masculino</mat-option>
 										<mat-option value="F">Femenino</mat-option>
+									</mat-select>
+									<mat-error>Seleccione una opción</mat-error>
+								</mat-form-field>
+							</div>
+							<div class="form-group col-md-6 col-sm-6 col-xs-3">
+								<mat-form-field>
+									<mat-label for="formestadoCivilOcupacional">{{datosSingleton.labelEstadoCivil}}
+									</mat-label>
+									<mat-select required [ngModel]="Spersona.estadoCivil"
+										(ngModelChange)="persona.estadoCivil = $event" name="estadoCivil">
+										<mat-option value="Soltero">SOLTERO</mat-option>
+										<mat-option value="Casado">CASADO</mat-option>
+										<mat-option value="UniónLibre">UNIÓN LIBRE</mat-option>
+										<mat-option value="Viudo">VIUDO</mat-option>
+										<mat-option value="Separado">SEPARADO</mat-option>
 									</mat-select>
 									<mat-error>Seleccione una opción</mat-error>
 								</mat-form-field>
@@ -358,6 +384,44 @@
 									<mat-error>Escriba una EPS</mat-error>
 								</mat-form-field>
 							</div>
+							<div class="form-group col-md-6 col-sm-6 col-xs-3">
+								<mat-form-field>
+									<mat-label for="formlugarNacimientoOcupacional">
+										LUGAR DE RESIDENCIA</mat-label>
+									<mat-select required [ngModel]="Spersona.lugarDeResidencia.seqCuidad"
+										(ngModelChange)="persona.lugarDeResidencia.seqCuidad = $event" name="ciudad">
+										<mat-option *ngFor="let doc of ciudad" [value]="doc.seqCuidad">
+											{{doc.nomCuidad}} </mat-option>
+									</mat-select>
+									<mat-error>Seleccione una
+										opción</mat-error>
+								</mat-form-field>
+							</div>
+							<div class="form-group col-md-6 col-sm-6 col-xs-3">
+								<mat-form-field>
+									<mat-label for="formdireccionOcupacional">{{datosSingleton.labelDireccionCasa}}
+									</mat-label>
+									<input matInput required [ngModel]="Spersona.direccion"
+										(ngModelChange)="persona.direccion = $event" name="direccion"
+										id="formdireccionOcupacional" type="text" class="form-control campoGrande"
+										placeholder={{datosSingleton.labelDireccionCasa}} />
+								</mat-form-field>
+							</div>
+							<div class="form-group col-md-6 col-sm-6 col-xs-3">
+								<mat-form-field>
+									<mat-label for="formLocalidad">{{datosSingleton.labelLocalidad}}
+									</mat-label>
+									<mat-select id="formLocalidad" required
+										[ngModel]="Spersona.localidad" name="localidad"
+										(ngModelChange)="persona.localidad = $event">
+										<mat-option *ngFor="let loc of localidad" [value]="loc">
+											{{loc.nomLocalidad}} </mat-option>
+									</mat-select>
+									<mat-error>Seleccione
+										una opción</mat-error>
+								</mat-form-field>
+							</div>
+
 							<div class="form-group col-md-6 col-sm-6 col-xs-3">
 								<mat-form-field>
 									<mat-label for="formnomCargoDepGym">{{datosSingleton.labelCargoDependencia}}

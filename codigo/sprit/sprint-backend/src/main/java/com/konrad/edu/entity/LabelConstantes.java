@@ -181,7 +181,7 @@ public class LabelConstantes implements Serializable {
 	private String labelSiNo;
 	private String labelCancer;
 	private String labelTipoCancer;
-	
+
 	private String labelNombreAcompanante;
 	private String labelTelefonoAcompanante;
 	private String labelNombrePersonaResponsable;
@@ -201,8 +201,8 @@ public class LabelConstantes implements Serializable {
 		this.labelParentescoResponsable = IConstantes.LABEL_PARENTESCO_RESPONSABLE;
 		this.labelTipoVinculacion = IConstantes.LABEL_TIPO_VINVULACION;
 		this.labelLocalidad = IConstantes.LABEL_LOCALIDAD;
-		this.labelMunicipioResidencia =  IConstantes.LABEL_MUNICIPIO_RESIDENCIA;
-		
+		this.labelMunicipioResidencia = IConstantes.LABEL_MUNICIPIO_RESIDENCIA;
+
 		this.labelPrimerNombre = IConstantes.LABEL_PRIMER_NOMBRE;
 		this.labelSegundoNombre = IConstantes.LABEL_SEGUNDO_NOMBRE;
 		this.labelPrimerApellido = IConstantes.LABEL_PRIMER_APELLIDO;
@@ -1683,5 +1683,4 @@ public class LabelConstantes implements Serializable {
 		this.labelCelular = labelCelular;
 	}
 
-	
 }

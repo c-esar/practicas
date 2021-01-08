@@ -26,7 +26,9 @@ public interface IPersonaDao extends CrudRepository<PersonaEntity, Long> {
 			+ "p.nom_segundo_nombre, " + "p.nuevo_rol_usuario, " + "p.numero_documento, " + "p.parentesco_emergencia, "
 			+ "p.rh, " + "p.tel_emergencia, " + "telefono, " + "p.seq_aseguradora, " + "p.seq_lugar_residencia, "
 			+ "p.seq_lugar_nacimiento, " + "p.seq_perfil, " + "p.seq_tipo_documento, " + "p.imagen_encriptada, "
-			+ "p.lic_salud, " + "p.registro_medico " + "FROM hc_personas p "
+			+ "p.lic_salud, " + "p.registro_medico, " + "p.seq_localidad, p.nombre_acompanante, "
+			+ "p.telefono_acompanante, p.nombre_persona_responsable, p.telefono_persona_responsable, p.parentesco_persona_responsable, p.tipo_vinculacion, p.municipio_residencia " 
+			+ "FROM hc_personas p "
 			+ "INNER JOIN hc_rol_usuario_persona as rol ON (rol.seq_persona=p.seq_persona) "
 			+ "WHERE rol.tipo_usuario IN (:tipo_usuario);", nativeQuery = true)
 	public List<PersonaEntity> findAllTipoUsuario(@Param("tipo_usuario") List<String> seq_tipo_usuario);

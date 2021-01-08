@@ -21,7 +21,7 @@ export class Persona {
   fechaCreacion: Date;
   genero: string;
   estadoCivil: string;
-  fechaNacimiento: string;
+  fechaNacimiento: Date;
   lugarNacimiento: Ciudad;
   barrio: string;
   lugarDeResidencia: Ciudad;

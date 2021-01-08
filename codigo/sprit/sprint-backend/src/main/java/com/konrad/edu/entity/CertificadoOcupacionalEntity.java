@@ -56,7 +56,7 @@ public class CertificadoOcupacionalEntity implements Serializable {
 
 	@Column(name = "otro_evaluacion")
 	private String otroEvaluacion;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "seq_eval")
 	private TipoEvaluacionEntity tipoEvaluacionEntity;
@@ -69,7 +69,7 @@ public class CertificadoOcupacionalEntity implements Serializable {
 	public void prePersist() {
 		this.datFechaCertificado = new Date();
 	}
-	
+
 	public CertificadoOcupacionalEntity() {
 		this.seqHistoria = new HistoriaOcupacionalEntity();
 	}
@@ -170,5 +170,4 @@ public class CertificadoOcupacionalEntity implements Serializable {
 		this.tipoEvaluacionEntity = tipoEvaluacionEntity;
 	}
 
-	
 }

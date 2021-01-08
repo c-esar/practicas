@@ -38,23 +38,23 @@ public class AntecedentesHistoriaEntity implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private TipoAntecedenteEntity tipoAntecedenteEntity;
 
-	@Column(name = "estado_antecedente", length = 3)
+	@Column(name = "estado_antecedente")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',estado_antecedente)")
 	private byte[] estadoAntecedente;
 
-	@Column(name = "desp_antecedente", length = 4000)
+	@Column(name = "desp_antecedente")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_antecedente)")
 	private byte[] despAntecedente;
 
-	@Column(name="frecuencia", length = 100)
+	@Column(name = "frecuencia")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',frecuencia)")
 	private byte[] frecuencia;
 
-	@Column(name="tipo", length = 100)
+	@Column(name = "tipo")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',tipo)")
 	private byte[] tipo;
 
-	@Column(name="ex_fumador", length = 100)
+	@Column(name = "ex_fumador")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',ex_fumador)")
 	private byte[] exFumador;
 
@@ -62,12 +62,12 @@ public class AntecedentesHistoriaEntity implements Serializable {
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',anos_habito)")
 	private byte[] anosHabito;
 
-	@Column(name="planificacion", length = 100)
+	@Column(name = "planificacion")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',planificacion)")
 	private byte[] planificacion;
 
 	// fecha ultima citoligias y resultados
-	@Column(name="ccv")
+	@Column(name = "ccv")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',ccv)")
 	private byte[] ccv;
 
@@ -82,19 +82,19 @@ public class AntecedentesHistoriaEntity implements Serializable {
 	@Column(name = "menarquia_gestaciones")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',menarquia_gestaciones)")
 	private byte[] menarquiaGestaciones;
-	
+
 	@Column(name = "menarquia_partos")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',menarquia_partos)")
 	private byte[] menarquiaPartos;
-	
+
 	@Column(name = "menarquia_cesarias")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',menarquia_cesarias)")
 	private byte[] menarquiaCesarias;
-	
+
 	@Column(name = "menarquia_abortos")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',menarquia_abortos)")
 	private byte[] menarquiaAbortos;
-	
+
 	@Column(name = "menarquia_vivos")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',menarquia_vivos)")
 	private byte[] menarquiaVivos;
@@ -234,7 +234,5 @@ public class AntecedentesHistoriaEntity implements Serializable {
 	public void setMenarquiaVivos(byte[] menarquiaVivos) {
 		this.menarquiaVivos = menarquiaVivos;
 	}
-
-
 
 }

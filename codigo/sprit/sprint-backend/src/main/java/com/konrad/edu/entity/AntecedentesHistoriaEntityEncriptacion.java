@@ -109,7 +109,6 @@ public class AntecedentesHistoriaEntityEncriptacion implements Serializable {
 	public void setCcv(String ccv) {
 		this.ccv = ccv;
 	}
-	
 
 	public String getMenarquiaGestaciones() {
 		return menarquiaGestaciones;

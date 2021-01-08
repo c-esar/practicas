@@ -8,6 +8,7 @@ import { Persona } from '../DatosBean/persona';
 import { TipoDocumento } from '../DatosBean/tipoDocumento';
 import { Ciudad } from '../DatosBean/ciudad';
 import { Router } from '@angular/router';
+import { Localidad } from '../DatosBean/localidad';
 import { Permiso } from '../DatosBean/permiso';
 import { TipoHistoria } from '../DatosBean/tipoHistoria';
 import { TipoUsuario } from '../DatosBean/tipoUsuario';
@@ -36,6 +37,7 @@ export class FormAuxiliarComponent implements OnInit {
   //lista elementos a bloquear
   listaElementosBLoquear: string[];
   sinAgregarLista: boolean;
+  localidad: Localidad[];
 
   constructor(private labelService: LabelService,
     private loginService: LoginService,
@@ -93,6 +95,7 @@ export class FormAuxiliarComponent implements OnInit {
     this.obtenerTipoDocumento();
     this.obtenerCiudad();
     this.getAuxOMedico();
+    this.getLocalidad();
   }
   private activarLabels(): void {
     this.labelService.getLabel().subscribe(
@@ -112,6 +115,15 @@ export class FormAuxiliarComponent implements OnInit {
     this.personaService.getTipoDocumento().subscribe(
       (respuesta) => {
         this.tipoDocumento = respuesta
+        console.log(respuesta)
+      }
+    )
+  }
+
+  private getLocalidad(): void {
+    this.personaService.getLocalidad().subscribe(
+      (respuesta) => {
+        this.localidad = respuesta;
         console.log(respuesta)
       }
     )
@@ -246,6 +258,15 @@ export class FormAuxiliarComponent implements OnInit {
     }
     this.persona.perfil = per.perfil == null || per.perfil.seqPerfil == null ? null : per.perfil;
     this.persona.imagen = this.persona.imagen == null ? per.imagen : this.persona.imagen;
+    this.persona.localidad = (this.persona.localidad == null || this.persona.localidad.seqLocalidad == null) ? per.localidad : this.persona.localidad;
+    this.persona.nombreAcompanante = this.persona.nombreAcompanante == null ? per.nombreAcompanante : this.persona.nombreAcompanante;
+    this.persona.telefonoAcompanante = this.persona.telefonoAcompanante == null ? per.telefonoAcompanante : this.persona.telefonoAcompanante;
+    this.persona.nombrePersonaResponsable = this.persona.nombrePersonaResponsable == null ? per.nombrePersonaResponsable : this.persona.nombrePersonaResponsable;
+    this.persona.telefonoPersonaResponsable = this.persona.telefonoPersonaResponsable == null ? per.telefonoPersonaResponsable : this.persona.telefonoPersonaResponsable;
+    this.persona.parentescoPersonaResponsable =  this.persona.parentescoPersonaResponsable == null ? per.parentescoPersonaResponsable :  this.persona.parentescoPersonaResponsable;
+    this.persona.tipoVinculacion = this.persona.tipoVinculacion == null ? per.tipoVinculacion : this.persona.tipoVinculacion;
+    this.persona.municipioResidencia = this.persona.municipioResidencia == null ? per.municipioResidencia : this.persona.municipioResidencia;
+  
   }
 
 }

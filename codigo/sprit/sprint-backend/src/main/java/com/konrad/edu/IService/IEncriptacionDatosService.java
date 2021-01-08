@@ -20,8 +20,10 @@ public interface IEncriptacionDatosService {
 	public HistoriaGYMEntity encriptacionHistoriaGym(HistoriaGymEncriptacion historiaEntity);
 
 	public ExamenFisicoEntity encriptacionExamenFisico(ExamenFisicoEncriptacion examenFisicoEntity);
-	
-	public List<ParaclinicosEntity> encriptacionParaclinicosEntity(List<ParaclinicosEntityEncriptacion> encriptacionParaclinicosEntity);
-	
-	public List<AntecedentesHistoriaEntity> encriptacionAntecedentesHistoriaEntity( List<AntecedentesHistoriaEntityEncriptacion> encriptacionantecedentesEntity);
+
+	public List<ParaclinicosEntity> encriptacionParaclinicosEntity(
+			List<ParaclinicosEntityEncriptacion> encriptacionParaclinicosEntity);
+
+	public List<AntecedentesHistoriaEntity> encriptacionAntecedentesHistoriaEntity(
+			List<AntecedentesHistoriaEntityEncriptacion> encriptacionantecedentesEntity);
 }

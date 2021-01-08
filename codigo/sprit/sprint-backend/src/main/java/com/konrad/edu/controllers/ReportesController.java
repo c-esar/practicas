@@ -82,8 +82,8 @@ public class ReportesController {
 		response.put("persona", enviarRuta);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
-	
-	//reporte gym
+
+	// reporte gym
 	@GetMapping("/certificadoGym/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<?> reportescertificadoGym(@PathVariable String id) {

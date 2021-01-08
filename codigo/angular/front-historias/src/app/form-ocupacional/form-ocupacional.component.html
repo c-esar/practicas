@@ -321,7 +321,8 @@
 										[ngModel]="Spersona.localidad" name="localidad"
 										(ngModelChange)="persona.localidad = $event">
 										<mat-option *ngFor="let loc of localidad" [value]="loc">
-											{{loc.nomLocalidad}} </mat-option>
+											{{loc.nomLocalidad}} 
+										</mat-option>
 									</mat-select>
 									<mat-error>Seleccione
 										una opción</mat-error>
@@ -349,7 +350,7 @@
 							<div class="form-group col-md-6 col-sm-6 col-xs-3">
 								<mat-form-field>
 									<mat-label for="formAFPOcupacional">{{datosSingleton.labelAFP}}</mat-label>
-									<input matInput [ngModel]="Spersona.afp" (ngModelChange)="persona.afp = $event"
+									<input matInput required [ngModel]="Spersona.afp" (ngModelChange)="persona.afp = $event"
 										name="AFP" id="formAFPOcupacional" type="text" class="form-control campoGrande"
 										placeholder={{datosSingleton.labelAFP}} value="" />
 								</mat-form-field>
@@ -357,7 +358,7 @@
 							<div class="form-group col-md-6 col-sm-6 col-xs-3">
 								<mat-form-field>
 									<mat-label for="formARLOcupacional">{{datosSingleton.labelARL}}</mat-label>
-									<input matInput [ngModel]="Spersona.arl" (ngModelChange)="persona.arl = $event"
+									<input matInput required [ngModel]="Spersona.arl" (ngModelChange)="persona.arl = $event"
 										name="ARL" id="formARLOcupacional" type="text" class="form-control campoGrande"
 										placeholder={{datosSingleton.labelARL}} value="" />
 								</mat-form-field>

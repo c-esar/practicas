@@ -12,7 +12,7 @@ public interface IHistoriaGymDao extends CrudRepository<HistoriaGYMEntity, Long>
 	@Query(value = "select * from hc_historia_gym u " + "inner join hc_personas p on p.seq_persona = u.seq_persona "
 			+ "where p.numero_documento = ?1 ", nativeQuery = true)
 	public HistoriaGYMEntity findByPersona(@Param("documento") String id);
-	
+
 	@Query(value = "SELECT * from hc_historia_gym where seq_historia_gym = ?1", nativeQuery = true)
 	public HistoriaGYMEntity FindBySeqHistoria(Long seqHistoria);
 

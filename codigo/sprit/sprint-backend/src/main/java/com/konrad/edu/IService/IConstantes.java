@@ -196,14 +196,14 @@ public interface IConstantes {
 	public static final String LABEL_SI_NO = "SI / NO";
 	public static final String LABEL_CANCER = "CÁNCER";
 	public static final String LABEL_TIPO_CANCER = "TIPO CÁNCER";
-	
-	//nuevos campos
+
+	// nuevos campos
 	public static final String LABEL_NOMBRE_ACOMPANANTE = "NOMBRE COMPLETO ACOMPAÑANTE";
 	public static final String LABEL_TELEFONO_ACOMPANANTE = "TELÉFONO ACOMPAÑANTE";
 	public static final String LABEL_NOMBRE_PERSONA_RESPONSABLE = "NOMBRE COMPLETO PERSONA RESPONSABLE";
 	public static final String LABEL_TELEFONO_PERSONA_RESPONSABLE = "TELÉFONO PERSONA RESPONSABLE";
-	public static final String LABEL_PARENTESCO_RESPONSABLE = "PARENTESCO PERSONA RESPONSABLE" ;
-	public static final String LABEL_TIPO_VINVULACION = "TIPO VINCULACIÓN" ;
+	public static final String LABEL_PARENTESCO_RESPONSABLE = "PARENTESCO PERSONA RESPONSABLE";
+	public static final String LABEL_TIPO_VINVULACION = "TIPO VINCULACIÓN";
 	public static final String LABEL_LOCALIDAD = "LOCALIDAD";
 	public static final String LABEL_MUNICIPIO_RESIDENCIA = "MUNICIPIO RESIDENCIA";
 	public static final String LABEL_CELULAR = "CELULAR";

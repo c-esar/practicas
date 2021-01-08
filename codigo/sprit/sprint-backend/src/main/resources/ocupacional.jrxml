@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ocupacional" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d79f072-6031-41ef-a555-d43045149939">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="342"/>
+	<property name="ireport.y" value="1271"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -2798,35 +2798,35 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Tensión arterial:]]></text>
+				<text><![CDATA[Tensión arterial (mm/hg):]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="166" y="546" width="40" height="20" uuid="a23ff006-b868-48a3-8173-7783544ff287"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Peso:]]></text>
+				<text><![CDATA[Peso(kg):]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="173" y="510" width="119" height="20" uuid="9f523458-db3d-4237-84b6-8e60e58b5e54"/>
+				<reportElement positionType="Float" x="173" y="510" width="119" height="36" uuid="9f523458-db3d-4237-84b6-8e60e58b5e54"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Frecuencia cardiaca:]]></text>
+				<text><![CDATA[Frecuencia cardiaca (lpm):]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="2" y="546" width="46" height="20" uuid="4cbddc18-8cec-4284-9810-d1baea12eea7"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[SatO2:]]></text>
+				<text><![CDATA[SatO2 (%):]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="359" y="510" width="147" height="20" uuid="28f4d049-d728-4630-bc3f-c821a3136d2e"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Frecuencia respiratoria:]]></text>
+				<text><![CDATA[Frecuencia respiratoria (rpm):]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="Float" x="320" y="546" width="50" height="20" uuid="1146c09f-12a9-498e-9c77-b0d8dabde712"/>
@@ -2859,11 +2859,11 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				<textFieldExpression><![CDATA[$F{num_frec_resp}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="420" y="546" width="27" height="20" uuid="7a5aa896-17c1-4069-a96a-f2abd68e3981"/>
+				<reportElement positionType="Float" x="395" y="546" width="52" height="33" uuid="7a5aa896-17c1-4069-a96a-f2abd68e3981"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[IMC:]]></text>
+				<text><![CDATA[IMC (kg/m^2):]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="Float" x="206" y="546" width="50" height="20" uuid="a388d655-1330-4ad0-8227-38526bc3ca72"/>
@@ -2880,7 +2880,7 @@ where p.seq_persona = $P{numeroPersona} and ho.seq_historia = $P{numeroHistoria}
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Talla:]]></text>
+				<text><![CDATA[Talla (m):]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="Float" x="447" y="546" width="50" height="20" uuid="e0cb2b3c-54a6-435b-8412-b43fce44d5ed"/>

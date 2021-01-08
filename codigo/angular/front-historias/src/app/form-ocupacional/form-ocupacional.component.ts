@@ -228,12 +228,12 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.getAuxOMedico();
     this.onActivarSubMenu("DatosPricipales");
     this.getTipoDocumento();
+    this.getLocalidad();
     this.getCiudad();
     this.getTipoAntecedente();
     this.getTipoEvaluacion();
     this.getAnosHabitosList();
-    this.getTipoUsuario();
-    this.getLocalidad();
+    this.getTipoUsuario();    
     this.getDatosPersonaLogin();
     this.onLabels();
     this.getImpresionDiagnostica();
@@ -263,9 +263,14 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
         (respuesta) => {
           console.log(respuesta);
           this.Spersona = respuesta;
+          debugger
           if (this.Spersona.tipoDocumento === null) {
             this.persona.tipoDocumento = new TipoDocumento();
             this.Spersona.tipoDocumento = new TipoDocumento();
+          }
+          if (this.Spersona.localidad === null) {
+            this.persona.localidad = new Localidad();
+            this.Spersona.localidad = new Localidad();
           }
           if (this.Spersona.lugarNacimiento === null) {
             this.persona.lugarNacimiento = new Ciudad();
@@ -882,6 +887,15 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     }
     this.persona.imagen = this.persona.imagen == null ? per.imagen : this.persona.imagen;
     this.persona.perfil = per.perfil == null || per.perfil.seqPerfil == null ? null : per.perfil;
+    this.persona.localidad = (this.persona.localidad == null || this.persona.localidad.seqLocalidad == null) ? per.localidad : this.persona.localidad;
+    this.persona.nombreAcompanante = this.persona.nombreAcompanante == null ? per.nombreAcompanante : this.persona.nombreAcompanante;
+    this.persona.telefonoAcompanante = this.persona.telefonoAcompanante == null ? per.telefonoAcompanante : this.persona.telefonoAcompanante;
+    this.persona.nombrePersonaResponsable = this.persona.nombrePersonaResponsable == null ? per.nombrePersonaResponsable : this.persona.nombrePersonaResponsable;
+    this.persona.telefonoPersonaResponsable = this.persona.telefonoPersonaResponsable == null ? per.telefonoPersonaResponsable : this.persona.telefonoPersonaResponsable;
+    this.persona.parentescoPersonaResponsable =  this.persona.parentescoPersonaResponsable == null ? per.parentescoPersonaResponsable :  this.persona.parentescoPersonaResponsable;
+    this.persona.tipoVinculacion = this.persona.tipoVinculacion == null ? per.tipoVinculacion : this.persona.tipoVinculacion;
+    this.persona.municipioResidencia = this.persona.municipioResidencia == null ? per.municipioResidencia : this.persona.municipioResidencia;
+  
   }
 
 

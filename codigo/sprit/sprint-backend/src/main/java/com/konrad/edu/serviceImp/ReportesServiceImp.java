@@ -39,7 +39,7 @@ public class ReportesServiceImp implements IReportesService {
 
 	@Autowired
 	private ICertificadoDao certificadoDao;
-	
+
 	@Autowired
 	private ICertificadoGymDao certificadoGymDao;
 
@@ -47,8 +47,8 @@ public class ReportesServiceImp implements IReportesService {
 	@Override
 	public String exportReport(String id, int historias, String documentoMedico) {
 		try {
-			Connection conexion = DriverManager
-					.getConnection(IConstantes.JDBC_REPORTE, IConstantes.USER_DB, IConstantes.PASS_DB);
+			Connection conexion = DriverManager.getConnection(IConstantes.JDBC_REPORTE, IConstantes.USER_DB,
+					IConstantes.PASS_DB);
 			File file = ResourceUtils.getFile("classpath:historiasGym.jrxml");
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 			PersonaEntity persona = this.obtenerInformacion(id);
@@ -183,8 +183,8 @@ public class ReportesServiceImp implements IReportesService {
 	@Override
 	public String exportReportOcupacional(String id, int historias, String documentoMedico) {
 		try {
-			Connection conexion = DriverManager
-					.getConnection(IConstantes.JDBC_REPORTE, IConstantes.USER_DB, IConstantes.PASS_DB);
+			Connection conexion = DriverManager.getConnection(IConstantes.JDBC_REPORTE, IConstantes.USER_DB,
+					IConstantes.PASS_DB);
 			File file = ResourceUtils.getFile("classpath:ocupacional.jrxml");
 			Map<String, Object> parameters = new HashMap<>();
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -205,9 +205,12 @@ public class ReportesServiceImp implements IReportesService {
 				case "PATOLOGICOS": {
 					parameters.put("patologicosSN",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-							.getEstadoAntecedente() == null ? "NO" :
-							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-									.getEstadoAntecedente().toString().equalsIgnoreCase("S") ? "SI" : "NO");
+									.getEstadoAntecedente() == null
+											? "NO"
+											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
+													.get(i).getEstadoAntecedente().toString().equalsIgnoreCase("S")
+															? "SI"
+															: "NO");
 					parameters.put("patologicoscual",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
 									.getDespAntecedente() == null ? ""
@@ -218,9 +221,12 @@ public class ReportesServiceImp implements IReportesService {
 				case "QUIRURGICOS": {
 					parameters.put("quirurgicosSN",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-							.getEstadoAntecedente() == null ? "NO" : 
-							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-									.getEstadoAntecedente().toString().equalsIgnoreCase("S") ? "SI" : "NO");
+									.getEstadoAntecedente() == null
+											? "NO"
+											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
+													.get(i).getEstadoAntecedente().toString().equalsIgnoreCase("S")
+															? "SI"
+															: "NO");
 					parameters.put("quirurgicoscual",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
 									.getDespAntecedente() == null ? ""
@@ -231,9 +237,12 @@ public class ReportesServiceImp implements IReportesService {
 				case "ALERGICOS": {
 					parameters.put("alergicosSN",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-							.getEstadoAntecedente() == null ? "NO" :
-							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-									.getEstadoAntecedente().toString().equalsIgnoreCase("S") ? "SI" : "NO");
+									.getEstadoAntecedente() == null
+											? "NO"
+											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
+													.get(i).getEstadoAntecedente().toString().equalsIgnoreCase("S")
+															? "SI"
+															: "NO");
 					parameters.put("alergicoscual",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
 									.getDespAntecedente() == null ? ""
@@ -244,9 +253,12 @@ public class ReportesServiceImp implements IReportesService {
 				case "FARMACOLOGICOS": {
 					parameters.put("farmacologicosSN",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-							.getEstadoAntecedente() == null ? "NO" : 
-							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-									.getEstadoAntecedente().toString().equalsIgnoreCase("S") ? "SI" : "NO");
+									.getEstadoAntecedente() == null
+											? "NO"
+											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
+													.get(i).getEstadoAntecedente().toString().equalsIgnoreCase("S")
+															? "SI"
+															: "NO");
 					parameters.put("farmacologicoscual",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
 									.getDespAntecedente() == null ? ""
@@ -257,9 +269,12 @@ public class ReportesServiceImp implements IReportesService {
 				case "TRAUMATICOS": {
 					parameters.put("traumaticosSN",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-							.getEstadoAntecedente() == null ? "NO" :
-							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-									.getEstadoAntecedente().toString().equalsIgnoreCase("S") ? "SI" : "NO");
+									.getEstadoAntecedente() == null
+											? "NO"
+											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
+													.get(i).getEstadoAntecedente().toString().equalsIgnoreCase("S")
+															? "SI"
+															: "NO");
 					parameters.put("traumaticoscual",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
 									.getDespAntecedente() == null ? ""
@@ -270,9 +285,12 @@ public class ReportesServiceImp implements IReportesService {
 				case "TOXICOS": {
 					parameters.put("toxicosSN",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-							.getEstadoAntecedente() == null ? "NO" :
-							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-									.getEstadoAntecedente().toString().equalsIgnoreCase("S") ? "SI" : "NO");
+									.getEstadoAntecedente() == null
+											? "NO"
+											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
+													.get(i).getEstadoAntecedente().toString().equalsIgnoreCase("S")
+															? "SI"
+															: "NO");
 					parameters.put("toxicoscual",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
 									.getDespAntecedente() == null ? ""
@@ -283,9 +301,12 @@ public class ReportesServiceImp implements IReportesService {
 				case "INMUNOLOGICOS": {
 					parameters.put("inmunologicosSN",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-							.getEstadoAntecedente() == null ? "NO" :
-							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-									.getEstadoAntecedente().toString().equalsIgnoreCase("S") ? "SI" : "NO");
+									.getEstadoAntecedente() == null
+											? "NO"
+											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
+													.get(i).getEstadoAntecedente().toString().equalsIgnoreCase("S")
+															? "SI"
+															: "NO");
 					parameters.put("inmunologicoscual",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
 									.getDespAntecedente() == null ? ""
@@ -316,9 +337,12 @@ public class ReportesServiceImp implements IReportesService {
 				case "HOSPITALARIOS": {
 					parameters.put("hospitalariosSN",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-							.getEstadoAntecedente() == null ? "NO" : 
-							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-									.getEstadoAntecedente().toString().equalsIgnoreCase("S") ? "SI" : "NO");
+									.getEstadoAntecedente() == null
+											? "NO"
+											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
+													.get(i).getEstadoAntecedente().toString().equalsIgnoreCase("S")
+															? "SI"
+															: "NO");
 					parameters.put("hospitalarioscual",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
 									.getDespAntecedente() == null ? ""
@@ -329,9 +353,12 @@ public class ReportesServiceImp implements IReportesService {
 				case "FAMILIARES": {
 					parameters.put("familiaresSN",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-							.getEstadoAntecedente() == null ? "NO" :
-							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-									.getEstadoAntecedente().toString().equalsIgnoreCase("S") ? "SI" : "NO");
+									.getEstadoAntecedente() == null
+											? "NO"
+											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
+													.get(i).getEstadoAntecedente().toString().equalsIgnoreCase("S")
+															? "SI"
+															: "NO");
 					parameters.put("familiarescual",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
 									.getDespAntecedente() == null ? ""
@@ -342,9 +369,12 @@ public class ReportesServiceImp implements IReportesService {
 				case "TABAQUISMO": {
 					parameters.put("tabaquimosSN",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-							.getEstadoAntecedente() == null ? "NO" :
-							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-									.getEstadoAntecedente().toString().equalsIgnoreCase("S") ? "SI" : "NO");
+									.getEstadoAntecedente() == null
+											? "NO"
+											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
+													.get(i).getEstadoAntecedente().toString().equalsIgnoreCase("S")
+															? "SI"
+															: "NO");
 					parameters.put("tabaquimosfrecuencia",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
 									.getFrecuencia() == null ? ""
@@ -352,19 +382,24 @@ public class ReportesServiceImp implements IReportesService {
 													.get(i).getFrecuencia());
 					parameters.put("tabaquimosanos", historia.getHistoriasEncriptacion().get(0)
 							.getAntecedentesHistoriaEntity().get(i).getAnosHabito());
-					parameters.put("tabaquimosfumador", 
-							historia.getHistoriasEncriptacion().get(0)
-							.getAntecedentesHistoriaEntity().get(i).getExFumador() == null ? "NO" :
-							historia.getHistoriasEncriptacion().get(0)
-							.getAntecedentesHistoriaEntity().get(i).getExFumador().toString().equalsIgnoreCase("S") ? "SI" : "NO");
+					parameters.put("tabaquimosfumador",
+							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
+									.getExFumador() == null
+											? "NO"
+											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
+													.get(i).getExFumador().toString().equalsIgnoreCase("S") ? "SI"
+															: "NO");
 					break;
 				}
 				case "CONSUMO ALCOHOL": {
 					parameters.put("consumoSN",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-							.getEstadoAntecedente() == null ? "NO" :
-							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-									.getEstadoAntecedente().toString().equalsIgnoreCase("S") ? "SI" : "NO");
+									.getEstadoAntecedente() == null
+											? "NO"
+											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
+													.get(i).getEstadoAntecedente().toString().equalsIgnoreCase("S")
+															? "SI"
+															: "NO");
 					parameters.put("consumofrecuencia",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
 									.getFrecuencia() == null ? ""
@@ -375,9 +410,12 @@ public class ReportesServiceImp implements IReportesService {
 				case "ACTIVIDAD FÍSICA": {
 					parameters.put("actividadSN",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-							.getEstadoAntecedente() == null ? "NO" :
-							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
-									.getEstadoAntecedente().toString().equalsIgnoreCase("S") ? "SI" : "NO");
+									.getEstadoAntecedente() == null
+											? "NO"
+											: historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity()
+													.get(i).getEstadoAntecedente().toString().equalsIgnoreCase("S")
+															? "SI"
+															: "NO");
 					parameters.put("actividadfrecuencia",
 							historia.getHistoriasEncriptacion().get(0).getAntecedentesHistoriaEntity().get(i)
 									.getFrecuencia() == null ? ""
@@ -476,8 +514,8 @@ public class ReportesServiceImp implements IReportesService {
 	@Override
 	public String exportReportCertificado(String id, int historia, String documentoMedico) {
 		try {
-			Connection conexion = DriverManager
-					.getConnection(IConstantes.JDBC_REPORTE, IConstantes.USER_DB, IConstantes.PASS_DB);
+			Connection conexion = DriverManager.getConnection(IConstantes.JDBC_REPORTE, IConstantes.USER_DB,
+					IConstantes.PASS_DB);
 			File file = ResourceUtils.getFile("classpath:certificado.jrxml");
 			Map<String, Object> parameters = new HashMap<>();
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -518,12 +556,12 @@ public class ReportesServiceImp implements IReportesService {
 		return null;
 	}
 
-	//certificado gym
+	// certificado gym
 	@Override
 	public String exportReportCertificadoGym(String id, int historia, String documentoMedico) {
 		try {
-			Connection conexion = DriverManager
-					.getConnection(IConstantes.JDBC_REPORTE, IConstantes.USER_DB, IConstantes.PASS_DB);
+			Connection conexion = DriverManager.getConnection(IConstantes.JDBC_REPORTE, IConstantes.USER_DB,
+					IConstantes.PASS_DB);
 			File file = ResourceUtils.getFile("classpath:certificadoGym.jrxml");
 			Map<String, Object> parameters = new HashMap<>();
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());

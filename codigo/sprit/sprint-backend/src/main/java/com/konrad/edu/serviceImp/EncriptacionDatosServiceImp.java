@@ -122,22 +122,36 @@ public class EncriptacionDatosServiceImp implements IEncriptacionDatosService {
 		List<AntecedentesHistoriaEntity> encriptacionantecedentes = new ArrayList<AntecedentesHistoriaEntity>();
 		for (int i = 0; i < encriptacionantecedentesEntity.size(); i++) {
 			AntecedentesHistoriaEntity tmp = new AntecedentesHistoriaEntity();
-			tmp.setAnosHabito(encriptacionantecedentesEntity.get(i).getAnosHabito() == null ? null :encriptacionantecedentesEntity.get(i).getAnosHabito().getBytes());
-			tmp.setCcv(encriptacionantecedentesEntity.get(i).getCcv()== null ? null :encriptacionantecedentesEntity.get(i).getCcv().getBytes());
-			tmp.setDespAntecedente(encriptacionantecedentesEntity.get(i).getDespAntecedente() == null ? null :encriptacionantecedentesEntity.get(i).getDespAntecedente().getBytes());
-			tmp.setEstadoAntecedente(encriptacionantecedentesEntity.get(i).getEstadoAntecedente()== null ? null :encriptacionantecedentesEntity.get(i).getEstadoAntecedente().getBytes());
-			tmp.setExFumador(encriptacionantecedentesEntity.get(i).getExFumador()== null ? null :encriptacionantecedentesEntity.get(i).getExFumador().getBytes());
-			tmp.setFrecuencia(encriptacionantecedentesEntity.get(i).getFrecuencia()== null ? null :encriptacionantecedentesEntity.get(i).getFrecuencia().getBytes());
+			tmp.setAnosHabito(encriptacionantecedentesEntity.get(i).getAnosHabito() == null ? null
+					: encriptacionantecedentesEntity.get(i).getAnosHabito().getBytes());
+			tmp.setCcv(encriptacionantecedentesEntity.get(i).getCcv() == null ? null
+					: encriptacionantecedentesEntity.get(i).getCcv().getBytes());
+			tmp.setDespAntecedente(encriptacionantecedentesEntity.get(i).getDespAntecedente() == null ? null
+					: encriptacionantecedentesEntity.get(i).getDespAntecedente().getBytes());
+			tmp.setEstadoAntecedente(encriptacionantecedentesEntity.get(i).getEstadoAntecedente() == null ? null
+					: encriptacionantecedentesEntity.get(i).getEstadoAntecedente().getBytes());
+			tmp.setExFumador(encriptacionantecedentesEntity.get(i).getExFumador() == null ? null
+					: encriptacionantecedentesEntity.get(i).getExFumador().getBytes());
+			tmp.setFrecuencia(encriptacionantecedentesEntity.get(i).getFrecuencia() == null ? null
+					: encriptacionantecedentesEntity.get(i).getFrecuencia().getBytes());
 			tmp.setFur(encriptacionantecedentesEntity.get(i).getFur());
-			tmp.setMenarquiaAbortos(encriptacionantecedentesEntity.get(i).getMenarquiaAbortos()== null ? null :encriptacionantecedentesEntity.get(i).getMenarquiaAbortos().getBytes());
-			tmp.setMenarquiaCesarias(encriptacionantecedentesEntity.get(i).getMenarquiaCesarias()== null ? null :encriptacionantecedentesEntity.get(i).getMenarquiaCesarias().getBytes());
-			tmp.setMenarquiaGestaciones(encriptacionantecedentesEntity.get(i).getMenarquiaGestaciones()== null ? null :encriptacionantecedentesEntity.get(i).getMenarquiaGestaciones().getBytes());
-			tmp.setMenarquiaPartos(encriptacionantecedentesEntity.get(i).getMenarquiaPartos()== null ? null :encriptacionantecedentesEntity.get(i).getMenarquiaPartos().getBytes());
-			tmp.setMenarquiaVivos(encriptacionantecedentesEntity.get(i).getMenarquiaVivos()== null ? null :encriptacionantecedentesEntity.get(i).getMenarquiaVivos().getBytes());
-			tmp.setMernarquia(encriptacionantecedentesEntity.get(i).getMernarquia()== null ? null :encriptacionantecedentesEntity.get(i).getMernarquia().getBytes());
-			tmp.setPlanificacion(encriptacionantecedentesEntity.get(i).getPlanificacion()== null ? null :encriptacionantecedentesEntity.get(i).getPlanificacion().getBytes());
+			tmp.setMenarquiaAbortos(encriptacionantecedentesEntity.get(i).getMenarquiaAbortos() == null ? null
+					: encriptacionantecedentesEntity.get(i).getMenarquiaAbortos().getBytes());
+			tmp.setMenarquiaCesarias(encriptacionantecedentesEntity.get(i).getMenarquiaCesarias() == null ? null
+					: encriptacionantecedentesEntity.get(i).getMenarquiaCesarias().getBytes());
+			tmp.setMenarquiaGestaciones(encriptacionantecedentesEntity.get(i).getMenarquiaGestaciones() == null ? null
+					: encriptacionantecedentesEntity.get(i).getMenarquiaGestaciones().getBytes());
+			tmp.setMenarquiaPartos(encriptacionantecedentesEntity.get(i).getMenarquiaPartos() == null ? null
+					: encriptacionantecedentesEntity.get(i).getMenarquiaPartos().getBytes());
+			tmp.setMenarquiaVivos(encriptacionantecedentesEntity.get(i).getMenarquiaVivos() == null ? null
+					: encriptacionantecedentesEntity.get(i).getMenarquiaVivos().getBytes());
+			tmp.setMernarquia(encriptacionantecedentesEntity.get(i).getMernarquia() == null ? null
+					: encriptacionantecedentesEntity.get(i).getMernarquia().getBytes());
+			tmp.setPlanificacion(encriptacionantecedentesEntity.get(i).getPlanificacion() == null ? null
+					: encriptacionantecedentesEntity.get(i).getPlanificacion().getBytes());
 			tmp.setSeqAntHistorias(encriptacionantecedentesEntity.get(i).getSeqAntHistorias());
-			tmp.setTipo(encriptacionantecedentesEntity.get(i).getTipo()== null ? null :encriptacionantecedentesEntity.get(i).getTipo().getBytes());
+			tmp.setTipo(encriptacionantecedentesEntity.get(i).getTipo() == null ? null
+					: encriptacionantecedentesEntity.get(i).getTipo().getBytes());
 			tmp.setTipoAntecedenteEntity(encriptacionantecedentesEntity.get(i).getTipoAntecedenteEntity());
 			encriptacionantecedentes.add(tmp);
 		}

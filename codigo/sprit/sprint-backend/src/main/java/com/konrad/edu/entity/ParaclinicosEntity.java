@@ -75,6 +75,4 @@ public class ParaclinicosEntity implements Serializable {
 		this.despResultado = despResultado;
 	}
 
-	
-
 }

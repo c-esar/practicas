@@ -200,5 +200,4 @@ public class HistoriaOcupacionalEncriptacion implements Serializable {
 		this.antecedentesHistoriaEntity = antecedentesHistoriaEntity;
 	}
 
-	
 }

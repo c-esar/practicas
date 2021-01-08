@@ -10,6 +10,6 @@ public interface IHistoriaOcupacionalService {
 	public boolean alterConcepto();
 
 	public boolean alterdiagnostico();
-	
+
 	public HistoriaOcupacionalEntity FindBySeqHistoria(Long seqHistoria);
 }

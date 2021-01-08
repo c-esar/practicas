@@ -49,39 +49,39 @@ public class ExamenFisicoEntity implements Serializable {
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',lateralidad)")
 	private byte[] lateralidad;
 
-	@Column(name = "desp_cap_cuello", length = 4000)
+	@Column(name = "desp_cap_cuello")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_cap_cuello)")
 	private byte[] despCapCuello;
 
-	@Column(name = "desp_torax", length = 4000)
+	@Column(name = "desp_torax")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_torax)")
 	private byte[] despTorax;
 
-	@Column(name = "desp_adb", length = 4000)
+	@Column(name = "desp_adb")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_adb)")
 	private byte[] despAdb;
 
-	@Column(name = "desp_genitourinario", length = 4000)
+	@Column(name = "desp_genitourinario")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_genitourinario)")
 	private byte[] despGenitourinario;
 
-	@Column(name = "desp_column", length = 4000)
+	@Column(name = "desp_column")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_column)")
 	private byte[] despColumn;
 
-	@Column(name = "desp_miembros", length = 4000)
+	@Column(name = "desp_miembros")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_miembros)")
 	private byte[] despMiembros;
 
-	@Column(name = "desp_osteomuscular", length = 4000)
+	@Column(name = "desp_osteomuscular")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_osteomuscular)")
 	private byte[] despOsteomuscular;
 
-	@Column(name = "desp_neurologico", length = 4000)
+	@Column(name = "desp_neurologico")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_neurologico)")
 	private byte[] despNeurologico;
 
-	@Column(name = "desp_piel_fan", length = 4000)
+	@Column(name = "desp_piel_fan")
 	@ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('konradU',?)", read = "DECRYPTBYPASSPHRASE('konradU',desp_piel_fan)")
 	private byte[] despPielfan;
 
@@ -92,8 +92,6 @@ public class ExamenFisicoEntity implements Serializable {
 	public void setSeqExaFisico(Long seqExaFisico) {
 		this.seqExaFisico = seqExaFisico;
 	}
-
-	
 
 	public String getNumTesion() {
 		return numTesion;

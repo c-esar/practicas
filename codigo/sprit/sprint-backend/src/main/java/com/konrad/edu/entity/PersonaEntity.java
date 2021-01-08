@@ -99,7 +99,7 @@ public class PersonaEntity implements Serializable {
 	private String estadoCivil;
 
 	@Column(name = "fecha_nacimiento", nullable = true)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date fechaNacimiento;
 
 	@Column(length = 50)
@@ -149,7 +149,7 @@ public class PersonaEntity implements Serializable {
 	@JoinColumn(name = "seq_localidad", nullable = true)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private LocalidadEntity localidad;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "persona")
 	private List<HistoriaOcupacionalEntity> historiasEncriptacion;
 
@@ -180,41 +180,39 @@ public class PersonaEntity implements Serializable {
 	@Column(name = "nuevo_rol_usuario")
 	private String nuevorolUsuario;
 
-	
 	// nuevas colomnas 2021 enero
 	@Column(name = "nombre_acompanante")
 	private String nombreAcompanante;
-	
+
 	@Column(name = "telefono_acompanante")
 	private String telefonoAcompanante;
-	
+
 	@Column(name = "nombre_persona_responsable")
 	private String nombrePersonaResponsable;
-	
+
 	@Column(name = "telefono_persona_responsable")
 	private String telefonoPersonaResponsable;
-	
+
 	@Column(name = "parentesco_persona_responsable")
 	private String parentescoPersonaResponsable;
-	
+
 	@Column(name = "tipo_vinculacion")
 	private String tipoVinculacion;
-	
+
 	@Column(name = "municipio_residencia")
 	private String municipioResidencia;
-	
-	
+
 	@PrePersist
 	public void prePersist() {
 		this.fechaCreacion = new Date();
 	}
 
 	public PersonaEntity() {
-//		this.historias = new ArrayList<>();
-//		this.historiaGym = new ArrayList<>();
+		this.historias = new ArrayList<>();
+		this.historiaGym = new ArrayList<>();
 		this.rolUsuario = new ArrayList<>();
-//		this.historiasEncriptacion = new ArrayList<HistoriaOcupacionalEntity>();
-//		this.historiaGymEncriptacion = new ArrayList<HistoriaGYMEntity>();
+		this.historiasEncriptacion = new ArrayList<HistoriaOcupacionalEntity>();
+		this.historiaGymEncriptacion = new ArrayList<HistoriaGYMEntity>();
 	}
 
 	public Long getSeqPersona() {
@@ -488,7 +486,6 @@ public class PersonaEntity implements Serializable {
 	public void setImagenEncriptada(byte[] imagenEncriptada) {
 		this.imagenEncriptada = imagenEncriptada;
 	}
-
 
 	public String getLicenciaSalud() {
 		return licenciaSalud;

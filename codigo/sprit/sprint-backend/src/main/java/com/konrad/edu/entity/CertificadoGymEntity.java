@@ -45,7 +45,7 @@ public class CertificadoGymEntity implements Serializable {
 
 	@Column(name = "recomendaciones")
 	private String recomendaciones;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "seq_eval")
 	private TipoEvaluacionFisicaEntity tipoEvaluacionFisicaEntity;
@@ -91,7 +91,6 @@ public class CertificadoGymEntity implements Serializable {
 		this.numero = numero;
 	}
 
-
 	public String getTipoRestriccionLimitacion() {
 		return tipoRestriccionLimitacion;
 	}
@@ -124,5 +123,4 @@ public class CertificadoGymEntity implements Serializable {
 		this.tipoEvaluacionFisicaEntity = tipoEvaluacionFisicaEntity;
 	}
 
-	
 }

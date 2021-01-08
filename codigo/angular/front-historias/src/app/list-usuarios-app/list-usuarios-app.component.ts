@@ -183,7 +183,10 @@ export class ListUsuariosAppComponent implements OnInit {
     this.historiaService.getTipoUsuario().subscribe(
       (respuesta) => {
         this.tipoUsuario = respuesta;
-        this.tipoUsuario.splice(5, 1); 
+        debugger
+        this.tipoUsuario.splice(5, 1);
+        this.tipoUsuario.splice(5, 1);
+        this.tipoUsuario.splice(5, 1);
         console.log(respuesta)
       }
     )

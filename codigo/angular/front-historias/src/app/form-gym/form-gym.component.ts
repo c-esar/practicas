@@ -5,6 +5,7 @@ import { LoginService } from '../Servicios/login.service';
 import { HistoriasService } from '../Servicios/historias.service';
 import { PersonaService } from '../Servicios/persona.service';
 import { DatosSingleton } from '../DatosBean/datosSingleton';
+import { Localidad } from '../DatosBean/localidad';
 import { Persona } from '../DatosBean/persona';
 import { TipoDocumento } from '../DatosBean/tipoDocumento';
 import { Ciudad } from '../DatosBean/ciudad';
@@ -48,6 +49,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
   datosSingleton: DatosSingleton;
   tipoDocumento: TipoDocumento[];
   ciudad: Ciudad[];
+  localidad: Localidad[];
   tipoUsuario: TipoUsuario[];
   listAnosHabito: number[];
   diagnostica: DiagnosticoOcupacional[];
@@ -205,6 +207,7 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.getTipoCuestionarioGym();
     this.getCondicionGym();
     this.getFamiliarGym();
+    this.getLocalidad();
     this.onActivarSubMenu("DatosPricipales");
 
   }
@@ -865,6 +868,18 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.persona.grupoSanguineo = this.persona.grupoSanguineo == null ? per.grupoSanguineo : this.persona.grupoSanguineo;
     this.persona.perfil = per.perfil == null || per.perfil.seqPerfil == null ? null : per.perfil;
     this.persona.imagen = this.persona.imagen == null ? per.imagen : this.persona.imagen;
+    this.persona.localidad = (this.persona.localidad == null || this.persona.localidad.seqLocalidad == null) ? per.localidad : this.persona.localidad;
+    this.persona.nombreAcompanante = this.persona.nombreAcompanante == null ? per.nombreAcompanante : this.persona.nombreAcompanante;
+    this.persona.telefonoAcompanante = this.persona.telefonoAcompanante == null ? per.telefonoAcompanante : this.persona.telefonoAcompanante;
+    this.persona.nombrePersonaResponsable = this.persona.nombrePersonaResponsable == null ? per.nombrePersonaResponsable : this.persona.nombrePersonaResponsable;
+    this.persona.telefonoPersonaResponsable = this.persona.telefonoPersonaResponsable == null ? per.telefonoPersonaResponsable : this.persona.telefonoPersonaResponsable;
+    this.persona.parentescoPersonaResponsable =  this.persona.parentescoPersonaResponsable == null ? per.parentescoPersonaResponsable :  this.persona.parentescoPersonaResponsable;
+    this.persona.tipoVinculacion = this.persona.tipoVinculacion == null ? per.tipoVinculacion : this.persona.tipoVinculacion;
+    this.persona.municipioResidencia = this.persona.municipioResidencia == null ? per.municipioResidencia : this.persona.municipioResidencia;
+    this.persona.direccion = this.persona.direccion == null ? per.direccion : this.persona.direccion;
+    this.persona.estadoCivil = this.persona.estadoCivil == null ? per.estadoCivil : this.persona.estadoCivil;
+    this.persona.fechaNacimiento = this.persona.fechaNacimiento == null ? per.fechaNacimiento : this.persona.fechaNacimiento;
+  
   }
   private onLabels(): void {
     this.labelService.getLabel().subscribe(
@@ -885,6 +900,15 @@ export class FormGymComponent implements OnInit, AfterViewInit {
     this.personaService.getCiudad().subscribe(
       (respuesta) => {
         this.ciudad = respuesta
+      }
+    )
+  }
+
+  private getLocalidad(): void {
+    this.personaService.getLocalidad().subscribe(
+      (respuesta) => {
+        this.localidad = respuesta;
+        console.log(respuesta)
       }
     )
   }

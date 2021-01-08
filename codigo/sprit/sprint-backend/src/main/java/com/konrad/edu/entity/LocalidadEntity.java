@@ -39,6 +39,4 @@ public class LocalidadEntity implements Serializable {
 		this.nomLocalidad = nomLocalidad;
 	}
 
-	
-
 }

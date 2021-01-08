@@ -7,7 +7,7 @@ public interface IReportesService {
 	public String exportReportOcupacional(String id, int historia, String documentoMedico);
 
 	public String exportReportCertificado(String id, int historia, String documentoMedico);
-	
+
 	public String exportReportCertificadoGym(String id, int historia, String documentoMedico);
 
 }
