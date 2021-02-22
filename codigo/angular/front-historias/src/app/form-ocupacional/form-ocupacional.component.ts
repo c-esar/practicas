@@ -114,6 +114,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
   seqPersona: any;
   private CODIGO_CIUDAD: number = 5137;
   localidad: Localidad[];
+  localidadSeleccionada : Localidad;
 
   constructor(private labelService: LabelService,
     private loginService: LoginService,
@@ -221,6 +222,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
     this.firmaPaciente = null;
     this.firmaPacienteBoolean = false;
     this.firmaMedioBoolean = false;
+    this.localidadSeleccionada = new Localidad();
   }
 
   onCargarFunciones(): void {
@@ -545,6 +547,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
 
     setTimeout(() => {
       if (this.persona.historias[0].aceptoCondiciones != null) {
+        debugger
         this.persona.historias[0].aceptoCondiciones = "true";
         this.persona.lugarDeResidencia.seqCuidad = 0;
         this.barProgres = true;
@@ -1054,7 +1057,7 @@ export class FormOcupacionalComponent implements OnInit, AfterViewInit {
         this.tipoDocumento = respuesta;
         console.log(respuesta)
       }
-    )
+    )   
   }
 
   getLocalidad(): void {

@@ -318,9 +318,9 @@
 									<mat-label for="formLocalidad">{{datosSingleton.labelLocalidad}}
 									</mat-label>
 									<mat-select id="formLocalidad" required
-										[ngModel]="Spersona.localidad" name="localidad"
-										(ngModelChange)="persona.localidad = $event">
-										<mat-option *ngFor="let loc of localidad" [value]="loc">
+										[ngModel]="localidadSeleccionada.seqLocalidad" name="localidad"
+										(ngModelChange)="localidadSeleccionada.seqLocalidad = $event">
+										<mat-option *ngFor="let loc of localidad" [value]="loc.seqLocalidad">
 											{{loc.nomLocalidad}} 
 										</mat-option>
 									</mat-select>

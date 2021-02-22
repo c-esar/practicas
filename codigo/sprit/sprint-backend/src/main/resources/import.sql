@@ -1,3 +1,1105 @@
+/****** Creación de tablas******/
+GO
+/****** Object:  Table [dbo].[hc_antecedentes_historia]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_antecedentes_historia](
+	[seq_ant_historias] [bigint] IDENTITY(1,1) NOT NULL,
+	[anos_habito] [varbinary](255) NULL,
+	[ccv] [varbinary](255) NULL,
+	[desp_antecedente] [varbinary](255) NULL,
+	[estado_antecedente] [varbinary](255) NULL,
+	[ex_fumador] [varbinary](255) NULL,
+	[frecuencia] [varbinary](255) NULL,
+	[fur] [DATETIME] NULL,
+	[menarquia_abortos] [varbinary](255) NULL,
+	[menarquia_cesarias] [varbinary](255) NULL,
+	[menarquia_gestaciones] [varbinary](255) NULL,
+	[menarquia_partos] [varbinary](255) NULL,
+	[menarquia_vivos] [varbinary](255) NULL,
+	[menarquia] [varbinary](255) NULL,
+	[planificacion] [varbinary](255) NULL,
+	[tipo] [varbinary](255) NULL,
+	[seq_tipo_antecedente] [bigint] NULL,
+	[seq_historia_laboral] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_ant_historias] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_antecedentes_trabajo]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_antecedentes_trabajo](
+	[seq_ant] [bigint] IDENTITY(1,1) NOT NULL,
+	[desp_causa] [varchar](4000) NULL,
+	[desp_incapacidad] [varchar](4000) NULL,
+	[desp_secuelas] [varchar](4000) NULL,
+	[dat_fecha_ant] [DATETIME] NULL,
+	[nom_empresa] [varchar](100) NULL,
+	[tipo_lesion] [varchar](1000) NULL,
+	[seq_historia_laboral] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_ant] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_certificado_gym]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_certificado_gym](
+	[seq_certificado] [bigint] IDENTITY(1,1) NOT NULL,
+	[dat_fecha_certificado] [DATETIME] NULL,
+	[nom_nombre] [varchar](255) NULL,
+	[num_numero] [varchar](255) NULL,
+	[recomendaciones] [varchar](255) NULL,
+	[tipo_restriccion_limitacion] [varchar](255) NULL,
+	[seq_historia] [bigint] NOT NULL,
+	[seq_eval] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_certificado] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_certificado_ocupacional]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_certificado_ocupacional](
+	[seq_certificado] [bigint] IDENTITY(1,1) NOT NULL,
+	[control_epidemiologica] [varchar](255) NULL,
+	[dat_fecha_certificado] [DATETIME] NULL,
+	[exa_realizados] [varchar](255) NULL,
+	[medico_certificado] [varchar](255) NULL,
+	[nom_nombre] [varchar](255) NULL,
+	[num_numero] [varchar](255) NULL,
+	[otro_evaluacion] [varchar](255) NULL,
+	[recomendaciones] [varchar](255) NULL,
+	[tipo_restriccion_limitacion] [varchar](255) NULL,
+	[seq_historia] [bigint] NULL,
+	[seq_eval] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_certificado] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_ciudad]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_ciudad](
+	[seq_ciudad] [bigint] NOT NULL,
+	[cod_ciudad] [varchar](255) NOT NULL,
+	[cod_dpto] [varchar](255) NOT NULL,
+	[cod_pais] [varchar](255) NOT NULL,
+	[cod_poblacion] [varchar](255) NOT NULL,
+	[nom_ciudad] [varchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_ciudad] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_concepto]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_concepto](
+	[seq_concepto] [bigint] IDENTITY(1,1) NOT NULL,
+	[nom_concepto] [varchar](255) NULL,
+	[tipo_concepto] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_concepto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_concepto_historia]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[hc_concepto_historia](
+	[seq_historia] [bigint] NOT NULL,
+	[seq_concepto] [bigint] NOT NULL
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[hc_condicion_gym]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_condicion_gym](
+	[seq_condicion_gym] [bigint] IDENTITY(1,1) NOT NULL,
+	[nom_condicion] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_condicion_gym] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_condiciones_historia_gym]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[hc_condiciones_historia_gym](
+	[seq_historia_gym] [bigint] NOT NULL,
+	[seq_condicion_gym] [bigint] NOT NULL,
+ CONSTRAINT [UK122j3b4ptbl3kkpio1iswawpj] UNIQUE NONCLUSTERED 
+(
+	[seq_historia_gym] ASC,
+	[seq_condicion_gym] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[hc_cuestionario_gym]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_cuestionario_gym](
+	[seq_cuestionario_gym] [bigint] IDENTITY(1,1) NOT NULL,
+	[estado_cuestionario] [varchar](255) NULL,
+	[seq_historia_gym] [bigint] NULL,
+	[seq_tipo_cuestionario] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_cuestionario_gym] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_diagnostico]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_diagnostico](
+	[seq_diagnostico] [bigint] NOT NULL,
+	[afectacion_principal] [varchar](255) NULL,
+	[cod_diagnostico] [varchar](255) NULL,
+	[des_diagnostico] [varchar](255) NULL,
+	[lim_inferior] [varchar](255) NULL,
+	[lim_superior] [varchar](255) NULL,
+	[obser_diagnostico] [varchar](255) NULL,
+	[sexo] [varchar](255) NULL,
+	[sim_diagnostico] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_diagnostico] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_diagnostico_gym_historia]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[hc_diagnostico_gym_historia](
+	[seq_historia_gym] [bigint] NOT NULL,
+	[seq_diagnostico] [bigint] NOT NULL
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[hc_diagnostico_ocupacional_historia]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[hc_diagnostico_ocupacional_historia](
+	[seq_historia] [bigint] NOT NULL,
+	[seq_diagnostico] [bigint] NOT NULL
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[hc_empresa_labora]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_empresa_labora](
+	[seq_empresa] [bigint] IDENTITY(1,1) NOT NULL,
+	[cargo] [varchar](100) NULL,
+	[nom_empresa] [varchar](100) NULL,
+	[tiempo] [varchar](255) NULL,
+	[seq_historia_laboral] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_empresa] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_enfermedades_laborales]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_enfermedades_laborales](
+	[seq_enfermedades_lab] [bigint] IDENTITY(1,1) NOT NULL,
+	[desp_diagnostico] [varchar](4000) NULL,
+	[desp_indemnizar] [varchar](100) NULL,
+	[desp_recomendaciones] [varchar](4000) NULL,
+	[dat_fecha_ant] [DATETIME] NULL,
+	[nom_empresa] [varchar](100) NULL,
+	[seq_historia_laboral] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_enfermedades_lab] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_examen_fisico]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_examen_fisico](
+	[seq_exa_fisico] [bigint] IDENTITY(1,1) NOT NULL,
+	[desp_adb] [varbinary](255) NULL,
+	[desp_cap_cuello] [varbinary](255) NULL,
+	[desp_column] [varbinary](255) NULL,
+	[desp_genitourinario] [varbinary](255) NULL,
+	[desp_miembros] [varbinary](255) NULL,
+	[desp_neurologico] [varbinary](255) NULL,
+	[desp_osteomuscular] [varbinary](255) NULL,
+	[desp_piel_fan] [varbinary](255) NULL,
+	[desp_torax] [varbinary](255) NULL,
+	[lateralidad] [varbinary](255) NULL,
+	[num_frec_car] [varchar](255) NULL,
+	[num_frec_resp] [varchar](255) NULL,
+	[num_imc] [varchar](255) NULL,
+	[num_peso] [varchar](255) NULL,
+	[num_sat] [varchar](255) NULL,
+	[num_talla] [varchar](255) NULL,
+	[num_tension] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_exa_fisico] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_factores_riesgo]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_factores_riesgo](
+	[seq_factores] [bigint] IDENTITY(1,1) NOT NULL,
+	[desp_factores] [varchar](4000) NULL,
+	[desp_medidas_control] [varchar](4000) NULL,
+	[nom_empresa] [varchar](100) NULL,
+	[tiempo] [varchar](255) NULL,
+	[seq_historia_laboral] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_factores] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_familiar_gym]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_familiar_gym](
+	[seq_familiar_gym] [bigint] IDENTITY(1,1) NOT NULL,
+	[nom_familiar] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_familiar_gym] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_familiar_historia_gym]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[hc_familiar_historia_gym](
+	[seq_historia_gym] [bigint] NOT NULL,
+	[seq_familiar_gym] [bigint] NOT NULL,
+ CONSTRAINT [UK5hnu8dtngqhyri9oxylhb4vh] UNIQUE NONCLUSTERED 
+(
+	[seq_historia_gym] ASC,
+	[seq_familiar_gym] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[hc_historia_gym]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_historia_gym](
+	[seq_historia_gym] [bigint] IDENTITY(1,1) NOT NULL,
+	[acepto_condiciones] [varchar](255) NULL,
+	[conducta] [varbinary](255) NULL,
+	[dia_historia_gym] [date] NULL,
+	[observaciones_historia] [varbinary](255) NULL,
+	[otra_condicion] [varbinary](255) NULL,
+	[otra_familiar] [varbinary](255) NULL,
+	[persona_medico] [bigint] NULL,
+	[tipo_cancer] [varbinary](255) NULL,
+	[seq_ciudad] [bigint] NULL,
+	[seq_exa_fisico] [bigint] NULL,
+	[seq_persona] [bigint] NULL,
+	[seq_tipo_historia] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_historia_gym] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [UK_evbmma598qcv04045sxkic28t] UNIQUE NONCLUSTERED 
+(
+	[seq_exa_fisico] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_historia_laboral]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_historia_laboral](
+	[seq_historia_laboral] [bigint] IDENTITY(1,1) NOT NULL,
+	[acciones_trabajo_sn] [varchar](2) NULL,
+	[act_economica] [varchar](100) NULL,
+	[antiguedad] [varchar](100) NULL,
+	[cargo] [varchar](100) NULL,
+	[desp_funciones_cargo] [varchar](4000) NULL,
+	[enfermedad_laboral_sn] [varchar](2) NULL,
+	[dat_fecha_ingreso] [date] NULL,
+	[nom_empresa] [varchar](100) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_historia_laboral] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_historia_ocupacional]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_historia_ocupacional](
+	[seq_historia] [bigint] IDENTITY(1,1) NOT NULL,
+	[acepto_condiciones] [varchar](255) NULL,
+	[desp_motivo_consulta] [varbinary](255) NULL,
+	[dia_historia] [date] NULL,
+	[otro_evaluacion] [varbinary](255) NULL,
+	[persona_medico] [bigint] NULL,
+	[recom_habitos] [varbinary](255) NULL,
+	[recom_medicas] [varbinary](255) NULL,
+	[recom_ocupacionales] [varbinary](255) NULL,
+	[revision_sistemas] [varbinary](255) NULL,
+	[seq_ciudad] [bigint] NULL,
+	[seq_exa_fisico] [bigint] NULL,
+	[seq_historia_laboral] [bigint] NULL,
+	[seq_persona] [bigint] NULL,
+	[seq_tipo_historia] [bigint] NULL,
+	[seq_eval] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_historia] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [UK_9uxud4u4tndnmbvkdtve2nod] UNIQUE NONCLUSTERED 
+(
+	[seq_exa_fisico] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [UK_nov7cxf032ukscqr06hqvt62y] UNIQUE NONCLUSTERED 
+(
+	[seq_historia_laboral] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_historias_preguntas_gym]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_historias_preguntas_gym](
+	[seq_historia_preguntas_gym] [bigint] IDENTITY(1,1) NOT NULL,
+	[cantidad] [int] NULL,
+	[desp_cuales] [varchar](4000) NULL,
+	[estado_pregunta] [varchar](3) NULL,
+	[tiempo_fumando] [varchar](255) NULL,
+	[seq_historia_gym] [bigint] NULL,
+	[seq_tipo_pregunta] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_historia_preguntas_gym] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_localidad]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_localidad](
+	[seq_localidad] [bigint] NOT NULL,
+	[nom_localidad] [varchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_localidad] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_paraclinicos]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_paraclinicos](
+	[seq_paraclinicos] [bigint] IDENTITY(1,1) NOT NULL,
+	[desp_examen] [varbinary](255) NULL,
+	[desp_resultado] [varbinary](255) NULL,
+	[dat_fecha] [DATETIME] NULL,
+	[seq_historia] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_paraclinicos] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_perfil_permisos]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[hc_perfil_permisos](
+	[seq_perfil] [bigint] NOT NULL,
+	[seq_permiso] [bigint] NOT NULL,
+ CONSTRAINT [UKpmrh6njyl47gy9vkdl8grrida] UNIQUE NONCLUSTERED 
+(
+	[seq_perfil] ASC,
+	[seq_permiso] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[hc_perfiles]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_perfiles](
+	[seq_perfil] [bigint] IDENTITY(1,1) NOT NULL,
+	[estado] [varchar](2) NULL,
+	[nom_usuario] [varchar](100) NULL,
+	[password] [varchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_perfil] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [UK_8meomot4o0qrx9q4tiigiqtv0] UNIQUE NONCLUSTERED 
+(
+	[nom_usuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_permisos]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[hc_permisos](
+	[seq_permiso] [bigint] IDENTITY(1,1) NOT NULL,
+	[crear_aux] [bigint] NULL,
+	[crear_usuario] [bigint] NULL,
+	[descargar] [bigint] NULL,
+	[gestionar_usuario] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_permiso] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[hc_personas]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_personas](
+	[seq_persona] [bigint] IDENTITY(1,1) NOT NULL,
+	[afp_persona] [varchar](50) NULL,
+	[arl] [varchar](50) NULL,
+	[seq_aseguradora] [varchar](100) NULL,
+	[barrio] [varchar](50) NULL,
+	[celular] [varchar](255) NULL,
+	[codigo] [varchar](255) NULL,
+	[correo] [varchar](255) NULL,
+	[direccion] [varchar](50) NULL,
+	[edad] [int] NULL,
+	[escolaridad] [varchar](50) NULL,
+	[estado_civil] [varchar](255) NULL,
+	[fecha_creacion] [DATETIME] NULL,
+	[fecha_nacimiento] [DATETIME] NULL,
+	[genero] [varchar](255) NULL,
+	[grupo_sanguineo] [varchar](50) NULL,
+	[imagen_encriptada] [varbinary](max) NULL,
+	[lic_salud] [varchar](255) NULL,
+	[municipio_residencia] [varchar](255) NULL,
+	[nom_cargo_dep] [varchar](255) NULL,
+	[nom_emergencia] [varchar](50) NULL,
+	[nom_primer_apellido] [varchar](50) NULL,
+	[nom_primer_nombre] [varchar](50) NULL,
+	[nom_segundo_apellido] [varchar](50) NULL,
+	[nom_segundo_nombre] [varchar](50) NULL,
+	[nombre_acompanante] [varchar](255) NULL,
+	[nombre_persona_responsable] [varchar](255) NULL,
+	[nuevo_rol_usuario] [varchar](255) NULL,
+	[numero_documento] [varchar](255) NULL,
+	[parentesco_emergencia] [varchar](50) NULL,
+	[parentesco_persona_responsable] [varchar](255) NULL,
+	[registro_medico] [varchar](255) NULL,
+	[rh] [varchar](50) NULL,
+	[tel_emergencia] [varchar](255) NULL,
+	[telefono] [varchar](255) NULL,
+	[telefono_acompanante] [varchar](255) NULL,
+	[telefono_persona_responsable] [varchar](255) NULL,
+	[tipo_vinculacion] [varchar](255) NULL,
+	[seq_localidad] [bigint] NULL,
+	[seq_lugar_residencia] [bigint] NULL,
+	[seq_lugar_nacimiento] [bigint] NULL,
+	[seq_perfil] [bigint] NULL,
+	[seq_tipo_documento] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_persona] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [UK_jk8bo907lggj0lijc7sw09gat] UNIQUE NONCLUSTERED 
+(
+	[numero_documento] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_rol_usuario_persona]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[hc_rol_usuario_persona](
+	[seq_persona] [bigint] NOT NULL,
+	[tipo_usuario] [bigint] NOT NULL
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[hc_tipo_antecedente]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_tipo_antecedente](
+	[seq_tipo_antecedente] [bigint] IDENTITY(1,1) NOT NULL,
+	[nom_antecedente] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_tipo_antecedente] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_tipo_cuestionario]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_tipo_cuestionario](
+	[seq_tipo_cuestionario] [bigint] IDENTITY(1,1) NOT NULL,
+	[nom_cuestionario] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_tipo_cuestionario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_tipo_documento]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_tipo_documento](
+	[seq_tipo_documento] [bigint] IDENTITY(1,1) NOT NULL,
+	[cod_documento] [varchar](255) NOT NULL,
+	[nom_documento] [varchar](255) NOT NULL,
+	[sigla_documento] [varchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_tipo_documento] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [UK_2ecwc8tm7tohd2pycuy0th8iy] UNIQUE NONCLUSTERED 
+(
+	[sigla_documento] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_tipo_evaluacion]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_tipo_evaluacion](
+	[seq_eval] [bigint] IDENTITY(1,1) NOT NULL,
+	[nom_eval] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_eval] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_tipo_evaluacion_fisica]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_tipo_evaluacion_fisica](
+	[seq_eval] [bigint] IDENTITY(1,1) NOT NULL,
+	[nom_eval] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_eval] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_tipo_historia]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_tipo_historia](
+	[seq_tipo_historia] [bigint] IDENTITY(1,1) NOT NULL,
+	[nom_tipo_historia] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_tipo_historia] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_tipo_pregunta_historia_gym]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_tipo_pregunta_historia_gym](
+	[seq_tipo_pregunta] [bigint] IDENTITY(1,1) NOT NULL,
+	[nom_pregunta] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_tipo_pregunta] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[hc_tipo_usuario]    Script Date: 22/02/2021 11:08:53 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[hc_tipo_usuario](
+	[seq_tipo_usuario] [bigint] IDENTITY(1,1) NOT NULL,
+	[nom_tipo_usuario] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[seq_tipo_usuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+ALTER TABLE [dbo].[hc_permisos] ADD  DEFAULT ((0)) FOR [crear_aux]
+GO
+ALTER TABLE [dbo].[hc_permisos] ADD  DEFAULT ((0)) FOR [crear_usuario]
+GO
+ALTER TABLE [dbo].[hc_permisos] ADD  DEFAULT ((0)) FOR [descargar]
+GO
+ALTER TABLE [dbo].[hc_permisos] ADD  DEFAULT ((0)) FOR [gestionar_usuario]
+GO
+ALTER TABLE [dbo].[hc_antecedentes_historia]  WITH CHECK ADD  CONSTRAINT [FKbq65gqqr6y3k028ngg49b2250] FOREIGN KEY([seq_tipo_antecedente])
+REFERENCES [dbo].[hc_tipo_antecedente] ([seq_tipo_antecedente])
+GO
+ALTER TABLE [dbo].[hc_antecedentes_historia] CHECK CONSTRAINT [FKbq65gqqr6y3k028ngg49b2250]
+GO
+ALTER TABLE [dbo].[hc_antecedentes_historia]  WITH CHECK ADD  CONSTRAINT [FKtc9y08kddnxqax0m7ijleukdy] FOREIGN KEY([seq_historia_laboral])
+REFERENCES [dbo].[hc_historia_ocupacional] ([seq_historia])
+GO
+ALTER TABLE [dbo].[hc_antecedentes_historia] CHECK CONSTRAINT [FKtc9y08kddnxqax0m7ijleukdy]
+GO
+ALTER TABLE [dbo].[hc_antecedentes_trabajo]  WITH CHECK ADD  CONSTRAINT [FK1wbd0nex2vn0qh0p8t5xqe6ls] FOREIGN KEY([seq_historia_laboral])
+REFERENCES [dbo].[hc_historia_laboral] ([seq_historia_laboral])
+GO
+ALTER TABLE [dbo].[hc_antecedentes_trabajo] CHECK CONSTRAINT [FK1wbd0nex2vn0qh0p8t5xqe6ls]
+GO
+ALTER TABLE [dbo].[hc_certificado_gym]  WITH CHECK ADD  CONSTRAINT [FKd08n2swgy02b8pfosbmjy2lrl] FOREIGN KEY([seq_eval])
+REFERENCES [dbo].[hc_tipo_evaluacion_fisica] ([seq_eval])
+GO
+ALTER TABLE [dbo].[hc_certificado_gym] CHECK CONSTRAINT [FKd08n2swgy02b8pfosbmjy2lrl]
+GO
+ALTER TABLE [dbo].[hc_certificado_gym]  WITH CHECK ADD  CONSTRAINT [FKqchpyrgr82x9cdlc5y172gty] FOREIGN KEY([seq_historia])
+REFERENCES [dbo].[hc_historia_gym] ([seq_historia_gym])
+GO
+ALTER TABLE [dbo].[hc_certificado_gym] CHECK CONSTRAINT [FKqchpyrgr82x9cdlc5y172gty]
+GO
+ALTER TABLE [dbo].[hc_certificado_ocupacional]  WITH CHECK ADD  CONSTRAINT [FKir1e30kunqjsnqvwik2j64ppo] FOREIGN KEY([seq_historia])
+REFERENCES [dbo].[hc_historia_ocupacional] ([seq_historia])
+GO
+ALTER TABLE [dbo].[hc_certificado_ocupacional] CHECK CONSTRAINT [FKir1e30kunqjsnqvwik2j64ppo]
+GO
+ALTER TABLE [dbo].[hc_certificado_ocupacional]  WITH CHECK ADD  CONSTRAINT [FKkgxrlde4wpjiuhkjskht15pj5] FOREIGN KEY([seq_eval])
+REFERENCES [dbo].[hc_tipo_evaluacion] ([seq_eval])
+GO
+ALTER TABLE [dbo].[hc_certificado_ocupacional] CHECK CONSTRAINT [FKkgxrlde4wpjiuhkjskht15pj5]
+GO
+ALTER TABLE [dbo].[hc_concepto_historia]  WITH CHECK ADD  CONSTRAINT [FK3tsxrfbvabg3gv8i2jcikfsuk] FOREIGN KEY([seq_concepto])
+REFERENCES [dbo].[hc_concepto] ([seq_concepto])
+GO
+ALTER TABLE [dbo].[hc_concepto_historia] CHECK CONSTRAINT [FK3tsxrfbvabg3gv8i2jcikfsuk]
+GO
+ALTER TABLE [dbo].[hc_concepto_historia]  WITH CHECK ADD  CONSTRAINT [FKi45y2rlaf5a3oqjb7uwg7wk4s] FOREIGN KEY([seq_historia])
+REFERENCES [dbo].[hc_historia_ocupacional] ([seq_historia])
+GO
+ALTER TABLE [dbo].[hc_concepto_historia] CHECK CONSTRAINT [FKi45y2rlaf5a3oqjb7uwg7wk4s]
+GO
+ALTER TABLE [dbo].[hc_condiciones_historia_gym]  WITH CHECK ADD  CONSTRAINT [FK4odewu5oks8jv6m643ts5p7sd] FOREIGN KEY([seq_condicion_gym])
+REFERENCES [dbo].[hc_condicion_gym] ([seq_condicion_gym])
+GO
+ALTER TABLE [dbo].[hc_condiciones_historia_gym] CHECK CONSTRAINT [FK4odewu5oks8jv6m643ts5p7sd]
+GO
+ALTER TABLE [dbo].[hc_condiciones_historia_gym]  WITH CHECK ADD  CONSTRAINT [FK5dhdx4whegl6dclrj9oa55kfx] FOREIGN KEY([seq_historia_gym])
+REFERENCES [dbo].[hc_historia_gym] ([seq_historia_gym])
+GO
+ALTER TABLE [dbo].[hc_condiciones_historia_gym] CHECK CONSTRAINT [FK5dhdx4whegl6dclrj9oa55kfx]
+GO
+ALTER TABLE [dbo].[hc_cuestionario_gym]  WITH CHECK ADD  CONSTRAINT [FK2ehm60ti0e5gntjpi8k6stgls] FOREIGN KEY([seq_historia_gym])
+REFERENCES [dbo].[hc_historia_gym] ([seq_historia_gym])
+GO
+ALTER TABLE [dbo].[hc_cuestionario_gym] CHECK CONSTRAINT [FK2ehm60ti0e5gntjpi8k6stgls]
+GO
+ALTER TABLE [dbo].[hc_cuestionario_gym]  WITH CHECK ADD  CONSTRAINT [FKhu3omuw22767fni92wyudtnw5] FOREIGN KEY([seq_tipo_cuestionario])
+REFERENCES [dbo].[hc_tipo_cuestionario] ([seq_tipo_cuestionario])
+GO
+ALTER TABLE [dbo].[hc_cuestionario_gym] CHECK CONSTRAINT [FKhu3omuw22767fni92wyudtnw5]
+GO
+ALTER TABLE [dbo].[hc_diagnostico_gym_historia]  WITH CHECK ADD  CONSTRAINT [FKg1rgqueg8l4nasiiu403ilbwn] FOREIGN KEY([seq_diagnostico])
+REFERENCES [dbo].[hc_diagnostico] ([seq_diagnostico])
+GO
+ALTER TABLE [dbo].[hc_diagnostico_gym_historia] CHECK CONSTRAINT [FKg1rgqueg8l4nasiiu403ilbwn]
+GO
+ALTER TABLE [dbo].[hc_diagnostico_gym_historia]  WITH CHECK ADD  CONSTRAINT [FKgxne4735qgf6mp0okn2m7np3t] FOREIGN KEY([seq_historia_gym])
+REFERENCES [dbo].[hc_historia_gym] ([seq_historia_gym])
+GO
+ALTER TABLE [dbo].[hc_diagnostico_gym_historia] CHECK CONSTRAINT [FKgxne4735qgf6mp0okn2m7np3t]
+GO
+ALTER TABLE [dbo].[hc_diagnostico_ocupacional_historia]  WITH CHECK ADD  CONSTRAINT [FKdgfsirdgjj4bujx5c5cpnhfbk] FOREIGN KEY([seq_diagnostico])
+REFERENCES [dbo].[hc_diagnostico] ([seq_diagnostico])
+GO
+ALTER TABLE [dbo].[hc_diagnostico_ocupacional_historia] CHECK CONSTRAINT [FKdgfsirdgjj4bujx5c5cpnhfbk]
+GO
+ALTER TABLE [dbo].[hc_diagnostico_ocupacional_historia]  WITH CHECK ADD  CONSTRAINT [FKsoxaul2neuiqo02b948wrvj1q] FOREIGN KEY([seq_historia])
+REFERENCES [dbo].[hc_historia_ocupacional] ([seq_historia])
+GO
+ALTER TABLE [dbo].[hc_diagnostico_ocupacional_historia] CHECK CONSTRAINT [FKsoxaul2neuiqo02b948wrvj1q]
+GO
+ALTER TABLE [dbo].[hc_empresa_labora]  WITH CHECK ADD  CONSTRAINT [FKfycokv70obgvrf71vtcjh3kop] FOREIGN KEY([seq_historia_laboral])
+REFERENCES [dbo].[hc_historia_laboral] ([seq_historia_laboral])
+GO
+ALTER TABLE [dbo].[hc_empresa_labora] CHECK CONSTRAINT [FKfycokv70obgvrf71vtcjh3kop]
+GO
+ALTER TABLE [dbo].[hc_enfermedades_laborales]  WITH CHECK ADD  CONSTRAINT [FKi3ene7m1fmy9ykes7eu6ai21o] FOREIGN KEY([seq_historia_laboral])
+REFERENCES [dbo].[hc_historia_laboral] ([seq_historia_laboral])
+GO
+ALTER TABLE [dbo].[hc_enfermedades_laborales] CHECK CONSTRAINT [FKi3ene7m1fmy9ykes7eu6ai21o]
+GO
+ALTER TABLE [dbo].[hc_factores_riesgo]  WITH CHECK ADD  CONSTRAINT [FKd6747f49pkupx3t48y9ijsdxi] FOREIGN KEY([seq_historia_laboral])
+REFERENCES [dbo].[hc_historia_laboral] ([seq_historia_laboral])
+GO
+ALTER TABLE [dbo].[hc_factores_riesgo] CHECK CONSTRAINT [FKd6747f49pkupx3t48y9ijsdxi]
+GO
+ALTER TABLE [dbo].[hc_familiar_historia_gym]  WITH CHECK ADD  CONSTRAINT [FK71bvi7cwb8jip31iuijfaiktg] FOREIGN KEY([seq_historia_gym])
+REFERENCES [dbo].[hc_historia_gym] ([seq_historia_gym])
+GO
+ALTER TABLE [dbo].[hc_familiar_historia_gym] CHECK CONSTRAINT [FK71bvi7cwb8jip31iuijfaiktg]
+GO
+ALTER TABLE [dbo].[hc_familiar_historia_gym]  WITH CHECK ADD  CONSTRAINT [FK79pmic93wrwc3ek9bf1dnm8rr] FOREIGN KEY([seq_familiar_gym])
+REFERENCES [dbo].[hc_familiar_gym] ([seq_familiar_gym])
+GO
+ALTER TABLE [dbo].[hc_familiar_historia_gym] CHECK CONSTRAINT [FK79pmic93wrwc3ek9bf1dnm8rr]
+GO
+ALTER TABLE [dbo].[hc_historia_gym]  WITH CHECK ADD  CONSTRAINT [FK34tc1r37xhawgijwmni8dikbl] FOREIGN KEY([seq_ciudad])
+REFERENCES [dbo].[hc_ciudad] ([seq_ciudad])
+GO
+ALTER TABLE [dbo].[hc_historia_gym] CHECK CONSTRAINT [FK34tc1r37xhawgijwmni8dikbl]
+GO
+ALTER TABLE [dbo].[hc_historia_gym]  WITH CHECK ADD  CONSTRAINT [FKjvvucc3mt8nbga562c335wic2] FOREIGN KEY([seq_persona])
+REFERENCES [dbo].[hc_personas] ([seq_persona])
+GO
+ALTER TABLE [dbo].[hc_historia_gym] CHECK CONSTRAINT [FKjvvucc3mt8nbga562c335wic2]
+GO
+ALTER TABLE [dbo].[hc_historia_gym]  WITH CHECK ADD  CONSTRAINT [FKq1gvwave3repby56nw2uwv3te] FOREIGN KEY([seq_exa_fisico])
+REFERENCES [dbo].[hc_examen_fisico] ([seq_exa_fisico])
+GO
+ALTER TABLE [dbo].[hc_historia_gym] CHECK CONSTRAINT [FKq1gvwave3repby56nw2uwv3te]
+GO
+ALTER TABLE [dbo].[hc_historia_gym]  WITH CHECK ADD  CONSTRAINT [FKtiv750tcc8ucf3lwwdamj4f5m] FOREIGN KEY([seq_tipo_historia])
+REFERENCES [dbo].[hc_tipo_historia] ([seq_tipo_historia])
+GO
+ALTER TABLE [dbo].[hc_historia_gym] CHECK CONSTRAINT [FKtiv750tcc8ucf3lwwdamj4f5m]
+GO
+ALTER TABLE [dbo].[hc_historia_ocupacional]  WITH CHECK ADD  CONSTRAINT [FK2mdifx4tbj2c683iwptu6r5qk] FOREIGN KEY([seq_tipo_historia])
+REFERENCES [dbo].[hc_tipo_historia] ([seq_tipo_historia])
+GO
+ALTER TABLE [dbo].[hc_historia_ocupacional] CHECK CONSTRAINT [FK2mdifx4tbj2c683iwptu6r5qk]
+GO
+ALTER TABLE [dbo].[hc_historia_ocupacional]  WITH CHECK ADD  CONSTRAINT [FK88d02457j7fh30e06ci3hwugi] FOREIGN KEY([seq_persona])
+REFERENCES [dbo].[hc_personas] ([seq_persona])
+GO
+ALTER TABLE [dbo].[hc_historia_ocupacional] CHECK CONSTRAINT [FK88d02457j7fh30e06ci3hwugi]
+GO
+ALTER TABLE [dbo].[hc_historia_ocupacional]  WITH CHECK ADD  CONSTRAINT [FKispvyfo7j7ctcrnmha51eec4j] FOREIGN KEY([seq_ciudad])
+REFERENCES [dbo].[hc_ciudad] ([seq_ciudad])
+GO
+ALTER TABLE [dbo].[hc_historia_ocupacional] CHECK CONSTRAINT [FKispvyfo7j7ctcrnmha51eec4j]
+GO
+ALTER TABLE [dbo].[hc_historia_ocupacional]  WITH CHECK ADD  CONSTRAINT [FKj69614ifyxaqbu5ny6la64tmx] FOREIGN KEY([seq_exa_fisico])
+REFERENCES [dbo].[hc_examen_fisico] ([seq_exa_fisico])
+GO
+ALTER TABLE [dbo].[hc_historia_ocupacional] CHECK CONSTRAINT [FKj69614ifyxaqbu5ny6la64tmx]
+GO
+ALTER TABLE [dbo].[hc_historia_ocupacional]  WITH CHECK ADD  CONSTRAINT [FKpo5qpxauf0px9cdnyhf3jbrd] FOREIGN KEY([seq_historia_laboral])
+REFERENCES [dbo].[hc_historia_laboral] ([seq_historia_laboral])
+GO
+ALTER TABLE [dbo].[hc_historia_ocupacional] CHECK CONSTRAINT [FKpo5qpxauf0px9cdnyhf3jbrd]
+GO
+ALTER TABLE [dbo].[hc_historia_ocupacional]  WITH CHECK ADD  CONSTRAINT [FKqyb0rogvsfqdmoc8ldi2yua1h] FOREIGN KEY([seq_eval])
+REFERENCES [dbo].[hc_tipo_evaluacion] ([seq_eval])
+GO
+ALTER TABLE [dbo].[hc_historia_ocupacional] CHECK CONSTRAINT [FKqyb0rogvsfqdmoc8ldi2yua1h]
+GO
+ALTER TABLE [dbo].[hc_historias_preguntas_gym]  WITH CHECK ADD  CONSTRAINT [FKmw9duekt2p2un2xip7cwurq8t] FOREIGN KEY([seq_tipo_pregunta])
+REFERENCES [dbo].[hc_tipo_pregunta_historia_gym] ([seq_tipo_pregunta])
+GO
+ALTER TABLE [dbo].[hc_historias_preguntas_gym] CHECK CONSTRAINT [FKmw9duekt2p2un2xip7cwurq8t]
+GO
+ALTER TABLE [dbo].[hc_historias_preguntas_gym]  WITH CHECK ADD  CONSTRAINT [FKpqv6r8xxuh3ai6lbl9hhgeluj] FOREIGN KEY([seq_historia_gym])
+REFERENCES [dbo].[hc_historia_gym] ([seq_historia_gym])
+GO
+ALTER TABLE [dbo].[hc_historias_preguntas_gym] CHECK CONSTRAINT [FKpqv6r8xxuh3ai6lbl9hhgeluj]
+GO
+ALTER TABLE [dbo].[hc_paraclinicos]  WITH CHECK ADD  CONSTRAINT [FK674crpwn5ois4tqryxk1p5xlb] FOREIGN KEY([seq_historia])
+REFERENCES [dbo].[hc_historia_ocupacional] ([seq_historia])
+GO
+ALTER TABLE [dbo].[hc_paraclinicos] CHECK CONSTRAINT [FK674crpwn5ois4tqryxk1p5xlb]
+GO
+ALTER TABLE [dbo].[hc_perfil_permisos]  WITH CHECK ADD  CONSTRAINT [FKcv9k7opg4vwxj8vjbpiqa6mpp] FOREIGN KEY([seq_perfil])
+REFERENCES [dbo].[hc_perfiles] ([seq_perfil])
+GO
+ALTER TABLE [dbo].[hc_perfil_permisos] CHECK CONSTRAINT [FKcv9k7opg4vwxj8vjbpiqa6mpp]
+GO
+ALTER TABLE [dbo].[hc_perfil_permisos]  WITH CHECK ADD  CONSTRAINT [FKear3p11cw4ppi391m6gdsbbbh] FOREIGN KEY([seq_permiso])
+REFERENCES [dbo].[hc_permisos] ([seq_permiso])
+GO
+ALTER TABLE [dbo].[hc_perfil_permisos] CHECK CONSTRAINT [FKear3p11cw4ppi391m6gdsbbbh]
+GO
+ALTER TABLE [dbo].[hc_personas]  WITH CHECK ADD  CONSTRAINT [FK5ore8f8ihu1ji02651gec604n] FOREIGN KEY([seq_perfil])
+REFERENCES [dbo].[hc_perfiles] ([seq_perfil])
+GO
+ALTER TABLE [dbo].[hc_personas] CHECK CONSTRAINT [FK5ore8f8ihu1ji02651gec604n]
+GO
+ALTER TABLE [dbo].[hc_personas]  WITH CHECK ADD  CONSTRAINT [FK9c35yi8ln0cqg93q51xj1yidx] FOREIGN KEY([seq_localidad])
+REFERENCES [dbo].[hc_localidad] ([seq_localidad])
+GO
+ALTER TABLE [dbo].[hc_personas] CHECK CONSTRAINT [FK9c35yi8ln0cqg93q51xj1yidx]
+GO
+ALTER TABLE [dbo].[hc_personas]  WITH CHECK ADD  CONSTRAINT [FKb53ghvjtsnum0y8axmfiddl7l] FOREIGN KEY([seq_tipo_documento])
+REFERENCES [dbo].[hc_tipo_documento] ([seq_tipo_documento])
+GO
+ALTER TABLE [dbo].[hc_personas] CHECK CONSTRAINT [FKb53ghvjtsnum0y8axmfiddl7l]
+GO
+ALTER TABLE [dbo].[hc_personas]  WITH CHECK ADD  CONSTRAINT [FKc73u41l9bvhxnj0byp938oyqv] FOREIGN KEY([seq_lugar_residencia])
+REFERENCES [dbo].[hc_ciudad] ([seq_ciudad])
+GO
+ALTER TABLE [dbo].[hc_personas] CHECK CONSTRAINT [FKc73u41l9bvhxnj0byp938oyqv]
+GO
+ALTER TABLE [dbo].[hc_personas]  WITH CHECK ADD  CONSTRAINT [FKgedftqtxj8oe95jdqxyt4xwr] FOREIGN KEY([seq_lugar_nacimiento])
+REFERENCES [dbo].[hc_ciudad] ([seq_ciudad])
+GO
+ALTER TABLE [dbo].[hc_personas] CHECK CONSTRAINT [FKgedftqtxj8oe95jdqxyt4xwr]
+GO
+ALTER TABLE [dbo].[hc_rol_usuario_persona]  WITH CHECK ADD  CONSTRAINT [FK3mf9f3paj458scu1j2alaoe9d] FOREIGN KEY([seq_persona])
+REFERENCES [dbo].[hc_personas] ([seq_persona])
+GO
+ALTER TABLE [dbo].[hc_rol_usuario_persona] CHECK CONSTRAINT [FK3mf9f3paj458scu1j2alaoe9d]
+GO
+ALTER TABLE [dbo].[hc_rol_usuario_persona]  WITH CHECK ADD  CONSTRAINT [FKi3cr4s9ya8h6seenk8pk378ig] FOREIGN KEY([tipo_usuario])
+REFERENCES [dbo].[hc_tipo_usuario] ([seq_tipo_usuario])
+GO
+ALTER TABLE [dbo].[hc_rol_usuario_persona] CHECK CONSTRAINT [FKi3cr4s9ya8h6seenk8pk378ig]
+GO
+
+/****** información basica para inicio de la aplicación******/
+
 INSERT INTO hc_tipo_antecedente values('PATOLOGICOS');
 INSERT INTO hc_tipo_antecedente values('QUIRURGICOS');
 INSERT INTO hc_tipo_antecedente values('ALERGICOS');
@@ -114,27 +1216,27 @@ INSERT INTO hc_ciudad (seq_ciudad, cod_ciudad, cod_dpto, cod_pais, cod_poblacion
 INSERT INTO hc_personas (nom_primer_nombre,nom_primer_apellido,numero_documento,seq_perfil) values('Administrador','konrad',12345,1);
 INSERT INTO hc_rol_usuario_persona(seq_persona, tipo_usuario) values(1,6);
 
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (1, 'Usaquén');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (2, 'Chapinero');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (3, 'Sante fe');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (4, 'San Cristóbal');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (5, 'Usme');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (6, 'Tunjuelito');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (7, 'Bosa');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (8, 'Kennedy');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (9, 'Fontibón');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (10, 'Engativá');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (11, 'Suba');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (12, 'Barrios Unidos');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (13, 'Teusaquillo');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (14, 'Los Mártires');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (15, 'Antonio Nariño');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (16, 'Puente Aranda');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (17, 'La Candelaria');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (18, 'Rafael Uribe Uribe');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (19, 'Ciudad Bolívar');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (20, 'Sumapaz');
-insert into HC_Historia.dbo.hc_localidad (seq_localidad,nom_localidad) values (21, 'Ninguno');
+insert into hc_localidad (seq_localidad,nom_localidad) values (1, 'Usaquén');
+insert into hc_localidad (seq_localidad,nom_localidad) values (2, 'Chapinero');
+insert into hc_localidad (seq_localidad,nom_localidad) values (3, 'Sante fe');
+insert into hc_localidad (seq_localidad,nom_localidad) values (4, 'San Cristóbal');
+insert into hc_localidad (seq_localidad,nom_localidad) values (5, 'Usme');
+insert into hc_localidad (seq_localidad,nom_localidad) values (6, 'Tunjuelito');
+insert into hc_localidad (seq_localidad,nom_localidad) values (7, 'Bosa');
+insert into hc_localidad (seq_localidad,nom_localidad) values (8, 'Kennedy');
+insert into hc_localidad (seq_localidad,nom_localidad) values (9, 'Fontibón');
+insert into hc_localidad (seq_localidad,nom_localidad) values (10, 'Engativá');
+insert into hc_localidad (seq_localidad,nom_localidad) values (11, 'Suba');
+insert into hc_localidad (seq_localidad,nom_localidad) values (12, 'Barrios Unidos');
+insert into hc_localidad (seq_localidad,nom_localidad) values (13, 'Teusaquillo');
+insert into hc_localidad (seq_localidad,nom_localidad) values (14, 'Los Mártires');
+insert into hc_localidad (seq_localidad,nom_localidad) values (15, 'Antonio Nariño');
+insert into hc_localidad (seq_localidad,nom_localidad) values (16, 'Puente Aranda');
+insert into hc_localidad (seq_localidad,nom_localidad) values (17, 'La Candelaria');
+insert into hc_localidad (seq_localidad,nom_localidad) values (18, 'Rafael Uribe Uribe');
+insert into hc_localidad (seq_localidad,nom_localidad) values (19, 'Ciudad Bolívar');
+insert into hc_localidad (seq_localidad,nom_localidad) values (20, 'Sumapaz');
+insert into hc_localidad (seq_localidad,nom_localidad) values (21, 'Ninguno');
 
 
 Insert into hc_ciudad ("seq_ciudad","cod_ciudad","cod_dpto","cod_pais","cod_poblacion","nom_ciudad") values (0,'1','1','1','1','No aplica');
@@ -13925,6 +15027,8 @@ Insert into hc_tipo_evaluacion_fisica values ('APTO');
 Insert into hc_tipo_evaluacion_fisica values ('APTO CON RESTRICCIONES');
 Insert into hc_tipo_evaluacion_fisica values ('NO APTO CONDICIONADO');
 Insert into hc_tipo_evaluacion_fisica values ('NO APTO CON LIMITACIÓN ABSOLUTA');
+
+
 
 
 

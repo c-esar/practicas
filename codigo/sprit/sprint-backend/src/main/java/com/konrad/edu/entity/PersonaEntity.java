@@ -99,7 +99,7 @@ public class PersonaEntity implements Serializable {
 	private String estadoCivil;
 
 	@Column(name = "fecha_nacimiento", nullable = true)
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaNacimiento;
 
 	@Column(length = 50)
